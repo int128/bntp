@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var coffee = require('gulp-coffee');
+var ngmin = require('gulp-ngmin');
 var uglify = require('gulp-uglify');
 var csso = require('gulp-csso');
 var clean = require('gulp-rimraf');
@@ -21,6 +22,7 @@ gulp.task('bower', function () {
 gulp.task('js', function () {
     gulp.src('app.coffee')
         .pipe(coffee())
+        .pipe(ngmin())
         .pipe(uglify())
         .pipe(gulp.dest('build/'));
 });

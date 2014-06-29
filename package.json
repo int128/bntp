@@ -11,6 +11,7 @@
     "gulp": "^3.8.5",
     "gulp-coffee": "^2.0.1",
     "gulp-csso": "^0.2.9",
+    "gulp-ngmin": "^0.3.0",
     "gulp-rimraf": "^0.1.0",
     "gulp-uglify": "^0.3.1"
   }
