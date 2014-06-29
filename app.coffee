@@ -1,5 +1,12 @@
 app = angular.module 'newTabBookmarkApp', []
 
-app.controller 'newTabBookmarkController', ($scope, $http) ->
-    chrome.bookmarks.getTree (bookmarks) ->
-        $scope.bookmarks = bookmarks
+app.controller 'NewTabCtrl', ($scope) ->
+    chrome.bookmarks.getTree (tree) ->
+        $scope.$apply ->
+            $scope.tree = tree
+
+app.filter 'folders', -> (input) ->
+    input?.filter (item) -> item.url == undefined
+
+app.filter 'bookmarks', -> (input) ->
+    input?.filter (item) -> item.url != undefined
