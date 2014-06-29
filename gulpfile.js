@@ -41,6 +41,12 @@ gulp.task('clean', function () {
         .pipe(clean());
 });
 
+gulp.task('watch', function () {
+    gulp.watch(['*.coffee', '*.css', '*.html'], function () {
+        gulp.start('js', 'css', 'static');
+    });
+});
+
 gulp.task('default', ['clean'], function () {
     gulp.start('bower', 'js', 'css', 'static');
 });
