@@ -1,0 +1,13 @@
+{
+    "name": "new tab bookmarks",
+    "version": "0.1.0",
+    "description": "an extension to add the tab with bookmarks",
+    "permissions": [
+        "bookmarks",
+        "tabs"
+    ],
+    "chrome_url_overrides": {
+        "newtab": "newtab.html"
+    },
+    "manifest_version": 2
+}
