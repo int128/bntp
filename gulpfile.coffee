@@ -2,7 +2,7 @@ gulp = require('gulp')
 coffee = require('gulp-coffee')
 ngmin = require('gulp-ngmin')
 uglify = require('gulp-uglify')
-csso = require('gulp-csso')
+less = require('gulp-less')
 clean = require('gulp-rimraf')
 bower = require('bower')
 
@@ -21,8 +21,8 @@ gulp.task 'js', ->
       .pipe gulp.dest('build/')
 
 gulp.task 'css', ->
-  gulp.src('app.css')
-      .pipe(csso())
+  gulp.src('app.less')
+      .pipe(less())
       .pipe gulp.dest('build/')
 
 gulp.task 'static', ->
@@ -37,7 +37,7 @@ gulp.task 'clean', ->
 gulp.task 'watch', ->
   gulp.watch [
     '*.coffee'
-    '*.css'
+    '*.less'
     '*.html'
   ], -> gulp.start 'js', 'css', 'static'
 
