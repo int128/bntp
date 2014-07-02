@@ -25,7 +25,11 @@
 </script>
 
 <script type="text/ng-template" id="bookmarks.html">
-    <a href="{{item.url}}"><div class="bookmark">{{item.title}}</div></a>
+    <a href="{{item.url}}">
+        <div class="bookmark" style="background-image: url('chrome://favicon/{{item.url}}')">
+            {{item.title}}
+        </div>
+    </a>
 </script>
 
 </body>

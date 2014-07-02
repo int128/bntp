@@ -4,6 +4,7 @@
     "description": "an extension to add the tab with bookmarks",
     "permissions": [
         "bookmarks",
+        "chrome://favicon/",
         "tabs"
     ],
     "chrome_url_overrides": {
