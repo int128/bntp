@@ -8,7 +8,12 @@
 <body ng-controller="NewTabCtrl">
 
 <div class="container">
-    <div class="page-header">new tab bookmarks</div>
+    <div class="top-sites">
+        <div class="folder">
+            <div>Top Sites {{topSites | count}}</div>
+        </div>
+        <div ng-repeat="item in topSites" ng-include="'bookmarks.html'"></div>
+    </div>
 
     <div ng-repeat="top in tree">
         <div ng-repeat="item in top.children" ng-include="'folders.html'"></div>
@@ -17,7 +22,7 @@
 
 <script type="text/ng-template" id="folders.html">
     <div class="folder">
-        {{item.title}}
+        <div>{{item.title}}</div>
     </div>
     <div ng-repeat="item in item.children | bookmarks" ng-include="'bookmarks.html'"></div>
     <div ng-repeat="item in item.children | folders" ng-include="'folders.html'"></div>
@@ -25,8 +30,10 @@
 
 <script type="text/ng-template" id="bookmarks.html">
     <a href="{{item.url}}">
-        <div class="bookmark" style="background-image: url('chrome://favicon/{{item.url}}')">
-            {{item.title}}
+        <div class="bookmark">
+            <div style="background-image: url('chrome://favicon/{{item.url}}')">
+                {{item.title}}
+            </div>
         </div>
     </a>
 </script>
