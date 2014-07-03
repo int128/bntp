@@ -9,7 +9,6 @@ bower = require('bower')
 gulp.task 'bower', ->
   bower.commands.install().on 'end', (installed) ->
     gulp.src([
-      'bower_components/bootstrap/dist/css/bootstrap.min.css'
       'bower_components/angular/angular.min.js'
     ]).pipe gulp.dest('./build/')
 
