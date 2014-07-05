@@ -11,5 +11,8 @@
     "chrome_url_overrides": {
         "newtab": "newtab.html"
     },
+    "icons": {
+        "48": "small_tiles.png"
+    },
     "manifest_version": 2
 }

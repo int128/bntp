@@ -28,6 +28,7 @@ gulp.task 'static', ->
   gulp.src([
     'manifest.json'
     'newtab.html'
+    '*.png'
   ]).pipe gulp.dest('build/')
 
 gulp.task 'clean', ->
