@@ -1,7 +1,7 @@
 {
     "name": "new tab bookmarks",
     "version": "0.1.0",
-    "description": "an extension to add the tab with bookmarks",
+    "description": "Enhances the new tab with bookmarks",
     "permissions": [
         "bookmarks",
         "chrome://favicon/",
