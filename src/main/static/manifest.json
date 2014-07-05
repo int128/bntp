@@ -12,7 +12,8 @@
         "newtab": "newtab.html"
     },
     "icons": {
-        "48": "small_tiles.png"
+        "48": "small_tiles.png",
+        "128": "small_tiles_128.png"
     },
     "manifest_version": 2
 }
