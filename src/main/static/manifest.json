@@ -1,7 +1,7 @@
 {
-    "name": "new tab bookmarks",
-    "version": "0.1.0",
-    "description": "Enhances the new tab with bookmarks",
+    "name": "Bookmarks in New Tab Page",
+    "version": "1.0.0",
+    "description": "Replaces the new tab page with tiled bookmarks",
     "permissions": [
         "bookmarks",
         "chrome://favicon/",
