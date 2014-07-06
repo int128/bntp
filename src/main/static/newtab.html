@@ -10,7 +10,7 @@
 <div class="container">
     <div class="top-sites">
         <div class="folder">
-            <div>Top Sites {{topSites | count}}</div>
+            <div><span ng-dblclick="demo()">Top</span> Sites {{topSites | count}}</div>
         </div>
         <div ng-repeat="item in topSites" ng-include="'bookmarks.html'"></div>
     </div>
