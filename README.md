@@ -1,4 +1,4 @@
-new tab bookmarks
+new tab bookmarks [![Build Status](https://travis-ci.org/int128/new-tab-bookmarks.svg?branch=master)](https://travis-ci.org/int128/new-tab-bookmarks)
 =================
 
 A Chrome extension to add the tab with top-sites and bookmarks.
