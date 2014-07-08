@@ -7,37 +7,46 @@ zip = require('gulp-zip')
 del = require('del')
 bower = require('bower')
 
+sources =
+  bower:  'bower.json'
+  coffee: 'src/main/coffeescript/*'
+  less:   'src/main/less/*'
+  static: 'src/main/static/*'
+
 gulp.task 'bower', ->
   bower.commands.install().on 'end', (installed) ->
     gulp.src([
       'bower_components/angular/angular.min.js'
     ]).pipe gulp.dest('build/extension/')
 
-gulp.task 'js', ->
-  gulp.src('src/main/coffeescript/*')
+gulp.task 'coffee', ->
+  gulp.src(sources.coffee)
     .pipe(coffee())
     .pipe(ngmin())
     .pipe(uglify())
     .pipe gulp.dest('build/extension/')
 
-gulp.task 'css', ->
-  gulp.src('src/main/less/*')
+gulp.task 'less', ->
+  gulp.src(sources.less)
     .pipe(less())
     .pipe gulp.dest('build/extension/')
 
 gulp.task 'static', ->
-  gulp.src('src/main/static/*')
+  gulp.src(sources.static)
     .pipe gulp.dest('build/extension/')
+
+gulp.task 'default', ['clean'], ->
+  gulp.start 'bower', 'coffee', 'less', 'static'
+
+gulp.task 'watch', ['default'], ->
+  gulp.watch sources.bower,  ['bower']
+  gulp.watch sources.coffee, ['coffee']
+  gulp.watch sources.less,   ['less']
+  gulp.watch sources.static, ['static']
+
+gulp.task 'clean', (cb) -> del 'build/', cb
 
 gulp.task 'zip', ->
   gulp.src('build/extension/*')
     .pipe(zip('extension.zip'))
     .pipe gulp.dest('build/')
-
-gulp.task 'clean', (cb) -> del('build/', cb)
-
-gulp.task 'watch', ->
-  gulp.watch 'src/main/*/*', -> gulp.start 'js', 'css', 'static'
-
-gulp.task 'default', ['clean'], ->
-  gulp.start 'bower', 'js', 'css', 'static'
