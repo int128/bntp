@@ -3,8 +3,8 @@ coffee = require('gulp-coffee')
 ngmin = require('gulp-ngmin')
 uglify = require('gulp-uglify')
 less = require('gulp-less')
-clean = require('gulp-rimraf')
 zip = require('gulp-zip')
+del = require('del')
 bower = require('bower')
 
 gulp.task 'bower', ->
@@ -34,8 +34,7 @@ gulp.task 'zip', ->
     .pipe(zip('extension.zip'))
     .pipe gulp.dest('build/')
 
-gulp.task 'clean', ->
-  gulp.src('build/').pipe clean()
+gulp.task 'clean', (cb) -> del('build/', cb)
 
 gulp.task 'watch', ->
   gulp.watch 'src/main/*/*', -> gulp.start 'js', 'css', 'static'
