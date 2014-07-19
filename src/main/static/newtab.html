@@ -12,32 +12,29 @@
       <div class="folder">
         <div><span ng-dblclick="demo()">Top</span> {{topSites | count}}</div>
       </div>
-      <div ng-repeat="site in topSites" ng-include="'site.html'"></div>
-    </div>
-    <div class="bookmarks">
-      <div ng-repeat="folder in folders" ng-include="'folder.html'"></div>
-    </div>
-  </div>
-
-  <script type="text/ng-template" id="folder.html">
-    <div class="folder">
-      <div>{{folder.title}}</div>
-    </div>
-    <div ng-repeat="site in folder.children" ng-include="'site.html'"></div>
-  </script>
-
-  <script type="text/ng-template" id="site.html">
-    <div class="site">
-      <a href="{{site.url}}">
-        <div class="site-icon" style="background-image: url('chrome://favicon/{{site.url}}')">
-          <div class="site-icon-text">{{site.title}}</div>
-        </div>
-      </a>
-      <div class="site-tip">
-        <div class="site-tip-text">{{site.title}}</div>
+      <div ng-repeat="site in topSites" class="site">
+        <a href="{{site.url}}">
+          <div class="site-icon" style="background-image: url('chrome://favicon/{{site.url}}')"></div>
+        </a>
+        <div class="site-tip">{{site.title}}</div>
       </div>
     </div>
-  </script>
+
+    <div class="bookmarks">
+      <div ng-repeat="folder in folders">
+        <div class="folder">
+          <div>{{folder.title}}</div>
+        </div>
+        <div ng-repeat="site in folder.children" class="site">
+          <a href="{{site.url}}">
+            <div class="site-icon" style="background-image: url('chrome://favicon/{{site.url}}')">
+              <div class="site-icon-text">{{site.title}}</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 <script src="angular.min.js"></script>
