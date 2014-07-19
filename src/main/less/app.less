@@ -1,26 +1,27 @@
-@bookmark-margin: 5px;
-@bookmark-padding: 5px;
-@bookmark-height: 48px;
-@bookmark-width: 160px;
-
-@container-padding: 2em;
-
-.bookmark-tile() {
+.site-tile(@width, @height, @margin) {
   float: left;
   overflow: hidden;
-  width: @bookmark-width;
-  height: @bookmark-height;
-  margin-right: @bookmark-margin;
-  margin-bottom: @bookmark-margin;
+  border-width: 1px;
+  border-style: solid;
+  width: @width;
+  height: @height;
+  margin-right: @margin;
+  margin-bottom: @margin;
 }
 
-.bookmark-box() {
+.site-tile-inner(@padding) {
   position: relative;
   height: 100%;
-  padding-top: @bookmark-padding;
-  padding-bottom: @bookmark-padding;
-  padding-right: @bookmark-padding;
-  padding-left: @bookmark-padding;
+  padding: @padding;
+}
+
+.site-tile-inner-with-icon(@padding, @icon-size) {
+  .site-tile-inner(@padding);
+  padding-left: @padding + @padding + @icon-size;
+  background-repeat: no-repeat;
+  background-position-x: @padding;
+  background-position-y: @padding;
+  // background-image should be given in HTML
 }
 
 
@@ -31,45 +32,56 @@ body {
 }
 
 .container {
-  margin-left: @container-padding;
-  margin-right: @container-padding;
+  margin-left: 2em;
+  margin-right: 2em;
 }
 
 .folder {
-  .bookmark-tile;
+  border-color: transparent;
   clear: both;
-  border: 1px solid transparent;
 
   >div {
-    .bookmark-box;
+    .site-tile-inner(5px);
     color: #444;
     font-size: 120%;
   }
 }
 
-.bookmark {
-  .bookmark-tile;
-  border: 1px solid;
+.site {
   border-color: #eee #ddd #ddd;
   border-radius: 3px;
 
   >div {
-    .bookmark-box;
-    padding-left: @bookmark-padding + @bookmark-padding + 16px;
     background-color: #fff;
-    background-repeat: no-repeat;
-    background-position-x: @bookmark-padding;
-    background-position-y: @bookmark-padding;
     color: #000;
   }
 
   &:hover {
-    box-shadow: 0 0 (@bookmark-margin * 2) #9ad;
+    box-shadow: 0 0 10px #9ad;
   }
+}
 
-  &.topSite {
+
+.top-sites {
+  .folder {
+    .site-tile(51px, 48px, 5px);
+  }
+  .site {
+    .site-tile(48px, 48px, 5px);
     >div {
-      font-weight: bold;
+      .site-tile-inner-with-icon(16px, 16px);
+    }
+  }
+}
+
+.bookmarks {
+  .folder {
+    .site-tile(160px, 48px, 5px);
+  }
+  .site {
+    .site-tile(160px, 48px, 5px);
+    >div {
+      .site-tile-inner-with-icon(5px, 16px);
     }
   }
 }

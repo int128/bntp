@@ -10,27 +10,28 @@
   <div class="container">
     <div class="top-sites">
       <div class="folder">
-        <div><span ng-dblclick="demo()">Top</span> Sites {{topSites | count}}</div>
+        <div><span ng-dblclick="demo()">Top</span> {{topSites | count}}</div>
       </div>
-      <div ng-repeat="item in topSites" ng-include="'bookmarks.html'"></div>
+      <div ng-repeat="item in topSites" ng-include="'site.html'"></div>
     </div>
-
-    <div ng-repeat="top in tree">
-      <div ng-repeat="item in top.children" ng-include="'folders.html'"></div>
+    <div class="bookmarks">
+      <div ng-repeat="top in tree">
+        <div ng-repeat="item in top.children" ng-include="'folder.html'"></div>
+      </div>
     </div>
   </div>
 
-  <script type="text/ng-template" id="folders.html">
+  <script type="text/ng-template" id="folder.html">
     <div class="folder">
       <div>{{item.title}}</div>
     </div>
-    <div ng-repeat="item in item.children | bookmarks" ng-include="'bookmarks.html'"></div>
-    <div ng-repeat="item in item.children | folders" ng-include="'folders.html'"></div>
+    <div ng-repeat="item in item.children | bookmarks" ng-include="'site.html'"></div>
+    <div ng-repeat="item in item.children | folders" ng-include="'folder.html'"></div>
   </script>
 
-  <script type="text/ng-template" id="bookmarks.html">
+  <script type="text/ng-template" id="site.html">
     <a href="{{item.url}}">
-      <div class="bookmark">
+      <div class="site">
         <div style="background-image: url('chrome://favicon/{{item.url}}')">
           {{item.title}}
         </div>
