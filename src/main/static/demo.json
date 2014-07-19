@@ -38,7 +38,49 @@
  {
   "title": "Twitter",
   "url": "http://twitter.com/home"
- }
+ },
+
+{
+ "title": "Slashdot",
+ "url": "http://slashdot.org/"
+},
+{
+ "title": "Evernote",
+ "url": "https://www.evernote.com/"
+},
+{
+ "title": "Heroku",
+ "url": "https://dashboard.heroku.com/"
+},
+{
+ "title": "Bitbucket",
+ "url": "https://bitbucket.org/"
+},
+{
+ "title": "Sonatype Nexus Professional",
+ "url": "https://oss.sonatype.org/"
+},
+{
+ "title": "Bintray",
+ "url": "https://bintray.com/"
+},
+{
+ "title": "CloudBees",
+ "url": "https://grandcentral.cloudbees.com/"
+},
+{
+ "title": "Groovy web console",
+ "url": "https://groovyconsole.appspot.com/"
+},
+{
+ "title": "Scala Documentation",
+ "url": "http://docs.scala-lang.org/"
+},
+{
+ "title": "CoffeeScript Cookbook",
+ "url": "http://coffeescriptcookbook.com/"
+}
+
 ],
 
 "bookmarks": [
