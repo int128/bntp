@@ -6,70 +6,70 @@
 @container-padding: 2em;
 
 .bookmark-tile() {
-    float: left;
-    overflow: hidden;
-    width: @bookmark-width;
-    height: @bookmark-height;
-    margin-right: @bookmark-margin;
-    margin-bottom: @bookmark-margin;
+  float: left;
+  overflow: hidden;
+  width: @bookmark-width;
+  height: @bookmark-height;
+  margin-right: @bookmark-margin;
+  margin-bottom: @bookmark-margin;
 }
 
 .bookmark-box() {
-    position: relative;
-    height: 100%;
-    padding-top: @bookmark-padding;
-    padding-bottom: @bookmark-padding;
-    padding-right: @bookmark-padding;
-    padding-left: @bookmark-padding;
+  position: relative;
+  height: 100%;
+  padding-top: @bookmark-padding;
+  padding-bottom: @bookmark-padding;
+  padding-right: @bookmark-padding;
+  padding-left: @bookmark-padding;
 }
 
 
 body {
-    font-size: 10.5pt;
-    font-family: 'PT Sans', arial;
-    background-color: #e9eaed;
+  font-size: 10.5pt;
+  font-family: 'PT Sans', arial;
+  background-color: #e9eaed;
 }
 
 .container {
-    margin-left: @container-padding;
-    margin-right: @container-padding;
+  margin-left: @container-padding;
+  margin-right: @container-padding;
 }
 
 .folder {
-    .bookmark-tile;
-    clear: both;
-    border: 1px solid transparent;
+  .bookmark-tile;
+  clear: both;
+  border: 1px solid transparent;
 
-    >div {
-        .bookmark-box;
-        color: #444;
-        font-size: 120%;
-    }
+  >div {
+    .bookmark-box;
+    color: #444;
+    font-size: 120%;
+  }
 }
 
 .bookmark {
-    .bookmark-tile;
-    border: 1px solid;
-    border-color: #eee #ddd #ddd;
-    border-radius: 3px;
+  .bookmark-tile;
+  border: 1px solid;
+  border-color: #eee #ddd #ddd;
+  border-radius: 3px;
 
+  >div {
+    .bookmark-box;
+    padding-left: @bookmark-padding + @bookmark-padding + 16px;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position-x: @bookmark-padding;
+    background-position-y: @bookmark-padding;
+    color: #000;
+  }
+
+  &:hover {
+    box-shadow: 0 0 (@bookmark-margin * 2) #9ad;
+  }
+
+  &.topSite {
     >div {
-        .bookmark-box;
-        padding-left: @bookmark-padding + @bookmark-padding + 16px;
-        background-color: #fff;
-        background-repeat: no-repeat;
-        background-position-x: @bookmark-padding;
-        background-position-y: @bookmark-padding;
-        color: #000;
+      font-weight: bold;
     }
-
-    &:hover {
-        box-shadow: 0 0 (@bookmark-margin * 2) #9ad;
-    }
-
-    &.topSite {
-        >div {
-            font-weight: bold;
-        }
-    }
+  }
 }
