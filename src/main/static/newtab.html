@@ -30,13 +30,16 @@
   </script>
 
   <script type="text/ng-template" id="site.html">
-    <a href="{{item.url}}">
-      <div class="site">
-        <div style="background-image: url('chrome://favicon/{{item.url}}')">
-          {{item.title}}
+    <div class="site">
+      <a href="{{item.url}}">
+        <div class="site-icon" style="background-image: url('chrome://favicon/{{item.url}}')">
+          <div class="site-icon-text">{{item.title}}</div>
         </div>
+      </a>
+      <div class="site-tip">
+        <div class="site-tip-text">{{item.title}}</div>
       </div>
-    </a>
+    </div>
   </script>
 
 </body>

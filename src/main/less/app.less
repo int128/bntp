@@ -10,13 +10,12 @@
 }
 
 .site-tile-inner(@padding) {
-  position: relative;
-  height: 100%;
   padding: @padding;
 }
 
 .site-tile-inner-with-icon(@padding, @icon-size) {
   .site-tile-inner(@padding);
+  min-height: @icon-size;
   padding-left: @padding + @padding + @icon-size;
   background-repeat: no-repeat;
   background-position-x: @padding;
@@ -24,11 +23,27 @@
   // background-image should be given in HTML
 }
 
+.tip(@width) {
+  position: absolute;
+  z-index: 10;
+  max-width: @width;
+  border-radius: 3px;
+  margin-top: 5px;
+  padding: 5px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
 
 body {
   font-size: 10.5pt;
   font-family: 'PT Sans', 'Trebuchet MS', sans-serif;
   background-color: #e9eaed;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
 }
 
 .container {
@@ -48,13 +63,9 @@ body {
 }
 
 .site {
+  background-color: #fff;
   border-color: #eee #ddd #ddd;
   border-radius: 3px;
-
-  >div {
-    background-color: #fff;
-    color: #000;
-  }
 
   &:hover {
     box-shadow: 0 0 10px #9ad;
@@ -66,10 +77,21 @@ body {
   .folder {
     .site-tile(51px, 48px, 5px);
   }
+
   .site {
     .site-tile(48px, 48px, 5px);
-    >div {
+    .site-icon {
       .site-tile-inner-with-icon(16px, 16px);
+      .site-icon-text {
+        display: none;
+      }
+    }
+    .site-tip {
+      .tip(160px);
+      display: none;
+    }
+    &:hover .site-tip {
+      display: block;
     }
   }
 }
@@ -78,10 +100,14 @@ body {
   .folder {
     .site-tile(160px, 48px, 5px);
   }
+
   .site {
     .site-tile(160px, 48px, 5px);
-    >div {
+    .site-icon {
       .site-tile-inner-with-icon(5px, 16px);
+    }
+    .site-tip {
+      display: none;
     }
   }
 }
