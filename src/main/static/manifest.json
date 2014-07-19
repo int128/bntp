@@ -1,6 +1,6 @@
 {
   "name": "Bookmarks in New Tab Page",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Replaces the new tab page with tiled bookmarks",
   "permissions": [
     "bookmarks",
