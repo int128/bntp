@@ -7,6 +7,10 @@
 </head>
 <body ng-controller="NewTabCtrl">
 
+  <div class="network-offline" ng-if="!online">
+    <div>Network is unreachable</div>
+  </div>
+
   <div class="container">
     <div class="top-sites">
       <div class="folder">

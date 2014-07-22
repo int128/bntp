@@ -1,6 +1,6 @@
 app = angular.module 'newTabBookmarkApp', []
 
-app.controller 'NewTabCtrl', ($scope, $http, flatten) ->
+app.controller 'NewTabCtrl', ($scope, $http, $window, flatten) ->
   chrome.bookmarks.getTree (tree) ->
     $scope.$apply ->
       $scope.folders = flatten tree
@@ -12,6 +12,10 @@ app.controller 'NewTabCtrl', ($scope, $http, flatten) ->
     $http.get('demo.json').success (data) ->
       $scope.folders = flatten data.bookmarks
       $scope.topSites = data.topSites
+
+  $scope.online = $window.navigator.onLine
+  $window.addEventListener 'online',  -> $scope.$apply -> $scope.online = true
+  $window.addEventListener 'offline', -> $scope.$apply -> $scope.online = false
 
 app.factory 'categorize', ->
   (children) ->
