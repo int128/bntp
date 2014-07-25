@@ -1,6 +1,6 @@
 gulp = require('gulp')
 coffee = require('gulp-coffee')
-ngmin = require('gulp-ngmin')
+ngAnnotate = require('gulp-ng-annotate')
 uglify = require('gulp-uglify')
 less = require('gulp-less')
 zip = require('gulp-zip')
@@ -22,7 +22,7 @@ gulp.task 'bower', ->
 gulp.task 'coffee', ->
   gulp.src(sources.coffee)
     .pipe(coffee())
-    .pipe(ngmin())
+    .pipe(ngAnnotate())
     .pipe(uglify())
     .pipe gulp.dest('build/extension/')
 
