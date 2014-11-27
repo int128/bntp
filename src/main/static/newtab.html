@@ -27,7 +27,7 @@
 
     <div class="bookmarks">
       <div v-repeat="bookmarks">
-        <div class="folder">
+        <div v-if="children.length > 0" class="folder">
           <div>{{title}}</div>
         </div>
         <div v-repeat="children" class="site">

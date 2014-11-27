@@ -25,15 +25,8 @@ window.addEventListener 'online',  -> vm.online = true
 window.addEventListener 'offline', -> vm.online = false
 
 groupByFolder = (bookmarks) ->
-  categorize = (children) ->
-    folders: children.filter (child) -> !child.url
-    sites:   children.filter (child) ->  child.url
   recursive = (folder) ->
-    categorized = categorize folder.children
-    (if categorized.sites.length > 0
-      folder.children = categorized.sites
-      [folder]
-    else
-      []
-    ).concat (categorized.folders.map recursive)...
+    sites      = folder.children.filter (child) ->  child.url
+    subfolders = folder.children.filter (child) -> !child.url
+    [title: folder.title, children: sites].concat (subfolders.map recursive)...
   recursive children: bookmarks
