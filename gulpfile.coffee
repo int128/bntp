@@ -45,6 +45,6 @@ gulp.task 'watch', ['default'], ->
 gulp.task 'clean', (cb) -> del 'build/', cb
 
 gulp.task 'zip', ->
-  gulp.src('build/extension/*')
+  gulp.src('build/extension/**/*')
     .pipe(zip('extension.zip'))
     .pipe gulp.dest('build/')
