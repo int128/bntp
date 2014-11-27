@@ -1,28 +1,33 @@
-app = angular.module 'newTabBookmarkApp', []
+Vue.filter 'favicon', (value) -> "url('chrome://favicon/#{value}')"
 
-app.controller 'NewTabCtrl', ($scope, $http, $window, flatten) ->
-  chrome.bookmarks.getTree (tree) ->
-    $scope.$apply ->
-      $scope.folders = flatten tree
-  chrome.topSites.get (topSites) ->
-    $scope.$apply ->
-      $scope.topSites = topSites
+vm = new Vue
+  el: 'body'
+  data:
+    bookmarks: []
+    topSites: []
+    online: window.navigator.onLine
+  methods:
+    demo: ->
+      req = new XMLHttpRequest()
+      req.open 'GET', 'demo.json', false
+      req.send()
+      data = JSON.parse req.response
+      vm.bookmarks = groupByFolder data.bookmarks
+      vm.topSites = data.topSites
 
-  $scope.demo = ->
-    $http.get('demo.json').success (data) ->
-      $scope.folders = flatten data.bookmarks
-      $scope.topSites = data.topSites
+chrome.topSites.get (topSites) ->
+  vm.topSites = topSites
 
-  $scope.online = $window.navigator.onLine
-  $window.addEventListener 'online',  -> $scope.$apply -> $scope.online = true
-  $window.addEventListener 'offline', -> $scope.$apply -> $scope.online = false
+chrome.bookmarks.getTree (bookmarks) ->
+  vm.bookmarks = groupByFolder bookmarks
 
-app.factory 'categorize', ->
-  (children) ->
+window.addEventListener 'online',  -> vm.online = true
+window.addEventListener 'offline', -> vm.online = false
+
+groupByFolder = (bookmarks) ->
+  categorize = (children) ->
     folders: children.filter (child) -> !child.url
     sites:   children.filter (child) ->  child.url
-
-app.factory 'flatten', (categorize) ->
   recursive = (folder) ->
     categorized = categorize folder.children
     (if categorized.sites.length > 0
@@ -31,8 +36,4 @@ app.factory 'flatten', (categorize) ->
     else
       []
     ).concat (categorized.folders.map recursive)...
-  (tree) ->
-    recursive children: tree
-
-app.filter 'count', -> (input) ->
-  input?.length
+  recursive children: bookmarks

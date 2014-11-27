@@ -1,38 +1,39 @@
 <!DOCTYPE html>
-<html ng-app="newTabBookmarkApp">
+<html>
 <head>
   <meta charset="utf-8"/>
   <title>New Tab</title>
   <link rel="stylesheet" href="app.css" />
+  <script src="csp-vue-js/vue.min.js"></script>
 </head>
-<body ng-controller="NewTabCtrl">
+<body>
 
-  <div class="network-offline" ng-if="!online">
+  <div class="network-offline" v-if="!online">
     <div>Network is unreachable</div>
   </div>
 
   <div class="container">
     <div class="top-sites">
       <div class="folder">
-        <div><span ng-dblclick="demo()">Top</span> {{topSites | count}}</div>
+        <div><span v-on="dblclick: demo">Top</span> {{topSites.length}}</div>
       </div>
-      <div ng-repeat="site in topSites" class="site">
-        <a href="{{site.url}}">
-          <div class="site-icon" style="background-image: url('chrome://favicon/{{site.url}}')"></div>
+      <div v-repeat="topSites" class="site">
+        <a v-attr="href: url">
+          <div class="site-icon" v-style="background-image: url | favicon"></div>
         </a>
-        <div class="site-tip">{{site.title}}</div>
+        <div class="site-tip">{{title}}</div>
       </div>
     </div>
 
     <div class="bookmarks">
-      <div ng-repeat="folder in folders">
+      <div v-repeat="bookmarks">
         <div class="folder">
-          <div>{{folder.title}}</div>
+          <div>{{title}}</div>
         </div>
-        <div ng-repeat="site in folder.children" class="site">
-          <a href="{{site.url}}">
-            <div class="site-icon" style="background-image: url('chrome://favicon/{{site.url}}')">
-              <div class="site-icon-text">{{site.title}}</div>
+        <div v-repeat="children" class="site">
+          <a v-attr="href: url">
+            <div class="site-icon" v-style="background-image: url | favicon">
+              <div class="site-icon-text">{{title}}</div>
             </div>
           </a>
         </div>
@@ -41,6 +42,5 @@
   </div>
 
 </body>
-<script src="angular.min.js"></script>
 <script src="app.js"></script>
 </html>

@@ -1,6 +1,5 @@
 gulp = require('gulp')
 coffee = require('gulp-coffee')
-ngAnnotate = require('gulp-ng-annotate')
 uglify = require('gulp-uglify')
 less = require('gulp-less')
 zip = require('gulp-zip')
@@ -9,20 +8,19 @@ bower = require('bower')
 
 sources =
   bower:  'bower.json'
-  coffee: 'src/main/coffeescript/*'
-  less:   'src/main/less/*'
-  static: 'src/main/static/*'
+  coffee: 'src/main/coffeescript/**/*'
+  less:   'src/main/less/**/*'
+  static: 'src/main/static/**/*'
 
 gulp.task 'bower', ->
   bower.commands.install().on 'end', (installed) ->
     gulp.src([
-      'bower_components/angular/angular.min.js'
+      'bower_components/vue/dist/vue.min.js'
     ]).pipe gulp.dest('build/extension/')
 
 gulp.task 'coffee', ->
   gulp.src(sources.coffee)
     .pipe(coffee())
-    .pipe(ngAnnotate())
     .pipe(uglify())
     .pipe gulp.dest('build/extension/')
 
