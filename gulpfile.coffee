@@ -4,19 +4,11 @@ uglify = require('gulp-uglify')
 less = require('gulp-less')
 zip = require('gulp-zip')
 del = require('del')
-bower = require('bower')
 
 sources =
-  bower:  'bower.json'
   coffee: 'src/main/coffeescript/**/*'
   less:   'src/main/less/**/*'
   static: 'src/main/static/**/*'
-
-gulp.task 'bower', ->
-  bower.commands.install().on 'end', (installed) ->
-    gulp.src([
-      'bower_components/vue/dist/vue.min.js'
-    ]).pipe gulp.dest('build/extension/')
 
 gulp.task 'coffee', ->
   gulp.src(sources.coffee)
@@ -34,10 +26,9 @@ gulp.task 'static', ->
     .pipe gulp.dest('build/extension/')
 
 gulp.task 'default', ['clean'], ->
-  gulp.start 'bower', 'coffee', 'less', 'static'
+  gulp.start 'coffee', 'less', 'static'
 
 gulp.task 'watch', ['default'], ->
-  gulp.watch sources.bower,  ['bower']
   gulp.watch sources.coffee, ['coffee']
   gulp.watch sources.less,   ['less']
   gulp.watch sources.static, ['static']

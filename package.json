@@ -6,7 +6,6 @@
     "url": "git://github.com/int128/new-tab-bookmarks.git"
   },
   "devDependencies": {
-    "bower": "^1.3.5",
     "coffee-script": "^1.7.1",
     "del": "^0.1.1",
     "gulp": "^3.8.5",
