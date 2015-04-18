@@ -1,37 +1,37 @@
-gulp = require('gulp')
-coffee = require('gulp-coffee')
-uglify = require('gulp-uglify')
-less = require('gulp-less')
-zip = require('gulp-zip')
-del = require('del')
+gulp    = require 'gulp'
+webpack = require 'gulp-webpack'
+less    = require 'gulp-less'
+zip     = require 'gulp-zip'
+del     = require 'del'
 
-sources =
-  coffee: 'src/main/coffeescript/**/*'
-  less:   'src/main/less/**/*'
-  static: 'src/main/static/**/*'
-
-gulp.task 'coffee', ->
-  gulp.src(sources.coffee)
-    .pipe(coffee())
-    .pipe(uglify())
-    .pipe gulp.dest('build/extension/')
+gulp.task 'app', ->
+  gulp.src 'app/main.jsx'
+    .pipe webpack
+      output:
+        filename: 'app.js'
+      resolve:
+        alias:
+          'react': "#{__dirname}/node_modules/react/dist/react.min.js"
+      module:
+        noParse: /\.min\.js$/
+        loaders: [ test: /\.jsx$/, loader: 'jsx-loader' ]
+    .pipe gulp.dest 'build/extension'
 
 gulp.task 'less', ->
-  gulp.src(sources.less)
-    .pipe(less())
-    .pipe gulp.dest('build/extension/')
+  gulp.src 'app/**/*.less'
+    .pipe less()
+    .pipe gulp.dest 'build/extension'
 
 gulp.task 'static', ->
-  gulp.src(sources.static)
-    .pipe gulp.dest('build/extension/')
+  gulp.src 'static/**/*'
+    .pipe gulp.dest 'build/extension'
 
 gulp.task 'default', ['clean'], ->
-  gulp.start 'coffee', 'less', 'static'
+  gulp.start 'app', 'less', 'static'
 
 gulp.task 'watch', ['default'], ->
-  gulp.watch sources.coffee, ['coffee']
-  gulp.watch sources.less,   ['less']
-  gulp.watch sources.static, ['static']
+  gulp.watch 'app/**/*', ['app', 'less']
+  gulp.watch 'static/**/*', ['static']
 
 gulp.task 'clean', (cb) -> del 'build/', cb
 
