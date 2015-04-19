@@ -1,23 +1,16 @@
 var React = require('react');
-var ChromeAPI = require('./ChromeAPI.jsx');
 
 module.exports = React.createClass({
-  getInitialState: function () {
-    return {items: []};
-  },
-  componentDidMount: function () {
-    ChromeAPI.loadTopSites(function (items) {
-      this.setState({items: items});
-    }.bind(this));
-  },
   render: function () {
     return (
       <section className="TopSites">
         <div className="TopSitesHeading">
-          <div className="TopSitesHeadingTitle">Top {this.state.items.length}</div>
+          <div className="TopSitesHeadingTitle" onDoubleClick={this.props.enableDemo}>
+            Top {this.props.items.length}
+          </div>
         </div>
         <div className="TopSitesBody">
-          {this.state.items.map(function (item) {
+          {this.props.items.map(function (item) {
             return <TopSiteItem key={item.url} title={item.title} url={item.url}/>;
           })}
         </div>

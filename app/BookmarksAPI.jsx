@@ -16,13 +16,18 @@ var groupBookmarksByFolder = function (tree) {
 };
 
 module.exports = {
-  loadBookmarks: function (callback) {
+  loadFromChrome: function (callback) {
     chrome.bookmarks.getTree(function (tree) {
       var folders = groupBookmarksByFolder(tree);
       callback(folders);
     });
   },
-  loadTopSites: function (callback) {
-    chrome.topSites.get(callback);
+  loadDemo: function (callback) {
+    var req = new XMLHttpRequest();
+    req.open('GET', 'demo.json', false);
+    req.send();
+    var data = JSON.parse(req.response);
+    var folders = groupBookmarksByFolder(data.bookmarks);
+    callback(folders);
   }
 };

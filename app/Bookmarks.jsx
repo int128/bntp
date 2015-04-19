@@ -1,19 +1,10 @@
 var React = require('react');
-var ChromeAPI = require('./ChromeAPI.jsx');
 
 module.exports = React.createClass({
-  getInitialState: function () {
-    return {folders: []};
-  },
-  componentDidMount: function () {
-    ChromeAPI.loadBookmarks(function (folders) {
-      this.setState({folders: folders});
-    }.bind(this));
-  },
   render: function () {
     return (
       <div className="Bookmarks">
-        {this.state.folders.map(function (folder) {
+        {this.props.items.map(function (folder) {
           return <BookmarkFolder key={folder.id} title={folder.title} items={folder.children}/>;
         })}
       </div>
