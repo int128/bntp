@@ -1,5 +1,3 @@
-var React = require('react');
-
 var traverseBookmarkTree = function (folder) {
   var sites      = folder.children.filter(function (child) { return child.url; });
   var subfolders = folder.children.filter(function (child) { return !child.url; });

@@ -1,5 +1,3 @@
-var React = require('react');
-
 module.exports = {
   loadFromChrome: function (callback) {
     chrome.topSites.get(callback);
