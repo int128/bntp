@@ -21,5 +21,8 @@ module.exports = {
       var folders = groupBookmarksByFolder(tree);
       callback(folders);
     });
+  },
+  loadTopSites: function (callback) {
+    chrome.topSites.get(callback);
   }
 };

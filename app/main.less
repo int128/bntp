@@ -34,7 +34,6 @@
   }
 }
 
-
 .tip(@width) {
   position: absolute;
   z-index: 10;
@@ -98,25 +97,35 @@ a {
 }
 
 
-// FIXME
-.top-sites {
-  .folder-heading {
-    .site-tile(51px, 48px, 5px);
-  }
+.TopSites {
+}
 
-  .site {
-    .site-tile(48px, 48px, 5px);
-    .site-icon {
-      .site-tile-inner-with-icon(16px, 16px);
-    }
-    .site-tip {
-      .tip(160px);
-      display: none;
-    }
-    &:hover .site-tip {
-      display: block;
-    }
-  }
+.TopSitesHeading {
+  .site-tile(51px, 48px, 5px);
+}
+
+.TopSitesHeadingTitle {
+  .site-tile-inner(5px);
+  color: #444;
+  font-size: 120%;
+}
+
+.TopSitesItem {
+  .site-tile(48px, 48px, 5px);
+  .site-button();
+}
+
+.TopSitesItemBody {
+  .site-tile-inner-with-icon(16px, 16px);
+}
+
+.TopSitesItemTip {
+  .tip(160px);
+  display: none;
+}
+
+.TopSitesItem:hover .TopSitesItemTip {
+  display: block;
 }
 
 
