@@ -1,8 +1,13 @@
+PRODUCTION = undefined
+MODULES    = "#{__dirname}/node_modules"
+
 gulp    = require 'gulp'
 webpack = require 'gulp-webpack'
 less    = require 'gulp-less'
 zip     = require 'gulp-zip'
 del     = require 'del'
+
+gulp.task 'build', ['app', 'less', 'static']
 
 gulp.task 'app', ->
   gulp.src 'app/main.jsx'
@@ -11,9 +16,9 @@ gulp.task 'app', ->
         filename: 'app.js'
       resolve:
         alias:
-          'react': "#{__dirname}/node_modules/react/dist/react.min.js"
+          react: "#{MODULES}/react/dist/react#{if PRODUCTION then '.min' else ''}.js"
       module:
-        noParse: /\.min\.js$/
+        noParse: [ /\.min\.js$/, /react\.js$/ ]
         loaders: [ test: /\.jsx$/, loader: 'jsx-loader' ]
     .pipe gulp.dest 'build/extension'
 
@@ -26,12 +31,17 @@ gulp.task 'static', ->
   gulp.src 'static/**/*'
     .pipe gulp.dest 'build/extension'
 
-gulp.task 'default', ['clean'], ->
-  gulp.start 'app', 'less', 'static'
 
-gulp.task 'watch', ['default'], ->
+gulp.task 'watch', ['clean'], ->
+  PRODUCTION = false
+  gulp.start 'build'
   gulp.watch 'app/**/*', ['app', 'less']
   gulp.watch 'static/**/*', ['static']
+
+gulp.task 'default', ['clean'], ->
+  PRODUCTION = true
+  gulp.start 'build'
+
 
 gulp.task 'clean', (cb) -> del 'build/', cb
 
