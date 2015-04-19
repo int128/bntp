@@ -1,7 +1,23 @@
 new tab bookmarks [![Build Status](https://travis-ci.org/int128/new-tab-bookmarks.svg?branch=master)](https://travis-ci.org/int128/new-tab-bookmarks)
 =================
 
-A Chrome extension to add the tab with top-sites and bookmarks.
+A Chrome extension to add the light weight new-tab-page with tiled bookmarks.
+
+
+Architecture
+------------
+
+* Product
+  * React
+  * JSX
+  * Chrome Extension API
+    * Bookmarks
+    * Top Sites
+  * LESS
+* Build
+  * npm
+  * gulp
+  * CoffeeScript
 
 
 Contribution
@@ -10,24 +26,8 @@ Contribution
 This is an open source software licensed under the Apache License Version 2.0.
 
 
-Dependencies
-------------
-
-* Product
-  * AngularJS
-  * Chrome Extension API
-    * Bookmarks
-    * Top Sites
-  * CoffeeScript
-  * LESS
-* Build
-  * npm
-  * gulp
-  * bower
-
-
-How to build
-------------
+Build
+-----
 
 npm is required. At first, install dependencies.
 
@@ -42,7 +42,7 @@ Then, build the extension and add `build/extension/` folder to Chrome in the dev
 gulp
 ```
 
-Also supports watching sources in `src/main/`.
+Also supports watching sources.
 
 ```bash
 gulp watch
