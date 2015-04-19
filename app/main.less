@@ -3,6 +3,7 @@
   overflow: hidden;
   border-width: 1px;
   border-style: solid;
+  border-color: transparent;
   width: @width;
   height: @height;
   margin-right: @margin;
@@ -22,6 +23,17 @@
   background-position-y: @padding;
   // background-image should be given in HTML
 }
+
+.site-button() {
+  background-color: #fff;
+  border-color: #eee #ddd #ddd;
+  border-radius: 3px;
+
+  &:hover {
+    box-shadow: 0 0 10px #9ad;
+  }
+}
+
 
 .tip(@width) {
   position: absolute;
@@ -55,30 +67,40 @@ a {
   margin-right: 2em;
 }
 
-.folder {
-  border-color: transparent;
+
+.Bookmarks {
+}
+
+.BookmarkFolder {
+}
+
+.BookmarkFolderHeading {
+  .site-tile(160px, 48px, 5px);
   clear: both;
-
-  >div {
-    .site-tile-inner(5px);
-    color: #444;
-    font-size: 120%;
-  }
 }
 
-.site {
-  background-color: #fff;
-  border-color: #eee #ddd #ddd;
-  border-radius: 3px;
+.BookmarkFolderHeadingTitle {
+  .site-tile-inner(5px);
+  color: #444;
+  font-size: 120%;
+}
 
-  &:hover {
-    box-shadow: 0 0 10px #9ad;
-  }
+.BookmarkFolderBody {
+}
+
+.BookmarkItem {
+  .site-tile(160px, 48px, 5px);
+  .site-button();
+}
+
+.BookmarkItemBody {
+  .site-tile-inner-with-icon(5px, 16px);
 }
 
 
+// FIXME
 .top-sites {
-  .folder {
+  .folder-heading {
     .site-tile(51px, 48px, 5px);
   }
 
@@ -97,18 +119,6 @@ a {
   }
 }
 
-.bookmarks {
-  .folder {
-    .site-tile(160px, 48px, 5px);
-  }
-
-  .site {
-    .site-tile(160px, 48px, 5px);
-    .site-icon {
-      .site-tile-inner-with-icon(5px, 16px);
-    }
-  }
-}
 
 .network-offline {
   z-index: 20;

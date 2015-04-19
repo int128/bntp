@@ -1,4 +1,14 @@
 var React = require('react');
-
 var Bookmarks = require('./Bookmarks.jsx');
-React.render(<Bookmarks/>, document.body);
+
+var Main = React.createClass({
+  render: function () {
+    return (
+      <div className="container">
+        <Bookmarks/>
+      </div>
+    );
+  }
+});
+
+React.render(<Main/>, document.body);
