@@ -4,11 +4,6 @@ module.exports = React.createClass({
   render: function () {
     return (
       <section className="TopSites">
-        <div className="TopSitesHeading">
-          <div className="TopSitesHeadingTitle" onDoubleClick={this.props.enableDemo}>
-            Top {this.props.items.length}
-          </div>
-        </div>
         <div className="TopSitesBody">
           {this.props.items.map(function (item) {
             return <TopSiteItem key={item.url} title={item.title} url={item.url}/>;

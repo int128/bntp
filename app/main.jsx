@@ -32,8 +32,9 @@ var Main = React.createClass({
   render: function () {
     return (
       <div className="container">
-        <TopSites items={this.state.topSites} enableDemo={this.enableDemo} />
+        <TopSites items={this.state.topSites} />
         <Bookmarks items={this.state.bookmarks} />
+        <p className="footer" onDoubleClick={this.enableDemo}>Bookmarks in New Tab Page</p>
       </div>
     );
   }
