@@ -14,6 +14,7 @@ module.exports = React.createClass({
             return <TopSiteItem key={item.url} title={item.title} url={item.url}/>;
           })}
         </div>
+        <div className="clearfix"/>
       </section>
     );
   }

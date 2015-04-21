@@ -24,6 +24,7 @@ var BookmarkFolder = React.createClass({
             return <BookmarkItem key={item.id} title={item.title} url={item.url}/>;
           })}
         </div>
+        <div className="clearfix"/>
       </section>
     );
   }

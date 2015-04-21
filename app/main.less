@@ -1,3 +1,11 @@
+.site-folder() {
+  background-color: #e9eaed;
+  border-radius: 3px;
+  margin: 5px;
+  padding-top: 5px;
+  padding-left: 10px;
+}
+
 .site-tile(@width, @height, @margin) {
   float: left;
   overflow: hidden;
@@ -51,7 +59,7 @@ body {
   padding: 0;
   font-size: 10.5pt;
   font-family: 'PT Sans', 'Trebuchet MS', sans-serif;
-  background-color: #e9eaed;
+  background-color: #b9babd;
 }
 
 a {
@@ -60,10 +68,12 @@ a {
 }
 
 .container {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-left: 2em;
-  margin-right: 2em;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.clearfix {
+  clear: both;
 }
 
 
@@ -71,11 +81,11 @@ a {
 }
 
 .BookmarkFolder {
+  .site-folder();
 }
 
 .BookmarkFolderHeading {
   .site-tile(160px, 48px, 5px);
-  clear: both;
 }
 
 .BookmarkFolderHeadingTitle {
@@ -98,6 +108,7 @@ a {
 
 
 .TopSites {
+  .site-folder();
 }
 
 .TopSitesHeading {
