@@ -1,59 +1,3 @@
-.site-folder() {
-  background-color: #e9eaed;
-  border-radius: 3px;
-  margin: 5px;
-  padding-top: 5px;
-  padding-left: 10px;
-}
-
-.site-tile(@width, @height, @margin) {
-  float: left;
-  overflow: hidden;
-  border-width: 1px;
-  border-style: solid;
-  border-color: transparent;
-  width: @width;
-  height: @height;
-  margin-right: @margin;
-  margin-bottom: @margin;
-}
-
-.site-tile-inner(@padding) {
-  padding: @padding;
-}
-
-.site-tile-inner-with-icon(@padding, @icon-size) {
-  .site-tile-inner(@padding);
-  min-height: @icon-size;
-  padding-left: @padding + @padding + @icon-size;
-  background-repeat: no-repeat;
-  background-position-x: @padding;
-  background-position-y: @padding;
-  // background-image should be given in HTML
-}
-
-.site-button() {
-  background-color: #fff;
-  border-color: #eee #ddd #ddd;
-  border-radius: 3px;
-
-  &:hover {
-    box-shadow: 0 0 10px #9ad;
-  }
-}
-
-.tip(@width) {
-  position: absolute;
-  z-index: 10;
-  max-width: @width;
-  border-radius: 3px;
-  margin-top: 5px;
-  padding: 5px;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-
 body {
   margin: 0;
   padding: 0;
@@ -67,71 +11,104 @@ a {
   text-decoration: none;
 }
 
-.container {
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
 .clearfix {
   clear: both;
 }
 
 
-.Bookmarks {
+@bookmark-tile-width: 160px;
+@bookmark-tile-height: 48px;
+@topsite-tile-width: 48px;
+@topsite-tile-height: 48px;
+@topsite-tip-width: 160px;
+@separator-margin: 5px;
+@container-margin: 15px;
+@icon-size: 16px;
+
+
+.BookmarkFolder,
+.TopSites {
+  background-color: #e9eaed;
+  border-radius: 3px;
+  margin-top: @separator-margin;
+  margin-bottom: @separator-margin;
+  margin-left: @container-margin;
+  margin-right: @container-margin;
+  padding-top: @separator-margin;
+  padding-left: @container-margin;
 }
 
-.BookmarkFolder {
-  .site-folder();
+.BookmarkFolderHeading,
+.BookmarkItem,
+.TopSitesHeading,
+.TopSitesItem {
+  float: left;
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
 }
 
-.BookmarkFolderHeading {
-  .site-tile(160px, 48px, 5px);
+.BookmarkFolderHeading,
+.BookmarkItem {
+  width: @bookmark-tile-width;
+  height: @bookmark-tile-height;
+  margin-right: @separator-margin;
+  margin-bottom: @separator-margin;
 }
 
-.BookmarkFolderHeadingTitle {
-  .site-tile-inner(5px);
+.TopSitesHeading,
+.TopSitesItem {
+  width: @topsite-tile-width;
+  height: @topsite-tile-height;
+  margin-right: @separator-margin;
+  margin-bottom: @separator-margin;
+}
+
+.BookmarkFolderHeadingTitle,
+.TopSitesHeadingTitle {
   color: #444;
   font-size: 120%;
 }
 
-.BookmarkFolderBody {
+.BookmarkItem,
+.TopSitesItem {
+  background-color: #fff;
+  border-color: #eee #ddd #ddd;
+  border-radius: 3px;
+  &:hover {
+    box-shadow: 0 0 10px #9ad;
+  }
 }
 
-.BookmarkItem {
-  .site-tile(160px, 48px, 5px);
-  .site-button();
+.BookmarkItemBody,
+.TopSitesItemBody {
+  padding: @separator-margin;
+  min-height: @topsite-tile-height;
+  padding-left: @separator-margin * 2 + @icon-size;
+  background-repeat: no-repeat;
+  // background-image should be given in HTML
 }
 
 .BookmarkItemBody {
-  .site-tile-inner-with-icon(5px, 16px);
-}
-
-
-.TopSites {
-  .site-folder();
-}
-
-.TopSitesHeading {
-  .site-tile(51px, 48px, 5px);
-}
-
-.TopSitesHeadingTitle {
-  .site-tile-inner(5px);
-  color: #444;
-  font-size: 120%;
-}
-
-.TopSitesItem {
-  .site-tile(48px, 48px, 5px);
-  .site-button();
+  background-position-x: @separator-margin;
+  background-position-y: @separator-margin;
 }
 
 .TopSitesItemBody {
-  .site-tile-inner-with-icon(16px, 16px);
+  background-position-x: (@topsite-tile-width - @icon-size) / 2;
+  background-position-y: (@topsite-tile-height - @icon-size) / 2;
 }
 
 .TopSitesItemTip {
-  .tip(160px);
+  position: absolute;
+  z-index: 10;
+  max-width: @topsite-tip-width;
+  border-radius: 3px;
+  margin-top: 5px;
+  padding: 5px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.8);
   display: none;
 }
 
@@ -140,6 +117,8 @@ a {
 }
 
 
+
+// FIXME
 .network-offline {
   z-index: 20;
   position: fixed;
