@@ -7,12 +7,20 @@ A Chrome extension to add the light weight new-tab-page with tiled bookmarks.
 Architecture
 ------------
 
+Product:
+
 * React
 * JSX
 * LESS
 * Chrome Extension API
   * Bookmarks
   * Top Sites
+
+Build system:
+
+* webpack
+* gulp
+* npm
 
 
 Contribution
