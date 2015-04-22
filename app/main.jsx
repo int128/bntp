@@ -2,6 +2,7 @@ var React = require('react');
 
 var TopSites = require('./TopSites.jsx');
 var Bookmarks = require('./Bookmarks.jsx');
+var Footer = require('./Footer.jsx');
 
 var TopSitesAPI = require('./TopSitesAPI.jsx');
 var BookmarksAPI = require('./BookmarksAPI.jsx');
@@ -34,7 +35,7 @@ var Main = React.createClass({
       <div className="container">
         <TopSites items={this.state.topSites} />
         <Bookmarks items={this.state.bookmarks} />
-        <p className="footer" onDoubleClick={this.enableDemo}>Bookmarks in New Tab Page</p>
+        <Footer enableDemo={this.enableDemo} />
       </div>
     );
   }
