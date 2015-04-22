@@ -1,3 +1,5 @@
+var RestClient = require('./RestClient.jsx');
+
 var traverseBookmarkTree = function (folder) {
   var sites      = folder.children.filter(function (child) { return child.url; });
   var subfolders = folder.children.filter(function (child) { return !child.url; });
@@ -21,11 +23,9 @@ module.exports = {
     });
   },
   loadDemo: function (callback) {
-    var req = new XMLHttpRequest();
-    req.open('GET', 'demo.json', false);
-    req.send();
-    var data = JSON.parse(req.response);
-    var folders = groupBookmarksByFolder(data.bookmarks);
-    callback(folders);
+    RestClient.get('demo.json', function (data) {
+      var folders = groupBookmarksByFolder(data.bookmarks);
+      callback(folders);
+    });
   }
 };
