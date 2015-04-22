@@ -7,11 +7,8 @@ del     = require 'del'
 gulp.task 'build', ['app', 'less', 'static']
 
 gulp.task 'app', ->
-  gulp.src 'app'
+  gulp.src 'app/main.jsx'
     .pipe webpack
-      entry:
-        app: './app/main.jsx'
-        vendor: ['react']
       output:
         filename: '[name].js'
       resolve:
@@ -20,10 +17,6 @@ gulp.task 'app', ->
       module:
         noParse: /\.min\.js$/
         loaders: [ test: /\.jsx$/, loader: 'jsx-loader' ]
-      plugins: [
-        new (require 'webpack').optimize.CommonsChunkPlugin('vendor', 'vendor.js')
-        new (require 'webpack').optimize.UglifyJsPlugin exclude: /vendor\.js$/
-      ]
     .pipe gulp.dest 'build/extension'
 
 gulp.task 'less', ->
