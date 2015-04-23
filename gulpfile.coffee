@@ -16,7 +16,10 @@ gulp.task 'app', ->
           react: "#{__dirname}/node_modules/react/dist/react.min.js"
       module:
         noParse: /\.min\.js$/
-        loaders: [ test: /\.jsx$/, loader: 'jsx-loader' ]
+        loaders: [
+          { test: /\.jsx$/, loader: 'jsx-loader' }
+          { test: /\.json$/, loader: 'json-loader' }
+        ]
     .pipe gulp.dest 'build/extension'
 
 gulp.task 'less', ->
