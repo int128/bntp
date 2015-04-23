@@ -1,4 +1,6 @@
 gulp    = require 'gulp'
+concat  = require 'gulp-concat'
+addsrc  = require 'gulp-add-src'
 webpack = require 'gulp-webpack'
 less    = require 'gulp-less'
 zip     = require 'gulp-zip'
@@ -10,16 +12,19 @@ gulp.task 'app', ->
   gulp.src 'app/main.jsx'
     .pipe webpack
       output:
-        filename: '[name].js'
-      resolve:
-        alias:
-          react: "#{__dirname}/node_modules/react/dist/react.min.js"
+        filename: 'main.js'
+      externals:
+        react: 'React'
       module:
-        noParse: /\.min\.js$/
         loaders: [
           { test: /\.jsx$/, loader: 'jsx-loader' }
           { test: /\.json$/, loader: 'json-loader' }
         ]
+      plugins: [
+        new (require 'webpack').optimize.UglifyJsPlugin()
+      ]
+    .pipe addsrc.prepend "#{__dirname}/node_modules/react/dist/react.min.js"
+    .pipe concat 'main.js'
     .pipe gulp.dest 'build/extension'
 
 gulp.task 'less', ->
