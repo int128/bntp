@@ -1,6 +1,6 @@
 {
   "name": "Bookmarks in New Tab Page",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Light weight new-tab-page with tiled bookmarks",
   "permissions": [
     "bookmarks",
