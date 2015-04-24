@@ -36,11 +36,9 @@ var BookmarkItem = React.createClass({
       backgroundImage: "url('chrome://favicon/" + this.props.url + "')"
     };
     return (
-      <a href={this.props.url}>
-        <div className="BookmarkItem">
-          <div className="BookmarkItemBody" style={style}>
-            {this.props.title}
-          </div>
+      <a href={this.props.url} className="BookmarkItem">
+        <div className="BookmarkItemBody" style={style}>
+          {this.props.title}
         </div>
       </a>
     );
