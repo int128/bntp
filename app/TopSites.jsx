@@ -1,11 +1,27 @@
 var React = require('react');
 
+var TopSitesAPI = require('./TopSitesAPI.jsx');
+
 module.exports = React.createClass({
+  getInitialState: function () {
+    return {items: []};
+  },
+  componentDidMount: function () {
+    if (localStorage.demo) {
+      TopSitesAPI.loadDemo(function (items) {
+        this.setState({items: items});
+      }.bind(this));
+    } else {
+      TopSitesAPI.loadFromChrome(function (items) {
+        this.setState({items: items});
+      }.bind(this));
+    }
+  },
   render: function () {
     return (
       <section className="TopSites">
         <div className="TopSitesBody">
-          {this.props.items.map(function (item) {
+          {this.state.items.map(function (item) {
             return <TopSiteItem key={item.url} title={item.title} url={item.url}/>;
           })}
         </div>

@@ -5,15 +5,11 @@ tell application "Google Chrome"
   activate
   delay 1
 
-  tell application "System Events"
-    key code 48 using {shift down} -- shift-tab
-    repeat 3 times
-      key code 36 -- enter
-    end repeat
-    repeat 3 times
-      key code 48 -- tab
-    end repeat
-  end tell
+  -- activate demo mode
+  execute active tab of chromeWindow javascript "localStorage.setItem('demo', true)"
+  reload active tab of chromeWindow
+  delay 1
+
   do shell script "screencapture -w build/screenshot1.png"
   do shell script "convert -crop 640x400+56+32 build/screenshot1{,s}.png"
 
@@ -25,6 +21,7 @@ tell application "Google Chrome"
   do shell script "screencapture -w build/screenshot2.png"
   do shell script "convert -crop 640x400+56+32 build/screenshot2{,s}.png"
 
+  -- inactivate demo mode
+  execute active tab of chromeWindow javascript "localStorage.removeItem('demo')"
   close chromeWindow
 end tell
-

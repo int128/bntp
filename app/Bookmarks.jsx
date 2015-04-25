@@ -1,10 +1,26 @@
 var React = require('react');
 
+var BookmarksAPI = require('./BookmarksAPI.jsx');
+
 module.exports = React.createClass({
+  getInitialState: function () {
+    return {items: []};
+  },
+  componentDidMount: function () {
+    if (localStorage.demo) {
+      BookmarksAPI.loadDemo(function (items) {
+        this.setState({items: items});
+      }.bind(this));
+    } else {
+      BookmarksAPI.loadFromChrome(function (items) {
+        this.setState({items: items});
+      }.bind(this));
+    }
+  },
   render: function () {
     return (
       <div className="Bookmarks">
-        {this.props.items.map(function (folder) {
+        {this.state.items.map(function (folder) {
           return <BookmarkFolder key={folder.id} title={folder.title} items={folder.children}/>;
         })}
       </div>
