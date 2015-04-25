@@ -1,31 +1,30 @@
 #!/usr/bin/env osascript
 tell application "Google Chrome"
-  set chromeWindow to make new window with properties {bounds: {0, 0, 1280, 800}}
+  -- excludes shadow margin 112px
+  set chromeWindow to make new window with properties {bounds: {0, 0, 1168, 688}}
   activate
+  delay 1
 
   tell application "System Events"
-    delay .5
     key code 48 using {shift down} -- shift-tab
     repeat 3 times
       key code 36 -- enter
     end repeat
-    key code 48 -- tab
-    delay .5
-  end tell
-  -- whole window
-  do shell script "screencapture -w build/screenshot1.png"
-
-  tell application "System Events"
-    delay .5
-    repeat 10 times
+    repeat 3 times
       key code 48 -- tab
     end repeat
-    delay .5
   end tell
-  -- with baloon tip
+  do shell script "screencapture -w build/screenshot1.png"
+  do shell script "convert -crop 640x400+56+32 build/screenshot1{,s}.png"
+
+  tell application "System Events"
+    repeat 3 times
+      key code 48 -- tab
+    end repeat
+  end tell
   do shell script "screencapture -w build/screenshot2.png"
-  -- for smaller
-  do shell script "screencapture -s build/screenshot3.png"
+  do shell script "convert -crop 640x400+56+32 build/screenshot2{,s}.png"
 
   close chromeWindow
 end tell
+
