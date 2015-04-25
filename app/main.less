@@ -99,10 +99,6 @@ a {
   position: absolute;
   z-index: 10;
   max-width: @topsite-tip-width;
-  border-radius: 3px;
-  padding: 5px;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.8);
   display: none;
 }
 
@@ -114,24 +110,26 @@ a {
   display: block;
 }
 
+.NetworkStatus {
+  z-index: 20;
+  position: fixed;
+  top: @separator-margin + @separator-margin;
+  right: @container-margin + @separator-margin;
+}
+
+.TopSitesItemTip,
+.NetworkStatus {
+  padding: 5px;
+  border-radius: 3px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 5px #444;
+}
+
 .footer {
   margin-top: @separator-margin;
   margin-bottom: @separator-margin;
   text-align: center;
   color: #444;
   text-shadow: 1px 1px 1px #fff;
-}
-
-
-// FIXME
-.network-offline {
-  z-index: 20;
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  padding: 15px;
-  border-radius: 3px;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  box-shadow: 0 0 5px #444;
 }
