@@ -1,6 +1,7 @@
 var React = require('react');
 
 var BookmarksAPI = require('./BookmarksAPI.jsx');
+var ChromePages = require('./ChromePages.json');
 
 module.exports = React.createClass({
   getInitialState: function () {
@@ -9,10 +10,12 @@ module.exports = React.createClass({
   componentDidMount: function () {
     if (localStorage.demo) {
       BookmarksAPI.loadDemo(function (items) {
+        items.push(ChromePages);
         this.setState({items: items});
       }.bind(this));
     } else {
       BookmarksAPI.loadFromChrome(function (items) {
+        items.push(ChromePages);
         this.setState({items: items});
       }.bind(this));
     }
@@ -47,16 +50,38 @@ var BookmarkFolder = React.createClass({
 });
 
 var BookmarkItem = React.createClass({
+  faviconUrl: function () {
+    return 'chrome://favicon/' + this.props.url;
+  },
   render: function () {
-    var style = {
-      backgroundImage: "url('chrome://favicon/" + this.props.url + "')"
-    };
     return (
-      <a href={this.props.url} className="BookmarkItem">
-        <div className="BookmarkItemBody" style={style}>
+      <BookmarkLink href={this.props.url} className="BookmarkItem">
+        <div className="BookmarkItemBody" style={{backgroundImage: "url(" + this.faviconUrl() + ")"}}>
           {this.props.title}
         </div>
-      </a>
+      </BookmarkLink>
     );
+  }
+});
+
+var BookmarkLink = React.createClass({
+  open: function (e) {
+    chrome.tabs.create({url: this.props.href});
+    e.preventDefault();
+  },
+  render: function () {
+    if (this.props.href.startsWith('chrome://')) {
+      return (
+        <a onClick={this.open} {...this.props}>
+          {this.props.children}
+        </a>
+      );
+    } else {
+      return (
+        <a {...this.props}>
+          {this.props.children}
+        </a>
+      );
+    }
   }
 });

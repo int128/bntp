@@ -1,0 +1,30 @@
+{
+  "id": "Chrome",
+  "title": "Chrome Pages",
+  "children": [
+    {
+      "title": "Bookmarks",
+      "url": "chrome://bookmarks"
+    },
+    {
+      "title": "Downloads",
+      "url": "chrome://downloads"
+    },
+    {
+      "title": "Settings",
+      "url": "chrome://settings"
+    },
+    {
+      "title": "Plugins",
+      "url": "chrome://plugins"
+    },
+    {
+      "title": "Version",
+      "url": "chrome://version"
+    },
+    {
+      "title": "Internals",
+      "url": "chrome://about"
+    }
+  ]
+}
