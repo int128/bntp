@@ -1,21 +1,5 @@
 var React = require('react');
 
-var NetworkStatus = require('./NetworkStatus.jsx');
-var TopSites = require('./TopSites.jsx');
-var Bookmarks = require('./Bookmarks.jsx');
-var Footer = require('./Footer.jsx');
+var NewTabPage = require('./view/NewTabPage.jsx');
 
-var Main = React.createClass({
-  render: function () {
-    return (
-      <div>
-        <NetworkStatus />
-        <TopSites />
-        <Bookmarks />
-        <Footer />
-      </div>
-    );
-  }
-});
-
-React.render(<Main/>, document.body);
+React.render(<NewTabPage/>, document.body);

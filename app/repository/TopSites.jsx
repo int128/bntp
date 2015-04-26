@@ -1,4 +1,4 @@
-var RestClient = require('./RestClient.jsx');
+var RestClient = require('../util/RestClient.jsx');
 
 module.exports = {
   loadFromChrome: function (callback) {

@@ -1,6 +1,6 @@
 var React = require('react');
 
-var TopSitesAPI = require('./TopSitesAPI.jsx');
+var TopSites = require('../repository/TopSites.jsx');
 
 module.exports = React.createClass({
   getInitialState: function () {
@@ -8,11 +8,11 @@ module.exports = React.createClass({
   },
   componentDidMount: function () {
     if (localStorage.demo) {
-      TopSitesAPI.loadDemo(function (items) {
+      TopSites.loadDemo(function (items) {
         this.setState({items: items});
       }.bind(this));
     } else {
-      TopSitesAPI.loadFromChrome(function (items) {
+      TopSites.loadFromChrome(function (items) {
         this.setState({items: items});
       }.bind(this));
     }

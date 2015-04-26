@@ -1,7 +1,5 @@
 var React = require('react');
-
-var BookmarksAPI = require('./BookmarksAPI.jsx');
-var ChromePages = require('./ChromePages.json');
+var Bookmarks = require('../repository/Bookmarks.jsx');
 
 module.exports = React.createClass({
   getInitialState: function () {
@@ -9,13 +7,11 @@ module.exports = React.createClass({
   },
   componentDidMount: function () {
     if (localStorage.demo) {
-      BookmarksAPI.loadDemo(function (items) {
-        items.push(ChromePages);
+      Bookmarks.loadDemo(function (items) {
         this.setState({items: items});
       }.bind(this));
     } else {
-      BookmarksAPI.loadFromChrome(function (items) {
-        items.push(ChromePages);
+      Bookmarks.loadFromChrome(function (items) {
         this.setState({items: items});
       }.bind(this));
     }

@@ -1,4 +1,5 @@
-var RestClient = require('./RestClient.jsx');
+var RestClient = require('../util/RestClient.jsx');
+var ChromePages = require('./ChromePages.json');
 
 var traverseBookmarkTree = function (folder) {
   var sites      = folder.children.filter(function (child) { return child.url; });
@@ -19,12 +20,14 @@ module.exports = {
   loadFromChrome: function (callback) {
     chrome.bookmarks.getTree(function (tree) {
       var folders = groupBookmarksByFolder(tree);
+      folders.push(ChromePages);
       callback(folders);
     });
   },
   loadDemo: function (callback) {
     RestClient.get('demo.json', function (data) {
       var folders = groupBookmarksByFolder(data.bookmarks);
+      folders.push(ChromePages);
       callback(folders);
     });
   }
