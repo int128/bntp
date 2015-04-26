@@ -32,13 +32,13 @@ module.exports = React.createClass({
 });
 
 var TopSiteItem = React.createClass({
+  faviconUrl: function () {
+    return 'chrome://favicon/' + this.props.url;
+  },
   render: function () {
-    var style = {
-      backgroundImage: "url('chrome://favicon/" + this.props.url + "')"
-    };
     return (
       <a href={this.props.url} className="TopSitesItem">
-        <div className="TopSitesItemBody" style={style}></div>
+        <div className="TopSitesItemBody" style={{backgroundImage: "url(" + this.faviconUrl() + ")"}}></div>
         <div className="TopSitesItemTip">{this.props.title}</div>
       </a>
     );
