@@ -1,6 +1,7 @@
 {
   "name": "new-tab-bookmarks",
   "description": "an extension to add the tab with bookmarks",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/int128/new-tab-bookmarks.git"
