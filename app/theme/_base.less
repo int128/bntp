@@ -15,26 +15,38 @@ a {
 }
 
 
-@bookmark-tile-width: 160px;
-@bookmark-tile-height: 48px;
-@topsite-tile-width: 48px;
-@topsite-tile-height: 48px;
-@topsite-tip-width: 160px;
-@separator-margin: 5px;
-@container-margin: 15px;
-@icon-size: 16px;
+@size-bookmark-width: 160px;
+@size-bookmark-height: 48px;
+@size-topsite-width: 48px;
+@size-topsite-height: 48px;
+@size-topsite-tip: 160px;
+
+@size-folder-margin-x: 15px;
+@size-folder-margin-y: 5px;
+@size-folder-padding-x: 15px;
+@size-folder-padding-y: 5px;
+@size-folder-item-margin: 5px;
+@size-folder-item-padding: 5px;
+
+@size-footer-margin-y: 15px;
+
+@size-tip-padding: 5px;
+
+@size-icon: 16px;
 
 
 .BookmarkFolder,
 .TopSites {
   background-color: @color-folder-background;
   border-radius: 3px;
-  margin-top: @separator-margin;
-  margin-bottom: @separator-margin;
-  margin-left: @container-margin;
-  margin-right: @container-margin;
-  padding-top: @separator-margin;
-  padding-left: @container-margin;
+  margin-top: @size-folder-margin-y;
+  margin-bottom: @size-folder-margin-y;
+  margin-left: @size-folder-margin-x;
+  margin-right: @size-folder-margin-x;
+  padding-top: @size-folder-padding-y;
+  padding-bottom: @size-folder-padding-y - @size-folder-item-margin;
+  padding-left: @size-folder-padding-x;
+  padding-right: @size-folder-padding-x - @size-folder-item-margin;
 }
 
 .BookmarkFolderHeading,
@@ -45,21 +57,19 @@ a {
   border-width: 1px;
   border-style: solid;
   border-color: transparent;
+  margin-bottom: @size-folder-item-margin;
+  margin-right: @size-folder-item-margin;
 }
 
 .BookmarkFolderHeading,
 .BookmarkItem {
-  width: @bookmark-tile-width;
-  height: @bookmark-tile-height;
-  margin-right: @separator-margin;
-  margin-bottom: @separator-margin;
+  width: @size-bookmark-width;
+  height: @size-bookmark-height;
 }
 
 .TopSitesItem {
-  width: @topsite-tile-width;
-  height: @topsite-tile-height;
-  margin-right: @separator-margin;
-  margin-bottom: @separator-margin;
+  width: @size-topsite-width;
+  height: @size-topsite-height;
 }
 
 .BookmarkFolderHeadingTitle {
@@ -79,27 +89,27 @@ a {
 
 .BookmarkItemBody,
 .TopSitesItemBody {
-  padding: @separator-margin;
-  min-height: @topsite-tile-height;
-  padding-left: @separator-margin * 2 + @icon-size;
+  padding: @size-folder-item-padding;
+  min-height: @size-topsite-height;
+  padding-left: @size-folder-item-padding * 2 + @size-icon;
   background-repeat: no-repeat;
   // background-image should be given in HTML
 }
 
 .BookmarkItemBody {
-  background-position-x: @separator-margin;
-  background-position-y: @separator-margin;
+  background-position-x: @size-folder-item-padding;
+  background-position-y: @size-folder-item-padding;
 }
 
 .TopSitesItemBody {
-  background-position-x: (@topsite-tile-width - @icon-size) / 2;
-  background-position-y: (@topsite-tile-height - @icon-size) / 2;
+  background-position-x: (@size-topsite-width - @size-icon) / 2;
+  background-position-y: (@size-topsite-height - @size-icon) / 2;
 }
 
 .TopSitesItemTip {
   position: absolute;
   z-index: 10;
-  max-width: @topsite-tip-width;
+  max-width: @size-topsite-tip;
   display: none;
 }
 
@@ -111,35 +121,30 @@ a {
   display: block;
 }
 
-.NetworkStatus {
-  z-index: 20;
-  position: fixed;
-  top: @separator-margin + @separator-margin;
-  right: @container-margin + @separator-margin;
-}
-
 .TopSitesItemTip,
 .NetworkStatus {
-  padding: 5px;
+  padding: @size-tip-padding;
   border-radius: 3px;
   color: @color-tip-foreground;
   background-color: @color-tip-background;
   box-shadow: 0 0 5px @color-tip-shadow;
 }
 
-.Preferences {
-  margin-top: @separator-margin;
-  margin-bottom: @separator-margin;
-  text-align: center;
-  color: @color-footer-title;
-  text-shadow: 1px 1px 1px @color-footer-title-shadow;
+.NetworkStatus {
+  z-index: 20;
+  position: fixed;
+  top: 20px;
+  right: 20px;
 }
 
-.footer {
-  margin-top: @separator-margin;
-  margin-bottom: @separator-margin;
+.Preferences,
+.Footer {
+  margin-top: @size-footer-margin-y;
+  margin-bottom: @size-footer-margin-y;
   text-align: center;
-  color: @color-footer-title;
-  text-shadow: 1px 1px 1px @color-footer-title-shadow;
+  p {
+    color: @color-footer-title;
+    text-shadow: 1px 1px 1px @color-footer-title-shadow;
+  }
 }
 
