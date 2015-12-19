@@ -7,9 +7,9 @@ less    = require 'gulp-less'
 zip     = require 'gulp-zip'
 del     = require 'del'
 
-gulp.task 'build', ['app', 'less', 'static']
+gulp.task 'build', ['webpack', 'less', 'static']
 
-gulp.task 'app', ->
+gulp.task 'webpack', ->
   gulp.src 'app/main.jsx'
     .pipe webpack
       output:
@@ -41,7 +41,8 @@ gulp.task 'static', ->
 
 gulp.task 'watch', ['clean'], ->
   gulp.start 'build'
-  gulp.watch 'app/**/*', ['app', 'less']
+  gulp.watch 'app/**/*', ['webpack']
+  gulp.watch 'app/**/*', ['less']
   gulp.watch 'static/**/*', ['static']
 
 gulp.task 'default', ['clean'], ->
