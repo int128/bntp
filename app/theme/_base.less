@@ -1,11 +1,12 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #b9babd;
+  background-color: @color-background;
+  color: @color-foreground;
 }
 
 a {
-  color: #000;
+  color: inherit;
   text-decoration: none;
 }
 
@@ -26,7 +27,7 @@ a {
 
 .BookmarkFolder,
 .TopSites {
-  background-color: #e9eaed;
+  background-color: @color-folder-background;
   border-radius: 3px;
   margin-top: @separator-margin;
   margin-bottom: @separator-margin;
@@ -62,17 +63,17 @@ a {
 }
 
 .BookmarkFolderHeadingTitle {
-  color: #444;
+  color: @color-folder-title;
   font-size: 120%;
 }
 
 .BookmarkItem,
 .TopSitesItem {
-  background-color: #fff;
-  border-color: #eee #ddd #ddd;
+  background-color: @color-folder-item-background;
+  border-color: @color-folder-item-border;
   border-radius: 3px;
   &:hover {
-    box-shadow: 0 0 10px #9ad;
+    box-shadow: 0 0 10px @color-folder-item-hover;
   }
 }
 
@@ -121,23 +122,24 @@ a {
 .NetworkStatus {
   padding: 5px;
   border-radius: 3px;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.8);
-  box-shadow: 0 0 5px #444;
+  color: @color-tip-foreground;
+  background-color: @color-tip-background;
+  box-shadow: 0 0 5px @color-tip-shadow;
 }
 
 .Preferences {
   margin-top: @separator-margin;
   margin-bottom: @separator-margin;
   text-align: center;
-  color: #444;
-  text-shadow: 1px 1px 1px #fff;
+  color: @color-footer-title;
+  text-shadow: 1px 1px 1px @color-footer-title-shadow;
 }
 
 .footer {
   margin-top: @separator-margin;
   margin-bottom: @separator-margin;
   text-align: center;
-  color: #444;
-  text-shadow: 1px 1px 1px #fff;
+  color: @color-footer-title;
+  text-shadow: 1px 1px 1px @color-footer-title-shadow;
 }
+

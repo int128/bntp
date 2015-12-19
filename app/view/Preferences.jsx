@@ -26,10 +26,10 @@ var Themes = React.createClass({
   render: function () {
     return (
       <div>
-        <ThemeItem name="light" title="Light Theme" href="main.css"
+        <ThemeItem name="light" title="Light Theme" href="/theme/light.css"
           selected={this.state.selected}
           onSelected={this.onSelected}/>
-        <ThemeItem name="dark" title="Dark Theme" href="dark.css"
+        <ThemeItem name="dark" title="Dark Theme" href="/theme/dark.css"
           selected={this.state.selected}
           onSelected={this.onSelected}/>
       </div>

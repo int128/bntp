@@ -1,5 +1,6 @@
 gulp    = require 'gulp'
 concat  = require 'gulp-concat'
+filter  = require 'gulp-filter'
 addsrc  = require 'gulp-add-src'
 webpack = require 'gulp-webpack'
 less    = require 'gulp-less'
@@ -29,6 +30,7 @@ gulp.task 'app', ->
 
 gulp.task 'less', ->
   gulp.src 'app/**/*.less'
+    .pipe filter ['**/*', '!**/_*']
     .pipe less()
     .pipe gulp.dest 'build/extension'
 
