@@ -4,9 +4,9 @@ module.exports = React.createClass({
   render: function () {
     var manifest = require('../../static/manifest.json');
     return (
-      <div className="footer">
-        {manifest.name} {manifest.version}
-      </div>
+      <section className="footer">
+        <p>{manifest.name} {manifest.version}</p>
+      </section>
     );
   }
 });
