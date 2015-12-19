@@ -30,9 +30,15 @@ a {
 
 @size-footer-margin-y: 15px;
 
+@size-preference-item-margin: @size-folder-item-margin;
+@size-preference-item-padding: 10px;
+
 @size-tip-padding: 5px;
 
 @size-icon: 16px;
+
+@color-preference-item-background: @color-folder-item-background;
+@color-preference-item-hover: @color-folder-item-hover;
 
 
 .BookmarkFolder,
@@ -144,6 +150,24 @@ a {
   p {
     color: @color-footer-title;
     text-shadow: 1px 1px 1px @color-footer-title-shadow;
+  }
+}
+
+.Preferences {
+  button {
+    font: inherit;
+    color: inherit;
+    background-color: @color-preference-item-background;
+    margin: @size-preference-item-margin;
+    padding: @size-preference-item-padding;
+    border-radius: 3px;
+    border: none;
+    &:hover {
+      background-color: @color-preference-item-hover;
+    }
+    &.selected {
+      font-weight: bold;
+    }
   }
 }
 
