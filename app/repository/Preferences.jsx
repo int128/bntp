@@ -1,8 +1,8 @@
 module.exports = {
-  getThemeNameOrDefault: function (defaultValue) {
-    return localStorage.theme ? localStorage.theme : defaultValue;
+  getThemeName: function () {
+    return localStorage.theme;
   },
-  setTheme: function (name) {
+  setThemeName: function (name) {
     localStorage.theme = name;
   }
 };

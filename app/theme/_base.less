@@ -153,8 +153,8 @@ a {
   }
 }
 
-.Preferences {
-  button {
+.Themes {
+  label {
     font: inherit;
     color: inherit;
     background-color: @color-preference-item-background;
@@ -165,8 +165,11 @@ a {
     &:hover {
       background-color: @color-preference-item-hover;
     }
-    &.selected {
-      font-weight: bold;
+    input {
+      margin-right: @size-preference-item-padding;
+      &:checked + span {
+        font-weight: bold;
+      }
     }
   }
 }
