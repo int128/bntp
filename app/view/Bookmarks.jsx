@@ -46,38 +46,23 @@ var BookmarkFolder = React.createClass({
 });
 
 var BookmarkItem = React.createClass({
-  faviconUrl: function () {
-    return 'chrome://favicon/' + this.props.url;
+  onClick: function (e) {
+    if (this.props.url.startsWith('chrome://')) {
+      chrome.tabs.create({url: this.props.url});
+      e.preventDefault();
+    }
   },
   render: function () {
+    var style = {
+      backgroundImage: 'url(chrome://favicon/' + this.props.url + ')'
+    };
     return (
-      <BookmarkLink href={this.props.url} className="BookmarkItem">
-        <div className="BookmarkItemBody" style={{backgroundImage: "url(" + this.faviconUrl() + ")"}}>
+      <a href={this.props.url} className="BookmarkItem" onClick={this.onClick}>
+        <div className="BookmarkItemBody" style={style}>
           {this.props.title}
         </div>
-      </BookmarkLink>
+      </a>
     );
   }
 });
 
-var BookmarkLink = React.createClass({
-  open: function (e) {
-    chrome.tabs.create({url: this.props.href});
-    e.preventDefault();
-  },
-  render: function () {
-    if (this.props.href.startsWith('chrome://')) {
-      return (
-        <a onClick={this.open} {...this.props}>
-          {this.props.children}
-        </a>
-      );
-    } else {
-      return (
-        <a {...this.props}>
-          {this.props.children}
-        </a>
-      );
-    }
-  }
-});
