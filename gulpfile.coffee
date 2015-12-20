@@ -1,13 +1,10 @@
 gulp    = require 'gulp'
-concat  = require 'gulp-concat'
-filter  = require 'gulp-filter'
 addsrc  = require 'gulp-add-src'
 webpack = require 'gulp-webpack'
-less    = require 'gulp-less'
 zip     = require 'gulp-zip'
 del     = require 'del'
 
-gulp.task 'build', ['webpack', 'less', 'static']
+gulp.task 'build', ['webpack', 'static']
 
 gulp.task 'webpack', ->
   gulp.src 'app/main.jsx'
@@ -20,18 +17,12 @@ gulp.task 'webpack', ->
         loaders: [
           { test: /\.jsx$/, loader: 'jsx-loader' }
           { test: /\.json$/, loader: 'json-loader' }
+          { test: /\.less$/, loader: 'style/useable!css!less' }
         ]
       plugins: [
         new (require 'webpack').optimize.UglifyJsPlugin()
       ]
-    .pipe addsrc.prepend "#{__dirname}/node_modules/react/dist/react.min.js"
-    .pipe concat 'main.js'
-    .pipe gulp.dest 'build/extension'
-
-gulp.task 'less', ->
-  gulp.src 'app/**/*.less'
-    .pipe filter ['**/*', '!**/_*']
-    .pipe less()
+    .pipe addsrc.prepend 'node_modules/react/dist/react.min.js'
     .pipe gulp.dest 'build/extension'
 
 gulp.task 'static', ->
@@ -42,7 +33,6 @@ gulp.task 'static', ->
 gulp.task 'watch', ['clean'], ->
   gulp.start 'build'
   gulp.watch 'app/**/*', ['webpack']
-  gulp.watch 'app/**/*', ['less']
   gulp.watch 'static/**/*', ['static']
 
 gulp.task 'default', ['clean'], ->
