@@ -1,5 +1,7 @@
 var React = require('react');
 
+var Preferences = require('../repository/Preferences.jsx');
+
 module.exports = React.createClass({
   render: function () {
     return (
@@ -13,15 +15,11 @@ module.exports = React.createClass({
 
 var Themes = React.createClass({
   getInitialState: function () {
-    if (localStorage.theme) {
-      return {selected: localStorage.theme};
-    } else {
-      return {selected: 'light'};
-    }
+    return {selected: Preferences.getThemeNameOrDefault('light')};
   },
   onSelected: function (name) {
     this.setState({selected: name});
-    localStorage.theme = name;
+    Preferences.setTheme(name);
   },
   render: function () {
     return (
@@ -54,4 +52,3 @@ var ThemeItem = React.createClass({
     );
   }
 });
-
