@@ -15,7 +15,7 @@ gulp.task 'webpack', ->
         react: 'React'
       module:
         loaders: [
-          { test: /\.jsx$/, loader: 'jsx-loader' }
+          { test: /\.jsx$/, loader: 'babel', query: presets: ['es2015', 'react'] }
           { test: /\.json$/, loader: 'json-loader' }
           { test: /\.less$/, loader: 'style/useable!css!less' }
         ]
