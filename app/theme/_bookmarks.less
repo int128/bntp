@@ -1,0 +1,27 @@
+@import '_folder.less';
+
+@size-bookmark-width: 160px;
+@size-bookmark-height: 48px;
+
+.BookmarkFolder:extend(.AbstractFolder) {
+}
+
+.BookmarkItem:extend(.AbstractFolderItem):extend(.AbstractFolderItemClickable) {
+  width: @size-bookmark-width;
+  height: @size-bookmark-height;
+}
+
+.BookmarkFolderHeading:extend(.AbstractFolderItem) {
+  width: @size-bookmark-width;
+  height: @size-bookmark-height;
+}
+
+.BookmarkFolderHeadingTitle {
+  color: @color-folder-title;
+  font-size: 120%;
+}
+
+.BookmarkItemBody:extend(.AbstractFolderItemBody) {
+  background-position-x: @size-folder-item-padding;
+  background-position-y: @size-folder-item-padding;
+}

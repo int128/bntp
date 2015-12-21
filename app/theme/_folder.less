@@ -1,0 +1,47 @@
+@size-folder-margin-x: 15px;
+@size-folder-margin-y: 5px;
+@size-folder-padding-x: 15px;
+@size-folder-padding-y: 5px;
+@size-folder-item-margin: 5px;
+@size-folder-item-padding: 5px;
+@size-icon: 16px;
+
+.AbstractFolder {
+  background-color: @color-folder-background;
+  border-radius: 3px;
+  margin-top: @size-folder-margin-y;
+  margin-bottom: @size-folder-margin-y;
+  margin-left: @size-folder-margin-x;
+  margin-right: @size-folder-margin-x;
+  padding-top: @size-folder-padding-y;
+  padding-bottom: @size-folder-padding-y - @size-folder-item-margin;
+  padding-left: @size-folder-padding-x;
+  padding-right: @size-folder-padding-x - @size-folder-item-margin;
+}
+
+.AbstractFolderItem {
+  float: left;
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  margin-bottom: @size-folder-item-margin;
+  margin-right: @size-folder-item-margin;
+}
+
+.AbstractFolderItemClickable {
+  background-color: @color-folder-item-background;
+  border-color: @color-folder-item-border;
+  border-radius: 3px;
+  &:hover {
+    background-color: @color-folder-item-hover;
+  }
+}
+
+.AbstractFolderItemBody {
+  padding: @size-folder-item-padding;
+  min-height: @size-topsite-height;
+  padding-left: @size-folder-item-padding * 2 + @size-icon;
+  background-repeat: no-repeat;
+  // background-image should be given in HTML
+}

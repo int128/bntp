@@ -1,0 +1,30 @@
+@import '_folder.less';
+@import '_tip.less';
+
+@size-topsite-width: 48px;
+@size-topsite-height: 48px;
+@size-topsite-tip: 160px;
+
+.TopSites:extend(.AbstractFolder) {}
+
+.TopSitesItem:extend(.AbstractFolderItem):extend(.AbstractFolderItemClickable) {
+  width: @size-topsite-width;
+  height: @size-topsite-height;
+}
+
+.TopSitesItemBody:extend(.AbstractFolderItemBody) {
+  background-position-x: (@size-topsite-width - @size-icon) / 2;
+  background-position-y: (@size-topsite-height - @size-icon) / 2;
+}
+
+.TopSitesItemTip:extend(.AbstractTip) {
+  position: absolute;
+  z-index: 10;
+  max-width: @size-topsite-tip;
+  display: none;
+
+  .TopSitesItem:hover &,
+  .TopSitesItem:focus & {
+    display: block;
+  }
+}
