@@ -4,7 +4,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/int128/new-tab-bookmarks.git"
+    "url": "https://github.com/int128/new-tab-bookmarks.git"
   },
   "devDependencies": {
     "coffee-script": "^1.10.0",
