@@ -18,14 +18,16 @@ export default class extends React.Component {
   }
   render() {
     return (
-      <section className="TopSites">
-        <div className="TopSitesBody">
-          {this.state.items.map(item =>
-            <TopSiteItem key={item.url} title={item.title} url={item.url}/>
-          )}
-        </div>
-        <ClearFix/>
-      </section>
+      <div className="FixedHeader">
+        <section className="TopSites">
+          <div className="TopSitesBody">
+            {this.state.items.map(item =>
+              <TopSiteItem key={item.url} title={item.title} url={item.url}/>
+            )}
+          </div>
+          <ClearFix/>
+        </section>
+      </div>
     );
   }
 }

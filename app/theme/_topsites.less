@@ -5,7 +5,17 @@
 @size-topsite-height: 48px;
 @size-topsite-tip: 160px;
 
-.TopSites:extend(.AbstractFolder) {}
+.FixedHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.TopSites:extend(.AbstractFolder) {
+  & when(@theme = 'light') { background-color: fade(#fff, 80%); }
+  & when(@theme = 'dark')  { background-color: fade(#000, 70%); }
+}
 
 .TopSitesItem:extend(.AbstractFolderItem) {}
 
