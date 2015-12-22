@@ -1,46 +1,41 @@
-var React = require('react');
+import React from 'react';
 
-var TopSites = require('../repository/TopSites.jsx');
+import TopSites from '../repository/TopSites.jsx';
 
-module.exports = React.createClass({
-  getInitialState: function () {
-    return {items: []};
-  },
-  componentDidMount: function () {
+export default class extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {items: []};
+  }
+  componentDidMount() {
     if (localStorage.demo) {
-      TopSites.loadDemo(function (items) {
-        this.setState({items: items});
-      }.bind(this));
+      TopSites.loadDemo(items => this.setState({items: items}));
     } else {
-      TopSites.loadFromChrome(function (items) {
-        this.setState({items: items});
-      }.bind(this));
+      TopSites.loadFromChrome(items => this.setState({items: items}));
     }
-  },
-  render: function () {
+  }
+  render() {
     return (
       <section className="TopSites">
         <div className="TopSitesBody">
-          {this.state.items.map(function (item) {
-            return <TopSiteItem key={item.url} title={item.title} url={item.url}/>;
-          })}
+          {this.state.items.map(item =>
+            <TopSiteItem key={item.url} title={item.title} url={item.url}/>
+          )}
         </div>
         <div className="clearfix"/>
       </section>
     );
   }
-});
+}
 
-var TopSiteItem = React.createClass({
-  faviconUrl: function () {
-    return 'chrome://favicon/' + this.props.url;
-  },
-  render: function () {
+class TopSiteItem extends React.Component {
+  render() {
     return (
       <a href={this.props.url} className="TopSitesItem">
-        <div className="TopSitesItemBody" style={{backgroundImage: "url(" + this.faviconUrl() + ")"}}></div>
+        <div className="TopSitesItemBody"
+          style={{backgroundImage: `url(chrome://favicon/${this.props.url})`}}></div>
         <div className="TopSitesItemTip">{this.props.title}</div>
       </a>
     );
   }
-});
+}

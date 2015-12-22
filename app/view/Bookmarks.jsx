@@ -1,22 +1,20 @@
-var React = require('react');
-var Bookmarks = require('../repository/Bookmarks.jsx');
+import React from 'react';
 
-module.exports = React.createClass({
-  getInitialState: function () {
-    return {items: []};
-  },
-  componentDidMount: function () {
+import Bookmarks from '../repository/Bookmarks.jsx';
+
+export default class extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {items: []};
+  }
+  componentDidMount() {
     if (localStorage.demo) {
-      Bookmarks.loadDemo(function (items) {
-        this.setState({items: items});
-      }.bind(this));
+      Bookmarks.loadDemo(items => this.setState({items: items}));
     } else {
-      Bookmarks.loadFromChrome(function (items) {
-        this.setState({items: items});
-      }.bind(this));
+      Bookmarks.loadFromChrome(items => this.setState({items: items}));
     }
-  },
-  render: function () {
+  }
+  render() {
     return (
       <div className="Bookmarks">
         {this.state.items.map(function (folder) {
@@ -25,44 +23,43 @@ module.exports = React.createClass({
       </div>
     );
   }
-});
+}
 
-var BookmarkFolder = React.createClass({
-  render: function () {
+class BookmarkFolder extends React.Component {
+  render() {
     return (
       <section className="BookmarkFolder">
         <div className="BookmarkFolderHeading">
           <div className="BookmarkFolderHeadingTitle">{this.props.title}</div>
         </div>
         <div className="BookmarkFolderBody">
-          {this.props.items.map(function (item) {
-            return <BookmarkItem key={item.id} title={item.title} url={item.url}/>;
-          })}
+          {this.props.items.map(item =>
+            <BookmarkItem key={item.id} title={item.title} url={item.url}/>
+          )}
         </div>
         <div className="clearfix"/>
       </section>
     );
   }
-});
+}
 
-var BookmarkItem = React.createClass({
-  onClick: function (e) {
+class BookmarkItem extends React.Component {
+  onClick(e) {
     if (this.props.url.startsWith('chrome://')) {
       chrome.tabs.create({url: this.props.url});
       e.preventDefault();
     }
-  },
-  render: function () {
+  }
+  render() {
     var style = {
-      backgroundImage: 'url(chrome://favicon/' + this.props.url + ')'
+      backgroundImage: `url(chrome://favicon/${this.props.url})`
     };
     return (
-      <a href={this.props.url} className="BookmarkItem" onClick={this.onClick}>
+      <a href={this.props.url} className="BookmarkItem" onClick={this.onClick.bind(this)}>
         <div className="BookmarkItemBody" style={style}>
           {this.props.title}
         </div>
       </a>
     );
   }
-});
-
+}

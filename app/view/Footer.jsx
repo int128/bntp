@@ -1,12 +1,13 @@
-var React = require('react');
+import React from 'react';
 
-module.exports = React.createClass({
-  render: function () {
-    var manifest = require('../../static/manifest.json');
+import Manifest from '../../static/manifest.json';
+
+export default class extends React.Component {
+  render() {
     return (
       <section className="Footer">
-        <p>{manifest.name} {manifest.version}</p>
+        <p>{Manifest.name} {Manifest.version}</p>
       </section>
     );
   }
-});
+}

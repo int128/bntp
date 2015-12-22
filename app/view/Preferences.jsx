@@ -1,9 +1,12 @@
-var React = require('react');
+import React from 'react';
 
-var Preferences = require('../repository/Preferences.jsx');
+import Preferences from '../repository/Preferences.jsx';
 
-module.exports = React.createClass({
-  render: function () {
+import LightTheme from '../theme/light.less'
+import DarkTheme from '../theme/dark.less'
+
+export default class extends React.Component {
+  render() {
     return (
       <section className="Preferences">
         <p>Preferences</p>
@@ -11,66 +14,64 @@ module.exports = React.createClass({
       </section>
     );
   }
-});
+}
 
 var ThemeItems = {
   _items: [
-    {value: 'light', title: 'Light Theme', style: require('../theme/light.less')},
-    {value: 'dark',  title: 'Dark Theme', style: require('../theme/dark.less')}
+    {value: 'light', title: 'Light Theme', style: LightTheme},
+    {value: 'dark',  title: 'Dark Theme', style: DarkTheme}
   ],
-  all: function () {
+  all() {
     return this._items;
   },
-  find: function (value) {
-    return this._items.find(function (item) {
-      return item.value == value;
-    });
+  find(value) {
+    return this._items.find(item => item.value == value);
   },
-  getDefault: function () {
+  getDefault() {
     return this._items[0];
   }
 };
 
-var Themes = React.createClass({
-  getInitialState: function () {
+class Themes extends React.Component {
+  constructor(props) {
+    super(props);
     var defaultItem = ThemeItems.find(Preferences.getThemeName()) || ThemeItems.getDefault();
-    return {value: defaultItem.value};
-  },
-  componentDidMount: function () {
+    this.state = {value: defaultItem.value};
+  }
+  componentDidMount() {
     ThemeItems.find(this.state.value).style.use();
-  },
-  onChange: function (currentValue) {
+  }
+  onChange(currentValue) {
     var previousValue = this.state.value;
     this.setState({value: currentValue});
     Preferences.setThemeName(currentValue);
     ThemeItems.find(previousValue).style.unuse();
     ThemeItems.find(currentValue).style.use();
-  },
-  render: function () {
+  }
+  render() {
     return (
-      <ThemeForm items={ThemeItems.all()} defaultValue={this.state.value} onChange={this.onChange}/>
+      <ThemeForm items={ThemeItems.all()} defaultValue={this.state.value}
+        onChange={this.onChange.bind(this)}/>
     );
   }
-});
+}
 
-var ThemeForm = React.createClass({
-  onChange: function (event) {
-    this.props.onChange(event.target.value);
-  },
-  render: function () {
+class ThemeForm extends React.Component {
+  onChange(e) {
+    this.props.onChange(e.target.value);
+  }
+  render() {
     return (
       <form className="Themes">
-        {this.props.items.map(function (item) {
-          return (
-            <label>
-              <input type="radio" name="Theme" value={item.value}
-                defaultChecked={item.value == this.props.defaultValue}
-                onChange={this.onChange}/>
-              {item.title}
-            </label>
-          );
-        }, this)}
+        {this.props.items.map(item =>
+          <label>
+            <input type="radio" name="Theme" value={item.value}
+              defaultChecked={item.value == this.props.defaultValue}
+              onChange={this.onChange.bind(this)}/>
+            {item.title}
+          </label>
+        )}
       </form>
     );
   }
-});
+}

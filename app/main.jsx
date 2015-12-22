@@ -1,5 +1,5 @@
-var React = require('react');
+import React from 'react';
 
-var NewTabPage = require('./view/NewTabPage.jsx');
+import NewTabPage from './view/NewTabPage.jsx';
 
 React.render(<NewTabPage/>, document.body);
