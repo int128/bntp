@@ -10,27 +10,32 @@ tell application "Google Chrome"
   execute active tab of chromeWindow javascript "localStorage.removeItem('theme')"
   reload active tab of chromeWindow
   delay 1
-  do shell script "screencapture -w build/screenshot1.png"
+  do shell script "screencapture -w build/screenshot1l.png"
 
   tell application "System Events"
     repeat 3 times
       key code 48 -- tab
     end repeat
   end tell
-  do shell script "screencapture -w build/screenshot2.png"
+  do shell script "screencapture -w build/screenshot2l.png"
 
-  -- activate dark theme
+  -- activate theme
   execute active tab of chromeWindow javascript "localStorage.setItem('theme', 'dark')"
   reload active tab of chromeWindow
   delay 1
-  do shell script "screencapture -w build/screenshot3.png"
+  do shell script "screencapture -w build/screenshot1d.png"
 
-  tell application "System Events"
-    repeat 3 times
-      key code 48 -- tab
-    end repeat
-  end tell
-  do shell script "screencapture -w build/screenshot4.png"
+  -- activate theme
+  execute active tab of chromeWindow javascript "localStorage.setItem('theme', 'solarized-light')"
+  reload active tab of chromeWindow
+  delay 1
+  do shell script "screencapture -w build/screenshot1sl.png"
+
+  -- activate theme
+  execute active tab of chromeWindow javascript "localStorage.setItem('theme', 'solarized-dark')"
+  reload active tab of chromeWindow
+  delay 1
+  do shell script "screencapture -w build/screenshot1sd.png"
 
   -- inactivate demo mode
   execute active tab of chromeWindow javascript "localStorage.removeItem('demo')"
@@ -38,8 +43,5 @@ tell application "Google Chrome"
   close chromeWindow
 
   -- generate small
-  do shell script "convert -crop 640x400+56+32 build/screenshot1{,s}.png"
-  do shell script "convert -crop 640x400+56+32 build/screenshot2{,s}.png"
-  do shell script "convert -crop 640x400+56+32 build/screenshot3{,s}.png"
-  do shell script "convert -crop 640x400+56+32 build/screenshot4{,s}.png"
+  do shell script "for f in build/screenshot*.png; do convert -crop 640x400+56+32 $f $f-small.png; done"
 end tell
