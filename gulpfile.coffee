@@ -1,5 +1,6 @@
 gulp    = require 'gulp'
 webpack = require 'gulp-webpack'
+uglify  = require 'gulp-uglify'
 zip     = require 'gulp-zip'
 del     = require 'del'
 
@@ -18,9 +19,7 @@ gulp.task 'webpack', ->
           { test: /\.json$/, loader: 'json-loader' }
           { test: /\.less$/, loader: 'style/useable!css!less' }
         ]
-      plugins: [
-        new (require 'webpack').optimize.UglifyJsPlugin()
-      ]
+    .pipe uglify()
     .pipe gulp.dest 'build/extension'
 
 gulp.task 'vendor', ->
