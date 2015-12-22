@@ -28,11 +28,11 @@
     border-radius: 3px;
     border: none;
 
-    & when(@theme = 'light') { background-color: #fff; }
+    & when(@theme = 'light') { background-color: #e9eaed; }
     & when(@theme = 'dark')  { background-color: #363636; }
 
     &:hover {
-      & when(@theme = 'light') { background-color: #f9fafd; }
+      & when(@theme = 'light') { background-color: average(#e9eaed, #fff); }
       & when(@theme = 'dark')  { background-color: #555; }
     }
 
