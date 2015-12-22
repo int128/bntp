@@ -1,10 +1,9 @@
 gulp    = require 'gulp'
-addsrc  = require 'gulp-add-src'
 webpack = require 'gulp-webpack'
 zip     = require 'gulp-zip'
 del     = require 'del'
 
-gulp.task 'build', ['webpack', 'static']
+gulp.task 'build', ['webpack', 'vendor', 'static']
 
 gulp.task 'webpack', ->
   gulp.src 'app/main.jsx'
@@ -22,7 +21,10 @@ gulp.task 'webpack', ->
       plugins: [
         new (require 'webpack').optimize.UglifyJsPlugin()
       ]
-    .pipe addsrc.prepend 'node_modules/react/dist/react.min.js'
+    .pipe gulp.dest 'build/extension'
+
+gulp.task 'vendor', ->
+  gulp.src 'node_modules/react/dist/react.min.js'
     .pipe gulp.dest 'build/extension'
 
 gulp.task 'static', ->
