@@ -40,7 +40,11 @@ class TopSiteItem extends React.Component {
               style={{backgroundImage: `url(chrome://favicon/${this.props.url})`}}></div>
           </div>
         </a>
-        <div className="TopSitesItemTip">{this.props.title}</div>
+        <div className="TopSitesItemTip">
+          <div className="TopSitesItemTipBody">
+            {this.props.title}
+          </div>
+        </div>
       </div>
     );
   }
