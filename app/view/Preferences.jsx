@@ -4,6 +4,8 @@ import Preferences from '../repository/Preferences.jsx';
 
 import LightTheme from '../theme/light.less'
 import DarkTheme from '../theme/dark.less'
+import SolarizedLightTheme from '../theme/solarized-light.less'
+import SolarizedDarkTheme from '../theme/solarized-dark.less'
 
 export default class extends React.Component {
   render() {
@@ -18,8 +20,10 @@ export default class extends React.Component {
 
 var ThemeItems = {
   _items: [
-    {value: 'light', title: 'Light Theme', style: LightTheme},
-    {value: 'dark',  title: 'Dark Theme', style: DarkTheme}
+    {value: 'light', title: 'Light', style: LightTheme},
+    {value: 'dark',  title: 'Dark', style: DarkTheme},
+    {value: 'solarized-light', title: 'Solarized Light', style: SolarizedLightTheme},
+    {value: 'solarized-dark', title: 'Solarized Dark', style: SolarizedDarkTheme},
   ],
   all() {
     return this._items;

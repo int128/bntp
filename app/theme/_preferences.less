@@ -16,6 +16,10 @@
       color: #ccc;
       text-shadow: 1px 1px 1px #888;
     }
+    & when(@theme = 'solarized') {
+      color: @solarized-base1;
+      text-shadow: 1px 1px 1px @solarized-base2;
+    }
   }
 }
 
@@ -30,10 +34,12 @@
 
     & when(@theme = 'light') { background-color: #e9eaed; }
     & when(@theme = 'dark')  { background-color: #363636; }
+    & when(@theme = 'solarized') { background-color: @solarized-base2; }
 
     &:hover {
       & when(@theme = 'light') { background-color: average(#e9eaed, #fff); }
       & when(@theme = 'dark')  { background-color: #555; }
+      & when(@theme = 'solarized') { background-color: average(@solarized-base2, @solarized-base3); }
     }
 
     input {

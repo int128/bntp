@@ -10,6 +10,10 @@ body {
     background-color: #222;
     color: #eee;
   }
+  & when(@theme = 'solarized') {
+    background-color: @solarized-base3;
+    color: @solarized-base03;
+  }
 }
 
 a {
