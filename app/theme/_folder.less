@@ -23,15 +23,15 @@
 
 .AbstractFolderItem {
   float: left;
-  overflow: hidden;
-  border-width: 1px;
-  border-style: solid;
-  border-color: transparent;
   margin-bottom: @size-folder-item-margin;
   margin-right: @size-folder-item-margin;
 }
 
-.AbstractFolderItemClickable {
+.AbstractFolderItemButton {
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
   border-radius: 3px;
 
   & when(@theme = 'light') {
@@ -44,12 +44,12 @@
   }
 }
 
-.AbstractFolderItemClickable:hover {
+.AbstractFolderItemButton:hover {
   & when(@theme = 'light') { background-color: #f9fafd; }
   & when(@theme = 'dark')  { background-color: #555; }
 }
 
-.AbstractFolderItemBody {
+.AbstractFolderItemButtonBody {
   padding: @size-folder-item-padding;
   min-height: @size-topsite-height;
   padding-left: @size-folder-item-padding * 2 + @size-icon;

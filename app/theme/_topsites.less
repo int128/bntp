@@ -7,14 +7,16 @@
 
 .TopSites:extend(.AbstractFolder) {}
 
-.TopSitesItem:extend(.AbstractFolderItem):extend(.AbstractFolderItemClickable) {
+.TopSitesItem:extend(.AbstractFolderItem) {}
+
+.TopSitesItemButton:extend(.AbstractFolderItemButton) {
   width: @size-topsite-width;
   height: @size-topsite-height;
 }
 
-.TopSitesItem:hover:extend(.AbstractFolderItemClickable:hover) {}
+.TopSitesItemButton:hover:extend(.AbstractFolderItemButton:hover) {}
 
-.TopSitesItemBody:extend(.AbstractFolderItemBody) {
+.TopSitesItemButtonBody:extend(.AbstractFolderItemButtonBody) {
   background-position-x: (@size-topsite-width - @size-icon) / 2;
   background-position-y: (@size-topsite-height - @size-icon) / 2;
 }
@@ -22,11 +24,11 @@
 .TopSitesItemTip:extend(.AbstractTip) {
   position: absolute;
   z-index: 10;
+  margin-top: @size-folder-padding-y;
   max-width: @size-topsite-tip;
   display: none;
 
-  .TopSitesItem:hover &,
-  .TopSitesItem:focus & {
+  .TopSites:hover .TopSitesItem:hover & {
     display: block;
   }
 }

@@ -3,19 +3,26 @@
 @size-bookmark-width: 160px;
 @size-bookmark-height: 48px;
 
-.BookmarkFolder:extend(.AbstractFolder) {
-}
+.BookmarkFolder:extend(.AbstractFolder) {}
 
-.BookmarkItem:extend(.AbstractFolderItem):extend(.AbstractFolderItemClickable) {
+.BookmarkItem:extend(.AbstractFolderItem) {}
+
+.BookmarkItemButton:extend(.AbstractFolderItemButton) {
   width: @size-bookmark-width;
   height: @size-bookmark-height;
 }
 
-.BookmarkItem:hover:extend(.AbstractFolderItemClickable:hover) {}
+.BookmarkItemButton:hover:extend(.AbstractFolderItemButton:hover) {}
+
+.BookmarkItemButtonBody:extend(.AbstractFolderItemButtonBody) {
+  background-position-x: @size-folder-item-padding;
+  background-position-y: @size-folder-item-padding;
+}
 
 .BookmarkFolderHeading:extend(.AbstractFolderItem) {
   width: @size-bookmark-width;
   height: @size-bookmark-height;
+  padding: 1px;
 }
 
 .BookmarkFolderHeadingTitle {
@@ -23,9 +30,4 @@
 
   & when(@theme = 'light') { color: #444; }
   & when(@theme = 'dark') { color: #ccc; }
-}
-
-.BookmarkItemBody:extend(.AbstractFolderItemBody) {
-  background-position-x: @size-folder-item-padding;
-  background-position-y: @size-folder-item-padding;
 }

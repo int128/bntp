@@ -33,11 +33,15 @@ export default class extends React.Component {
 class TopSiteItem extends React.Component {
   render() {
     return (
-      <a href={this.props.url} className="TopSitesItem">
-        <div className="TopSitesItemBody"
-          style={{backgroundImage: `url(chrome://favicon/${this.props.url})`}}></div>
+      <div className="TopSitesItem">
+        <a href={this.props.url}>
+          <div className="TopSitesItemButton">
+            <div className="TopSitesItemButtonBody"
+              style={{backgroundImage: `url(chrome://favicon/${this.props.url})`}}></div>
+          </div>
+        </a>
         <div className="TopSitesItemTip">{this.props.title}</div>
-      </a>
+      </div>
     );
   }
 }
