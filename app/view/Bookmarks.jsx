@@ -1,5 +1,7 @@
 import React from 'react';
 
+import ClearFix from './ClearFix.jsx';
+
 import Bookmarks from '../repository/Bookmarks.jsx';
 
 export default class extends React.Component {
@@ -37,7 +39,7 @@ class BookmarkFolder extends React.Component {
             <BookmarkItem key={item.id} title={item.title} url={item.url}/>
           )}
         </div>
-        <div className="clearfix"/>
+        <ClearFix/>
       </section>
     );
   }

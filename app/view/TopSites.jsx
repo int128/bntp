@@ -1,5 +1,7 @@
 import React from 'react';
 
+import ClearFix from './ClearFix.jsx';
+
 import TopSites from '../repository/TopSites.jsx';
 
 export default class extends React.Component {
@@ -22,7 +24,7 @@ export default class extends React.Component {
             <TopSiteItem key={item.url} title={item.title} url={item.url}/>
           )}
         </div>
-        <div className="clearfix"/>
+        <ClearFix/>
       </section>
     );
   }
