@@ -24,11 +24,15 @@
 .TopSitesItemTip:extend(.AbstractTip) {
   position: absolute;
   z-index: 10;
-  margin-top: @size-folder-padding-y;
   max-width: @size-topsite-tip;
   display: none;
 
   .TopSites:hover .TopSitesItem:hover & {
     display: block;
+  }
+
+  &:hover {
+    opacity: 0;
+    transition: opacity 0.25s linear;
   }
 }
