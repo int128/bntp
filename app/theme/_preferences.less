@@ -2,17 +2,20 @@
 @size-preference-item-padding: 10px;
 @size-footer-margin-y: 15px;
 
-@color-preference-item-background: @color-folder-item-background;
-@color-preference-item-hover: @color-folder-item-hover;
-
 .Preferences,
 .Footer {
   margin-top: @size-footer-margin-y;
   margin-bottom: @size-footer-margin-y;
   text-align: center;
   p {
-    color: @color-footer-title;
-    text-shadow: 1px 1px 1px @color-footer-title-shadow;
+    & when(@theme = 'light') {
+      color: #444;
+      text-shadow: 1px 1px 1px #fff;
+    }
+    & when(@theme = 'dark') {
+      color: #ccc;
+      text-shadow: 1px 1px 1px #888;
+    }
   }
 }
 
@@ -20,14 +23,19 @@
   label {
     font: inherit;
     color: inherit;
-    background-color: @color-preference-item-background;
     margin: @size-preference-item-margin;
     padding: @size-preference-item-padding;
     border-radius: 3px;
     border: none;
+
+    & when(@theme = 'light') { background-color: #fff; }
+    & when(@theme = 'dark')  { background-color: #363636; }
+
     &:hover {
-      background-color: @color-preference-item-hover;
+      & when(@theme = 'light') { background-color: #f9fafd; }
+      & when(@theme = 'dark')  { background-color: #555; }
     }
+
     input {
       margin-right: @size-preference-item-padding;
       &:checked + span {

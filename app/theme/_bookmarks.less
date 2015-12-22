@@ -19,8 +19,10 @@
 }
 
 .BookmarkFolderHeadingTitle {
-  color: @color-folder-title;
   font-size: 120%;
+
+  & when(@theme = 'light') { color: #444; }
+  & when(@theme = 'dark') { color: #ccc; }
 }
 
 .BookmarkItemBody:extend(.AbstractFolderItemBody) {

@@ -3,6 +3,13 @@
 .AbstractTip {
   padding: @size-tip-padding;
   border-radius: 3px;
-  color: @color-tip-foreground;
-  background-color: @color-tip-background;
+
+  & when(@theme = 'light') {
+    color: #fff;
+    background-color: fade(#000, 80%);
+  }
+  & when(@theme = 'dark') {
+    color: #eee;
+    background-color: fade(#000, 70%);
+  }
 }

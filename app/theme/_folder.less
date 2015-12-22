@@ -7,7 +7,6 @@
 @size-icon: 16px;
 
 .AbstractFolder {
-  background-color: @color-folder-background;
   border-radius: 3px;
   margin-top: @size-folder-margin-y;
   margin-bottom: @size-folder-margin-y;
@@ -17,6 +16,9 @@
   padding-bottom: @size-folder-padding-y - @size-folder-item-margin;
   padding-left: @size-folder-padding-x;
   padding-right: @size-folder-padding-x - @size-folder-item-margin;
+
+  & when(@theme = 'light') { background-color: #e9eaed; }
+  & when(@theme = 'dark')  { background-color: #333; }
 }
 
 .AbstractFolderItem {
@@ -30,12 +32,21 @@
 }
 
 .AbstractFolderItemClickable {
-  background-color: @color-folder-item-background;
-  border-color: @color-folder-item-border;
   border-radius: 3px;
-  &:hover {
-    background-color: @color-folder-item-hover;
+
+  & when(@theme = 'light') {
+    background-color: #fff;
+    border-color: #eee #ddd #ddd;
   }
+  & when(@theme = 'dark') {
+    background-color: #363636;
+    border-color: transparent;
+  }
+}
+
+.AbstractFolderItemClickable:hover {
+  & when(@theme = 'light') { background-color: #f9fafd; }
+  & when(@theme = 'dark')  { background-color: #555; }
 }
 
 .AbstractFolderItemBody {

@@ -2,8 +2,14 @@ body {
   display: block;
   margin: 0;
   padding: 0;
-  background-color: @color-background;
-  color: @color-foreground;
+  & when(@theme = 'light') {
+    background-color: #b9babd;
+    color: #000;
+  }
+  & when(@theme = 'dark') {
+    background-color: #222;
+    color: #eee;
+  }
 }
 
 a {
