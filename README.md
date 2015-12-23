@@ -1,7 +1,7 @@
-new tab bookmarks [![Build Status](https://travis-ci.org/int128/new-tab-bookmarks.svg?branch=master)](https://travis-ci.org/int128/new-tab-bookmarks)
+Bookmarks in New Tab Page [![Build Status](https://travis-ci.org/int128/new-tab-bookmarks.svg?branch=master)](https://travis-ci.org/int128/new-tab-bookmarks)
 =================
 
-A Chrome extension to add the light weight new-tab-page with tiled bookmarks.
+A Chrome extension which provides the new tab page with recently accessed sites and bookmarks.
 
 
 Architecture
@@ -10,15 +10,14 @@ Architecture
 Product:
 
 * React
-* JSX
-* LESS
+* ES6
+* Less
 * Chrome Extension API
-  * Bookmarks
-  * Top Sites
 
 Build system:
 
 * webpack
+* style-loader + less-loader
 * gulp
 * npm
 
@@ -27,32 +26,40 @@ Contribution
 ------------
 
 This is an open source software licensed under the Apache License Version 2.0.
+Feel free to open issues or pull requests.
 
 
 Build
 -----
 
-npm is required. At first, install dependencies.
+npm is required. Install dependencies and run gulp:
 
 ```bash
 npm install
 npm install -g gulp
-```
 
-Then, build the extension and add `build/extension/` folder to Chrome in the developer mode.
-
-```bash
+# once
 gulp
-```
 
-Also supports watching sources.
-
-```bash
+# watching
 gulp watch
 ```
+
+Open Chrome and add `build/extension/` folder into extensions in the developer mode.
+
+
+Release
+-------
 
 Generate distribution zip and upload to Chrome Store.
 
 ```bash
 gulp zip
 ```
+
+Take screenshots.
+
+```sh
+./screenshot.applescript
+```
+
