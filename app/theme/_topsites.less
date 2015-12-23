@@ -13,12 +13,17 @@
 }
 
 .TopSites:extend(.AbstractFolder) {
+  overflow-x: hidden;
+  white-space: nowrap;
+
   & when(@theme = 'light') { background-color: fade(#fff, 80%); }
   & when(@theme = 'dark')  { background-color: fade(#000, 70%); }
   & when(@theme = 'solarized') { background-color: fade(@solarized-base2, 75%); }
 }
 
-.TopSitesItem:extend(.AbstractFolderItem) {}
+.TopSitesItem:extend(.AbstractFolderItem) {
+  white-space: normal;
+}
 
 .TopSitesItemButton:extend(.AbstractFolderItemButton) {
   width: @size-topsite-width;
