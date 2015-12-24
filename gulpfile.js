@@ -40,7 +40,7 @@ gulp.task('static', () =>
 
 gulp.task('clean', (cb) => del('build/', cb));
 
-gulp.task('zip', () =>
+gulp.task('zip', ['default'], () =>
   gulp.src('build/extension/**/*')
     .pipe(zip('extension.zip'))
     .pipe(gulp.dest('build/')));
