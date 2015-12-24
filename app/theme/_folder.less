@@ -22,7 +22,9 @@
   & when(@theme = 'solarized') { background-color: @solarized-base2; }
 }
 
-.AbstractFolderHeading:extend(.AbstractFolderItem) {}
+.AbstractFolderHeading:extend(.AbstractFolderItem) {
+  margin-left: 2px;
+}
 
 .AbstractFolderItem {
   display: inline-block;
