@@ -1,8 +1,16 @@
 const gulp    = require('gulp');
+const seq     = require('run-sequence');
 const webpack = require('gulp-webpack');
 const uglify  = require('gulp-uglify');
 const zip     = require('gulp-zip');
 const del     = require('del');
+
+gulp.task('default', (cb) => seq('clean', 'build', cb));
+
+gulp.task('watch', ['default'], () => {
+  gulp.watch('app/**/*', ['webpack']);
+  gulp.watch('static/**/*', ['static']);
+});
 
 gulp.task('build', ['webpack', 'vendor', 'static']);
 
@@ -29,16 +37,6 @@ gulp.task('vendor', () =>
 gulp.task('static', () =>
   gulp.src('static/**/*')
     .pipe(gulp.dest('build/extension')));
-
-
-gulp.task('watch', ['clean'], () => {
-  gulp.start('build');
-  gulp.watch('app/**/*', ['webpack']);
-  gulp.watch('static/**/*', ['static']);
-});
-
-gulp.task('default', ['clean'], () =>
-  gulp.start('build'));
 
 gulp.task('clean', (cb) => del('build/', cb));
 
