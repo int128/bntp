@@ -23,7 +23,7 @@ gulp.task('webpack', () =>
         loaders: [
           { test: /\.jsx$/, loader: 'babel', query: { presets: ['es2015', 'react'] }},
           { test: /\.json$/, loader: 'json-loader' },
-          { test: /\.less$/, loader: 'style/useable!css!less' }
+          { test: /\.less$/, loader: 'style/useable!css!less?compress' }
         ]
       }
     }))
