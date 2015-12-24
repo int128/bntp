@@ -23,13 +23,10 @@
   background-position-y: @size-folder-item-padding;
 }
 
-.BookmarkFolderHeading:extend(.AbstractFolderItem) {
+.BookmarkFolderHeading:extend(.AbstractFolderHeading) {
   width: @size-bookmark-width;
   margin-left: 2px;
   vertical-align: top;
-}
-
-.BookmarkFolderHeadingTitle {
   font-size: 120%;
 
   & when(@theme = 'light') { color: #444; }

@@ -30,7 +30,7 @@ class BookmarkFolder extends React.Component {
     return (
       <section className="BookmarkFolder">
         <div className="BookmarkFolderHeading">
-          <div className="BookmarkFolderHeadingTitle">{this.props.title}</div>
+          {this.props.title}
         </div>
         {this.props.items.map(item =>
           <BookmarkItem key={item.id} title={item.title} url={item.url}/>
