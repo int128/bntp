@@ -1,6 +1,6 @@
 const gulp    = require('gulp');
 const seq     = require('run-sequence');
-const webpack = require('gulp-webpack');
+const webpack = require('webpack-stream');
 const uglify  = require('gulp-uglify');
 const zip     = require('gulp-zip');
 const del     = require('del');
