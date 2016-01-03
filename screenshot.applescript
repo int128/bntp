@@ -1,47 +1,59 @@
 #!/usr/bin/env osascript
 tell application "Google Chrome"
-  -- excludes shadow margin 112px
+  -- open for large (excludes shadow margin 112px)
   set chromeWindow to make new window with properties {bounds: {0, 0, 1168, 688}}
   activate
   delay 1
 
-  -- activate demo mode
+  -- default and activate demo
+  execute active tab of chromeWindow javascript "localStorage.clear()"
   execute active tab of chromeWindow javascript "localStorage.setItem('demo', true)"
-  execute active tab of chromeWindow javascript "localStorage.removeItem('theme')"
+
+  -- theme
   reload active tab of chromeWindow
   delay 1
-  do shell script "screencapture -w build/screenshot1l.png"
+  do shell script "screencapture -w build/screenshot-whole-default.png"
 
+  -- highlight
   tell application "System Events"
     repeat 3 times
       key code 48 -- tab
     end repeat
   end tell
-  do shell script "screencapture -w build/screenshot2l.png"
+  do shell script "screencapture -w build/screenshot-highlight-default.png"
 
-  -- activate theme
+  -- theme
   execute active tab of chromeWindow javascript "localStorage.setItem('theme', 'dark')"
   reload active tab of chromeWindow
   delay 1
-  do shell script "screencapture -w build/screenshot1d.png"
+  do shell script "screencapture -w build/screenshot-whole-dark.png"
 
-  -- activate theme
+  -- theme
   execute active tab of chromeWindow javascript "localStorage.setItem('theme', 'solarized-light')"
   reload active tab of chromeWindow
   delay 1
-  do shell script "screencapture -w build/screenshot1sl.png"
+  do shell script "screencapture -w build/screenshot-whole-solarized-light.png"
 
-  -- activate theme
+  -- preferences
+  execute active tab of chromeWindow javascript "localStorage.setItem('showTopSites', 'false')"
+  reload active tab of chromeWindow
+  delay 1
+  tell application "System Events"
+    repeat 3 times
+      key code 48 using shift down -- tab
+    end repeat
+  end tell
+  do shell script "screencapture -w build/screenshot-tail-solarized-light.png"
+
+  execute active tab of chromeWindow javascript "localStorage.removeItem('showTopSites')"
+
+  -- theme
   execute active tab of chromeWindow javascript "localStorage.setItem('theme', 'solarized-dark')"
   reload active tab of chromeWindow
   delay 1
-  do shell script "screencapture -w build/screenshot1sd.png"
+  do shell script "screencapture -w build/screenshot-whole-solarized-dark.png"
 
   -- inactivate demo mode
-  execute active tab of chromeWindow javascript "localStorage.removeItem('demo')"
-  execute active tab of chromeWindow javascript "localStorage.removeItem('theme')"
+  execute active tab of chromeWindow javascript "localStorage.clear()"
   close chromeWindow
-
-  -- generate small
-  do shell script "for f in build/screenshot*.png; do convert -crop 640x400+56+32 $f $f-small.png; done"
 end tell
