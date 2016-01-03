@@ -11,8 +11,9 @@ export default class extends React.Component {
   render() {
     return (
       <section className="Preferences">
-        <p>Preferences</p>
+        <p>Themes</p>
         <Themes/>
+        <p>Toggle</p>
         <Components
           showTopSites={this.props.showTopSites}
           showBookmarks={this.props.showBookmarks}
@@ -93,13 +94,13 @@ class Components extends React.Component {
           <input type="checkbox"
             checked={this.props.showTopSites}
             onChange={(e) => this.props.onChange('showTopSites', e.target.checked)}/>
-          Show top sites
+          Top Sites
         </label>
         <label>
           <input type="checkbox"
             checked={this.props.showBookmarks}
             onChange={(e) => this.props.onChange('showBookmarks', e.target.checked)}/>
-          Show bookmarks
+          Bookmarks
         </label>
       </form>
     );

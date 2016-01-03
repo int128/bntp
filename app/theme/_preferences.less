@@ -23,8 +23,9 @@
   }
 }
 
-.Themes {
+.Preferences {
   label {
+    display: inline-block;
     font: inherit;
     color: inherit;
     margin: @size-preference-item-margin;
@@ -44,7 +45,7 @@
 
     input {
       margin-right: @size-preference-item-padding;
-      &:checked + span {
+      &[type='radio']:checked + span {
         font-weight: bold;
       }
     }
