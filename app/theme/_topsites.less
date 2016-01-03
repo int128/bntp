@@ -5,11 +5,18 @@
 @size-topsite-height: 48px;
 @size-topsite-tip: 160px;
 
-.FixedHeader {
+.TopSitesFixed {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+}
+
+.TopSitesMargin {
+  margin-top: @size-topsite-height
+    + @size-folder-item-padding * 2
+    + @size-folder-margin-y * 2
+    + 2;
 }
 
 .TopSites:extend(.AbstractFolder) {

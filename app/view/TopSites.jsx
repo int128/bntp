@@ -16,12 +16,15 @@ export default class extends React.Component {
   }
   render() {
     return (
-      <div className="FixedHeader">
-        <section className="TopSites">
-          {this.state.items.map(item =>
-            <TopSiteItem key={item.url} title={item.title} url={item.url}/>
-          )}
-        </section>
+      <div>
+        <div className="TopSitesFixed">
+          <section className="TopSites">
+            {this.state.items.map(item =>
+              <TopSiteItem key={item.url} title={item.title} url={item.url}/>
+            )}
+          </section>
+        </div>
+        <div className="TopSitesMargin"></div>
       </div>
     );
   }
