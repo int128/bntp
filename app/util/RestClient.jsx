@@ -1,20 +1,18 @@
-module.exports = {
-  get: function (uri, callback) {
-    var req = new XMLHttpRequest();
+export default {
+  get(uri, callback) {
+    const req = new XMLHttpRequest();
     req.open('GET', uri, true);
-    req.onload = function () {
+    req.onload = () => {
       if (req.readyState == 4) {
         if (req.status === 200) {
-          var data = JSON.parse(req.responseText);
+          const data = JSON.parse(req.responseText);
           callback(data);
         } else {
           console.error(req.statusText);
         }
       }
     };
-    req.onerror = function () {
-      console.error(req.statusText);
-    };
+    req.onerror = () => console.error(req.statusText);
     req.send(null);
   }
-};
+}

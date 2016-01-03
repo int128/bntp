@@ -1,12 +1,10 @@
-var RestClient = require('../util/RestClient.jsx');
+import RestClient from '../util/RestClient.jsx';
 
-module.exports = {
-  loadFromChrome: function (callback) {
+export default {
+  loadFromChrome(callback) {
     chrome.topSites.get(callback);
   },
-  loadDemo: function (callback) {
-    RestClient.get('demo.json', function (data) {
-      callback(data.topSites);
-    });
+  loadDemo(callback) {
+    RestClient.get('demo.json', (data) => callback(data.topSites));
   }
-};
+}

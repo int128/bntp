@@ -1,34 +1,33 @@
-var RestClient = require('../util/RestClient.jsx');
-var ChromePages = require('./ChromePages.json');
+import RestClient from '../util/RestClient.jsx';
 
-var traverseBookmarkTree = function (folder) {
-  var sites      = folder.children.filter(function (child) { return child.url; });
-  var subfolders = folder.children.filter(function (child) { return !child.url; });
-  var aggregated = [];
+import ChromePages from './ChromePages.json';
+
+export default {
+  loadFromChrome(callback) {
+    chrome.bookmarks.getTree((tree) => callback(arrange(tree)));
+  },
+  loadDemo(callback) {
+    RestClient.get('demo.json', (data) => callback(arrange(data.bookmarks)));
+  }
+}
+
+function arrange(tree) {
+  const folders = groupByFolder(tree);
+  folders.push(ChromePages);
+  return folders;
+}
+
+function groupByFolder(tree) {
+  return traverseTree({children: tree});
+}
+
+function traverseTree(folder) {
+  const sites      = folder.children.filter((child) => child.url);
+  const subfolders = folder.children.filter((child) => !child.url);
+  const aggregated = [];
   if (sites.length > 0) {
     folder.children = sites;
     aggregated.push(folder);
   }
-  return Array.prototype.concat.apply(aggregated, subfolders.map(traverseBookmarkTree));
-};
-
-var groupBookmarksByFolder = function (tree) {
-  return traverseBookmarkTree({children: tree});
-};
-
-module.exports = {
-  loadFromChrome: function (callback) {
-    chrome.bookmarks.getTree(function (tree) {
-      var folders = groupBookmarksByFolder(tree);
-      folders.push(ChromePages);
-      callback(folders);
-    });
-  },
-  loadDemo: function (callback) {
-    RestClient.get('demo.json', function (data) {
-      var folders = groupBookmarksByFolder(data.bookmarks);
-      folders.push(ChromePages);
-      callback(folders);
-    });
-  }
-};
+  return Array.prototype.concat.apply(aggregated, subfolders.map(traverseTree));
+}

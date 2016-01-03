@@ -48,7 +48,7 @@ class BookmarkItem extends React.Component {
     }
   }
   render() {
-    var style = {
+    const style = {
       backgroundImage: `url(chrome://favicon/${this.props.url})`
     };
     return (

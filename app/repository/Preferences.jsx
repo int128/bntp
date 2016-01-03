@@ -1,15 +1,15 @@
-module.exports = {
-  getThemeName: function () {
+export default {
+  getThemeName() {
     return localStorage.theme;
   },
-  setThemeName: function (name) {
+  setThemeName(name) {
     localStorage.theme = name;
   },
-  get: function (name, defaultValue) {
+  get(name, defaultValue) {
     const value = localStorage.getItem(name);
     return (value === null) ? defaultValue : JSON.parse(value);
   },
-  set: function (name, value) {
+  set(name, value) {
     localStorage.setItem(name, JSON.stringify(value));
   }
-};
+}
