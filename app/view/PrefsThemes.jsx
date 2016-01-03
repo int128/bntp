@@ -10,15 +10,9 @@ import SolarizedDarkTheme from '../theme/solarized-dark.less';
 export default class extends React.Component {
   render() {
     return (
-      <section className="Preferences">
+      <section>
         <p>Themes</p>
         <Themes/>
-        <p>Toggle</p>
-        <Components
-          showTopSites={this.props.showTopSites}
-          showBookmarks={this.props.showBookmarks}
-          onChange={this.props.onChangeComponentVisibility}
-          />
       </section>
     );
   }
@@ -81,27 +75,6 @@ class ThemeForm extends React.Component {
             {item.title}
           </label>
         )}
-      </form>
-    );
-  }
-}
-
-class Components extends React.Component {
-  render() {
-    return (
-      <form>
-        <label>
-          <input type="checkbox"
-            checked={this.props.showTopSites}
-            onChange={(e) => this.props.onChange('showTopSites', e.target.checked)}/>
-          Top Sites
-        </label>
-        <label>
-          <input type="checkbox"
-            checked={this.props.showBookmarks}
-            onChange={(e) => this.props.onChange('showBookmarks', e.target.checked)}/>
-          Bookmarks
-        </label>
       </form>
     );
   }
