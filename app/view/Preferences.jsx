@@ -13,6 +13,11 @@ export default class extends React.Component {
       <section className="Preferences">
         <p>Preferences</p>
         <Themes/>
+        <Components
+          showTopSites={this.props.showTopSites}
+          showBookmarks={this.props.showBookmarks}
+          onChange={this.props.onChangeComponentVisibility}
+          />
       </section>
     );
   }
@@ -75,6 +80,27 @@ class ThemeForm extends React.Component {
             {item.title}
           </label>
         )}
+      </form>
+    );
+  }
+}
+
+class Components extends React.Component {
+  render() {
+    return (
+      <form>
+        <label>
+          <input type="checkbox"
+            checked={this.props.showTopSites}
+            onChange={(e) => this.props.onChange('showTopSites', e.target.checked)}/>
+          Show top sites
+        </label>
+        <label>
+          <input type="checkbox"
+            checked={this.props.showBookmarks}
+            onChange={(e) => this.props.onChange('showBookmarks', e.target.checked)}/>
+          Show bookmarks
+        </label>
       </form>
     );
   }
