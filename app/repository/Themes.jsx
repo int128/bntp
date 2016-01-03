@@ -4,11 +4,11 @@ import SolarizedLightTheme from '../theme/solarized-light.less';
 import SolarizedDarkTheme from '../theme/solarized-dark.less';
 
 export default {
-  all() {
+  findAll() {
     return themes;
   },
   findOrDefault(name) {
-    return themes.find(item => item.name == name) || themes[0];
+    return themes.find(theme => theme.name == name) || themes[0];
   }
 }
 

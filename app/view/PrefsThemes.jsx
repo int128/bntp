@@ -15,13 +15,13 @@ export default class extends React.Component {
     const theme = Themes.findOrDefault(name);
     theme.apply();
     this.setState({theme: theme});
-    Preferences.setThemeName(theme.name);
+    Preferences.saveThemeName(theme.name);
   }
   render() {
     return (
       <form>
         <p>Themes</p>
-        {Themes.all().map(theme =>
+        {Themes.findAll().map(theme =>
           <Theme
             name={theme.name}
             title={theme.title}

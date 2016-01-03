@@ -17,11 +17,9 @@ export default class extends React.Component {
       showBookmarks: Preferences.get('showBookmarks', true)
     };
   }
-  onChangeVisibility(name, visibility) {
-    const state = {};
-    state[name] = visibility;
+  onChange(state) {
     this.setState(state);
-    Preferences.set(name, visibility);
+    Preferences.save(state);
   }
   render() {
     return (
@@ -34,7 +32,8 @@ export default class extends React.Component {
           <PrefsVisibility
             showTopSites={this.state.showTopSites}
             showBookmarks={this.state.showBookmarks}
-            onChange={this.onChangeVisibility.bind(this)}
+            showTopSitesOnChange={(v) => this.onChange({showTopSites: v})}
+            showBookmarksOnChange={(v) => this.onChange({showBookmarks: v})}
             />
         </section>
         <Footer />

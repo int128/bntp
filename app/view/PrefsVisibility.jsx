@@ -9,12 +9,12 @@ export default class extends React.Component {
           name="showTopSites"
           title="Top Sites"
           value={this.props.showTopSites}
-          onChange={this.props.onChange}/>
+          onChange={this.props.showTopSitesOnChange}/>
         <Visibility
           name="showBookmarks"
           title="Bookmarks"
           value={this.props.showBookmarks}
-          onChange={this.props.onChange}/>
+          onChange={this.props.showBookmarksOnChange}/>
       </form>
     );
   }
@@ -27,7 +27,7 @@ class Visibility extends React.Component {
         <input type="checkbox"
           name={this.props.name}
           checked={this.props.value}
-          onChange={(e) => this.props.onChange(this.props.name, e.target.checked)}/>
+          onChange={(e) => this.props.onChange(e.target.checked)}/>
         {this.props.title}
       </label>
     );
