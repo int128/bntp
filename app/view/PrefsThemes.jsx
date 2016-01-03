@@ -1,21 +1,21 @@
 import React from 'react';
 
+import Preferences from '../repository/Preferences.jsx';
 import Themes from '../repository/Themes.jsx';
 
 export default class extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: this.props.themeName};
+    this.state = {theme: Themes.findOrDefault(Preferences.getThemeName())};
   }
   componentDidMount() {
-    Themes.findOrDefault(this.state.value).enable();
+    this.state.theme.apply();
   }
-  onChange(currentValue) {
-    const previousValue = this.state.value;
-    Themes.findOrDefault(previousValue).disable();
-    Themes.findOrDefault(currentValue).enable();
-    this.setState({value: currentValue});
-    this.props.onChange(currentValue);
+  onChange(name) {
+    const theme = Themes.findOrDefault(name);
+    theme.apply();
+    this.setState({theme: theme});
+    Preferences.setThemeName(theme.name);
   }
   render() {
     return (
@@ -25,7 +25,7 @@ export default class extends React.Component {
           <Theme
             name={theme.name}
             title={theme.title}
-            value={this.state.value}
+            value={this.state.theme.name}
             onChange={this.onChange.bind(this)}/>
         )}
       </form>

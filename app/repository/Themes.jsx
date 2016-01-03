@@ -18,13 +18,17 @@ class Theme {
     this.title = title;
     this._style = style;
   }
-  enable() {
-    this._style.use();
-  }
-  disable() {
-    this._style.unuse();
+  apply() {
+    if (currentLoadedStyle) {
+      currentLoadedStyle.unuse();
+    }
+    currentLoadedStyle = this._style;
+    currentLoadedStyle.use();
   }
 }
+
+// Memory previous style to unload by style-loader
+var currentLoadedStyle = null;
 
 const themes = [
   new Theme('light', 'Light', LightTheme),
