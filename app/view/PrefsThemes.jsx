@@ -1,18 +1,32 @@
 import React from 'react';
 
-import Preferences from '../repository/Preferences.jsx';
-
 import LightTheme from '../theme/light.less';
 import DarkTheme from '../theme/dark.less';
 import SolarizedLightTheme from '../theme/solarized-light.less';
 import SolarizedDarkTheme from '../theme/solarized-dark.less';
 
 export default class extends React.Component {
+  constructor(props) {
+    super(props);
+    const defaultItem = ThemeItems.find(this.props.themeName) || ThemeItems.getDefault();
+    this.state = {value: defaultItem.value};
+  }
+  componentDidMount() {
+    ThemeItems.find(this.state.value).style.use();
+  }
+  onChange(currentValue) {
+    const previousValue = this.state.value;
+    ThemeItems.find(previousValue).style.unuse();
+    ThemeItems.find(currentValue).style.use();
+    this.setState({value: currentValue});
+    this.props.onChange(currentValue);
+  }
   render() {
     return (
       <section>
         <p>Themes</p>
-        <Themes/>
+        <ThemeForm items={ThemeItems.all()} defaultValue={this.state.value}
+          onChange={this.onChange.bind(this)}/>
       </section>
     );
   }
@@ -35,30 +49,6 @@ const ThemeItems = {
     return this._items[0];
   }
 };
-
-class Themes extends React.Component {
-  constructor(props) {
-    super(props);
-    const defaultItem = ThemeItems.find(Preferences.getThemeName()) || ThemeItems.getDefault();
-    this.state = {value: defaultItem.value};
-  }
-  componentDidMount() {
-    ThemeItems.find(this.state.value).style.use();
-  }
-  onChange(currentValue) {
-    const previousValue = this.state.value;
-    this.setState({value: currentValue});
-    Preferences.setThemeName(currentValue);
-    ThemeItems.find(previousValue).style.unuse();
-    ThemeItems.find(currentValue).style.use();
-  }
-  render() {
-    return (
-      <ThemeForm items={ThemeItems.all()} defaultValue={this.state.value}
-        onChange={this.onChange.bind(this)}/>
-    );
-  }
-}
 
 class ThemeForm extends React.Component {
   onChange(e) {
