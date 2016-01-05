@@ -21,7 +21,37 @@ a {
   text-decoration: none;
 }
 
+form {
+  label, button {
+    display: inline-block;
+    font: inherit;
+    color: inherit;
+    margin: @size-preference-item-margin;
+    padding: @size-preference-item-padding;
+    border-radius: 3px;
+    border: none;
+
+    & when(@theme = 'light') { background-color: #e9eaed; }
+    & when(@theme = 'dark')  { background-color: #363636; }
+    & when(@theme = 'solarized') { background-color: @solarized-base2; }
+
+    &:hover {
+      & when(@theme = 'light') { background-color: average(#e9eaed, #fff); }
+      & when(@theme = 'dark')  { background-color: #555; }
+      & when(@theme = 'solarized') { background-color: average(@solarized-base2, @solarized-base3); }
+    }
+
+    input {
+      margin-right: @size-preference-item-padding;
+
+      &[type='radio']:checked + span {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
 @import '_bookmarks.less';
 @import '_topsites.less';
 @import '_status.less';
-@import '_preferences.less';
+@import '_footer.less';

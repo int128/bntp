@@ -1,0 +1,24 @@
+@size-preference-item-margin: @size-folder-item-margin;
+@size-preference-item-padding: 10px;
+@size-footer-margin-y: 15px;
+
+.Footer,
+.Preferences {
+  margin-top: @size-footer-margin-y;
+  margin-bottom: @size-footer-margin-y;
+  text-align: center;
+  p {
+    & when(@theme = 'light') {
+      color: #444;
+      text-shadow: 1px 1px 1px #fff;
+    }
+    & when(@theme = 'dark') {
+      color: #ccc;
+      text-shadow: 1px 1px 1px #888;
+    }
+    & when(@theme = 'solarized') {
+      color: @solarized-base1;
+      text-shadow: 1px 1px 1px @solarized-base2;
+    }
+  }
+}

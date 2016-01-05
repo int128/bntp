@@ -7,7 +7,12 @@ export default class extends React.Component {
     const store = `https://chrome.google.com/webstore/detail/${chrome.runtime.id}`;
     return (
       <section className="Footer">
-        <p><a href={store}>{Manifest.name}</a> {Manifest.version}</p>
+        <form>
+          <p>{Manifest.name} {Manifest.version}</p>
+          <label>
+            <a href={store}>Review on Web Store</a>
+          </label>
+        </form>
       </section>
     );
   }
