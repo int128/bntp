@@ -1,7 +1,7 @@
 {
   "name": "Bookmarks in New Tab Page",
-  "version": "1.6.0",
-  "description": "Light weight New Tab Page with Bookmarks and Top Sites",
+  "version": "1.6.1",
+  "description": "Lightweight New Tab Page with your Bookmarks and Top Sites",
   "permissions": [
     "bookmarks",
     "chrome://favicon/",
