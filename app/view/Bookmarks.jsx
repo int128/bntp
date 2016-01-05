@@ -12,6 +12,8 @@ export default class extends React.Component {
       Bookmarks.loadDemo(items => this.setState({items: items}));
     } else {
       Bookmarks.loadFromChrome(items => this.setState({items: items}));
+      Bookmarks.addListenerOnChange(() =>
+        Bookmarks.loadFromChrome(items => this.setState({items: items})));
     }
   }
   render() {

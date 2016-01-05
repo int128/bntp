@@ -8,6 +8,13 @@ export default {
   },
   loadDemo(callback) {
     RestClient.get('demo.json', (data) => callback(arrange(data.bookmarks)));
+  },
+  addListenerOnChange(callback) {
+    chrome.bookmarks.onCreated.addListener(callback);
+    chrome.bookmarks.onRemoved.addListener(callback);
+    chrome.bookmarks.onChanged.addListener(callback);
+    chrome.bookmarks.onMoved.addListener(callback);
+    chrome.bookmarks.onChildrenReordered.addListener(callback);
   }
 }
 
