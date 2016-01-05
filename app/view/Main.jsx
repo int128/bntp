@@ -1,11 +1,12 @@
 import React from 'react';
 
 import NetworkStatus from './NetworkStatus.jsx';
+import Footer from './Footer.jsx';
+
 import TopSites from './TopSites.jsx';
 import Bookmarks from './Bookmarks.jsx';
 import PrefsThemes from './PrefsThemes.jsx';
 import PrefsVisibility from './PrefsVisibility.jsx';
-import Footer from './Footer.jsx';
 
 import Preferences from '../repository/Preferences.jsx';
 
@@ -24,7 +25,7 @@ export default class extends React.Component {
   render() {
     return (
       <div>
-        <NetworkStatus />
+        <NetworkStatus/>
         {this.state.showTopSites ? (<TopSites />) : null}
         {this.state.showBookmarks ? (<Bookmarks />) : null}
         <section className="Preferences">
@@ -36,7 +37,7 @@ export default class extends React.Component {
             showBookmarksOnChange={(v) => this.onChange({showBookmarks: v})}
             />
         </section>
-        <Footer />
+        <Footer/>
       </div>
     );
   }

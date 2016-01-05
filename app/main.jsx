@@ -1,5 +1,5 @@
 import React from 'react';
 
-import NewTabPage from './view/NewTabPage.jsx';
+import Main from './view/Main.jsx';
 
-React.render(<NewTabPage/>, document.body);
+React.render(<Main/>, document.body);
