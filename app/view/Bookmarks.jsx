@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Bookmarks from '../repository/Bookmarks.jsx';
+import Preferences from '../repository/Preferences.jsx';
 
 export default class extends React.Component {
   constructor(props) {
@@ -19,26 +20,49 @@ export default class extends React.Component {
   render() {
     return (
       <div className="Bookmarks">
-        {this.state.items.map(function (folder) {
-          return <BookmarkFolder key={folder.id} title={folder.title} items={folder.children}/>;
-        })}
+        {this.state.items.map((folder) =>
+          <BookmarkFolder key={folder.id} id={folder.id} title={folder.title} items={folder.children}/>
+        )}
       </div>
     );
   }
 }
 
 class BookmarkFolder extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {collapse: Preferences.getFolderCollapse(this.props.id)};
+  }
+  onClick(e) {
+    this.setState({collapse: !this.state.collapse});
+    Preferences.saveFolderCollapse(this.props.id, !this.state.collapse);
+    e.preventDefault();
+  }
   render() {
-    return (
-      <section className="BookmarkFolder">
-        <div className="BookmarkFolderHeading">
-          {this.props.title}
-        </div>
-        {this.props.items.map(item =>
-          <BookmarkItem key={item.id} title={item.title} url={item.url}/>
-        )}
-      </section>
-    );
+    if (this.state.collapse) {
+      return (
+        <section className="BookmarkFolder">
+          <div className="BookmarkFolderHeading">
+            <a href="click: Expand this folder" onClick={this.onClick.bind(this)}>
+              {this.props.title}
+            </a>
+          </div>
+        </section>
+      );
+    } else {
+      return (
+        <section className="BookmarkFolder">
+          <div className="BookmarkFolderHeadingItem">
+            <a href="click: Collapse this folder" onClick={this.onClick.bind(this)}>
+              {this.props.title}
+            </a>
+          </div>
+          {this.props.items.map(item =>
+            <BookmarkItem key={item.id} title={item.title} url={item.url}/>
+          )}
+        </section>
+      );
+    }
   }
 }
 

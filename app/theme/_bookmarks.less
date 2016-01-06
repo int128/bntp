@@ -20,11 +20,13 @@
 }
 
 .BookmarkFolderHeading:extend(.AbstractFolderHeading) {
-  width: @size-bookmark-width;
-  vertical-align: top;
   font-size: 120%;
-
   & when(@theme = 'light') { color: #444; }
   & when(@theme = 'dark') { color: #ccc; }
   & when(@theme = 'solarized') { color: @solarized-base03; }
+}
+
+.BookmarkFolderHeadingItem:extend(.BookmarkFolderHeading) {
+  width: @size-bookmark-width;
+  vertical-align: top;
 }
