@@ -74,14 +74,12 @@ class BookmarkItem extends React.Component {
     }
   }
   render() {
-    const style = {
-      backgroundImage: `url(chrome://favicon/${this.props.url})`
-    };
     return (
       <div className="BookmarkItem">
         <a href={this.props.url} onClick={this.onClick.bind(this)}>
           <div className="BookmarkItemButton">
-            <div className="BookmarkItemButtonBody" style={style}>
+            <div className="BookmarkItemButtonBody"
+              style={{backgroundImage: `url(chrome://favicon/${this.props.url})`}}>
               {this.props.title}
             </div>
           </div>
