@@ -13,10 +13,10 @@ import Preferences from '../repository/Preferences.jsx';
 export default class extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      showTopSites: Preferences.get('showTopSites', true),
-      showBookmarks: Preferences.get('showBookmarks', true)
-    };
+    this.state = {showTopSites: true, showBookmarks: true};
+  }
+  componentDidMount() {
+    this.setState(Preferences.get('showTopSites', 'showBookmarks'));
   }
   onChange(state) {
     this.setState(state);

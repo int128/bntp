@@ -6,10 +6,10 @@ import Themes from '../repository/Themes.jsx';
 export default class extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {theme: Themes.findOrDefault(Preferences.getThemeName())};
+    this.state = {theme: Themes.getDefault()};
   }
   componentDidMount() {
-    this.state.theme.apply();
+    this.onChange(Preferences.getThemeName());
   }
   onChange(name) {
     const theme = Themes.findOrDefault(name);
@@ -40,7 +40,7 @@ class Theme extends React.Component {
         <input type="radio"
           name="Theme"
           value={this.props.name}
-          defaultChecked={this.props.name == this.props.value}
+          checked={this.props.name == this.props.value}
           onChange={(e) => this.props.onChange(e.target.value)}/>
         {this.props.title}
       </label>

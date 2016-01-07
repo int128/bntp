@@ -15,9 +15,15 @@ export default {
       localStorage.removeItem(`folder_${id}_collapse`);
     }
   },
-  get(name, defaultValue) {
-    const value = localStorage.getItem(name);
-    return (value === null) ? defaultValue : JSON.parse(value);
+  get(...keys) {
+    const state = {};
+    keys.forEach((key) => {
+      const jsonValue = localStorage.getItem(key);
+      if (jsonValue !== undefined) {
+        state[key] = JSON.parse(jsonValue);
+      }
+    });
+    return state;
   },
   save(state) {
     Object.keys(state).forEach((key) =>

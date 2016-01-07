@@ -3,9 +3,10 @@ import React from 'react';
 export default class extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {offline: !window.navigator.onLine};
+    this.state = {offline: false};
   }
   componentDidMount() {
+    this.setState({offline: !window.navigator.onLine});
     window.addEventListener('online', () => this.setState({offline: false}));
     window.addEventListener('offline', () => this.setState({offline: true}));
   }
@@ -13,7 +14,7 @@ export default class extends React.Component {
     if (this.state.offline) {
       return <div className="NetworkStatus">Network is Offline</div>;
     } else {
-      return <div/>;
+      return null;
     }
   }
 }

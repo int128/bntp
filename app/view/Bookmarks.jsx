@@ -31,7 +31,10 @@ export default class extends React.Component {
 class BookmarkFolder extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {collapse: Preferences.getFolderCollapse(this.props.id)};
+    this.state = {collapse: false};
+  }
+  componentDidMount() {
+    this.setState({collapse: Preferences.getFolderCollapse(this.props.id)});
   }
   onClick(e) {
     this.setState({collapse: !this.state.collapse});

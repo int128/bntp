@@ -8,7 +8,10 @@ export default {
     return themes;
   },
   findOrDefault(name) {
-    return themes.find(theme => theme.name == name) || themes[0];
+    return themes.find(theme => theme.name == name) || this.getDefault();
+  },
+  getDefault() {
+    return themes[0];
   }
 }
 
