@@ -33,8 +33,8 @@ export default class extends React.Component {
           <PrefsVisibility
             showTopSites={this.state.showTopSites}
             showBookmarks={this.state.showBookmarks}
-            showTopSitesOnChange={(v) => this.onChange({showTopSites: v})}
-            showBookmarksOnChange={(v) => this.onChange({showBookmarks: v})}
+            showTopSitesOnChange={v => this.onChange({showTopSites: v})}
+            showBookmarksOnChange={v => this.onChange({showBookmarks: v})}
             />
         </section>
         <Footer/>

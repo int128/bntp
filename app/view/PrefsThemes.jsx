@@ -41,7 +41,7 @@ class Theme extends React.Component {
           name="Theme"
           value={this.props.name}
           checked={this.props.name == this.props.value}
-          onChange={(e) => this.props.onChange(e.target.value)}/>
+          onChange={e => this.props.onChange(e.target.value)}/>
         {this.props.title}
       </label>
     );

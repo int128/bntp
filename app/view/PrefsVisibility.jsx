@@ -27,7 +27,7 @@ class Visibility extends React.Component {
         <input type="checkbox"
           name={this.props.name}
           checked={this.props.value}
-          onChange={(e) => this.props.onChange(e.target.checked)}/>
+          onChange={e => this.props.onChange(e.target.checked)}/>
         {this.props.title}
       </label>
     );

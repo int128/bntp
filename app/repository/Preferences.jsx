@@ -17,7 +17,7 @@ export default {
   },
   get(...keys) {
     const state = {};
-    keys.forEach((key) => {
+    keys.forEach(key => {
       const jsonValue = localStorage.getItem(key);
       if (jsonValue !== undefined) {
         state[key] = JSON.parse(jsonValue);
@@ -26,7 +26,7 @@ export default {
     return state;
   },
   save(state) {
-    Object.keys(state).forEach((key) =>
+    Object.keys(state).forEach(key =>
       localStorage.setItem(key, JSON.stringify(state[key]))
     );
   }

@@ -5,6 +5,6 @@ export default {
     chrome.topSites.get(callback);
   },
   getForDemo(callback) {
-    RestClient.get('demo.json', (data) => callback(data.topSites));
+    RestClient.get('demo.json', data => callback(data.topSites));
   }
 }

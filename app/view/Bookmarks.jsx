@@ -20,7 +20,7 @@ export default class extends React.Component {
   render() {
     return (
       <div className="Bookmarks">
-        {this.state.items.map((folder) =>
+        {this.state.items.map(folder =>
           <BookmarkFolder key={folder.id} id={folder.id} title={folder.title} items={folder.children}/>
         )}
       </div>
