@@ -10,10 +10,10 @@ export default class extends React.Component {
   }
   componentDidMount() {
     if (localStorage.demo) {
-      Bookmarks.loadDemo(items => this.setState({items: items}));
+      Bookmarks.getForDemo(items => this.setState({items: items}));
     } else {
-      Bookmarks.loadFromChrome(items => this.setState({items: items}));
-      Bookmarks.addListenerOnChange(() =>
+      Bookmarks.get(items => this.setState({items: items}));
+      Bookmarks.addChangeListener(() =>
         Bookmarks.loadFromChrome(items => this.setState({items: items})));
     }
   }

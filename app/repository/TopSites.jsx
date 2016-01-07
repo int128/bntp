@@ -1,10 +1,10 @@
 import RestClient from '../util/RestClient.jsx';
 
 export default {
-  loadFromChrome(callback) {
+  get(callback) {
     chrome.topSites.get(callback);
   },
-  loadDemo(callback) {
+  getForDemo(callback) {
     RestClient.get('demo.json', (data) => callback(data.topSites));
   }
 }

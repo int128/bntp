@@ -9,9 +9,9 @@ export default class extends React.Component {
   }
   componentDidMount() {
     if (localStorage.demo) {
-      TopSites.loadDemo(items => this.setState({items: items}));
+      TopSites.getForDemo(items => this.setState({items: items}));
     } else {
-      TopSites.loadFromChrome(items => this.setState({items: items}));
+      TopSites.get(items => this.setState({items: items}));
     }
   }
   render() {
