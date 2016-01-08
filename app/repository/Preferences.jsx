@@ -19,7 +19,7 @@ export default {
     const state = {};
     keys.forEach(key => {
       const jsonValue = localStorage.getItem(key);
-      if (jsonValue !== undefined) {
+      if (jsonValue !== null) {
         state[key] = JSON.parse(jsonValue);
       }
     });
