@@ -7,19 +7,12 @@ A Chrome extension which provides the new tab page with recently accessed sites 
 Architecture
 ------------
 
-Product:
-
 * React
 * ES6
 * Less
 * Chrome Extension API
 
-Build system:
-
-* webpack
-* style-loader + less-loader
-* gulp
-* npm
+Build by Webpack, style-loader and less-loader.
 
 
 Contribution
@@ -32,17 +25,11 @@ Feel free to open issues or pull requests.
 Build
 -----
 
-npm is required. Install dependencies and run gulp:
+npm is required
 
 ```bash
 npm install
-npm install -g gulp
-
-# once
-gulp
-
-# watching
-gulp watch
+npm start
 ```
 
 Open Chrome and add `build/extension/` folder into extensions in the developer mode.
@@ -54,7 +41,8 @@ Release
 Generate distribution zip and upload to Chrome Store.
 
 ```bash
-gulp zip
+npm run build
+npm run zip
 ```
 
 Take screenshots.
@@ -62,4 +50,3 @@ Take screenshots.
 ```sh
 ./screenshot.applescript
 ```
-
