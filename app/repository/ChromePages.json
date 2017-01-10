@@ -11,16 +11,16 @@
       "url": "chrome://downloads"
     },
     {
-      "title": "Settings",
-      "url": "chrome://settings"
+      "title": "Apps",
+      "url": "chrome://apps"
     },
     {
       "title": "Plugins",
       "url": "chrome://plugins"
     },
     {
-      "title": "Version",
-      "url": "chrome://version"
+      "title": "Settings",
+      "url": "chrome://settings"
     },
     {
       "title": "Internals",
