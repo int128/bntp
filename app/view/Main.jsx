@@ -4,6 +4,7 @@ import NetworkStatus from './NetworkStatus.jsx';
 import Footer from './Footer.jsx';
 
 import TopSites from './TopSites.jsx';
+import Apps from './Apps.jsx';
 import Bookmarks from './Bookmarks.jsx';
 import PrefsThemes from './PrefsThemes.jsx';
 import PrefsVisibility from './PrefsVisibility.jsx';
@@ -13,10 +14,10 @@ import Preferences from '../repository/Preferences.jsx';
 export default class extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {showTopSites: true, showBookmarks: true};
+    this.state = {showTopSites: true, showBookmarks: true, showApps: true};
   }
   componentDidMount() {
-    this.setState(Preferences.get('showTopSites', 'showBookmarks'));
+    this.setState(Preferences.get('showTopSites', 'showBookmarks', 'showApps'));
   }
   onChange(state) {
     this.setState(state);
@@ -28,13 +29,16 @@ export default class extends React.Component {
         <NetworkStatus/>
         {this.state.showTopSites ? (<TopSites />) : null}
         {this.state.showBookmarks ? (<Bookmarks />) : null}
+        {this.state.showApps ? (<Apps />) : null}
         <section className="Preferences">
           <PrefsThemes/>
           <PrefsVisibility
             showTopSites={this.state.showTopSites}
             showBookmarks={this.state.showBookmarks}
+            showApps={this.state.showApps}
             showTopSitesOnChange={v => this.onChange({showTopSites: v})}
             showBookmarksOnChange={v => this.onChange({showBookmarks: v})}
+            showAppsOnChange={v => this.onChange({showApps: v})}
             />
         </section>
         <Footer/>

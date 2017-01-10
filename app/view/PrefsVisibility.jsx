@@ -15,6 +15,11 @@ export default class extends React.Component {
           title="Bookmarks"
           value={this.props.showBookmarks}
           onChange={this.props.showBookmarksOnChange}/>
+        <Visibility
+          name="showApps"
+          title="Apps"
+          value={this.props.showApps}
+          onChange={this.props.showAppsOnChange}/>
       </form>
     );
   }
