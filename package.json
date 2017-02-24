@@ -7,17 +7,17 @@
     "url": "https://github.com/int128/new-tab-bookmarks.git"
   },
   "devDependencies": {
-    "babel-core": "^6.10.4",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.11.1",
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
     "copy-webpack-plugin": "^3.0.1",
     "css-loader": "^0.23.1",
     "json-loader": "^0.5.4",
-    "less": "^2.7.1",
+    "less": "^2.7.2",
     "less-loader": "^2.2.3",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.1"
+    "webpack": "^1.14.0"
   },
   "dependencies": {
     "react": "^15.4.2",
