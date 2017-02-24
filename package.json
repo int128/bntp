@@ -20,12 +20,15 @@
     "webpack": "^1.13.1"
   },
   "dependencies": {
-    "react": "^0.14.8"
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.3",
+    "redux": "^3.6.0"
   },
   "scripts": {
     "start": "webpack -d --watch",
     "build": "webpack -p",
-    "zip":   "zip -j - build/extension/* > build/extension.zip",
+    "zip": "zip -j - build/extension/* > build/extension.zip",
     "clean": "rm -fr build"
   }
 }
