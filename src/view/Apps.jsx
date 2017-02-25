@@ -55,7 +55,7 @@ class AppFolder extends React.Component {
 
 class App extends React.Component {
   onClick(e) {
-    chrome.management.launchApp(this.props.id);
+    window.chrome.management.launchApp(this.props.id);
     e.preventDefault();
   }
   render() {

@@ -4,17 +4,17 @@ import ChromePages from './ChromePages.json';
 
 export default {
   get(callback) {
-    chrome.bookmarks.getTree(tree => callback(arrange(tree)));
+    window.chrome.bookmarks.getTree(tree => callback(arrange(tree)));
   },
   getForDemo(callback) {
     RestClient.get('demo.json', data => callback(arrange(data.bookmarks)));
   },
   addChangeListener(callback) {
-    chrome.bookmarks.onCreated.addListener(callback);
-    chrome.bookmarks.onRemoved.addListener(callback);
-    chrome.bookmarks.onChanged.addListener(callback);
-    chrome.bookmarks.onMoved.addListener(callback);
-    chrome.bookmarks.onChildrenReordered.addListener(callback);
+    window.chrome.bookmarks.onCreated.addListener(callback);
+    window.chrome.bookmarks.onRemoved.addListener(callback);
+    window.chrome.bookmarks.onChanged.addListener(callback);
+    window.chrome.bookmarks.onMoved.addListener(callback);
+    window.chrome.bookmarks.onChildrenReordered.addListener(callback);
   }
 }
 

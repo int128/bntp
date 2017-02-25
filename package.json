@@ -1,34 +1,18 @@
 {
   "name": "new-tab-bookmarks",
-  "description": "an extension to add the tab with bookmarks",
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/int128/new-tab-bookmarks.git"
-  },
+  "version": "0.1.0",
+  "private": true,
   "devDependencies": {
-    "babel-core": "^6.23.1",
-    "babel-loader": "^6.3.2",
-    "babel-preset-es2015": "^6.22.0",
-    "babel-preset-react": "^6.23.0",
-    "copy-webpack-plugin": "^3.0.1",
-    "css-loader": "^0.23.1",
-    "json-loader": "^0.5.4",
-    "less": "^2.7.2",
-    "less-loader": "^2.2.3",
-    "style-loader": "^0.13.1",
-    "webpack": "^1.14.0"
+    "react-scripts": "0.9.0"
   },
   "dependencies": {
     "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "react-redux": "^5.0.3",
-    "redux": "^3.6.0"
+    "react-dom": "^15.4.2"
   },
   "scripts": {
-    "start": "webpack -d --watch",
-    "build": "webpack -p",
-    "zip": "zip -j - build/extension/* > build/extension.zip",
-    "clean": "rm -fr build"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }

@@ -72,7 +72,7 @@ class BookmarkFolder extends React.Component {
 class BookmarkItem extends React.Component {
   onClick(e) {
     if (this.props.url.match(/^(chrome|file|javascript):/)) {
-      chrome.tabs.create({url: this.props.url});
+      window.chrome.tabs.create({url: this.props.url});
       e.preventDefault();
     }
   }

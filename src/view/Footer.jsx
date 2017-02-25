@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Manifest from '../../static/manifest.json';
+import Manifest from '../../public/manifest.json';
 
 export default class extends React.Component {
   render() {
-    const store = `https://chrome.google.com/webstore/detail/${chrome.runtime.id}`;
+    const store = `https://chrome.google.com/webstore/detail/${window.chrome.runtime.id}`;
     return (
       <section className="Footer">
         <form>
