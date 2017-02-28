@@ -10,7 +10,7 @@
     "management"
   ],
   "chrome_url_overrides": {
-    "newtab": "newtab.html"
+    "newtab": "index.html"
   },
   "icons": {
     "48": "small_tiles.png",
