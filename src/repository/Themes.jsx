@@ -1,7 +1,7 @@
-import LightTheme from '../theme/light.less';
-import DarkTheme from '../theme/dark.less';
-import SolarizedLightTheme from '../theme/solarized-light.less';
-import SolarizedDarkTheme from '../theme/solarized-dark.less';
+import LightTheme from '!style/useable!css!less!../theme/light.less';
+import DarkTheme from '!style/useable!css!less!../theme/dark.less';
+import SolarizedLightTheme from '!style/useable!css!less!../theme/solarized-light.less';
+import SolarizedDarkTheme from '!style/useable!css!less!../theme/solarized-dark.less';
 
 export default {
   findAll() {

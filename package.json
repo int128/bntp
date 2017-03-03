@@ -5,6 +5,7 @@
   "description": "an extension to add the tab with bookmarks",
   "license": "Apache-2.0",
   "devDependencies": {
+    "less-loader": "^2.2.3",
     "react-scripts": "0.9.0"
   },
   "dependencies": {
@@ -15,7 +16,7 @@
     "start": "node scripts/start.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "zip":   "zip -j - build/* > build/extension.zip",
+    "zip": "zip -j - build/* > build/extension.zip",
     "clean": "rm -fr build"
   }
 }
