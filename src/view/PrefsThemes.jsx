@@ -23,6 +23,7 @@ export default class extends React.Component {
         <p>Themes</p>
         {Themes.findAll().map(theme =>
           <Theme
+            key={theme.name}
             name={theme.name}
             title={theme.title}
             value={this.state.theme.name}
