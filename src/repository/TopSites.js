@@ -1,4 +1,4 @@
-import RestClient from '../util/RestClient.jsx';
+import RestClient from '../util/RestClient.js';
 
 export default {
   get(callback) {

@@ -1,15 +1,15 @@
 import React from 'react';
 
-import NetworkStatus from './NetworkStatus.jsx';
-import Footer from './Footer.jsx';
+import NetworkStatus from './NetworkStatus.js';
+import Footer from './Footer.js';
 
-import TopSites from './TopSites.jsx';
-import Apps from './Apps.jsx';
-import Bookmarks from './Bookmarks.jsx';
-import PrefsThemes from './PrefsThemes.jsx';
-import PrefsVisibility from './PrefsVisibility.jsx';
+import TopSites from './TopSites.js';
+import Apps from './Apps.js';
+import Bookmarks from './Bookmarks.js';
+import PrefsThemes from './PrefsThemes.js';
+import PrefsVisibility from './PrefsVisibility.js';
 
-import Preferences from '../repository/Preferences.jsx';
+import Preferences from '../repository/Preferences.js';
 
 export default class extends React.Component {
   constructor(props) {

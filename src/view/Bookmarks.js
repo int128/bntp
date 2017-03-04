@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Bookmarks from '../repository/Bookmarks.jsx';
-import Preferences from '../repository/Preferences.jsx';
+import Bookmarks from '../repository/Bookmarks.js';
+import Preferences from '../repository/Preferences.js';
 
 export default class extends React.Component {
   constructor(props) {

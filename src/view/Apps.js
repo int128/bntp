@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Apps from '../repository/Apps.jsx';
-import Preferences from '../repository/Preferences.jsx';
+import Apps from '../repository/Apps.js';
+import Preferences from '../repository/Preferences.js';
 
 export default class extends React.Component {
   render() {

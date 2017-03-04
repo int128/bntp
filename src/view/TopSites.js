@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TopSites from '../repository/TopSites.jsx';
+import TopSites from '../repository/TopSites.js';
 
 export default class extends React.Component {
   constructor(props) {

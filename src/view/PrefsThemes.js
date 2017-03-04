@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Preferences from '../repository/Preferences.jsx';
-import Themes from '../repository/Themes.jsx';
+import Preferences from '../repository/Preferences.js';
+import Themes from '../repository/Themes.js';
 
 export default class extends React.Component {
   constructor(props) {
