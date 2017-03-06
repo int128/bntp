@@ -3,78 +3,44 @@ import React from 'react';
 import Apps from '../repository/Apps.js';
 import Preferences from '../repository/Preferences.js';
 
-export default class extends React.Component {
-  render() {
-    return (
-      <AppFolder id="chrome://apps" title="Chrome Apps" />
-    );
-  }
-}
+import Folder from './tile/Folder.js';
+import FolderItem from './tile/FolderItem.js';
 
-class AppFolder extends React.Component {
+export default class extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {items: [], collapse: false};
+    this.state = {items: []};
+    this.id = 'chrome://apps';
   }
   componentDidMount() {
-    this.setState({collapse: Preferences.getFolderCollapse(this.props.id)});
     Apps.get(items => this.setState({items: items}));
   }
-  onClick(e) {
-    this.setState({collapse: !this.state.collapse});
-    Preferences.saveFolderCollapse(this.props.id, !this.state.collapse);
-    e.preventDefault();
-  }
-  render() {
-    if (this.state.collapse) {
-      return (
-        <section className="BookmarkFolder">
-          <div className="BookmarkFolderHeading">
-            <a href="click: Expand this folder" onClick={this.onClick.bind(this)}>
-              {this.props.title}
-            </a>
-          </div>
-        </section>
-      );
-    } else {
-      return (
-        <div className="BookmarkFolder">
-          <div className="BookmarkFolderHeadingItem">
-            <a href="click: Collapse this folder" onClick={this.onClick.bind(this)}>
-              {this.props.title}
-            </a>
-          </div>
-          {this.state.items.map(item =>
-            <App key={item.id} id={item.id} name={item.name} icons={item.icons} />
-          )}
-        </div>
-      );
-    }
-  }
-}
-
-class App extends React.Component {
-  onClick(e) {
-    window.chrome.management.launchApp(this.props.id);
-    e.preventDefault();
+  onCollapse(props, collapse) {
+    Preferences.saveFolderCollapse(this.id, collapse);
   }
   render() {
     return (
-      <div className="BookmarkItem">
-        <a href={this.props.id} onClick={this.onClick.bind(this)}>
-          <div className="BookmarkItemButton">
-            <div className="BookmarkItemButtonBody"
-              style={{backgroundImage: `url(${this.getLargestIcon()})`}}>
-              {this.props.name}
-            </div>
-          </div>
-        </a>
+      <div className="Apps">
+        <Folder title="Chrome Apps"
+                collapse={Preferences.getFolderCollapse(this.id)}
+                onCollapse={this.onCollapse.bind(this)}>
+          {this.state.items.map(item =>
+            <FolderItem key={item.id} url={item.id} icon={findLargestIcon(item.icons)} onLaunch={launchApp}>
+              {item.name}
+            </FolderItem>
+          )}
+        </Folder>
       </div>
     );
   }
-  getLargestIcon() {
-    if (this.props.icons && this.props.icons.length > 0) {
-      return this.props.icons.sort((x, y) => x.size - y.size).pop().url;
-    }
+}
+
+function launchApp(props) {
+  window.chrome.management.launchApp(props.url);
+}
+
+function findLargestIcon(icons) {
+  if (Array.isArray(icons) && icons.length > 0) {
+    return icons.sort((x, y) => x.size - y.size).pop().url;
   }
 }

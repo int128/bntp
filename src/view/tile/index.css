@@ -1,0 +1,66 @@
+.TileFolder {
+  --size-folder-margin-y: 3px;
+  --size-folder-margin-x: 15px;
+  --size-folder-margin-y: 5px;
+  --size-folder-padding-x: 15px;
+  --size-folder-padding-y: 5px;
+  --size-folder-item-margin: 5px;
+  --size-folder-item-padding: 5px;
+  --size-folder-item-width: 160px;
+  --size-folder-item-height: 48px;
+  --size-icon: 16px;
+}
+
+.TileFolder {
+  border-radius: 3px;
+  margin-top: var(--size-folder-margin-y);
+  margin-bottom: var(--size-folder-margin-y);
+  margin-left: var(--size-folder-margin-x);
+  margin-right: var(--size-folder-margin-x);
+  padding-top: var(--size-folder-padding-y);
+  padding-bottom: calc(var(--size-folder-padding-y) - var(--size-folder-item-margin));
+  padding-left: var(--size-folder-padding-x);
+  padding-right: calc(var(--size-folder-padding-x) - var(--size-folder-item-margin));
+}
+
+.TileFolder__Heading__Expand,
+.TileFolder__Heading__Collapse {
+  margin-left: 2px;
+  font-size: 120%;
+}
+
+.TileFolder__Heading__Expand {
+  width: var(--size-folder-item-width);
+  vertical-align: top;
+}
+
+.TileFolder__Heading,
+.TileFolderItem {
+  display: inline-block;
+  margin-bottom: var(--size-folder-item-margin);
+  margin-right: var(--size-folder-item-margin);
+}
+
+.TileFolderItem__Button {
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  border-radius: 3px;
+  width: var(--size-folder-item-width);
+  height: var(--size-folder-item-height);
+}
+
+.TileFolderItem__Button:hover {
+}
+
+.TileFolderItem__ButtonBody {
+  padding: var(--size-folder-item-padding);
+  min-height: var(--size-folder-item-height);
+  padding-left: calc(var(--size-folder-item-padding) * 2 + var(--size-icon));
+  background-repeat: no-repeat;
+  /* background-image should be given in HTML */
+  background-position-x: var(--size-folder-item-padding);
+  background-position-y: var(--size-folder-item-padding);
+  background-size: 16px;
+}
