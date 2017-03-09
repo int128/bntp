@@ -1,33 +1,37 @@
-export default {
-  getThemeName() {
-    return localStorage.theme;
-  },
-  saveThemeName(name) {
-    localStorage.theme = name;
-  },
-  getFolderCollapse(id) {
-    return localStorage.getItem(`folder_${id}_collapse`) == 'collapse';
-  },
-  saveFolderCollapse(id, collapse) {
-    if (collapse) {
-      localStorage.setItem(`folder_${id}_collapse`, 'collapse');
+class Preferences {
+  constructor(prefix, defaultValue) {
+    this._prefix = prefix;
+    this._defaultValue = defaultValue;
+    this._listeners = [];
+  }
+  find(id) {
+    const value = localStorage.getItem(`${this._prefix}__${id}`);
+    return value === null ? this._defaultValue : value;
+  }
+  save(id, value) {
+    if (value === this._defaultValue) {
+      localStorage.removeItem(`${this._prefix}__${id}`);
     } else {
-      localStorage.removeItem(`folder_${id}_collapse`);
+      localStorage.setItem(`${this._prefix}__${id}`, value);
     }
-  },
-  get(...keys) {
-    const state = {};
-    keys.forEach(key => {
-      const jsonValue = localStorage.getItem(key);
-      if (jsonValue !== null) {
-        state[key] = JSON.parse(jsonValue);
+    this._listeners.forEach((listener) =>
+      listener.call(this, {
+        storageArea: localStorage,
+        key: `${this._prefix}__${id}`,
+        newValue: value
+      }));
+  }
+  onChange(id, callback) {
+    const listener = (e) => {
+      if (e.storageArea === localStorage && e.key === `${this._prefix}__${id}`) {
+        callback.call(this, e.newValue);
       }
-    });
-    return state;
-  },
-  save(state) {
-    Object.keys(state).forEach(key =>
-      localStorage.setItem(key, JSON.stringify(state[key]))
-    );
+    };
+    window.addEventListener('storage', listener);
+    this._listeners.push(listener);
   }
 }
+
+export const FolderCollapse = new Preferences('FolderCollapse', false);
+export const Visibility = new Preferences('Visibility', true);
+export const CurrentTheme = new Preferences('CurrentTheme');

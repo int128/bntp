@@ -15,9 +15,6 @@ class Theme {
     this.name = name;
     this.title = title;
   }
-  apply() {
-    console.error("Theme#apply");
-  }
 }
 
 const themes = [

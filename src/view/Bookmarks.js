@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Bookmarks from '../repository/Bookmarks.js';
-import Preferences from '../repository/Preferences.js';
+import { FolderCollapse } from '../repository/Preferences.js';
 
 import Folder from './tile/Folder.js';
 import FolderItem from './tile/FolderItem.js';
@@ -21,7 +21,7 @@ export default class extends React.Component {
     }
   }
   onCollapse(props, collapse) {
-    Preferences.saveFolderCollapse(props.id, collapse);
+    FolderCollapse.save(props.id, collapse);
   }
   render() {
     return (
@@ -30,7 +30,7 @@ export default class extends React.Component {
           <Folder key={folder.id}
                   id={folder.id}
                   title={folder.title}
-                  collapse={Preferences.getFolderCollapse(folder.id)}
+                  collapse={FolderCollapse.find(folder.id)}
                   onCollapse={this.onCollapse.bind(this)}>
             {folder.children.map(item =>
               <FolderItem key={item.id} url={item.url} icon={`chrome://favicon/${item.url}`}>

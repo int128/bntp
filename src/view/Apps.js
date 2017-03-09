@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Apps from '../repository/Apps.js';
-import Preferences from '../repository/Preferences.js';
+import { FolderCollapse } from '../repository/Preferences.js';
 
 import Folder from './tile/Folder.js';
 import FolderItem from './tile/FolderItem.js';
@@ -16,13 +16,13 @@ export default class extends React.Component {
     Apps.get(items => this.setState({items: items}));
   }
   onCollapse(props, collapse) {
-    Preferences.saveFolderCollapse(this.id, collapse);
+    FolderCollapse.save(this.id, collapse);
   }
   render() {
     return (
       <div className="Apps">
         <Folder title="Chrome Apps"
-                collapse={Preferences.getFolderCollapse(this.id)}
+                collapse={FolderCollapse.find(this.id)}
                 onCollapse={this.onCollapse.bind(this)}>
           {this.state.items.map(item =>
             <FolderItem key={item.id} url={item.id} icon={findLargestIcon(item.icons)} onLaunch={launchApp}>
