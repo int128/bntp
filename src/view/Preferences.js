@@ -9,11 +9,7 @@ export default class extends React.Component {
       <div className="Preferences">
         <form>
           <p>Themes</p>
-          {Themes.findAll().map(theme =>
-            <ThemeSelection key={theme.name} name={theme.name}>
-              {theme.title}
-            </ThemeSelection>
-          )}
+          <ThemeSelection />
         </form>
         <form>
           <p>Toggle</p>
@@ -35,18 +31,27 @@ export default class extends React.Component {
 class ThemeSelection extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {checked: CurrentTheme.find(props.name)};
+    this.state = {selected: CurrentTheme.find()};
+  }
+  componentDidMount() {
+    CurrentTheme.onChange((selected) => this.setState({selected: selected}));
+  }
+  onChange(selected) {
+    CurrentTheme.save(selected);
   }
   render() {
     return (
-      <label>
-        <input type="radio"
-          name="Theme"
-          value={this.props.name}
-          checked={this.state.checked}
-          onChange={e => this.onChange(e.target.value)}/>
-        {this.props.children}
-      </label>
+      <div>
+        {Themes.findAll().map(theme =>
+          <label key={theme.name}>
+            <input type="radio" name="Theme"
+              value={theme.name}
+              checked={this.state.selected === theme.name}
+              onChange={(e) => this.onChange(theme.name)}/>
+            {theme.title}
+          </label>
+        )}
+      </div>
     );
   }
 }

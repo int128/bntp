@@ -1,4 +1,6 @@
-class Preferences {
+import Themes from './Themes.js';
+
+class KeyValueMap {
   constructor(prefix, defaultValue) {
     this._prefix = prefix;
     this._defaultValue = defaultValue;
@@ -24,7 +26,11 @@ class Preferences {
   onChange(id, callback) {
     const listener = (e) => {
       if (e.storageArea === localStorage && e.key === `${this._prefix}__${id}`) {
-        callback.call(this, e.newValue);
+        if (e.newValue === null) {
+          callback.call(this, this._defaultValue);
+        } else {
+          callback.call(this, e.newValue);
+        }
       }
     };
     window.addEventListener('storage', listener);
@@ -32,6 +38,22 @@ class Preferences {
   }
 }
 
-export const FolderCollapse = new Preferences('FolderCollapse', false);
-export const Visibility = new Preferences('Visibility', true);
-export const CurrentTheme = new Preferences('CurrentTheme');
+class Single extends KeyValueMap {
+  constructor(prefix, defaultValue) {
+    super(prefix, defaultValue);
+  }
+  find() {
+    return super.find(0);
+  }
+  save(value) {
+    super.save(0, value);
+  }
+  onChange(callback) {
+    super.onChange(0, callback);
+  }
+}
+
+export const FolderCollapse = new KeyValueMap('FolderCollapse', false);
+export const Visibility = new KeyValueMap('Visibility', true);
+
+export const CurrentTheme = new Single('CurrentTheme', Themes.getDefault().name);
