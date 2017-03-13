@@ -13,11 +13,6 @@ export default class extends React.Component {
             </div>
           </div>
         </a>
-        <div className="BarFolderItem__Tip">
-          <div className="BarFolderItem__TipBody">
-            {this.props.children}
-          </div>
-        </div>
       </div>
     );
   }

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import NetworkStatus from './NetworkStatus.js';
-import Footer from './Footer.js';
 
 import Togglable from './Togglable.js';
 import TopSites from './TopSites.js';

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import FixedTip from './tip/FixedTip.js';
+
 export default class extends React.Component {
   constructor(props) {
     super(props);
@@ -12,7 +14,7 @@ export default class extends React.Component {
   }
   render() {
     if (this.state.offline) {
-      return <div className="NetworkStatus">Network is Offline</div>;
+      return <FixedTip>Network is Offline</FixedTip>;
     } else {
       return null;
     }

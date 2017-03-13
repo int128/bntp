@@ -9,7 +9,6 @@
   --size-folder-item-width: 48px;
   --size-folder-item-height: 48px;
   --size-icon: 16px;
-  --size-tip: 160px;
 }
 
 .BarFolder {
@@ -29,8 +28,6 @@
 }
 
 .BarFolderItem {
-  white-space: normal;
-
   display: inline-block;
   margin-bottom: var(--size-folder-item-margin);
   margin-right: var(--size-folder-item-margin);
@@ -62,29 +59,4 @@
   background-repeat: no-repeat;
   /* background-image should be given in HTML */
   background-size: 16px;
-}
-
-.BarFolderItem__Tip {
-  position: absolute;
-  z-index: 10;
-  max-width: var(--size-tip);
-  display: none;
-}
-
-.BarFolder:hover .BarFolderItem:hover .BarFolderItem__Tip {
-  display: block;
-}
-
-.BarFolderItem__Tip:hover {
-  opacity: 0;
-  transition: opacity 0.25s linear;
-}
-
-.BarFolderItem__TipBody {
-  margin-top: var(--size-folder-padding-y);
-  padding: 5px;
-  border-radius: 3px;
-  color: var(--palette-3);
-  background-color: var(--palette-03);
-  opacity: 0.8;
 }

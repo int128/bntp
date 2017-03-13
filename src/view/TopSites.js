@@ -6,6 +6,8 @@ import { Visibility } from '../repository/Preferences.js';
 import Folder from './bar/Folder.js';
 import FolderItem from './bar/FolderItem.js';
 
+import FloatTip from './tip/FloatTip.js';
+
 export default class extends React.Component {
   constructor(props) {
     super(props);
@@ -23,9 +25,9 @@ export default class extends React.Component {
       <div className="TopSites">
         <Folder>
           {this.state.items.map(item =>
-            <FolderItem key={item.url} url={item.url} icon={`chrome://favicon/${item.url}`}>
-              {item.title}
-            </FolderItem>
+            <FloatTip key={item.url} title={item.title}>
+              <FolderItem url={item.url} icon={`chrome://favicon/${item.url}`} />
+            </FloatTip>
           )}
         </Folder>
       </div>

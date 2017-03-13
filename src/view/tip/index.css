@@ -1,0 +1,40 @@
+.FixedTip {
+  z-index: 20;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+.FixedTip__Body,
+.FloatTip__Body {
+  padding: 5px;
+  border-radius: 3px;
+  color: var(--palette-3);
+  background-color: var(--palette-03);
+  opacity: 0.8;
+}
+
+.FloatTip {
+  display: inline-block;
+}
+
+.FloatTip__Baloon {
+  position: absolute;
+  z-index: 10;
+  max-width: 160px;
+  display: none;
+}
+
+.FloatTip:hover .FloatTip__Baloon {
+  display: block;
+}
+
+.FloatTip__Baloon:hover {
+  opacity: 0;
+  transition: opacity 0.25s linear;
+}
+
+.FloatTip__Body {
+  margin-top: 3px;
+  white-space: normal;
+}
