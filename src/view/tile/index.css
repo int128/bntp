@@ -21,6 +21,7 @@
   padding-bottom: calc(var(--size-folder-padding-y) - var(--size-folder-item-margin));
   padding-left: var(--size-folder-padding-x);
   padding-right: calc(var(--size-folder-padding-x) - var(--size-folder-item-margin));
+  background-color: var(--palette-2);
 }
 
 .TileFolder__Heading__Expand,
@@ -49,9 +50,12 @@
   border-radius: 3px;
   width: var(--size-folder-item-width);
   height: var(--size-folder-item-height);
+  background-color: var(--palette-3);
 }
 
 .TileFolderItem__Button:hover {
+  background-color: var(--palette-2);
+  box-shadow: 0 0 calc(var(--size-folder-item-margin) * 3) var(--palette-01);
 }
 
 .TileFolderItem__ButtonBody {

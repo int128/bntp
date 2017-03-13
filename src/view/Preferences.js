@@ -3,8 +3,13 @@ import React from 'react';
 import Themes from '../repository/Themes.js';
 import { Visibility, CurrentTheme } from '../repository/Preferences.js';
 
+import Manifest from '../../public/manifest.json';
+
+import './Preferences.css';
+
 export default class extends React.Component {
   render() {
+    const store = `https://chrome.google.com/webstore/detail/${window.chrome.runtime.id}`;
     return (
       <div className="Preferences">
         <form>
@@ -22,6 +27,12 @@ export default class extends React.Component {
           <VisibilityToggle name="Apps">
             Apps
           </VisibilityToggle>
+        </form>
+        <form>
+          <p>{Manifest.name} {Manifest.version}</p>
+          <label>
+            <a href={store}>Review on Web Store</a>
+          </label>
         </form>
       </div>
     );
