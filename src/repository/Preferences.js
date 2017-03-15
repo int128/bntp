@@ -39,9 +39,6 @@ class KeyValueMap {
 }
 
 class Single extends KeyValueMap {
-  constructor(prefix, defaultValue) {
-    super(prefix, defaultValue);
-  }
   find() {
     return super.find(0);
   }

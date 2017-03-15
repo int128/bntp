@@ -1,7 +1,6 @@
 import React from 'react';
 
 import TopSites from '../repository/TopSites.js';
-import { Visibility } from '../repository/Preferences.js';
 
 import Folder from './bar/Folder.js';
 import FolderItem from './bar/FolderItem.js';
