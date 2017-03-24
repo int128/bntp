@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchBookmarks } from '../actions';
+import { fetchBookmarks, toggleFolderCollapse } from '../actions';
 
-import Folder from '../view/tile/Folder';
-import FolderItem from '../view/tile/FolderItem';
+import { TileFolder, TileFolderItem } from '../components/Tile';
 
 class Bookmarks extends React.Component {
   static propTypes = {
@@ -16,18 +15,19 @@ class Bookmarks extends React.Component {
   }
 
   render() {
+    const { dispatch, folders, collapsedFolders } = this.props;
     return (
       <div className="Bookmarks">
-        {this.props.folders.map(folder =>
-          <Folder key={folder.id}
-                  id={folder.id}
-                  title={folder.title}>
+        {folders.map(folder =>
+          <TileFolder key={folder.id} title={folder.title}
+                      collapsed={collapsedFolders.indexOf(folder) >= 0}
+                      onToggle={collapsed => dispatch(toggleFolderCollapse(folder, collapsed))}>
             {folder.children.map(item =>
-              <FolderItem key={item.id} url={item.url} icon={`chrome://favicon/${item.url}`}>
+              <TileFolderItem key={item.id} url={item.url} icon={`chrome://favicon/${item.url}`}>
                 {item.title}
-              </FolderItem>
+              </TileFolderItem>
             )}
-          </Folder>
+          </TileFolder>
         )}
       </div>
     );
@@ -36,7 +36,8 @@ class Bookmarks extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    folders: state.bookmarks.folders
+    folders: state.bookmarks.folders,
+    collapsedFolders: state.collapsedFolders
   };
 }
 

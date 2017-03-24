@@ -1,4 +1,5 @@
 export const RECEIVE_BOOKMARKS = 'RECEIVE_BOOKMARKS';
+export const TOGGLE_FOLDER_COLLAPSE = 'TOGGLE_FOLDER_COLLAPSE';
 
 function groupBookmarksByFolder(tree) {
   function traverse(folder) {
@@ -11,9 +12,7 @@ function groupBookmarksByFolder(tree) {
     }
     return Array.prototype.concat.apply(aggregated, subfolders.map(traverse))
   }
-  const folders = traverse({children: tree})
-  //folders.push(ChromePages)
-  return folders
+  return traverse({children: tree})
 }
 
 export function receiveBookmarks(tree) {
@@ -25,4 +24,12 @@ export function receiveBookmarks(tree) {
 
 export function fetchBookmarks(dispatch) {
   return window.chrome.bookmarks.getTree(tree => dispatch(receiveBookmarks(tree)));
+}
+
+export function toggleFolderCollapse(folder, collapsed) {
+  return {
+    type: TOGGLE_FOLDER_COLLAPSE,
+    folder,
+    collapsed
+  };
 }
