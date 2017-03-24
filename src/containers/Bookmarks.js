@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { fetchBookmarks, toggleFolderCollapse } from '../actions';
@@ -7,7 +7,8 @@ import { TileFolder, TileFolderItem } from '../components/Tile';
 
 class Bookmarks extends React.Component {
   static propTypes = {
-    folders: React.PropTypes.array.isRequired,
+    bookmarkFolders: PropTypes.array.isRequired,
+    collapsedFolders: PropTypes.array.isRequired
   }
 
   componentDidMount() {
@@ -15,10 +16,10 @@ class Bookmarks extends React.Component {
   }
 
   render() {
-    const { dispatch, folders, collapsedFolders } = this.props;
+    const { dispatch, bookmarkFolders, collapsedFolders } = this.props;
     return (
       <div className="Bookmarks">
-        {folders.map(folder =>
+        {bookmarkFolders.map(folder =>
           <TileFolder key={folder.id} title={folder.title}
                       collapsed={collapsedFolders.indexOf(folder) >= 0}
                       onToggle={collapsed => dispatch(toggleFolderCollapse(folder, collapsed))}>
@@ -36,7 +37,7 @@ class Bookmarks extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    folders: state.bookmarks.folders,
+    bookmarkFolders: state.bookmarkFolders,
     collapsedFolders: state.collapsedFolders
   };
 }

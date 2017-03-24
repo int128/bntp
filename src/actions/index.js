@@ -3,14 +3,15 @@ export const TOGGLE_FOLDER_COLLAPSE = 'TOGGLE_FOLDER_COLLAPSE';
 
 function groupBookmarksByFolder(tree) {
   function traverse(folder) {
-    const sites      = folder.children.filter(child => child.url)
-    const subfolders = folder.children.filter(child => !child.url)
-    const aggregated = []
+    const sites      = folder.children.filter(child => child.url);
+    const subfolders = folder.children.filter(child => !child.url);
+    const flatten    = subfolders.map(traverse);
     if (sites.length > 0) {
-      folder.children = sites
-      aggregated.push(folder)
+      folder.children = sites;
+      return [folder].concat(...flatten);
+    } else {
+      return [].concat(...flatten);
     }
-    return Array.prototype.concat.apply(aggregated, subfolders.map(traverse))
   }
   return traverse({children: tree})
 }
