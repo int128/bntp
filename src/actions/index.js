@@ -23,14 +23,14 @@ export function receiveBookmarks(tree) {
   };
 }
 
-export function fetchBookmarks(dispatch) {
-  return window.chrome.bookmarks.getTree(tree => dispatch(receiveBookmarks(tree)));
+export function fetchBookmarks() {
+  return (dispatch) => window.chrome.bookmarks.getTree(tree => dispatch(receiveBookmarks(tree)));
 }
 
-export function toggleFolderCollapse(folder, collapsed) {
+export function toggleFolderCollapse(folderId, collapsed) {
   return {
     type: TOGGLE_FOLDER_COLLAPSE,
-    folder,
+    folderId,
     collapsed
   };
 }

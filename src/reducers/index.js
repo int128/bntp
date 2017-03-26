@@ -11,13 +11,13 @@ function bookmarkFolders(state = [], action) {
   }
 }
 
-function collapsedFolders(state = [], action) {
+function collapsedFolderIds(state = [], action) {
   switch (action.type) {
     case TOGGLE_FOLDER_COLLAPSE:
       if (action.collapsed) {
-        return [action.folder, ...state];
+        return [action.folderId, ...state];
       } else {
-        return state.filter(folder => folder !== action.folder);
+        return state.filter(folderId => folderId !== action.folderId);
       }
     default:
       return state;
@@ -26,5 +26,5 @@ function collapsedFolders(state = [], action) {
 
 export default combineReducers({
   bookmarkFolders,
-  collapsedFolders
+  collapsedFolderIds
 })
