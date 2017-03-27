@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 
+import { registerBookmarksListener, localStorageChanged } from './actions';
 import reducers from './reducers';
 import App from './components/App';
 
@@ -27,6 +28,14 @@ store.subscribe(() => {
   const { collapsedFolderIds } = store.getState();
   saveState({ collapsedFolderIds });
 });
+
+window.addEventListener('storage', e => {
+  if (e.storageArea === localStorage && e.key === 'state' && e.newValue !== null) {
+    store.dispatch(localStorageChanged(JSON.parse(e.newValue)));
+  }
+});
+
+store.dispatch(registerBookmarksListener());
 
 render(
   <Provider store={store}>

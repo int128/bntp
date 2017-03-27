@@ -2,6 +2,7 @@ export const RECEIVE_BOOKMARKS = 'RECEIVE_BOOKMARKS';
 export const TOGGLE_FOLDER_COLLAPSE = 'TOGGLE_FOLDER_COLLAPSE';
 export const RECEIVE_APPS = 'RECEIVE_APPS';
 export const RECEIVE_TOP_SITES = 'RECEIVE_TOP_SITES';
+export const LOCAL_STORAGE_CHANGED = 'LOCAL_STORAGE_CHANGED';
 
 function groupBookmarksByFolder(tree) {
   function traverse(folder) {
@@ -25,6 +26,17 @@ export function fetchBookmarks() {
   }));
 }
 
+export function registerBookmarksListener() {
+  return (dispatch) => {
+    const listener = () => dispatch(fetchBookmarks());
+    window.chrome.bookmarks.onCreated.addListener(listener);
+    window.chrome.bookmarks.onRemoved.addListener(listener);
+    window.chrome.bookmarks.onChanged.addListener(listener);
+    window.chrome.bookmarks.onMoved.addListener(listener);
+    window.chrome.bookmarks.onChildrenReordered.addListener(listener);
+  };
+}
+
 export function toggleFolderCollapse(folderId, collapsed) {
   return {
     type: TOGGLE_FOLDER_COLLAPSE,
@@ -45,4 +57,11 @@ export function fetchTopSites() {
     type: RECEIVE_TOP_SITES,
     items: items
   }));
+}
+
+export function localStorageChanged(state) {
+  return {
+    type: LOCAL_STORAGE_CHANGED,
+    state
+  };
 }

@@ -5,6 +5,7 @@ import {
   RECEIVE_APPS,
   RECEIVE_TOP_SITES,
   TOGGLE_FOLDER_COLLAPSE,
+  LOCAL_STORAGE_CHANGED,
 } from '../actions';
 
 function bookmarkFolders(state = [], action) {
@@ -42,6 +43,8 @@ function collapsedFolderIds(state = [], action) {
       } else {
         return state.filter(folderId => folderId !== action.folderId);
       }
+    case LOCAL_STORAGE_CHANGED:
+      return action.state.collapsedFolderIds;
     default:
       return state;
   }
