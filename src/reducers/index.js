@@ -5,6 +5,7 @@ import {
   RECEIVE_APPS,
   RECEIVE_TOP_SITES,
   TOGGLE_FOLDER_COLLAPSE,
+  SELECT_THEME,
   LOCAL_STORAGE_CHANGED,
 } from '../actions';
 
@@ -50,9 +51,21 @@ function collapsedFolderIds(state = [], action) {
   }
 }
 
+function selectedThemeName(state = 'light', action) {
+  switch (action.type) {
+    case SELECT_THEME:
+      return action.themeName;
+    case LOCAL_STORAGE_CHANGED:
+      return action.state.selectedThemeName;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   bookmarkFolders,
   apps,
   topSites,
   collapsedFolderIds,
+  selectedThemeName,
 })

@@ -25,8 +25,8 @@ function saveState(state) {
 }
 
 store.subscribe(() => {
-  const { collapsedFolderIds } = store.getState();
-  saveState({ collapsedFolderIds });
+  const { collapsedFolderIds, selectedThemeName } = store.getState();
+  saveState({ collapsedFolderIds, selectedThemeName });
 });
 
 window.addEventListener('storage', e => {

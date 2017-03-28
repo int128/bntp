@@ -1,7 +1,6 @@
 import React from 'react';
 
-import Themes from '../repository/Themes.js';
-import { Visibility, CurrentTheme } from '../repository/Preferences.js';
+import ThemeSelection from '../containers/ThemeSelection';
 
 import Manifest from '../../public/manifest.json';
 
@@ -18,15 +17,6 @@ export default class extends React.Component {
         </form>
         <form>
           <p>Toggle</p>
-          <VisibilityToggle name="TopSites">
-            Top Sites
-          </VisibilityToggle>
-          <VisibilityToggle name="Bookmarks">
-            Bookmarks
-          </VisibilityToggle>
-          <VisibilityToggle name="Apps">
-            Apps
-          </VisibilityToggle>
         </form>
         <form>
           <p>{Manifest.name} {Manifest.version}</p>
@@ -34,34 +24,6 @@ export default class extends React.Component {
             <a href={store}>Review on Web Store</a>
           </label>
         </form>
-      </div>
-    );
-  }
-}
-
-class ThemeSelection extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {selected: CurrentTheme.find()};
-  }
-  componentDidMount() {
-    CurrentTheme.onChange((selected) => this.setState({selected: selected}));
-  }
-  onChange(selected) {
-    CurrentTheme.save(selected);
-  }
-  render() {
-    return (
-      <div>
-        {Themes.findAll().map(theme =>
-          <label key={theme.name}>
-            <input type="radio" name="Theme"
-              value={theme.name}
-              checked={this.state.selected === theme.name}
-              onChange={(e) => this.onChange(theme.name)}/>
-            {theme.title}
-          </label>
-        )}
       </div>
     );
   }

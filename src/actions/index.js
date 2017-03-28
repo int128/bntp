@@ -2,6 +2,7 @@ export const RECEIVE_BOOKMARKS = 'RECEIVE_BOOKMARKS';
 export const TOGGLE_FOLDER_COLLAPSE = 'TOGGLE_FOLDER_COLLAPSE';
 export const RECEIVE_APPS = 'RECEIVE_APPS';
 export const RECEIVE_TOP_SITES = 'RECEIVE_TOP_SITES';
+export const SELECT_THEME = 'SELECT_THEME';
 export const LOCAL_STORAGE_CHANGED = 'LOCAL_STORAGE_CHANGED';
 
 function groupBookmarksByFolder(tree) {
@@ -57,6 +58,13 @@ export function fetchTopSites() {
     type: RECEIVE_TOP_SITES,
     items
   }));
+}
+
+export function selectTheme(themeName) {
+  return {
+    type: SELECT_THEME,
+    themeName
+  }
 }
 
 export function localStorageChanged(state) {
