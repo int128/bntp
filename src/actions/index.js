@@ -46,16 +46,16 @@ export function toggleFolderCollapse(folderId, collapsed) {
 }
 
 export function fetchApps() {
-  return (dispatch) => window.chrome.management.getAll(items => dispatch({
+  return dispatch => window.chrome.management.getAll(items => dispatch({
     type: RECEIVE_APPS,
     items: items.filter(item => /\w+_app/.test(item.type))
   }));
 }
 
 export function fetchTopSites() {
-  return (dispatch) => window.chrome.topSites.get(items => dispatch({
+  return dispatch => window.chrome.topSites.get(items => dispatch({
     type: RECEIVE_TOP_SITES,
-    items: items
+    items
   }));
 }
 
