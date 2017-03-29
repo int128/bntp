@@ -3,29 +3,24 @@ import { connect } from 'react-redux';
 
 import { selectTheme } from '../actions';
 
-const themes = [
-  {name: 'light', title: 'Light'},
-  {name: 'dark', title: 'Dark'},
-  {name: 'solarized-light', title: 'Solarized Light'},
-  {name: 'solarized-dark', title: 'Solarized Dark'},
-];
+import { Themes, Theme } from '../models/Themes';
 
 class ThemeSelection extends React.Component {
   static propTypes = {
-    selectedThemeName: PropTypes.string.isRequired,
+    selectedTheme: PropTypes.instanceOf(Theme).isRequired,
     onSelectTheme: PropTypes.func.isRequired,
   }
 
   render() {
-    const { selectedThemeName, onSelectTheme } = this.props;
+    const { selectedTheme, onSelectTheme } = this.props;
     return (
       <div>
-        {themes.map(theme =>
+        {Themes.findAll().map(theme =>
           <label key={theme.name}>
             <input type="radio" name="Theme"
               value={theme.name}
-              checked={theme.name === selectedThemeName}
-              onChange={e => onSelectTheme(theme.name)}/>
+              checked={theme.name === selectedTheme.name}
+              onChange={e => onSelectTheme(theme)}/>
             {theme.title}
           </label>
         )}
@@ -36,13 +31,13 @@ class ThemeSelection extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    selectedThemeName: state.selectedThemeName,
+    selectedTheme: Themes.findOrDefault(state.selectedThemeName),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSelectTheme: selectedThemeName => dispatch(selectTheme(selectedThemeName)),
+    onSelectTheme: selectedTheme => dispatch(selectTheme(selectedTheme)),
   };
 }
 

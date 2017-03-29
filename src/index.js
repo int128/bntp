@@ -9,6 +9,8 @@ import { registerBookmarksListener, localStorageChanged } from './actions';
 import reducers from './reducers';
 import App from './components/App';
 
+import './index.css';
+
 function initialState() {
   const state = localStorage.getItem('state');
   return (state !== null) ? JSON.parse(state) : undefined;
@@ -36,6 +38,11 @@ window.addEventListener('storage', e => {
 });
 
 store.dispatch(registerBookmarksListener());
+
+store.subscribe(() => {
+  const { selectedThemeName } = store.getState();
+  document.documentElement.className = `Theme__${selectedThemeName}`;
+});
 
 render(
   <Provider store={store}>

@@ -54,7 +54,7 @@ function collapsedFolderIds(state = [], action) {
 function selectedThemeName(state = 'light', action) {
   switch (action.type) {
     case SELECT_THEME:
-      return action.themeName;
+      return action.theme.name;
     case LOCAL_STORAGE_CHANGED:
       return action.state.selectedThemeName;
     default:

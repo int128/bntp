@@ -60,10 +60,10 @@ export function fetchTopSites() {
   }));
 }
 
-export function selectTheme(themeName) {
+export function selectTheme(theme) {
   return {
     type: SELECT_THEME,
-    themeName
+    theme
   }
 }
 
