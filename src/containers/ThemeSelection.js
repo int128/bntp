@@ -1,26 +1,27 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Seq } from 'immutable';
 
 import { selectTheme } from '../actions';
 
-import { Themes, Theme } from '../models/Themes';
+import { Theme } from '../models';
 
 class ThemeSelection extends React.Component {
   static propTypes = {
-    selectedTheme: PropTypes.instanceOf(Theme).isRequired,
-    onSelectTheme: PropTypes.func.isRequired,
+    themes: PropTypes.instanceOf(Seq).isRequired,
+    selectedTheme: PropTypes.instanceOf(Theme),
   }
 
   render() {
-    const { selectedTheme, onSelectTheme } = this.props;
+    const { themes, selectedTheme, dispatch } = this.props;
     return (
       <div>
-        {Themes.findAll().map(theme =>
-          <label key={theme.name}>
+        {themes.map(theme =>
+          <label key={theme.id}>
             <input type="radio" name="Theme"
-              value={theme.name}
-              checked={theme.name === selectedTheme.name}
-              onChange={e => onSelectTheme(theme)}/>
+              value={theme.id}
+              checked={theme.equals(selectedTheme)}
+              onChange={e => dispatch(selectTheme(theme))}/>
             {theme.title}
           </label>
         )}
@@ -29,16 +30,9 @@ class ThemeSelection extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    selectedTheme: Themes.findOrDefault(state.selectedThemeName),
-  };
-}
+const mapStateToProps = state => ({
+  themes: state.themes,
+  selectedTheme: state.selectedTheme,
+});
 
-function mapDispatchToProps(dispatch) {
-  return {
-    onSelectTheme: selectedTheme => dispatch(selectTheme(selectedTheme)),
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ThemeSelection);
+export default connect(mapStateToProps)(ThemeSelection);

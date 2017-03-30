@@ -1,62 +1,63 @@
 import { combineReducers } from 'redux';
+import { Seq } from 'immutable';
 
 import {
   RECEIVE_BOOKMARKS,
+  TOGGLE_BOOKMARK_FOLDER_COLLAPSE,
   RECEIVE_APPS,
   RECEIVE_TOP_SITES,
-  TOGGLE_FOLDER_COLLAPSE,
+  RECEIVE_THEMES,
   SELECT_THEME,
-  LOCAL_STORAGE_CHANGED,
 } from '../actions';
 
-function bookmarkFolders(state = [], action) {
+function bookmarkFolders(state = Seq(), action) {
   switch (action.type) {
     case RECEIVE_BOOKMARKS:
-      return action.items;
+      return action.bookmarkFolders;
+    case TOGGLE_BOOKMARK_FOLDER_COLLAPSE:
+      return state.map(bookmarkFolder => {
+        if (bookmarkFolder.equals(action.bookmarkFolder)) {
+          return bookmarkFolder.set('collapsed', !bookmarkFolder.collapsed);
+        } else {
+          return bookmarkFolder;
+        }
+      });
     default:
       return state;
   }
 }
 
-function apps(state = [], action) {
+function apps(state = Seq(), action) {
   switch (action.type) {
     case RECEIVE_APPS:
-      return action.items;
+      return action.apps;
     default:
       return state;
   }
 }
 
-function topSites(state = [], action) {
+function topSites(state = Seq(), action) {
   switch (action.type) {
     case RECEIVE_TOP_SITES:
-      return action.items;
+      return action.topSites;
     default:
       return state;
   }
 }
 
-function collapsedFolderIds(state = [], action) {
+function themes(state = Seq(), action) {
   switch (action.type) {
-    case TOGGLE_FOLDER_COLLAPSE:
-      if (action.collapsed) {
-        return [action.folderId, ...state];
-      } else {
-        return state.filter(folderId => folderId !== action.folderId);
-      }
-    case LOCAL_STORAGE_CHANGED:
-      return action.state.collapsedFolderIds;
+    case RECEIVE_THEMES:
+      return action.themes;
     default:
       return state;
   }
 }
 
-function selectedThemeName(state = 'light', action) {
+function selectedTheme(state = null, action) {
   switch (action.type) {
     case SELECT_THEME:
-      return action.theme.name;
-    case LOCAL_STORAGE_CHANGED:
-      return action.state.selectedThemeName;
+      return action.theme;
     default:
       return state;
   }
@@ -66,6 +67,6 @@ export default combineReducers({
   bookmarkFolders,
   apps,
   topSites,
-  collapsedFolderIds,
-  selectedThemeName,
+  themes,
+  selectedTheme,
 })

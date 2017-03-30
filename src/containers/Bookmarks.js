@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Seq } from 'immutable';
 
-import { fetchBookmarks, toggleFolderCollapse } from '../actions';
+import { fetchBookmarks, toggleBookmarkFolderCollapse } from '../actions';
 
 import { TileFolder, TileFolderItem } from '../components/Tile';
 
 class Bookmarks extends React.Component {
   static propTypes = {
-    bookmarkFolders: PropTypes.array.isRequired,
-    collapsedFolderIds: PropTypes.arrayOf(PropTypes.string).isRequired
+    bookmarkFolders: PropTypes.instanceOf(Seq).isRequired,
   }
 
   componentDidMount() {
@@ -17,16 +17,17 @@ class Bookmarks extends React.Component {
   }
 
   render() {
-    const { dispatch, bookmarkFolders, collapsedFolderIds } = this.props;
+    const { dispatch, bookmarkFolders } = this.props;
     return (
       <div className="Bookmarks">
-        {bookmarkFolders.map(folder =>
-          <TileFolder key={folder.id} title={folder.title}
-                      collapsed={collapsedFolderIds.indexOf(folder.id) >= 0}
-                      onToggle={collapsed => dispatch(toggleFolderCollapse(folder.id, collapsed))}>
-            {folder.children.map(item =>
-              <TileFolderItem key={item.id} url={item.url} icon={`chrome://favicon/${item.url}`}>
-                {item.title}
+        {bookmarkFolders.map(bookmarkFolder =>
+          <TileFolder key={bookmarkFolder.id}
+                      title={bookmarkFolder.title}
+                      collapsed={bookmarkFolder.collapsed}
+                      onToggle={collapsed => dispatch(toggleBookmarkFolderCollapse(bookmarkFolder))}>
+            {bookmarkFolder.bookmarks.map(bookmark =>
+              <TileFolderItem key={bookmark.id} url={bookmark.url} icon={bookmark.getIcon()}>
+                {bookmark.title}
               </TileFolderItem>
             )}
           </TileFolder>
@@ -36,11 +37,8 @@ class Bookmarks extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    bookmarkFolders: state.bookmarkFolders,
-    collapsedFolderIds: state.collapsedFolderIds
-  };
-}
+const mapStateToProps = state => ({
+  bookmarkFolders: state.bookmarkFolders,
+});
 
 export default connect(mapStateToProps)(Bookmarks);

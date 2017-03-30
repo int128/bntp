@@ -1,75 +1,75 @@
+import {
+  bookmarkRepository,
+  chromeAppRepository,
+  topSiteRepository,
+  themeRepository,
+} from '../repositories';
+
 export const RECEIVE_BOOKMARKS = 'RECEIVE_BOOKMARKS';
-export const TOGGLE_FOLDER_COLLAPSE = 'TOGGLE_FOLDER_COLLAPSE';
+export const TOGGLE_BOOKMARK_FOLDER_COLLAPSE = 'TOGGLE_BOOKMARK_FOLDER_COLLAPSE';
 export const RECEIVE_APPS = 'RECEIVE_APPS';
 export const RECEIVE_TOP_SITES = 'RECEIVE_TOP_SITES';
+export const RECEIVE_THEMES = 'RECEIVE_THEMES';
 export const SELECT_THEME = 'SELECT_THEME';
-export const LOCAL_STORAGE_CHANGED = 'LOCAL_STORAGE_CHANGED';
-
-function groupBookmarksByFolder(tree) {
-  function traverse(folder) {
-    const sites      = folder.children.filter(child => child.url);
-    const subfolders = folder.children.filter(child => !child.url);
-    const flatten    = subfolders.map(traverse);
-    if (sites.length > 0) {
-      folder.children = sites;
-      return [folder].concat(...flatten);
-    } else {
-      return [].concat(...flatten);
-    }
-  }
-  return traverse({children: tree})
-}
 
 export function fetchBookmarks() {
-  return (dispatch) => window.chrome.bookmarks.getTree(tree => dispatch({
+  return dispatch => bookmarkRepository.findAll(bookmarkTree => dispatch({
     type: RECEIVE_BOOKMARKS,
-    items: groupBookmarksByFolder(tree)
+    bookmarkFolders: bookmarkTree.flatten(),
   }));
 }
 
-export function registerBookmarksListener() {
-  return (dispatch) => {
-    const listener = () => dispatch(fetchBookmarks());
-    window.chrome.bookmarks.onCreated.addListener(listener);
-    window.chrome.bookmarks.onRemoved.addListener(listener);
-    window.chrome.bookmarks.onChanged.addListener(listener);
-    window.chrome.bookmarks.onMoved.addListener(listener);
-    window.chrome.bookmarks.onChildrenReordered.addListener(listener);
-  };
-}
-
-export function toggleFolderCollapse(folderId, collapsed) {
+export function toggleBookmarkFolderCollapse(bookmarkFolder) {
   return {
-    type: TOGGLE_FOLDER_COLLAPSE,
-    folderId,
-    collapsed
+    type: TOGGLE_BOOKMARK_FOLDER_COLLAPSE,
+    bookmarkFolder,
   };
 }
 
 export function fetchApps() {
-  return dispatch => window.chrome.management.getAll(items => dispatch({
+  return dispatch => chromeAppRepository.findAll(apps => dispatch({
     type: RECEIVE_APPS,
-    items: items.filter(item => /\w+_app/.test(item.type))
+    apps,
   }));
 }
 
 export function fetchTopSites() {
-  return dispatch => window.chrome.topSites.get(items => dispatch({
+  return dispatch => topSiteRepository.findAll(topSites => dispatch({
     type: RECEIVE_TOP_SITES,
-    items
+    topSites,
   }));
 }
 
+export function initializeListeners() {
+  return dispatch => {
+    bookmarkRepository.onChange(e => dispatch(fetchBookmarks()));
+    chromeAppRepository.onChange(e => dispatch(fetchApps()));
+  };
+}
+
+export function initializeTheme() {
+  return dispatch => {
+    const theme = themeRepository.findSelected() || themeRepository.first();
+    dispatch(selectTheme(theme));
+
+    const themes = themeRepository.findAll();
+    dispatch({
+      type: RECEIVE_THEMES,
+      themes
+    });
+
+    themeRepository.onSelect(theme => dispatch(selectTheme(theme)));
+  }
+}
+
 export function selectTheme(theme) {
+  themeRepository.saveSelected(theme);
+
+  // Apply theme on the root element
+  document.documentElement.className = `Theme__${theme.id}`;
+
   return {
     type: SELECT_THEME,
     theme
   }
-}
-
-export function localStorageChanged(state) {
-  return {
-    type: LOCAL_STORAGE_CHANGED,
-    state
-  };
 }

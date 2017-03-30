@@ -6,7 +6,7 @@ export class TileFolder extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     collapsed: PropTypes.bool,
-    onToggle: PropTypes.func.isRequired
+    onToggle: PropTypes.func,
   }
 
   onClick(e, collapsed) {
@@ -26,13 +26,22 @@ export class TileFolder extends React.Component {
           </div>
         </section>
       );
-    } else {
+    } else if (collapsed === false) {
       return (
         <section className="TileFolder">
           <div className="TileFolder__Heading TileFolder__Heading__Expand">
             <a href="click: Collapse this folder" onClick={e => this.onClick(e, !collapsed)}>
               {title}
             </a>
+          </div>
+          {children}
+        </section>
+      );
+    } else {
+      return (
+        <section className="TileFolder">
+          <div className="TileFolder__Heading TileFolder__Heading__Expand">
+            {title}
           </div>
           {children}
         </section>

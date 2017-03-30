@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Seq } from 'immutable';
 
 import { fetchTopSites } from '../actions';
 
@@ -7,7 +8,7 @@ import { BarFolder, BarFolderItem } from '../components/Bar';
 
 class TopSites extends React.Component {
   static propTypes = {
-    topSites: PropTypes.array.isRequired,
+    topSites: PropTypes.instanceOf(Seq).isRequired,
   }
 
   componentDidMount() {
@@ -16,12 +17,12 @@ class TopSites extends React.Component {
   }
 
   render() {
-    const { dispatch, topSites } = this.props;
+    const { topSites } = this.props;
     return (
       <div className="TopSites">
         <BarFolder>
           {topSites.map(topSite =>
-            <BarFolderItem key={topSite.url} url={topSite.url} icon={`chrome://favicon/${topSite.url}`} />
+            <BarFolderItem key={topSite.url} url={topSite.url} icon={topSite.getIcon()} />
           )}
         </BarFolder>
       </div>
@@ -29,10 +30,8 @@ class TopSites extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    topSites: state.topSites,
-  };
-}
+const mapStateToProps = state => ({
+  topSites: state.topSites,
+});
 
 export default connect(mapStateToProps)(TopSites);
