@@ -3,6 +3,7 @@ import {
   chromeAppRepository,
   topSiteRepository,
   themeRepository,
+  visibilityRepository,
 } from '../repositories';
 
 export const RECEIVE_BOOKMARKS = 'RECEIVE_BOOKMARKS';
@@ -11,6 +12,8 @@ export const RECEIVE_APPS = 'RECEIVE_APPS';
 export const RECEIVE_TOP_SITES = 'RECEIVE_TOP_SITES';
 export const RECEIVE_THEMES = 'RECEIVE_THEMES';
 export const SELECT_THEME = 'SELECT_THEME';
+export const RECEIVE_VISIBILITIES = 'RECEIVE_VISIBILITIES';
+export const TOGGLE_VISIBILITY = 'TOGGLE_VISIBILITY';
 
 export function fetchBookmarks() {
   return dispatch => bookmarkRepository.findAll(bookmarkTree => dispatch({
@@ -71,5 +74,22 @@ export function selectTheme(theme) {
   return {
     type: SELECT_THEME,
     theme
-  }
+  };
+}
+
+export function initializeVisibility() {
+  return dispatch => {
+    const visibilities = visibilityRepository.findAll();
+    dispatch({
+      type: RECEIVE_VISIBILITIES,
+      visibilities
+    });
+  };
+}
+
+export function toggleVisibility(visibility) {
+  return {
+    type: TOGGLE_VISIBILITY,
+    visibility
+  };
 }

@@ -8,7 +8,13 @@ import {
   RECEIVE_TOP_SITES,
   RECEIVE_THEMES,
   SELECT_THEME,
+  RECEIVE_VISIBILITIES,
+  TOGGLE_VISIBILITY,
 } from '../actions';
+
+import {
+  Visibilities,
+} from '../models';
 
 function bookmarkFolders(state = Seq(), action) {
   switch (action.type) {
@@ -63,10 +69,22 @@ function selectedTheme(state = null, action) {
   }
 }
 
+function visibilities(state = new Visibilities(), action) {
+  switch (action.type) {
+    case RECEIVE_VISIBILITIES:
+      return action.visibilities;
+    case TOGGLE_VISIBILITY:
+      return state.toggle(action.visibility);
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   bookmarkFolders,
   apps,
   topSites,
   themes,
   selectedTheme,
+  visibilities,
 })

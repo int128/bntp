@@ -5,9 +5,13 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 
-import { initializeTheme, initializeListeners } from './actions';
+import {
+  initializeTheme,
+  initializeListeners,
+  initializeVisibility,
+} from './actions';
 import reducers from './reducers';
-import App from './components/App';
+import App from './containers/App';
 
 import './index.css';
 
@@ -17,6 +21,7 @@ const store = createStore(
 );
 
 store.dispatch(initializeTheme());
+store.dispatch(initializeVisibility());
 store.dispatch(initializeListeners());
 
 render(

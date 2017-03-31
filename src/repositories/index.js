@@ -5,6 +5,8 @@ import {
   ChromeApp,
   TopSite,
   Theme,
+  Visibility,
+  Visibilities,
 } from '../models';
 
 const SELECTED_THEME_ID = 'SELECTED_THEME_ID';
@@ -76,3 +78,15 @@ class ThemeRepository {
 }
 
 export const themeRepository = new ThemeRepository();
+
+class VisibilityRepository {
+  static all = Seq.of(
+    new Visibility({id: 'top-sites', title: 'Top Sites'}),
+    new Visibility({id: 'bookmarks', title: 'Bookmarks'}),
+    new Visibility({id: 'apps', title: 'Apps'}),
+  )
+
+  findAll = () => new Visibilities(VisibilityRepository.all)
+}
+
+export const visibilityRepository = new VisibilityRepository();

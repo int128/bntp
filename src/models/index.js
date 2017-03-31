@@ -80,3 +80,34 @@ const ThemeRecord = Record({
 
 export class Theme extends ThemeRecord {
 }
+
+const VisibilityRecord = Record({
+  id: null,
+  title: null,
+  visible: true,
+});
+
+export class Visibility extends VisibilityRecord {
+}
+
+export class Visibilities {
+  constructor(visibilities) {
+    this.visibilities = Seq(visibilities);
+  }
+
+  map = mapper => this.visibilities.map(mapper)
+
+  isVisible(id) {
+    return this.visibilities.find(v => v.id === id && v.visible === true) !== undefined;
+  }
+
+  toggle(visibility) {
+    return new Visibilities(this.visibilities.map(v => {
+      if (v.equals(visibility)) {
+        return v.set('visible', !v.visible);
+      } else {
+        return v;
+      }
+    }));
+  }
+}
