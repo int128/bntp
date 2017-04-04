@@ -3,7 +3,8 @@ import { Seq } from 'immutable';
 
 import {
   RECEIVE_BOOKMARKS,
-  TOGGLE_BOOKMARK_FOLDER_COLLAPSE,
+  TOGGLE_FOLDER_COLLAPSE,
+  RECEIVE_COLLAPSED_FOLDERS,
   RECEIVE_APPS,
   RECEIVE_TOP_SITES,
   RECEIVE_THEMES,
@@ -14,20 +15,13 @@ import {
 
 import {
   Visibilities,
+  CollapsedFolders,
 } from '../models';
 
 function bookmarkFolders(state = Seq(), action) {
   switch (action.type) {
     case RECEIVE_BOOKMARKS:
       return action.bookmarkFolders;
-    case TOGGLE_BOOKMARK_FOLDER_COLLAPSE:
-      return state.map(bookmarkFolder => {
-        if (bookmarkFolder.equals(action.bookmarkFolder)) {
-          return bookmarkFolder.set('collapsed', !bookmarkFolder.collapsed);
-        } else {
-          return bookmarkFolder;
-        }
-      });
     default:
       return state;
   }
@@ -46,6 +40,17 @@ function topSites(state = Seq(), action) {
   switch (action.type) {
     case RECEIVE_TOP_SITES:
       return action.topSites;
+    default:
+      return state;
+  }
+}
+
+function collapsedFolders(state = new CollapsedFolders(), action) {
+  switch (action.type) {
+    case TOGGLE_FOLDER_COLLAPSE:
+      return state.toggle(action.folder);
+    case RECEIVE_COLLAPSED_FOLDERS:
+      return action.collapsedFolders;
     default:
       return state;
   }
@@ -84,6 +89,7 @@ export default combineReducers({
   bookmarkFolders,
   apps,
   topSites,
+  collapsedFolders,
   themes,
   selectedTheme,
   visibilities,

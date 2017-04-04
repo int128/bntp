@@ -2,12 +2,14 @@ import {
   bookmarkRepository,
   chromeAppRepository,
   topSiteRepository,
-  themeRepository,
+  collapsedFolderRepository,
+  themePreferenceRepository,
   visibilityRepository,
 } from '../repositories';
 
 export const RECEIVE_BOOKMARKS = 'RECEIVE_BOOKMARKS';
-export const TOGGLE_BOOKMARK_FOLDER_COLLAPSE = 'TOGGLE_BOOKMARK_FOLDER_COLLAPSE';
+export const TOGGLE_FOLDER_COLLAPSE = 'TOGGLE_BOOKMARK_FOLDER_COLLAPSE';
+export const RECEIVE_COLLAPSED_FOLDERS = 'RECEIVE_COLLAPSED_FOLDERS';
 export const RECEIVE_APPS = 'RECEIVE_APPS';
 export const RECEIVE_TOP_SITES = 'RECEIVE_TOP_SITES';
 export const RECEIVE_THEMES = 'RECEIVE_THEMES';
@@ -22,10 +24,10 @@ export function fetchBookmarks() {
   }));
 }
 
-export function toggleBookmarkFolderCollapse(bookmarkFolder) {
+export function toggleFolderCollapse(folder) {
   return {
-    type: TOGGLE_BOOKMARK_FOLDER_COLLAPSE,
-    bookmarkFolder,
+    type: TOGGLE_FOLDER_COLLAPSE,
+    folder,
   };
 }
 
@@ -47,43 +49,22 @@ export function initializeListeners() {
   return dispatch => {
     bookmarkRepository.onChange(e => dispatch(fetchBookmarks()));
     chromeAppRepository.onChange(e => dispatch(fetchApps()));
+    collapsedFolderRepository.onChange(collapsedFolders => dispatch({
+      type: RECEIVE_COLLAPSED_FOLDERS,
+      collapsedFolders
+    }));
+    themePreferenceRepository.onChange(theme => dispatch(selectTheme(theme)));
+    visibilityRepository.onChange(visibilities => dispatch({
+      type: RECEIVE_VISIBILITIES,
+      visibilities
+    }));
   };
-}
-
-export function initializeTheme() {
-  return dispatch => {
-    const theme = themeRepository.findSelected() || themeRepository.first();
-    dispatch(selectTheme(theme));
-
-    const themes = themeRepository.findAll();
-    dispatch({
-      type: RECEIVE_THEMES,
-      themes
-    });
-
-    themeRepository.onSelect(theme => dispatch(selectTheme(theme)));
-  }
 }
 
 export function selectTheme(theme) {
-  themeRepository.saveSelected(theme);
-
-  // Apply theme on the root element
-  document.documentElement.className = `Theme__${theme.id}`;
-
   return {
     type: SELECT_THEME,
     theme
-  };
-}
-
-export function initializeVisibility() {
-  return dispatch => {
-    const visibilities = visibilityRepository.findAll();
-    dispatch({
-      type: RECEIVE_VISIBILITIES,
-      visibilities
-    });
   };
 }
 

@@ -1,4 +1,4 @@
-import { Record, Seq } from 'immutable';
+import { Record, Seq, Map } from 'immutable';
 
 const BookmarkRecord = Record({
   id: null,
@@ -16,7 +16,6 @@ const BookmarkFolderRecord = Record({
   id: null,
   title: null,
   bookmarks: Seq(),
-  collapsed: false,
 });
 
 export class BookmarkFolder extends BookmarkFolderRecord {
@@ -73,6 +72,32 @@ export class TopSite extends TopSiteRecord {
   }
 }
 
+export class CollapsedFolders {
+  static fromString(json) {
+    return new CollapsedFolders(JSON.parse(json));
+  }
+
+  constructor(folderIdMap) {
+    this.folderIdMap = Map(folderIdMap);
+  }
+
+  isCollapse(folder) {
+    return this.folderIdMap.get(folder.id) === true;
+  }
+
+  toggle(folder) {
+    if (this.isCollapse(folder)) {
+      return new CollapsedFolders(this.folderIdMap.remove(folder.id));
+    } else {
+      return new CollapsedFolders(this.folderIdMap.set(folder.id, true));
+    }
+  }
+
+  toString() {
+    return JSON.stringify(this.folderIdMap.toJSON());
+  }
+}
+
 const ThemeRecord = Record({
   id: null,
   title: null,
@@ -99,6 +124,10 @@ export class Visibilities {
 
   isVisible(id) {
     return this.visibilities.find(v => v.id === id && v.visible === true) !== undefined;
+  }
+
+  findHidden() {
+    return this.visibilities.filter(v => v.visible === false);
   }
 
   toggle(visibility) {

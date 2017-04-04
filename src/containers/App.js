@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Seq } from 'immutable';
 
 import Bookmarks from './Bookmarks';
 import Apps from './Apps';

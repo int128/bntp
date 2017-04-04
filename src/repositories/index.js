@@ -4,12 +4,15 @@ import {
   BookmarkTree,
   ChromeApp,
   TopSite,
+  CollapsedFolders,
   Theme,
   Visibility,
   Visibilities,
 } from '../models';
 
 const SELECTED_THEME_ID = 'SELECTED_THEME_ID';
+const COLLAPSED_FOLDERS = 'COLLAPSED_FOLDERS';
+const HIDDEN_COMPONENTS = 'HIDDEN_COMPONENTS';
 
 class BookmarkRepository {
   findAll = callback =>
@@ -52,6 +55,22 @@ class TopSiteRepository {
 
 export const topSiteRepository = new TopSiteRepository();
 
+class CollapsedFolderRepository {
+  get = () =>
+    CollapsedFolders.fromString(localStorage.getItem(COLLAPSED_FOLDERS))
+
+  save = collapsedFolders =>
+    localStorage.setItem(COLLAPSED_FOLDERS, collapsedFolders.toString());
+
+  onChange = callback => window.addEventListener('storage', e => {
+    if (e.storageArea === localStorage && e.key === COLLAPSED_FOLDERS && e.newValue !== null) {
+      callback(CollapsedFolders.fromString(e.newValue));
+    }
+  })
+}
+
+export const collapsedFolderRepository = new CollapsedFolderRepository();
+
 class ThemeRepository {
   static all = Seq.of(
     new Theme({id: 'light', title: 'Light'}),
@@ -64,20 +83,24 @@ class ThemeRepository {
 
   findAll = () => ThemeRepository.all
 
-  findById = id => ThemeRepository.all.find(theme => theme.id === id)
+  getOrDefault = id => ThemeRepository.all.find(theme => theme.id === id) || this.first()
+}
 
-  findSelected = () => this.findById(localStorage.getItem(SELECTED_THEME_ID))
+export const themeRepository = new ThemeRepository();
 
-  saveSelected = theme => localStorage.setItem(SELECTED_THEME_ID, theme.id)
+class ThemePreferenceRepository {
+  get = () => themeRepository.getOrDefault(localStorage.getItem(SELECTED_THEME_ID))
 
-  onSelect = callback => window.addEventListener('storage', e => {
+  save = theme => localStorage.setItem(SELECTED_THEME_ID, theme.id)
+
+  onChange = callback => window.addEventListener('storage', e => {
     if (e.storageArea === localStorage && e.key === SELECTED_THEME_ID && e.newValue !== null) {
       callback(this.findById(e.newValue));
     }
   })
 }
 
-export const themeRepository = new ThemeRepository();
+export const themePreferenceRepository = new ThemePreferenceRepository();
 
 class VisibilityRepository {
   static all = Seq.of(
@@ -86,7 +109,23 @@ class VisibilityRepository {
     new Visibility({id: 'apps', title: 'Apps'}),
   )
 
-  findAll = () => new Visibilities(VisibilityRepository.all)
+  findAll() {
+    const hiddenIds = Seq(JSON.parse(localStorage.getItem(HIDDEN_COMPONENTS)));
+    return new Visibilities(
+      VisibilityRepository.all.map(visibility =>
+        visibility.set('visible', !hiddenIds.find(id => id === visibility.id))));
+  }
+
+  save(visibilities) {
+    const hiddenIds = visibilities.findHidden().map(visibility => visibility.id);
+    localStorage.setItem(HIDDEN_COMPONENTS, JSON.stringify(hiddenIds));
+  }
+
+  onChange = callback => window.addEventListener('storage', e => {
+    if (e.storageArea === localStorage && e.key === HIDDEN_COMPONENTS && e.newValue !== null) {
+      callback(this.findAll());
+    }
+  })
 }
 
 export const visibilityRepository = new VisibilityRepository();

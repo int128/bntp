@@ -2,13 +2,16 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Seq } from 'immutable';
 
-import { fetchBookmarks, toggleBookmarkFolderCollapse } from '../actions';
+import { fetchBookmarks, toggleFolderCollapse } from '../actions';
 
 import { TileFolder, TileFolderItem } from '../components/Tile';
+
+import { CollapsedFolders } from '../models';
 
 class Bookmarks extends React.Component {
   static propTypes = {
     bookmarkFolders: PropTypes.instanceOf(Seq).isRequired,
+    collapsedFolders: PropTypes.instanceOf(CollapsedFolders).isRequired,
   }
 
   componentDidMount() {
@@ -17,14 +20,14 @@ class Bookmarks extends React.Component {
   }
 
   render() {
-    const { dispatch, bookmarkFolders } = this.props;
+    const { dispatch, bookmarkFolders, collapsedFolders } = this.props;
     return (
       <div className="Bookmarks">
         {bookmarkFolders.map(bookmarkFolder =>
           <TileFolder key={bookmarkFolder.id}
                       title={bookmarkFolder.title}
-                      collapsed={bookmarkFolder.collapsed}
-                      onToggle={collapsed => dispatch(toggleBookmarkFolderCollapse(bookmarkFolder))}>
+                      collapsed={collapsedFolders.isCollapse(bookmarkFolder)}
+                      onToggle={collapsed => dispatch(toggleFolderCollapse(bookmarkFolder))}>
             {bookmarkFolder.bookmarks.map(bookmark =>
               <TileFolderItem key={bookmark.id} url={bookmark.url} icon={bookmark.getIcon()}>
                 {bookmark.title}
@@ -39,6 +42,7 @@ class Bookmarks extends React.Component {
 
 const mapStateToProps = state => ({
   bookmarkFolders: state.bookmarkFolders,
+  collapsedFolders: state.collapsedFolders,
 });
 
 export default connect(mapStateToProps)(Bookmarks);
