@@ -18,9 +18,9 @@ export const RECEIVE_VISIBILITIES = 'RECEIVE_VISIBILITIES';
 export const TOGGLE_VISIBILITY = 'TOGGLE_VISIBILITY';
 
 export function fetchBookmarks() {
-  return dispatch => bookmarkRepository.findAll(bookmarkTree => dispatch({
+  return dispatch => bookmarkRepository.findAll(bookmarkFolders => dispatch({
     type: RECEIVE_BOOKMARKS,
-    bookmarkFolders: bookmarkTree.flatten(),
+    bookmarkFolders
   }));
 }
 

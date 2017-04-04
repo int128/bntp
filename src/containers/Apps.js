@@ -22,7 +22,7 @@ class Apps extends React.Component {
       <div className="Apps">
         <TileFolder title="Chrome Apps">
           {apps.map(app =>
-            <TileFolderItem key={app.id} url={`app:${app.id}`} icon={app.findLargestIcon()}>
+            <TileFolderItem key={app.id} url={`app:${app.id}`} icon={app.getIcon()}>
               {app.name}
             </TileFolderItem>
           )}

@@ -20,7 +20,7 @@ import './index.css';
 
 const initialState = () => {
   const collapsedFolders = collapsedFolderRepository.get();
-  const selectedTheme = themePreferenceRepository.get();
+  const selectedTheme = themePreferenceRepository.getOrDefault();
   const themes = themeRepository.findAll();
   const visibilities = visibilityRepository.findAll();
   return {

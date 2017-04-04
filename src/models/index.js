@@ -52,7 +52,7 @@ const ChromeAppRecord = Record({
 });
 
 export class ChromeApp extends ChromeAppRecord {
-  findLargestIcon() {
+  getIcon() {
     const icon = Seq(this.icons).maxBy(icon => icon.size);
     if (icon !== null) {
       return icon.url;

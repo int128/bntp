@@ -15,11 +15,12 @@ const COLLAPSED_FOLDERS = 'COLLAPSED_FOLDERS';
 const HIDDEN_COMPONENTS = 'HIDDEN_COMPONENTS';
 
 class BookmarkRepository {
-  findAll = callback =>
-    window.chrome.bookmarks.getTree(tree =>
-      callback(new BookmarkTree({children: tree})))
+  findAll(callback) {
+    return window.chrome.bookmarks.getTree(tree =>
+      callback(new BookmarkTree({children: tree}).flatten()));
+  }
 
-  onChange = callback => {
+  onChange(callback) {
     window.chrome.bookmarks.onCreated.addListener(callback);
     window.chrome.bookmarks.onRemoved.addListener(callback);
     window.chrome.bookmarks.onChanged.addListener(callback);
@@ -31,13 +32,14 @@ class BookmarkRepository {
 export const bookmarkRepository = new BookmarkRepository();
 
 class ChromeAppRepository {
-  findAll = callback =>
-    window.chrome.management.getAll(managements =>
+  findAll(callback) {
+    return window.chrome.management.getAll(managements =>
       callback(Seq(managements)
         .filter(management => /\w+_app/.test(management.type))
-        .map(app => new ChromeApp(app))))
+        .map(app => new ChromeApp(app))));
+  }
 
-  onChange = callback => {
+  onChange(callback) {
     window.chrome.management.onInstalled.addListener(callback);
     window.chrome.management.onUninstalled.addListener(callback);
     window.chrome.management.onEnabled.addListener(callback);
@@ -48,25 +50,30 @@ class ChromeAppRepository {
 export const chromeAppRepository = new ChromeAppRepository();
 
 class TopSiteRepository {
-  findAll = callback =>
-    window.chrome.topSites.get(topSites =>
-      callback(Seq(topSites).map(topSite => new TopSite(topSite))))
+  findAll(callback) {
+    return window.chrome.topSites.get(topSites =>
+      callback(Seq(topSites).map(topSite => new TopSite(topSite))));
+  }
 }
 
 export const topSiteRepository = new TopSiteRepository();
 
 class CollapsedFolderRepository {
-  get = () =>
-    CollapsedFolders.fromString(localStorage.getItem(COLLAPSED_FOLDERS))
+  get() {
+    return CollapsedFolders.fromString(localStorage.getItem(COLLAPSED_FOLDERS));
+  }
 
-  save = collapsedFolders =>
+  save(collapsedFolders) {
     localStorage.setItem(COLLAPSED_FOLDERS, collapsedFolders.toString());
+  }
 
-  onChange = callback => window.addEventListener('storage', e => {
-    if (e.storageArea === localStorage && e.key === COLLAPSED_FOLDERS && e.newValue !== null) {
-      callback(CollapsedFolders.fromString(e.newValue));
-    }
-  })
+  onChange(callback) {
+    window.addEventListener('storage', e => {
+      if (e.storageArea === localStorage && e.key === COLLAPSED_FOLDERS && e.newValue !== null) {
+        callback(CollapsedFolders.fromString(e.newValue));
+      }
+    });
+  }
 }
 
 export const collapsedFolderRepository = new CollapsedFolderRepository();
@@ -83,21 +90,27 @@ class ThemeRepository {
 
   findAll = () => ThemeRepository.all
 
-  getOrDefault = id => ThemeRepository.all.find(theme => theme.id === id) || this.first()
+  findById = id => ThemeRepository.all.find(theme => theme.id === id)
 }
 
 export const themeRepository = new ThemeRepository();
 
 class ThemePreferenceRepository {
-  get = () => themeRepository.getOrDefault(localStorage.getItem(SELECTED_THEME_ID))
+  getOrDefault() {
+    return themeRepository.findById(localStorage.getItem(SELECTED_THEME_ID)) || themeRepository.first();
+  }
 
-  save = theme => localStorage.setItem(SELECTED_THEME_ID, theme.id)
+  save(theme) {
+    localStorage.setItem(SELECTED_THEME_ID, theme.id);
+  }
 
-  onChange = callback => window.addEventListener('storage', e => {
-    if (e.storageArea === localStorage && e.key === SELECTED_THEME_ID && e.newValue !== null) {
-      callback(this.findById(e.newValue));
-    }
-  })
+  onChange(callback) {
+    window.addEventListener('storage', e => {
+      if (e.storageArea === localStorage && e.key === SELECTED_THEME_ID && e.newValue !== null) {
+        callback(this.findById(e.newValue));
+      }
+    });
+  }
 }
 
 export const themePreferenceRepository = new ThemePreferenceRepository();
@@ -121,11 +134,13 @@ class VisibilityRepository {
     localStorage.setItem(HIDDEN_COMPONENTS, JSON.stringify(hiddenIds));
   }
 
-  onChange = callback => window.addEventListener('storage', e => {
-    if (e.storageArea === localStorage && e.key === HIDDEN_COMPONENTS && e.newValue !== null) {
-      callback(this.findAll());
-    }
-  })
+  onChange(callback) {
+    window.addEventListener('storage', e => {
+      if (e.storageArea === localStorage && e.key === HIDDEN_COMPONENTS && e.newValue !== null) {
+        callback(this.findAll());
+      }
+    });
+  }
 }
 
 export const visibilityRepository = new VisibilityRepository();
