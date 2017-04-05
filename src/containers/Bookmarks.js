@@ -6,12 +6,12 @@ import { fetchBookmarks, toggleFolderCollapse } from '../actions';
 
 import { TileFolder, TileFolderItem } from '../components/Tile';
 
-import { CollapsedFolders } from '../models';
+import { FolderPreference } from '../models';
 
 class Bookmarks extends React.Component {
   static propTypes = {
     bookmarkFolders: PropTypes.instanceOf(Seq).isRequired,
-    collapsedFolders: PropTypes.instanceOf(CollapsedFolders).isRequired,
+    folderPreference: PropTypes.instanceOf(FolderPreference).isRequired,
   }
 
   componentDidMount() {
@@ -20,13 +20,13 @@ class Bookmarks extends React.Component {
   }
 
   render() {
-    const { dispatch, bookmarkFolders, collapsedFolders } = this.props;
+    const { dispatch, bookmarkFolders, folderPreference } = this.props;
     return (
       <div className="Bookmarks">
         {bookmarkFolders.map(bookmarkFolder =>
           <TileFolder key={bookmarkFolder.id}
                       title={bookmarkFolder.title}
-                      collapsed={collapsedFolders.isCollapse(bookmarkFolder)}
+                      collapsed={folderPreference.isCollapse(bookmarkFolder)}
                       onToggle={collapsed => dispatch(toggleFolderCollapse(bookmarkFolder))}>
             {bookmarkFolder.bookmarks.map(bookmark =>
               <TileFolderItem key={bookmark.id} url={bookmark.url} icon={bookmark.getIcon()}>
@@ -42,7 +42,7 @@ class Bookmarks extends React.Component {
 
 const mapStateToProps = state => ({
   bookmarkFolders: state.bookmarkFolders,
-  collapsedFolders: state.collapsedFolders,
+  folderPreference: state.folderPreference,
 });
 
 export default connect(mapStateToProps)(Bookmarks);

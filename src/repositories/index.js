@@ -4,7 +4,7 @@ import {
   BookmarkTree,
   ChromeApp,
   TopSite,
-  CollapsedFolders,
+  FolderPreference,
   Theme,
   Visibility,
   Visibilities,
@@ -58,25 +58,25 @@ class TopSiteRepository {
 
 export const topSiteRepository = new TopSiteRepository();
 
-class CollapsedFolderRepository {
+class FolderPreferenceRepository {
   get() {
-    return CollapsedFolders.fromString(localStorage.getItem(COLLAPSED_FOLDERS));
+    return FolderPreference.fromString(localStorage.getItem(COLLAPSED_FOLDERS));
   }
 
-  save(collapsedFolders) {
-    localStorage.setItem(COLLAPSED_FOLDERS, collapsedFolders.toString());
+  save(folderPreference) {
+    localStorage.setItem(COLLAPSED_FOLDERS, folderPreference.toString());
   }
 
   onChange(callback) {
     window.addEventListener('storage', e => {
       if (e.storageArea === localStorage && e.key === COLLAPSED_FOLDERS && e.newValue !== null) {
-        callback(CollapsedFolders.fromString(e.newValue));
+        callback(FolderPreference.fromString(e.newValue));
       }
     });
   }
 }
 
-export const collapsedFolderRepository = new CollapsedFolderRepository();
+export const folderPreferenceRepository = new FolderPreferenceRepository();
 
 class ThemeRepository {
   static all = Seq.of(

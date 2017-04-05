@@ -15,7 +15,7 @@ import {
 
 import {
   Visibilities,
-  CollapsedFolders,
+  FolderPreference,
 } from '../models';
 
 function bookmarkFolders(state = Seq(), action) {
@@ -45,7 +45,7 @@ function topSites(state = Seq(), action) {
   }
 }
 
-function collapsedFolders(state = new CollapsedFolders(), action) {
+function folderPreference(state = new FolderPreference(), action) {
   switch (action.type) {
     case TOGGLE_FOLDER_COLLAPSE:
       return state.toggle(action.folder);
@@ -89,7 +89,7 @@ export default combineReducers({
   bookmarkFolders,
   apps,
   topSites,
-  collapsedFolders,
+  folderPreference,
   themes,
   selectedTheme,
   visibilities,

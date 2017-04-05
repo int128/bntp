@@ -72,9 +72,9 @@ export class TopSite extends TopSiteRecord {
   }
 }
 
-export class CollapsedFolders {
+export class FolderPreference {
   static fromString(json) {
-    return new CollapsedFolders(JSON.parse(json));
+    return new FolderPreference(JSON.parse(json));
   }
 
   constructor(folderIdMap) {
@@ -87,9 +87,9 @@ export class CollapsedFolders {
 
   toggle(folder) {
     if (this.isCollapse(folder)) {
-      return new CollapsedFolders(this.folderIdMap.remove(folder.id));
+      return new FolderPreference(this.folderIdMap.remove(folder.id));
     } else {
-      return new CollapsedFolders(this.folderIdMap.set(folder.id, true));
+      return new FolderPreference(this.folderIdMap.set(folder.id, true));
     }
   }
 

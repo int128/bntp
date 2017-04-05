@@ -10,7 +10,7 @@ import reducers from './reducers';
 import App from './containers/App';
 
 import {
-  collapsedFolderRepository,
+  folderPreferenceRepository,
   themeRepository,
   themePreferenceRepository,
   visibilityRepository,
@@ -19,12 +19,12 @@ import {
 import './index.css';
 
 const initialState = () => {
-  const collapsedFolders = collapsedFolderRepository.get();
+  const folderPreference = folderPreferenceRepository.get();
   const selectedTheme = themePreferenceRepository.getOrDefault();
   const themes = themeRepository.findAll();
   const visibilities = visibilityRepository.findAll();
   return {
-    collapsedFolders,
+    folderPreference,
     selectedTheme,
     themes,
     visibilities,
@@ -44,8 +44,9 @@ store.subscribe(() => {
 });
 
 store.subscribe(() => {
-  const { collapsedFolders, selectedTheme, visibilities } = store.getState();
-  collapsedFolderRepository.save(collapsedFolders);
+  console.log(store);
+  const { folderPreference, selectedTheme, visibilities } = store.getState();
+  folderPreferenceRepository.save(folderPreference);
   themePreferenceRepository.save(selectedTheme);
   visibilityRepository.save(visibilities);
 });

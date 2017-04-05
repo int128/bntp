@@ -2,7 +2,7 @@ import {
   bookmarkRepository,
   chromeAppRepository,
   topSiteRepository,
-  collapsedFolderRepository,
+  folderPreferenceRepository,
   themePreferenceRepository,
   visibilityRepository,
 } from '../repositories';
@@ -49,9 +49,9 @@ export function initializeListeners() {
   return dispatch => {
     bookmarkRepository.onChange(e => dispatch(fetchBookmarks()));
     chromeAppRepository.onChange(e => dispatch(fetchApps()));
-    collapsedFolderRepository.onChange(collapsedFolders => dispatch({
+    folderPreferenceRepository.onChange(folderPreferences => dispatch({
       type: RECEIVE_COLLAPSED_FOLDERS,
-      collapsedFolders
+      folderPreferences
     }));
     themePreferenceRepository.onChange(theme => dispatch(selectTheme(theme)));
     visibilityRepository.onChange(visibilities => dispatch({
