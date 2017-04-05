@@ -45,15 +45,23 @@ export function fetchTopSites() {
   }));
 }
 
-export function initializeListeners() {
+export function initialize() {
   return dispatch => {
+    dispatch(fetchTopSites());
+
+    dispatch(fetchBookmarks());
     bookmarkRepository.onChange(e => dispatch(fetchBookmarks()));
+
+    dispatch(fetchApps());
     chromeAppRepository.onChange(e => dispatch(fetchApps()));
+
     folderPreferenceRepository.onChange(folderPreferences => dispatch({
       type: RECEIVE_COLLAPSED_FOLDERS,
       folderPreferences
     }));
+
     themePreferenceRepository.onChange(theme => dispatch(selectTheme(theme)));
+
     visibilityRepository.onChange(visibilities => dispatch({
       type: RECEIVE_VISIBILITIES,
       visibilities

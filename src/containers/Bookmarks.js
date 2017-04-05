@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Seq } from 'immutable';
 
-import { fetchBookmarks, toggleFolderCollapse } from '../actions';
+import { toggleFolderCollapse } from '../actions';
 
 import { TileFolder, TileFolderItem } from '../components/Tile';
 
@@ -12,11 +12,6 @@ class Bookmarks extends React.Component {
   static propTypes = {
     bookmarkFolders: PropTypes.instanceOf(Seq).isRequired,
     folderPreference: PropTypes.instanceOf(FolderPreference).isRequired,
-  }
-
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchBookmarks());
   }
 
   render() {

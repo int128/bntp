@@ -2,18 +2,11 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Seq } from 'immutable';
 
-import { fetchApps } from '../actions';
-
 import { TileFolder, TileFolderItem } from '../components/Tile';
 
 class Apps extends React.Component {
   static propTypes = {
     apps: PropTypes.instanceOf(Seq).isRequired,
-  }
-
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchApps());
   }
 
   render() {

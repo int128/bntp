@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 
-import { initializeListeners } from './actions';
+import { initialize } from './actions';
 import reducers from './reducers';
 import App from './containers/App';
 
@@ -54,7 +54,7 @@ store.subscribe(() => {
   visibilityRepository.save(visibilities);
 });
 
-store.dispatch(initializeListeners());
+store.dispatch(initialize());
 
 render(
   <Provider store={store}>
