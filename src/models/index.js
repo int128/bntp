@@ -64,6 +64,7 @@ export class ChromeApp extends ChromeAppRecord {
 
 const TopSiteRecord = Record({
   url: null,
+  title: null,
 });
 
 export class TopSite extends TopSiteRecord {

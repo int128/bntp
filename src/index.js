@@ -44,7 +44,6 @@ store.subscribe(() => {
 });
 
 store.subscribe(() => {
-  console.log(store);
   const { folderPreference, selectedTheme, visibilities } = store.getState();
   folderPreferenceRepository.save(folderPreference);
   themePreferenceRepository.save(selectedTheme);
