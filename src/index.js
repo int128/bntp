@@ -38,11 +38,15 @@ const store = createStore(
 );
 
 // Apply theme on the root element
-store.subscribe(() => {
+const renderTheme = () => {
   const { selectedTheme } = store.getState();
   document.documentElement.className = `Theme__${selectedTheme.id}`;
-});
+};
 
+// Prevent theme-less white page on loading
+renderTheme();
+
+store.subscribe(renderTheme);
 store.subscribe(() => {
   const { folderPreference, selectedTheme, visibilities } = store.getState();
   folderPreferenceRepository.save(folderPreference);
