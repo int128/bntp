@@ -11,6 +11,7 @@ import {
   SELECT_THEME,
   RECEIVE_VISIBILITIES,
   TOGGLE_VISIBILITY,
+  RECEIVE_ONLINE,
 } from '../actions';
 
 import {
@@ -85,6 +86,15 @@ function visibilities(state = new Visibilities(), action) {
   }
 }
 
+function online(state = false, action) {
+  switch (action.type) {
+    case RECEIVE_ONLINE:
+      return action.online;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   bookmarkFolders,
   apps,
@@ -93,4 +103,5 @@ export default combineReducers({
   themes,
   selectedTheme,
   visibilities,
+  online,
 })

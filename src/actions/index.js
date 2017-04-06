@@ -7,6 +7,8 @@ import {
   visibilityRepository,
 } from '../repositories';
 
+import { networkService } from '../services';
+
 export const RECEIVE_BOOKMARKS = 'RECEIVE_BOOKMARKS';
 export const TOGGLE_FOLDER_COLLAPSE = 'TOGGLE_BOOKMARK_FOLDER_COLLAPSE';
 export const RECEIVE_COLLAPSED_FOLDERS = 'RECEIVE_COLLAPSED_FOLDERS';
@@ -16,6 +18,7 @@ export const RECEIVE_THEMES = 'RECEIVE_THEMES';
 export const SELECT_THEME = 'SELECT_THEME';
 export const RECEIVE_VISIBILITIES = 'RECEIVE_VISIBILITIES';
 export const TOGGLE_VISIBILITY = 'TOGGLE_VISIBILITY';
+export const RECEIVE_ONLINE = 'RECEIVE_ONLINE';
 
 export function fetchBookmarks() {
   return dispatch => bookmarkRepository.findAll(bookmarkFolders => dispatch({
@@ -66,6 +69,11 @@ export function initialize() {
       type: RECEIVE_VISIBILITIES,
       visibilities
     }));
+
+    networkService.onChange(online => dispatch({
+      type: RECEIVE_ONLINE,
+      online
+    }))
   };
 }
 

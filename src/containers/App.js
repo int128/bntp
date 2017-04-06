@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Bookmarks from './Bookmarks';
 import Apps from './Apps';
 import TopSites from './TopSites';
+import NetworkStatus from './NetworkStatus';
 import Preferences from '../components/Preferences';
 
 import { Visibilities } from '../models';
@@ -17,6 +18,7 @@ class App extends React.Component {
     const { visibilities } = this.props;
     return (
       <div>
+        <NetworkStatus />
         {visibilities.isVisible('top-sites') ? <TopSites/> : null}
         {visibilities.isVisible('bookmarks') ? <Bookmarks/> : null}
         {visibilities.isVisible('apps') ? <Apps/> : null}
