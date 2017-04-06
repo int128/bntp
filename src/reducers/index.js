@@ -4,7 +4,7 @@ import { Seq } from 'immutable';
 import {
   RECEIVE_BOOKMARKS,
   TOGGLE_FOLDER_COLLAPSE,
-  RECEIVE_COLLAPSED_FOLDERS,
+  RECEIVE_FOLDER_PREFERENCE,
   RECEIVE_APPS,
   RECEIVE_TOP_SITES,
   RECEIVE_THEMES,
@@ -50,8 +50,8 @@ function folderPreference(state = new FolderPreference(), action) {
   switch (action.type) {
     case TOGGLE_FOLDER_COLLAPSE:
       return state.toggle(action.folder);
-    case RECEIVE_COLLAPSED_FOLDERS:
-      return action.collapsedFolders;
+    case RECEIVE_FOLDER_PREFERENCE:
+      return action.folderPreference;
     default:
       return state;
   }

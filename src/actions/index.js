@@ -11,7 +11,7 @@ import { networkService } from '../services';
 
 export const RECEIVE_BOOKMARKS = 'RECEIVE_BOOKMARKS';
 export const TOGGLE_FOLDER_COLLAPSE = 'TOGGLE_BOOKMARK_FOLDER_COLLAPSE';
-export const RECEIVE_COLLAPSED_FOLDERS = 'RECEIVE_COLLAPSED_FOLDERS';
+export const RECEIVE_FOLDER_PREFERENCE = 'RECEIVE_FOLDER_PREFERENCES';
 export const RECEIVE_APPS = 'RECEIVE_APPS';
 export const RECEIVE_TOP_SITES = 'RECEIVE_TOP_SITES';
 export const RECEIVE_THEMES = 'RECEIVE_THEMES';
@@ -58,9 +58,9 @@ export function initialize() {
     dispatch(fetchApps());
     chromeAppRepository.onChange(e => dispatch(fetchApps()));
 
-    folderPreferenceRepository.onChange(folderPreferences => dispatch({
-      type: RECEIVE_COLLAPSED_FOLDERS,
-      folderPreferences
+    folderPreferenceRepository.onChange(folderPreference => dispatch({
+      type: RECEIVE_FOLDER_PREFERENCE,
+      folderPreference
     }));
 
     themePreferenceRepository.onChange(theme => dispatch(selectTheme(theme)));
