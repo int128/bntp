@@ -12,6 +12,7 @@ import { networkService } from './services';
 import App from './containers/App';
 
 import {
+  chromePageRepository,
   folderPreferenceRepository,
   themeRepository,
   themePreferenceRepository,
@@ -21,12 +22,14 @@ import {
 import './index.css';
 
 const initialState = () => {
+  const chromePageFolders = chromePageRepository.findFolders();
   const folderPreference = folderPreferenceRepository.get();
   const selectedTheme = themePreferenceRepository.getOrDefault();
   const themes = themeRepository.findAll();
   const visibilities = visibilityRepository.findAll();
   const online = networkService.isOnline();
   return {
+    chromePageFolders,
     folderPreference,
     selectedTheme,
     themes,

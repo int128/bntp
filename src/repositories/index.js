@@ -1,6 +1,7 @@
 import { Seq } from 'immutable';
 
 import {
+  BookmarkFolder,
   BookmarkTree,
   ChromeApp,
   TopSite,
@@ -9,6 +10,8 @@ import {
   Visibility,
   Visibilities,
 } from '../models';
+
+import CHROME_PAGES from './ChromePages.json';
 
 const SELECTED_THEME_ID = 'SELECTED_THEME_ID';
 const COLLAPSED_FOLDERS = 'COLLAPSED_FOLDERS';
@@ -48,6 +51,14 @@ class ChromeAppRepository {
 }
 
 export const chromeAppRepository = new ChromeAppRepository();
+
+class ChromePageRepository {
+  findFolders() {
+    return new BookmarkTree({children: [CHROME_PAGES]}).flatten();
+  }
+}
+
+export const chromePageRepository = new ChromePageRepository();
 
 class TopSiteRepository {
   findAll(callback) {

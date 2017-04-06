@@ -28,6 +28,10 @@ function bookmarkFolders(state = Seq(), action) {
   }
 }
 
+function chromePageFolders(state = Seq(), action) {
+  return state;
+}
+
 function apps(state = Seq(), action) {
   switch (action.type) {
     case RECEIVE_APPS:
@@ -97,6 +101,7 @@ function online(state = false, action) {
 
 export default combineReducers({
   bookmarkFolders,
+  chromePageFolders,
   apps,
   topSites,
   folderPreference,

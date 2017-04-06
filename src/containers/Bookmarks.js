@@ -10,20 +10,20 @@ import { FolderPreference } from '../models';
 
 class Bookmarks extends React.Component {
   static propTypes = {
-    bookmarkFolders: PropTypes.instanceOf(Seq).isRequired,
+    folders: PropTypes.instanceOf(Seq).isRequired,
     folderPreference: PropTypes.instanceOf(FolderPreference).isRequired,
   }
 
   render() {
-    const { dispatch, bookmarkFolders, folderPreference } = this.props;
+    const { dispatch, folders, folderPreference } = this.props;
     return (
       <div className="Bookmarks">
-        {bookmarkFolders.map(bookmarkFolder =>
-          <TileFolder key={bookmarkFolder.id}
-                      title={bookmarkFolder.title}
-                      collapsed={folderPreference.isCollapse(bookmarkFolder)}
-                      onToggle={collapsed => dispatch(toggleFolderCollapse(bookmarkFolder))}>
-            {bookmarkFolder.bookmarks.map(bookmark =>
+        {folders.map(folder =>
+          <TileFolder key={folder.id}
+                      title={folder.title}
+                      collapsed={folderPreference.isCollapse(folder)}
+                      onToggle={collapsed => dispatch(toggleFolderCollapse(folder))}>
+            {folder.bookmarks.map(bookmark =>
               <TileFolderItem key={bookmark.id} url={bookmark.url} icon={bookmark.getIcon()}>
                 {bookmark.title}
               </TileFolderItem>
@@ -36,7 +36,6 @@ class Bookmarks extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  bookmarkFolders: state.bookmarkFolders,
   folderPreference: state.folderPreference,
 });
 
