@@ -12,7 +12,7 @@ import { networkService } from '../services';
 export const RECEIVE_BOOKMARKS = 'RECEIVE_BOOKMARKS';
 export const TOGGLE_FOLDER_COLLAPSE = 'TOGGLE_BOOKMARK_FOLDER_COLLAPSE';
 export const RECEIVE_FOLDER_PREFERENCE = 'RECEIVE_FOLDER_PREFERENCES';
-export const RECEIVE_APPS = 'RECEIVE_APPS';
+export const RECEIVE_CHROME_APPS = 'RECEIVE_CHROME_APPS';
 export const RECEIVE_TOP_SITES = 'RECEIVE_TOP_SITES';
 export const RECEIVE_THEMES = 'RECEIVE_THEMES';
 export const SELECT_THEME = 'SELECT_THEME';
@@ -35,9 +35,9 @@ export function toggleFolderCollapse(folder) {
 }
 
 export function fetchApps() {
-  return dispatch => chromeAppRepository.findAll(apps => dispatch({
-    type: RECEIVE_APPS,
-    apps,
+  return dispatch => chromeAppRepository.findFolders(chromeAppFolders => dispatch({
+    type: RECEIVE_CHROME_APPS,
+    chromeAppFolders,
   }));
 }
 

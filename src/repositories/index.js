@@ -1,9 +1,9 @@
 import { Seq } from 'immutable';
 
 import {
+  Bookmark,
   BookmarkFolder,
   BookmarkTree,
-  ChromeApp,
   TopSite,
   FolderPreference,
   Theme,
@@ -35,11 +35,25 @@ class BookmarkRepository {
 export const bookmarkRepository = new BookmarkRepository();
 
 class ChromeAppRepository {
-  findAll(callback) {
+  findFolders(callback) {
     return window.chrome.management.getAll(managements =>
-      callback(Seq(managements)
-        .filter(management => /\w+_app/.test(management.type))
-        .map(app => new ChromeApp(app))));
+      callback(
+        Seq.of(
+          new BookmarkFolder({
+            id: 'App',
+            title: 'Chrome Apps',
+            bookmarks: Seq(managements)
+              .filter(management => /\w+_app/.test(management.type))
+              .map(app => new Bookmark({
+                id: app.id,
+                title: app.name,
+                url: app.id,
+                icons: app.icons,
+              }))
+          })
+        )
+      )
+    );
   }
 
   onChange(callback) {
@@ -130,7 +144,6 @@ class VisibilityRepository {
   static all = Seq.of(
     new Visibility({id: 'top-sites', title: 'Top Sites'}),
     new Visibility({id: 'bookmarks', title: 'Bookmarks'}),
-    new Visibility({id: 'apps', title: 'Apps'}),
   )
 
   findAll() {

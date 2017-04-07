@@ -5,7 +5,7 @@ import {
   RECEIVE_BOOKMARKS,
   TOGGLE_FOLDER_COLLAPSE,
   RECEIVE_FOLDER_PREFERENCE,
-  RECEIVE_APPS,
+  RECEIVE_CHROME_APPS,
   RECEIVE_TOP_SITES,
   RECEIVE_THEMES,
   SELECT_THEME,
@@ -32,10 +32,10 @@ function chromePageFolders(state = Seq(), action) {
   return state;
 }
 
-function apps(state = Seq(), action) {
+function chromeAppFolders(state = Seq(), action) {
   switch (action.type) {
-    case RECEIVE_APPS:
-      return action.apps;
+    case RECEIVE_CHROME_APPS:
+      return action.chromeAppFolders;
     default:
       return state;
   }
@@ -102,7 +102,7 @@ function online(state = false, action) {
 export default combineReducers({
   bookmarkFolders,
   chromePageFolders,
-  apps,
+  chromeAppFolders,
   topSites,
   folderPreference,
   themes,

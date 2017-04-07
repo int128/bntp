@@ -4,11 +4,17 @@ const BookmarkRecord = Record({
   id: null,
   title: null,
   url: null,
+  icons: null,
 });
 
 export class Bookmark extends BookmarkRecord {
   getIcon() {
-    return `chrome://favicon/${this.url}`;
+    const icon = Seq(this.icons).maxBy(icon => icon.size);
+    if (icon) {
+      return icon.url;
+    } else {
+      return `chrome://favicon/${this.url}`;
+    }
   }
 }
 
@@ -42,23 +48,6 @@ export class BookmarkTree extends BookmarkTreeRecord {
       }
     }
     return traverse(this);
-  }
-}
-
-const ChromeAppRecord = Record({
-  id: null,
-  name: null,
-  icons: [],
-});
-
-export class ChromeApp extends ChromeAppRecord {
-  getIcon() {
-    const icon = Seq(this.icons).maxBy(icon => icon.size);
-    if (icon !== null) {
-      return icon.url;
-    } else {
-      return null;
-    }
   }
 }
 

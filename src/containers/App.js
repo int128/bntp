@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Seq } from 'immutable';
 
 import Bookmarks from './Bookmarks';
-import Apps from './Apps';
 import TopSites from './TopSites';
 import NetworkStatus from './NetworkStatus';
 import Preferences from '../components/Preferences';
@@ -18,7 +17,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { visibilities, bookmarkFolders, chromePageFolders } = this.props;
+    const { visibilities, bookmarkFolders, chromePageFolders, chromeAppFolders } = this.props;
     return (
       <div>
         <NetworkStatus />
@@ -27,9 +26,9 @@ class App extends React.Component {
           <div>
             <Bookmarks folders={bookmarkFolders} />
             <Bookmarks folders={chromePageFolders} />
+            <Bookmarks folders={chromeAppFolders} />
           </div>
         ) : null}
-        {visibilities.isVisible('apps') ? <Apps/> : null}
         <Preferences />
       </div>
     );
@@ -40,6 +39,7 @@ const mapStateToProps = state => ({
   visibilities: state.visibilities,
   bookmarkFolders: state.bookmarkFolders,
   chromePageFolders: state.chromePageFolders,
+  chromeAppFolders: state.chromeAppFolders,
 });
 
 export default connect(mapStateToProps)(App);
