@@ -7,7 +7,7 @@ import {
   visibilityRepository,
 } from '../repositories';
 
-import { networkService } from '../services';
+import { networkStatusManager } from '../infrastructure';
 
 export const RECEIVE_BOOKMARKS = 'RECEIVE_BOOKMARKS';
 export const TOGGLE_FOLDER_COLLAPSE = 'TOGGLE_BOOKMARK_FOLDER_COLLAPSE';
@@ -70,7 +70,7 @@ export function initialize() {
       visibilities
     }));
 
-    networkService.onChange(online => dispatch({
+    networkStatusManager.onChange(online => dispatch({
       type: RECEIVE_ONLINE,
       online
     }))

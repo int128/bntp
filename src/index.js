@@ -7,7 +7,7 @@ import createLogger from 'redux-logger';
 
 import { initialize } from './actions';
 import reducers from './reducers';
-import { networkService } from './services';
+import { networkStatusManager } from './infrastructure';
 
 import App from './containers/App';
 
@@ -27,7 +27,7 @@ const initialState = () => {
   const selectedTheme = themePreferenceRepository.getOrDefault();
   const themes = themeRepository.findAll();
   const visibilities = visibilityRepository.findAll();
-  const online = networkService.isOnline();
+  const online = networkStatusManager.isOnline();
   return {
     chromePageFolders,
     folderPreference,
