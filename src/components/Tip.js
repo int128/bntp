@@ -3,10 +3,6 @@ import React, { PropTypes } from 'react';
 import './Tip.css';
 
 export class FixedTip extends React.Component {
-  static propTypes = {
-    children: PropTypes.object.isRequired,
-  }
-
   render() {
     return (
       <div className="FixedTip">
@@ -20,7 +16,6 @@ export class FixedTip extends React.Component {
 
 export class FloatTip extends React.Component {
   static propTypes = {
-    children: PropTypes.object.isRequired,
     title: PropTypes.string.isRequired,
   }
 
