@@ -24,7 +24,7 @@ class Bookmarks extends React.Component {
                       collapsed={folderPreference.isCollapse(folder)}
                       onToggle={collapsed => dispatch(toggleFolderCollapse(folder))}>
             {folder.bookmarks.map(bookmark =>
-              <TileFolderItem key={bookmark.id} url={bookmark.url} icon={bookmark.getIcon()}>
+              <TileFolderItem key={bookmark.id} link={bookmark.link}>
                 {bookmark.title}
               </TileFolderItem>
             )}

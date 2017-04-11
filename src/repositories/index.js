@@ -1,6 +1,7 @@
 import { Seq } from 'immutable';
 
 import {
+  Link,
   Bookmark,
   BookmarkFolder,
   BookmarkTree,
@@ -47,8 +48,11 @@ class ChromeAppRepository {
               .map(app => new Bookmark({
                 id: app.id,
                 title: app.name,
-                url: app.id,
-                icons: app.icons,
+                link: new Link({
+                  app: true,
+                  url: app.id,
+                  icons: app.icons,
+                }),
               }))
           })
         )
@@ -77,7 +81,10 @@ export const chromePageRepository = new ChromePageRepository();
 class TopSiteRepository {
   findAll(callback) {
     return window.chrome.topSites.get(topSites =>
-      callback(Seq(topSites).map(topSite => new TopSite(topSite))));
+      callback(Seq(topSites).map(topSite => new TopSite({
+        title: topSite.title,
+        link: new Link({url: topSite.url}),
+      }))));
   }
 }
 

@@ -15,9 +15,9 @@ class TopSites extends React.Component {
     return (
       <div className="TopSites">
         <BarFolder>
-          {topSites.map(topSite =>
-            <FloatTip key={topSite.url} title={topSite.title}>
-              <BarFolderItem url={topSite.url} icon={topSite.getIcon()} />
+          {topSites.map((topSite, index) =>
+            <FloatTip key={index} title={topSite.title}>
+              <BarFolderItem link={topSite.link} />
             </FloatTip>
           )}
         </BarFolder>

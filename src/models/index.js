@@ -1,13 +1,16 @@
 import { Record, Seq, Map } from 'immutable';
 
-const BookmarkRecord = Record({
-  id: null,
-  title: null,
+const LinkRecord = Record({
   url: null,
+  app: false,
   icons: null,
 });
 
-export class Bookmark extends BookmarkRecord {
+export class Link extends LinkRecord {
+  isSpecial = () => this.url.match(/^(chrome|file|javascript):/)
+
+  isApp = () => this.app
+
   getIcon() {
     const icon = Seq(this.icons).maxBy(icon => icon.size);
     if (icon) {
@@ -16,6 +19,15 @@ export class Bookmark extends BookmarkRecord {
       return `chrome://favicon/${this.url}`;
     }
   }
+}
+
+const BookmarkRecord = Record({
+  id: null,
+  title: null,
+  link: null,
+});
+
+export class Bookmark extends BookmarkRecord {
 }
 
 const BookmarkFolderRecord = Record({
@@ -39,7 +51,12 @@ export class BookmarkTree extends BookmarkTreeRecord {
       const bookmarkFolder = new BookmarkFolder({
         id: parent.id,
         title: parent.title,
-        bookmarks: children.filterNot(child => child.url === undefined).map(child => new Bookmark(child)),
+        bookmarks: children.filterNot(child => child.url === undefined)
+          .map(child => new Bookmark({
+            id: child.id,
+            title: child.title,
+            link: new Link({url: child.url}),
+          })),
       });
       if (bookmarkFolder.bookmarks.isEmpty()) {
         return bookmarkFolders;
@@ -52,14 +69,11 @@ export class BookmarkTree extends BookmarkTreeRecord {
 }
 
 const TopSiteRecord = Record({
-  url: null,
+  link: null,
   title: null,
 });
 
 export class TopSite extends TopSiteRecord {
-  getIcon() {
-    return `chrome://favicon/${this.url}`;
-  }
 }
 
 export class FolderPreference {

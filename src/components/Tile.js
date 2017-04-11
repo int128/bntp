@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 
+import { Link } from '../models';
+
 import './Tile.css';
 
 export class TileFolder extends React.Component {
@@ -52,29 +54,28 @@ export class TileFolder extends React.Component {
 
 export class TileFolderItem extends React.Component {
   static propTypes = {
-    url: PropTypes.string.isRequired,
-    icon: PropTypes.string.isRequired
+    link: PropTypes.instanceOf(Link).isRequired,
   }
 
   onClick(e) {
-    const { url } = this.props;
-    if (url.match(/^(chrome|file|javascript):/)) {
-      window.chrome.tabs.create({url: url});
+    const { link } = this.props;
+    if (link.isSpecial()) {
+      window.chrome.tabs.create({url: link.url});
       e.preventDefault();
-    } else if (url.match(/^app:/)) {
-      window.chrome.management.launchApp(url.substring('app:'.length));
+    } else if (link.isApp()) {
+      window.chrome.management.launchApp(link.url);
       e.preventDefault();
     }
   }
 
   render() {
-    const { url, icon, children } = this.props;
+    const { link, children } = this.props;
     return (
       <div className="TileFolderItem">
-        <a href={url} onClick={e => this.onClick(e)}>
+        <a href={link.url} onClick={e => this.onClick(e)}>
           <div className="TileFolderItem__Button">
             <div className="TileFolderItem__ButtonBody"
-              style={{backgroundImage: `url(${icon})`}}>
+              style={{backgroundImage: `url(${link.getIcon()})`}}>
               {children}
             </div>
           </div>

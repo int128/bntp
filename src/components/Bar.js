@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 
+import { Link } from '../models';
+
 import './Bar.css';
 
 export class BarFolder extends React.Component {
@@ -15,29 +17,28 @@ export class BarFolder extends React.Component {
 
 export class BarFolderItem extends React.Component {
   static propTypes = {
-    url: PropTypes.string.isRequired,
-    icon: PropTypes.string.isRequired
+    link: PropTypes.instanceOf(Link).isRequired,
   }
 
   onClick(e) {
-    const { url } = this.props;
-    if (url.match(/^(chrome|file|javascript):/)) {
-      window.chrome.tabs.create({url: url});
+    const { link } = this.props;
+    if (link.isSpecial()) {
+      window.chrome.tabs.create({url: link.url});
       e.preventDefault();
-    } else if (url.match(/^app:/)) {
-      window.chrome.management.launchApp(url.substring('app:'.length));
+    } else if (link.isApp()) {
+      window.chrome.management.launchApp(link.url);
       e.preventDefault();
     }
   }
 
   render() {
-    const { url, icon } = this.props;
+    const { link } = this.props;
     return (
       <div className="BarFolderItem">
-        <a href={url} onClick={e => this.onClick(e)}>
+        <a href={link.url} onClick={e => this.onClick(e)}>
           <div className="BarFolderItem__Button">
             <div className="BarFolderItem__ButtonBody"
-              style={{backgroundImage: `url(${icon})`}}>
+              style={{backgroundImage: `url(${link.getIcon()})`}}>
             </div>
           </div>
         </a>
