@@ -24,10 +24,8 @@
   background-color: var(--palette-2);
 }
 
-.TileFolder__Heading__Expand,
-.TileFolder__Heading__Collapse {
+.TileFolder__Heading {
   margin-left: 2px;
-  font-size: 120%;
 }
 
 .TileFolder__Heading__Expand {
@@ -40,6 +38,10 @@
   display: inline-block;
   margin-bottom: var(--size-folder-item-margin);
   margin-right: var(--size-folder-item-margin);
+}
+
+.TileFolder__HeadingText {
+  font-size: 120%;
 }
 
 .TileFolderItem__Button {

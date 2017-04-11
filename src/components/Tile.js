@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 
+import { FloatTip } from '../components/Tip';
 import { Link } from '../models';
 
 import './Tile.css';
@@ -12,7 +13,7 @@ export class TileFolder extends React.Component {
   }
 
   onClick(e, collapsed) {
-    this.props.onToggle(collapsed);
+    this.props.onToggle(!this.props.collapsed);
     e.preventDefault();
   }
 
@@ -21,20 +22,24 @@ export class TileFolder extends React.Component {
     if (collapsed === true) {
       return (
         <section className="TileFolder">
-          <div className="TileFolder__Heading TileFolder__Heading__Collapse">
-            <a href="click: Expand this folder" onClick={e => this.onClick(e, !collapsed)}>
-              {title}
-            </a>
-          </div>
+          <FloatTip title="Expand">
+            <div className="TileFolder__Heading TileFolder__Heading__Collapse">
+              <a href="#" onClick={e => this.onClick(e)}>
+                <span className="TileFolder__HeadingText">{title}</span>
+              </a>
+            </div>
+          </FloatTip>
         </section>
       );
     } else if (collapsed === false) {
       return (
         <section className="TileFolder">
           <div className="TileFolder__Heading TileFolder__Heading__Expand">
-            <a href="click: Collapse this folder" onClick={e => this.onClick(e, !collapsed)}>
-              {title}
-            </a>
+            <FloatTip title="Collapse">
+              <a href="#" onClick={e => this.onClick(e)}>
+                <span className="TileFolder__HeadingText">{title}</span>
+              </a>
+            </FloatTip>
           </div>
           {children}
         </section>
