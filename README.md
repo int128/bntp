@@ -8,11 +8,12 @@ Architecture
 ------------
 
 * React
+* Redux
+* Immutable.js
 * ES6
-* Less
 * Chrome Extension API
 
-Build by Webpack, style-loader and less-loader.
+Build by create-react-app.
 
 
 Contribution
