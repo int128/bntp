@@ -3,7 +3,6 @@ import { render } from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import createLogger from 'redux-logger';
 
 import { initialize } from './actions';
 import reducers from './reducers';
@@ -20,6 +19,11 @@ import {
 } from './repositories';
 
 import './index.css';
+
+const devMiddlewares = [];
+if (process.env.NODE_ENV === 'development') {
+  devMiddlewares.push(require('redux-logger')());
+}
 
 const initialState = () => {
   const chromePageFolders = chromePageRepository.findFolders();
@@ -38,11 +42,7 @@ const initialState = () => {
   };
 };
 
-const store = createStore(
-  reducers,
-  initialState(),
-  applyMiddleware(thunk, createLogger())
-);
+const store = createStore(reducers, initialState(), applyMiddleware(thunk, ...devMiddlewares));
 
 // Apply theme on the root element
 const renderTheme = () => {
