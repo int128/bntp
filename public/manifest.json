@@ -1,7 +1,7 @@
 {
-  "name": "Bookmarks in New Tab Page",
+  "name": "BNTP: Bookmarks in New Tab Page",
   "version": "2.0.0",
-  "description": "Lightweight New Tab Page with your Bookmarks and Top Sites",
+  "description": "Lightweight New Tab Page with Bookmarks and Top Sites",
   "permissions": [
     "bookmarks",
     "chrome://favicon/",
