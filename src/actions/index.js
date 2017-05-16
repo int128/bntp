@@ -19,6 +19,9 @@ export const SELECT_THEME = 'SELECT_THEME';
 export const RECEIVE_VISIBILITIES = 'RECEIVE_VISIBILITIES';
 export const TOGGLE_VISIBILITY = 'TOGGLE_VISIBILITY';
 export const RECEIVE_ONLINE = 'RECEIVE_ONLINE';
+export const BEGIN_BOOKMARK_EDIT = 'BEGIN_BOOKMARK_EDIT';
+export const COMMIT_BOOKMARK_EDIT = 'COMMIT_BOOKMARK_EDIT';
+export const CANCEL_BOOKMARK_EDIT = 'CANCEL_BOOKMARK_EDIT';
 
 export function fetchBookmarks() {
   return dispatch => bookmarkRepository.findAll(bookmarkFolders => dispatch({
@@ -88,5 +91,25 @@ export function toggleVisibility(visibility) {
   return {
     type: TOGGLE_VISIBILITY,
     visibility
+  };
+}
+
+export function beginBookmarkEdit(bookmark) {
+  return {
+    type: BEGIN_BOOKMARK_EDIT,
+    bookmark
+  };
+}
+
+export function commitBookmarkEdit(bookmark) {
+  return {
+    type: COMMIT_BOOKMARK_EDIT,
+    bookmark
+  };
+}
+
+export function cancelBookmarkEdit() {
+  return {
+    type: CANCEL_BOOKMARK_EDIT,
   };
 }

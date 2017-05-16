@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Seq } from 'immutable';
 
-import { toggleFolderCollapse } from '../actions';
+import { toggleFolderCollapse, beginBookmarkEdit } from '../actions';
 
 import { TileFolder, TileFolderItem } from '../components/Tile';
 
@@ -24,7 +24,10 @@ class Bookmarks extends React.Component {
                       collapsed={folderPreference.isCollapse(folder)}
                       onToggle={collapsed => dispatch(toggleFolderCollapse(folder))}>
             {folder.bookmarks.map(bookmark =>
-              <TileFolderItem key={bookmark.id} link={bookmark.link}>
+              <TileFolderItem key={bookmark.id}
+                              link={bookmark.link}
+                              canEdit={true}
+                              editClick={e => dispatch(beginBookmarkEdit(bookmark))}>
                 {bookmark.title}
               </TileFolderItem>
             )}

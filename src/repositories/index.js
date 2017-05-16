@@ -24,6 +24,10 @@ class BookmarkRepository {
       callback(new BookmarkTree({children: tree}).flatten()));
   }
 
+  update(bookmark, callback) {
+    window.chrome.bookmarks.update(bookmark.id, bookmark, callback);
+  }
+
   onChange(callback) {
     window.chrome.bookmarks.onCreated.addListener(callback);
     window.chrome.bookmarks.onRemoved.addListener(callback);

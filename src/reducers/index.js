@@ -12,6 +12,9 @@ import {
   RECEIVE_VISIBILITIES,
   TOGGLE_VISIBILITY,
   RECEIVE_ONLINE,
+  BEGIN_BOOKMARK_EDIT,
+  COMMIT_BOOKMARK_EDIT,
+  CANCEL_BOOKMARK_EDIT,
 } from '../actions';
 
 import {
@@ -99,6 +102,19 @@ function online(state = false, action) {
   }
 }
 
+function editingBookmark(state = null, action) {
+  switch (action.type) {
+    case BEGIN_BOOKMARK_EDIT:
+      return action.bookmark;
+    case COMMIT_BOOKMARK_EDIT:
+      return null;
+    case CANCEL_BOOKMARK_EDIT:
+      return null;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   bookmarkFolders,
   chromePageFolders,
@@ -109,4 +125,5 @@ export default combineReducers({
   selectedTheme,
   visibilities,
   online,
+  editingBookmark,
 })

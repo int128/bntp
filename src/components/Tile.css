@@ -70,3 +70,29 @@
   background-position-y: var(--size-folder-item-padding);
   background-size: 16px;
 }
+
+.TileFolderItem__EditButton {
+  position: absolute;
+}
+
+.TileFolderItem .TileFolderItem__EditButton {
+  display: none;
+}
+
+.TileFolderItem:hover .TileFolderItem__EditButton {
+  display: block;
+  opacity: 0.5;
+}
+
+.TileFolderItem:hover .TileFolderItem__EditButton:hover {
+  display: block;
+  opacity: 1;
+}
+
+.TileFolderItem button {
+  color: var(--palette-3);
+  background-color: var(--palette-01);
+  border: none;
+  border-radius: 3px;
+  padding: var(--size-folder-item-padding);
+}

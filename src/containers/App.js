@@ -5,6 +5,7 @@ import { Seq } from 'immutable';
 import Bookmarks from './Bookmarks';
 import TopSites from './TopSites';
 import NetworkStatus from './NetworkStatus';
+import BookmarkEditor from './BookmarkEditor';
 import Preferences from '../components/Preferences';
 
 import { Visibilities } from '../models';
@@ -21,6 +22,7 @@ class App extends React.Component {
     return (
       <div>
         <NetworkStatus />
+        <BookmarkEditor />
         {visibilities.isVisible('top-sites') ? <TopSites/> : null}
         {visibilities.isVisible('bookmarks') ? (
           <div>
