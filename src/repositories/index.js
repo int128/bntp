@@ -25,7 +25,10 @@ class BookmarkRepository {
   }
 
   update(bookmark, callback) {
-    window.chrome.bookmarks.update(bookmark.id, bookmark, callback);
+    window.chrome.bookmarks.update(bookmark.id, {
+      title: bookmark.title,
+      url: bookmark.link.url,
+    }, callback);
   }
 
   onChange(callback) {

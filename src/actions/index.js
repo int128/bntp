@@ -20,7 +20,7 @@ export const RECEIVE_VISIBILITIES = 'RECEIVE_VISIBILITIES';
 export const TOGGLE_VISIBILITY = 'TOGGLE_VISIBILITY';
 export const RECEIVE_ONLINE = 'RECEIVE_ONLINE';
 export const BEGIN_BOOKMARK_EDIT = 'BEGIN_BOOKMARK_EDIT';
-export const COMMIT_BOOKMARK_EDIT = 'COMMIT_BOOKMARK_EDIT';
+export const UPDATED_BOOKMARK = 'UPDATED_BOOKMARK';
 export const CANCEL_BOOKMARK_EDIT = 'CANCEL_BOOKMARK_EDIT';
 
 export function fetchBookmarks() {
@@ -101,11 +101,11 @@ export function beginBookmarkEdit(bookmark) {
   };
 }
 
-export function commitBookmarkEdit(bookmark) {
-  return {
-    type: COMMIT_BOOKMARK_EDIT,
+export function updateBookmarkEdit(bookmark) {
+  return dispatch => bookmarkRepository.update(bookmark, () => dispatch({
+    type: UPDATED_BOOKMARK,
     bookmark
-  };
+  }));
 }
 
 export function cancelBookmarkEdit() {

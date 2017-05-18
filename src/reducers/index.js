@@ -13,7 +13,7 @@ import {
   TOGGLE_VISIBILITY,
   RECEIVE_ONLINE,
   BEGIN_BOOKMARK_EDIT,
-  COMMIT_BOOKMARK_EDIT,
+  UPDATED_BOOKMARK,
   CANCEL_BOOKMARK_EDIT,
 } from '../actions';
 
@@ -106,7 +106,7 @@ function editingBookmark(state = null, action) {
   switch (action.type) {
     case BEGIN_BOOKMARK_EDIT:
       return action.bookmark;
-    case COMMIT_BOOKMARK_EDIT:
+    case UPDATED_BOOKMARK:
       return null;
     case CANCEL_BOOKMARK_EDIT:
       return null;

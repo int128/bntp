@@ -4,7 +4,7 @@ import { Seq } from 'immutable';
 
 import { BookmarkEditorForm } from '../components/BookmarkForm';
 
-import { commitBookmarkEdit, cancelBookmarkEdit } from '../actions';
+import { updateBookmarkEdit, cancelBookmarkEdit } from '../actions';
 
 import { Bookmark } from '../models';
 
@@ -21,7 +21,7 @@ class BookmarkEditor extends React.Component {
       return (
         <BookmarkEditorForm
           bookmark={editingBookmark}
-          onSubmit={bookmark => dispatch(commitBookmarkEdit(bookmark))}
+          onSubmit={bookmark => dispatch(updateBookmarkEdit(bookmark))}
           onCancel={e => dispatch(cancelBookmarkEdit())}/>
       );
     }

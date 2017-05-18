@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import { Bookmark } from '../models';
+import { Bookmark, Link } from '../models';
 
 import './BookmarkForm.css';
 
@@ -11,31 +11,28 @@ export class BookmarkEditorForm extends React.Component {
     onCancel: PropTypes.func.isRequired,
   }
 
-  onSubmitClick(e) {
-    this.props.onSubmit();
-  }
-
-  onCancelClick() {
-    this.props.onCancel();
+  onSubmit(e) {
+    e.preventDefault();
+    this.props.onSubmit(new Bookmark({
+      id: this.props.bookmark.id,
+      title: this.refs.title.value,
+      link: new Link({url: this.refs.url.value}),
+    }));
   }
 
   onWrapClick(e) {
-    this.props.onCancel();
     e.preventDefault();
+    this.props.onCancel();
   }
 
   render() {
     const { bookmark } = this.props;
     return (
       <div className="BookmarkEditorForm__Wrap" onClick={e => this.onWrapClick(e)}>
-        <form className="BookmarkEditorForm" onClick={e => e.stopPropagation()}>
-          <div>Bookmark #{bookmark.id}</div>
-          <div><input type="text" defaultValue={bookmark.title} /></div>
-          <div><input type="text" defaultValue={bookmark.link.url} /></div>
-          <div>
-            <input type="submit" onClick={e => this.onSubmitClick(e)} value="Update" />
-            <input type="reset" onClick={e => this.onCancelClick(e)} value="Cancel" />
-          </div>
+        <form className="BookmarkEditorForm" onClick={e => e.stopPropagation()} onSubmit={e => this.onSubmit(e)}>
+          <div><input type="text" ref="title" defaultValue={bookmark.title} /></div>
+          <div><input type="text" ref="url" defaultValue={bookmark.link.url} /></div>
+          <div><input type="submit" value="Update" /></div>
         </form>
       </div>
     );
