@@ -21,7 +21,7 @@ const HIDDEN_COMPONENTS = 'HIDDEN_COMPONENTS';
 class BookmarkRepository {
   findAll(callback) {
     return window.chrome.bookmarks.getTree(tree =>
-      callback(new BookmarkTree({children: tree}).flatten()));
+      callback(new BookmarkTree({children: tree, canEdit: true}).flatten()));
   }
 
   update(bookmark, callback) {

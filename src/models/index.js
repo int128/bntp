@@ -25,6 +25,7 @@ const BookmarkRecord = Record({
   id: null,
   title: null,
   link: null,
+  canEdit: false,
 });
 
 export class Bookmark extends BookmarkRecord {
@@ -41,10 +42,12 @@ export class BookmarkFolder extends BookmarkFolderRecord {
 
 const BookmarkTreeRecord = Record({
   children: [],
+  canEdit: false,
 });
 
 export class BookmarkTree extends BookmarkTreeRecord {
   flatten() {
+    const canEdit = this.canEdit;
     function traverse(parent) {
       const children = Seq(parent.children);
       const bookmarkFolders = children.filter(child => child.url === undefined).flatMap(traverse);
@@ -56,6 +59,7 @@ export class BookmarkTree extends BookmarkTreeRecord {
             id: child.id,
             title: child.title,
             link: new Link({url: child.url}),
+            canEdit,
           })),
       });
       if (bookmarkFolder.bookmarks.isEmpty()) {

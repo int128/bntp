@@ -26,7 +26,7 @@ class Bookmarks extends React.Component {
             {folder.bookmarks.map(bookmark =>
               <TileFolderItem key={bookmark.id}
                               link={bookmark.link}
-                              canEdit={true}
+                              canEdit={bookmark.canEdit}
                               editClick={e => dispatch(openBookmarkEdit(bookmark))}>
                 {bookmark.title}
               </TileFolderItem>
