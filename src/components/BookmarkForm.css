@@ -9,19 +9,39 @@
 }
 
 .BookmarkEditorForm {
-  margin: 40px;
+  margin: 32px;
   background-color: var(--palette-3);
-  padding: 20px;
+  padding: 16px;
   border-radius: 4px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
 }
 
-.BookmarkEditorForm input[type="text"] {
+.BookmarkEditorForm__TextInput,
+.BookmarkEditorForm__UrlInput {
+  box-sizing: border-box;
   width: 100%;
   margin-top: 4px;
   margin-bottom: 4px;
+  padding: 8px;
+  border-radius: 4px;
+  color: inherit;
+  background-color: var(--palette-2);
+  border: none;
 }
 
-.BookmarkEditorForm input[type="submit"] {
+.BookmarkEditorForm__UrlInput {
+  padding-left: 32px;
+  background-position-x: 8px;
+  background-position-y: 8px;
+  background-repeat: no-repeat;
+}
+
+.BookmarkEditorForm__Submit {
   margin-top: 4px;
   margin-bottom: 4px;
+  padding: 8px;
+  border-radius: 4px;
+  color: inherit;
+  background-color: var(--palette-2);
+  border: none;
 }

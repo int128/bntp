@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Seq } from 'immutable';
 
-import { toggleFolderCollapse, beginBookmarkEdit } from '../actions';
+import { toggleFolderCollapse, openBookmarkEdit } from '../actions';
 
 import { TileFolder, TileFolderItem } from '../components/Tile';
 
@@ -27,7 +27,7 @@ class Bookmarks extends React.Component {
               <TileFolderItem key={bookmark.id}
                               link={bookmark.link}
                               canEdit={true}
-                              editClick={e => dispatch(beginBookmarkEdit(bookmark))}>
+                              editClick={e => dispatch(openBookmarkEdit(bookmark))}>
                 {bookmark.title}
               </TileFolderItem>
             )}

@@ -19,8 +19,9 @@ export const SELECT_THEME = 'SELECT_THEME';
 export const RECEIVE_VISIBILITIES = 'RECEIVE_VISIBILITIES';
 export const TOGGLE_VISIBILITY = 'TOGGLE_VISIBILITY';
 export const RECEIVE_ONLINE = 'RECEIVE_ONLINE';
-export const BEGIN_BOOKMARK_EDIT = 'BEGIN_BOOKMARK_EDIT';
-export const UPDATED_BOOKMARK = 'UPDATED_BOOKMARK';
+export const OPEN_BOOKMARK_EDIT = 'OPEN_BOOKMARK_EDIT';
+export const CHANGE_BOOKMARK_EDIT = 'CHANGE_BOOKMARK_EDIT';
+export const SAVED_BOOKMARK_EDIT = 'SAVED_BOOKMARK_EDIT';
 export const CANCEL_BOOKMARK_EDIT = 'CANCEL_BOOKMARK_EDIT';
 
 export function fetchBookmarks() {
@@ -94,16 +95,23 @@ export function toggleVisibility(visibility) {
   };
 }
 
-export function beginBookmarkEdit(bookmark) {
+export function openBookmarkEdit(bookmark) {
   return {
-    type: BEGIN_BOOKMARK_EDIT,
+    type: OPEN_BOOKMARK_EDIT,
     bookmark
   };
 }
 
-export function updateBookmarkEdit(bookmark) {
+export function changeBookmarkEdit(bookmark) {
+  return {
+    type: CHANGE_BOOKMARK_EDIT,
+    bookmark
+  };
+}
+
+export function saveBookmarkEdit(bookmark) {
   return dispatch => bookmarkRepository.update(bookmark, () => dispatch({
-    type: UPDATED_BOOKMARK,
+    type: SAVED_BOOKMARK_EDIT,
     bookmark
   }));
 }

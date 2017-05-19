@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Seq } from 'immutable';
 
 import { BookmarkEditorForm } from '../components/BookmarkForm';
 
-import { updateBookmarkEdit, cancelBookmarkEdit } from '../actions';
+import { changeBookmarkEdit, saveBookmarkEdit, cancelBookmarkEdit } from '../actions';
 
 import { Bookmark } from '../models';
 
@@ -21,8 +20,9 @@ class BookmarkEditor extends React.Component {
       return (
         <BookmarkEditorForm
           bookmark={editingBookmark}
-          onSubmit={bookmark => dispatch(updateBookmarkEdit(bookmark))}
-          onCancel={e => dispatch(cancelBookmarkEdit())}/>
+          onChange={bookmark => dispatch(changeBookmarkEdit(bookmark))}
+          onSubmit={bookmark => dispatch(saveBookmarkEdit(bookmark))}
+          onCancel={bookmark => dispatch(cancelBookmarkEdit())}/>
       );
     }
   }
