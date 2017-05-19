@@ -9,6 +9,7 @@ export class BookmarkEditorForm extends React.Component {
     bookmark: PropTypes.instanceOf(Bookmark).isRequired,
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
   }
 
@@ -24,6 +25,10 @@ export class BookmarkEditorForm extends React.Component {
 
   onInputChange(e) {
     this.props.onChange(this.getEditingBookmark());
+  }
+
+  onRemoveClick(e) {
+    this.props.onRemove(this.getEditingBookmark());
   }
 
   getEditingBookmark() {
@@ -51,8 +56,13 @@ export class BookmarkEditorForm extends React.Component {
               onChange={e => this.onInputChange(e)}/>
           </div>
           <div>
-            <input type="submit" value="Update" className="BookmarkEditorForm__Submit"/>
+            <input type="submit" value="Update"
+              className="BookmarkEditorForm__Button BookmarkEditorForm__Left"/>
+            <input type="button" value="Remove"
+              className="BookmarkEditorForm__Button BookmarkEditorForm__Right"
+              onClick={e => this.onRemoveClick(e)}/>
           </div>
+          <div className="BookmarkEditorForm__ClearFix"></div>
         </form>
       </div>
     );

@@ -36,7 +36,7 @@
   background-repeat: no-repeat;
 }
 
-.BookmarkEditorForm__Submit {
+.BookmarkEditorForm__Button {
   margin-top: 4px;
   margin-bottom: 4px;
   padding: 8px;
@@ -44,4 +44,20 @@
   color: inherit;
   background-color: var(--palette-2);
   border: none;
+}
+
+.BookmarkEditorForm__Button:hover {
+  background-color: var(--palette-1);
+}
+
+.BookmarkEditorForm__ClearFix {
+  clear: both;
+}
+
+.BookmarkEditorForm__Left {
+  float: left;
+}
+
+.BookmarkEditorForm__Right {
+  float: right;
 }

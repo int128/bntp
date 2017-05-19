@@ -3,7 +3,12 @@ import { connect } from 'react-redux';
 
 import { BookmarkEditorForm } from '../components/BookmarkForm';
 
-import { changeBookmarkEdit, saveBookmarkEdit, cancelBookmarkEdit } from '../actions';
+import {
+  changeBookmarkEdit,
+  saveBookmarkEdit,
+  removeBookmarkEdit,
+  cancelBookmarkEdit,
+} from '../actions';
 
 import { Bookmark } from '../models';
 
@@ -22,6 +27,7 @@ class BookmarkEditor extends React.Component {
           bookmark={editingBookmark}
           onChange={bookmark => dispatch(changeBookmarkEdit(bookmark))}
           onSubmit={bookmark => dispatch(saveBookmarkEdit(bookmark))}
+          onRemove={bookmark => dispatch(removeBookmarkEdit(bookmark))}
           onCancel={bookmark => dispatch(cancelBookmarkEdit())}/>
       );
     }

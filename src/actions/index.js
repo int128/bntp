@@ -22,6 +22,7 @@ export const RECEIVE_ONLINE = 'RECEIVE_ONLINE';
 export const OPEN_BOOKMARK_EDIT = 'OPEN_BOOKMARK_EDIT';
 export const CHANGE_BOOKMARK_EDIT = 'CHANGE_BOOKMARK_EDIT';
 export const SAVED_BOOKMARK_EDIT = 'SAVED_BOOKMARK_EDIT';
+export const REMOVED_BOOKMARK_EDIT = 'REMOVED_BOOKMARK_EDIT';
 export const CANCEL_BOOKMARK_EDIT = 'CANCEL_BOOKMARK_EDIT';
 
 export function fetchBookmarks() {
@@ -112,6 +113,13 @@ export function changeBookmarkEdit(bookmark) {
 export function saveBookmarkEdit(bookmark) {
   return dispatch => bookmarkRepository.update(bookmark, () => dispatch({
     type: SAVED_BOOKMARK_EDIT,
+    bookmark
+  }));
+}
+
+export function removeBookmarkEdit(bookmark) {
+  return dispatch => bookmarkRepository.remove(bookmark, () => dispatch({
+    type: REMOVED_BOOKMARK_EDIT,
     bookmark
   }));
 }

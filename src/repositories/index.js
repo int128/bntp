@@ -31,6 +31,10 @@ class BookmarkRepository {
     }, callback);
   }
 
+  remove(bookmark, callback) {
+    window.chrome.bookmarks.remove(bookmark.id, callback);
+  }
+
   onChange(callback) {
     window.chrome.bookmarks.onCreated.addListener(callback);
     window.chrome.bookmarks.onRemoved.addListener(callback);

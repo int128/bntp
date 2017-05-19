@@ -15,6 +15,7 @@ import {
   OPEN_BOOKMARK_EDIT,
   CHANGE_BOOKMARK_EDIT,
   SAVED_BOOKMARK_EDIT,
+  REMOVED_BOOKMARK_EDIT,
   CANCEL_BOOKMARK_EDIT,
 } from '../actions';
 
@@ -106,11 +107,10 @@ function online(state = false, action) {
 function editingBookmark(state = null, action) {
   switch (action.type) {
     case OPEN_BOOKMARK_EDIT:
-      return action.bookmark;
     case CHANGE_BOOKMARK_EDIT:
       return action.bookmark;
     case SAVED_BOOKMARK_EDIT:
-      return null;
+    case REMOVED_BOOKMARK_EDIT:
     case CANCEL_BOOKMARK_EDIT:
       return null;
     default:
