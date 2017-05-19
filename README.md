@@ -1,4 +1,4 @@
-BNTP: Bookmarks in New Tab Page [![Build Status](https://travis-ci.org/int128/new-tab-bookmarks.svg?branch=master)](https://travis-ci.org/int128/new-tab-bookmarks)
+BNTP: Bookmarks in New Tab Page [![Build Status](https://travis-ci.org/int128/bntp.svg?branch=master)](https://travis-ci.org/int128/bntp)
 ===============================
 
 A Chrome extension which provides the new tab page with recently accessed sites and bookmarks.
