@@ -2,8 +2,7 @@ import React from 'react';
 
 import ThemeSelectionContainer from './ThemeSelectionContainer';
 import VisibilityPreferenceContainer from './VisibilityPreferenceContainer';
-
-import Manifest from '../../../public/manifest.json';
+import ProductContainer from './ProductContainer';
 
 import './Preferences.css';
 
@@ -18,11 +17,6 @@ export default () =>
       <VisibilityPreferenceContainer />
     </form>
     <form>
-      <p>{Manifest.name} {Manifest.version}</p>
-      <label>
-        <a href={`https://chrome.google.com/webstore/detail/${window.chrome.runtime.id}`}>
-          Review on Web Store
-        </a>
-      </label>
+      <ProductContainer />
     </form>
   </div>

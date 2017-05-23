@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 import { initialize } from './actions';
 import reducers from './reducers';
 import { networkStatusManager } from './infrastructure';
+import Manifest from './infrastructure/Manifest';
 
 import RootContainer from './components/RootContainer';
 
@@ -32,6 +33,7 @@ const initialState = () => {
   const themes = themeRepository.findAll();
   const visibilities = visibilityRepository.findAll();
   const online = networkStatusManager.isOnline();
+  const manifest = Manifest.get();
   return {
     chromePageFolders,
     folderPreference,
@@ -39,6 +41,7 @@ const initialState = () => {
     themes,
     visibilities,
     online,
+    manifest,
   };
 };
 

@@ -102,6 +102,10 @@ function online(state = false, action) {
   }
 }
 
+function manifest(state = {}, action) {
+  return state;
+}
+
 function editingBookmark(state = null, action) {
   switch (action.type) {
     case OPEN_BOOKMARK_EDIT:
@@ -126,5 +130,6 @@ export default combineReducers({
   selectedTheme,
   visibilities,
   online,
+  manifest,
   editingBookmark,
 })
