@@ -1,6 +1,6 @@
-const SELECTED_THEME_ID = 'SELECTED_THEME_ID';
-
 import { themeRepository } from '..';
+
+const SELECTED_THEME_ID = 'SELECTED_THEME_ID';
 
 export default class ThemePreferenceRepository {
   getOrDefault() {

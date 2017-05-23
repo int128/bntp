@@ -24,7 +24,7 @@ export default class TileFolder extends React.Component {
         <section className="TileFolder">
           <FloatTip title="Expand">
             <div className="TileFolder__Heading TileFolder__Heading__Collapse">
-              <a href="#" onClick={e => this.onClick(e)}>
+              <a href="#Expand" onClick={e => this.onClick(e)}>
                 <span className="TileFolder__HeadingText">{title}</span>
               </a>
             </div>
@@ -36,7 +36,7 @@ export default class TileFolder extends React.Component {
         <section className="TileFolder">
           <div className="TileFolder__Heading TileFolder__Heading__Expand">
             <FloatTip title="Collapse">
-              <a href="#" onClick={e => this.onClick(e)}>
+              <a href="#Collapse" onClick={e => this.onClick(e)}>
                 <span className="TileFolder__HeadingText">{title}</span>
               </a>
             </FloatTip>
