@@ -1,9 +1,9 @@
 import React from 'react';
 
-import ThemeSelection from '../containers/ThemeSelection';
-import VisibilityPreference from '../containers/VisibilityPreference';
+import ThemeSelectionContainer from './ThemeSelectionContainer';
+import VisibilityPreferenceContainer from './VisibilityPreferenceContainer';
 
-import Manifest from '../../public/manifest.json';
+import Manifest from '../../../public/manifest.json';
 
 import './Preferences.css';
 
@@ -11,11 +11,11 @@ export default () =>
   <div className="Preferences">
     <form>
       <p>Themes</p>
-      <ThemeSelection />
+      <ThemeSelectionContainer />
     </form>
     <form>
       <p>Toggle</p>
-      <VisibilityPreference />
+      <VisibilityPreferenceContainer />
     </form>
     <form>
       <p>{Manifest.name} {Manifest.version}</p>

@@ -2,10 +2,11 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Seq } from 'immutable';
 
-import { BarFolder, BarFolderItem } from '../components/Bar';
-import { FloatTip } from '../components/Tip';
+import BarFolder from '../kits/BarFolder';
+import BarFolderItem from '../kits/BarFolderItem';
+import FloatTip from '../kits/FloatTip';
 
-class TopSites extends React.Component {
+class TopSitesContainer extends React.Component {
   static propTypes = {
     topSites: PropTypes.instanceOf(Seq).isRequired,
   }
@@ -30,4 +31,4 @@ const mapStateToProps = state => ({
   topSites: state.topSites,
 });
 
-export default connect(mapStateToProps)(TopSites);
+export default connect(mapStateToProps)(TopSitesContainer);

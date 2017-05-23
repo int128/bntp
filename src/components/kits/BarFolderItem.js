@@ -1,21 +1,10 @@
 import React, { PropTypes } from 'react';
 
-import { Link } from '../models';
+import Link from '../../models/Link';
 
 import './Bar.css';
 
-export class BarFolder extends React.Component {
-  render() {
-    const { children } = this.props;
-    return (
-      <div className="BarFolder">
-        {children}
-      </div>
-    );
-  }
-}
-
-export class BarFolderItem extends React.Component {
+export default class BarFolderItem extends React.Component {
   static propTypes = {
     link: PropTypes.instanceOf(Link).isRequired,
   }

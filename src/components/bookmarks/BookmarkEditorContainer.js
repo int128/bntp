@@ -1,18 +1,18 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { BookmarkEditorForm } from '../components/BookmarkForm';
+import BookmarkEditorForm from './BookmarkEditorForm';
 
 import {
   changeBookmarkEdit,
   saveBookmarkEdit,
   removeBookmarkEdit,
   cancelBookmarkEdit,
-} from '../actions';
+} from '../../actions';
 
-import { Bookmark } from '../models';
+import Bookmark from '../../models/bookmarks/Bookmark';
 
-class BookmarkEditor extends React.Component {
+class BookmarkEditorContainer extends React.Component {
   static propTypes = {
     editingBookmark: PropTypes.instanceOf(Bookmark),
   }
@@ -38,4 +38,4 @@ const mapStateToProps = state => ({
   editingBookmark: state.editingBookmark,
 });
 
-export default connect(mapStateToProps)(BookmarkEditor);
+export default connect(mapStateToProps)(BookmarkEditorContainer);

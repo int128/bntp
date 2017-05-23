@@ -2,11 +2,11 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Seq } from 'immutable';
 
-import { selectTheme } from '../actions';
+import { selectTheme } from '../../actions';
 
-import { Theme } from '../models';
+import Theme from '../../models/preferences/Theme';
 
-class ThemeSelection extends React.Component {
+class ThemeSelectionContainer extends React.Component {
   static propTypes = {
     themes: PropTypes.instanceOf(Seq).isRequired,
     selectedTheme: PropTypes.instanceOf(Theme),
@@ -35,4 +35,4 @@ const mapStateToProps = state => ({
   selectedTheme: state.selectedTheme,
 });
 
-export default connect(mapStateToProps)(ThemeSelection);
+export default connect(mapStateToProps)(ThemeSelectionContainer);

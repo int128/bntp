@@ -8,7 +8,7 @@ import { initialize } from './actions';
 import reducers from './reducers';
 import { networkStatusManager } from './infrastructure';
 
-import App from './containers/App';
+import RootContainer from './components/RootContainer';
 
 import {
   chromePageRepository,
@@ -65,7 +65,7 @@ store.dispatch(initialize());
 
 render(
   <Provider store={store}>
-    <App/>
+    <RootContainer/>
   </Provider>,
   document.getElementById('root')
 );

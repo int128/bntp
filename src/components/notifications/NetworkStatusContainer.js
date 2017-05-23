@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { FixedTip } from '../components/Tip';
+import FixedTip from '../kits/FixedTip';
 
-export class NetworkStatus extends React.Component {
+export class NetworkStatusContainer extends React.Component {
   static propTypes = {
     online: PropTypes.bool.isRequired,
   }
@@ -21,4 +21,4 @@ const mapStateToProps = state => ({
   online: state.online,
 });
 
-export default connect(mapStateToProps)(NetworkStatus);
+export default connect(mapStateToProps)(NetworkStatusContainer);

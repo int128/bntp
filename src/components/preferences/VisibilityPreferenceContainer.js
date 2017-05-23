@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { toggleVisibility } from '../actions';
+import { toggleVisibility } from '../../actions';
 
-import { Visibilities } from '../models';
+import Visibilities from '../../models/preferences/Visibilities';
 
-class VisibilityPreference extends React.Component {
+class VisibilityPreferenceContainer extends React.Component {
   static propTypes = {
     visibilities: PropTypes.instanceOf(Visibilities).isRequired,
   }
@@ -32,4 +32,4 @@ const mapStateToProps = state => ({
   visibilities: state.visibilities,
 });
 
-export default connect(mapStateToProps)(VisibilityPreference);
+export default connect(mapStateToProps)(VisibilityPreferenceContainer);

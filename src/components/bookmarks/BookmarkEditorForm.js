@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
 
-import { Bookmark, Link } from '../models';
+import Bookmark from '../../models/bookmarks/Bookmark';
+import Link from '../../models/Link';
 
-import './BookmarkForm.css';
+import './BookmarkEditorForm.css';
 
-export class BookmarkEditorForm extends React.Component {
+export default class BookmarkEditorForm extends React.Component {
   static propTypes = {
     bookmark: PropTypes.instanceOf(Bookmark).isRequired,
     onChange: PropTypes.func.isRequired,

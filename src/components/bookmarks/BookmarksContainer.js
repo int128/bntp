@@ -2,13 +2,14 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Seq } from 'immutable';
 
-import { toggleFolderCollapse, openBookmarkEdit } from '../actions';
+import { toggleFolderCollapse, openBookmarkEdit } from '../../actions';
 
-import { TileFolder, TileFolderItem } from '../components/Tile';
+import TileFolder from '../kits/TileFolder';
+import TileFolderItem from '../kits/TileFolderItem';
 
-import { FolderPreference } from '../models';
+import FolderPreference from '../../models/preferences/FolderPreference';
 
-class Bookmarks extends React.Component {
+class BookmarksContainer extends React.Component {
   static propTypes = {
     folders: PropTypes.instanceOf(Seq).isRequired,
     folderPreference: PropTypes.instanceOf(FolderPreference).isRequired,
@@ -42,4 +43,4 @@ const mapStateToProps = state => ({
   folderPreference: state.folderPreference,
 });
 
-export default connect(mapStateToProps)(Bookmarks);
+export default connect(mapStateToProps)(BookmarksContainer);

@@ -1,16 +1,14 @@
 import { Seq } from 'immutable';
 
-import {
-  Link,
-  Bookmark,
-  BookmarkFolder,
-  BookmarkTree,
-  TopSite,
-  FolderPreference,
-  Theme,
-  Visibility,
-  Visibilities,
-} from '../models';
+import Link from '../models/Link';
+import Bookmark from '../models/bookmarks/Bookmark';
+import BookmarkFolder from '../models/bookmarks/BookmarkFolder';
+import BookmarkTree from '../models/bookmarks/BookmarkTree';
+import TopSite from '../models/topsites/TopSite';
+import FolderPreference from '../models/preferences/FolderPreference';
+import Theme from '../models/preferences/Theme';
+import Visibility from '../models/preferences/Visibility';
+import Visibilities from '../models/preferences/Visibilities';
 
 import CHROME_PAGES from './ChromePages.json';
 

@@ -19,10 +19,8 @@ import {
   CANCEL_BOOKMARK_EDIT,
 } from '../actions';
 
-import {
-  Visibilities,
-  FolderPreference,
-} from '../models';
+import Visibilities from '../models/preferences/Visibilities';
+import FolderPreference from '../models/preferences/FolderPreference';
 
 function bookmarkFolders(state = Seq(), action) {
   switch (action.type) {

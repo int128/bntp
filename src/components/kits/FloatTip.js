@@ -2,19 +2,7 @@ import React, { PropTypes } from 'react';
 
 import './Tip.css';
 
-export class FixedTip extends React.Component {
-  render() {
-    return (
-      <div className="FixedTip">
-        <div className="FixedTip__Body">
-          {this.props.children}
-        </div>
-      </div>
-    );
-  }
-}
-
-export class FloatTip extends React.Component {
+export default class FloatTip extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
   }
