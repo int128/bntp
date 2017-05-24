@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Seq } from 'immutable';
 
-import BookmarksContainer from './bookmarks/BookmarksContainer';
+import BookmarkFoldersContainer from './bookmarks/BookmarkFoldersContainer';
+import ChromeAppFoldersContainer from './bookmarks/ChromeAppFoldersContainer';
+import ChromePageFoldersContainer from './bookmarks/ChromePageFoldersContainer';
 import BookmarkEditorContainer from './bookmarks/BookmarkEditorContainer';
 import TopSitesContainer from './topsites/TopSitesContainer';
 import NetworkStatusContainer from './notifications/NetworkStatusContainer';
@@ -14,12 +15,10 @@ import Visibilities from '../models/preferences/Visibilities';
 class RootContainer extends React.Component {
   static propTypes = {
     visibilities: PropTypes.instanceOf(Visibilities).isRequired,
-    bookmarkFolders: PropTypes.instanceOf(Seq).isRequired,
-    chromePageFolders: PropTypes.instanceOf(Seq).isRequired,
   }
 
   render() {
-    const { visibilities, bookmarkFolders, chromePageFolders, chromeAppFolders } = this.props;
+    const { visibilities } = this.props;
     return (
       <div>
         <NetworkStatusContainer />
@@ -27,9 +26,9 @@ class RootContainer extends React.Component {
         {visibilities.isVisible('top-sites') ? <TopSitesContainer/> : null}
         {visibilities.isVisible('bookmarks') ? (
           <div>
-            <BookmarksContainer folders={bookmarkFolders} />
-            <BookmarksContainer folders={chromePageFolders} />
-            <BookmarksContainer folders={chromeAppFolders} />
+            <BookmarkFoldersContainer/>
+            <ChromeAppFoldersContainer/>
+            <ChromePageFoldersContainer/>
           </div>
         ) : null}
         <Preferences />
@@ -40,9 +39,6 @@ class RootContainer extends React.Component {
 
 const mapStateToProps = state => ({
   visibilities: state.visibilities,
-  bookmarkFolders: state.bookmarkFolders,
-  chromePageFolders: state.chromePageFolders,
-  chromeAppFolders: state.chromeAppFolders,
 });
 
 export default connect(mapStateToProps)(RootContainer);

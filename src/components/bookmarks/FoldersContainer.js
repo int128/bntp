@@ -11,7 +11,7 @@ import TileFolderItem from '../kits/TileFolderItem';
 
 import FolderPreference from '../../models/preferences/FolderPreference';
 
-class BookmarksContainer extends React.Component {
+class FoldersContainer extends React.Component {
   static propTypes = {
     folders: PropTypes.instanceOf(Seq).isRequired,
     folderPreference: PropTypes.instanceOf(FolderPreference).isRequired,
@@ -45,4 +45,4 @@ const mapStateToProps = state => ({
   folderPreference: state.folderPreference,
 });
 
-export default connect(mapStateToProps)(BookmarksContainer);
+export default connect(mapStateToProps)(FoldersContainer);
