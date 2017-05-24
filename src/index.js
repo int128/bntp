@@ -4,7 +4,11 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
-import { initialize } from './actions';
+import { initialize as initializeBookmarks } from './actions/bookmarks';
+import { initialize as initializeTopsites } from './actions/topsites';
+import { initialize as initializePreferences } from './actions/preferences';
+import { initialize as initializeNotifications } from './actions/notifications';
+
 import reducers from './reducers';
 import { networkStatusManager } from './infrastructure';
 import Manifest from './infrastructure/Manifest';
@@ -64,7 +68,10 @@ store.subscribe(() => {
   visibilityRepository.save(visibilities);
 });
 
-store.dispatch(initialize());
+store.dispatch(initializeBookmarks());
+store.dispatch(initializeTopsites());
+store.dispatch(initializePreferences());
+store.dispatch(initializeNotifications());
 
 render(
   <Provider store={store}>

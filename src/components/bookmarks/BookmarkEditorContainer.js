@@ -9,7 +9,7 @@ import {
   saveBookmarkEdit,
   removeBookmarkEdit,
   cancelBookmarkEdit,
-} from '../../actions';
+} from '../../actions/bookmarks';
 
 import Bookmark from '../../models/bookmarks/Bookmark';
 
