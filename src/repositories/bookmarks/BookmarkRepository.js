@@ -17,11 +17,19 @@ export default class BookmarkRepository {
     window.chrome.bookmarks.remove(bookmark.id, callback);
   }
 
-  onChange(callback) {
+  addListener(callback) {
     window.chrome.bookmarks.onCreated.addListener(callback);
     window.chrome.bookmarks.onRemoved.addListener(callback);
     window.chrome.bookmarks.onChanged.addListener(callback);
     window.chrome.bookmarks.onMoved.addListener(callback);
     window.chrome.bookmarks.onChildrenReordered.addListener(callback);
+  }
+
+  removeListener(callback) {
+    window.chrome.bookmarks.onCreated.removeListener(callback);
+    window.chrome.bookmarks.onRemoved.removeListener(callback);
+    window.chrome.bookmarks.onChanged.removeListener(callback);
+    window.chrome.bookmarks.onMoved.removeListener(callback);
+    window.chrome.bookmarks.onChildrenReordered.removeListener(callback);
   }
 }

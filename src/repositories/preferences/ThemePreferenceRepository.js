@@ -11,11 +11,17 @@ export default class ThemePreferenceRepository {
     localStorage.setItem(SELECTED_THEME_ID, theme.id);
   }
 
-  onChange(callback) {
-    window.addEventListener('storage', e => {
+  addListener(callback) {
+    const eventListener = e => {
       if (e.storageArea === localStorage && e.key === SELECTED_THEME_ID && e.newValue !== null) {
-        callback(this.findById(e.newValue));
+        callback();
       }
-    });
+    };
+    window.addEventListener('storage', eventListener);
+    return eventListener;
+  }
+
+  removeListener(eventListener) {
+    window.removeEventListener('storage', eventListener);
   }
 }

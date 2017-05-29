@@ -1,12 +1,16 @@
-import { networkStatusManager } from '../infrastructure';
+export const FETCH_NETWORK_STATUS = 'FETCH_NETWORK_STATUS';
+export const RECEIVE_NETWORK_STATUS = 'RECEIVE_NETWORK_STATUS';
+export const SUBSCRIBE_NETWORK_STATUS = 'SUBSCRIBE_NETWORK_STATUS';
+export const UNSUBSCRIBE_NETWORK_STATUS = 'UNSUBSCRIBE_NETWORK_STATUS';
 
-export const RECEIVE_ONLINE = 'RECEIVE_ONLINE';
+export function subscribeNetworkStatus() {
+  return {
+    type: SUBSCRIBE_NETWORK_STATUS,
+  }
+}
 
-export function initialize() {
-  return dispatch => {
-    networkStatusManager.onChange(online => dispatch({
-      type: RECEIVE_ONLINE,
-      online
-    }))
-  };
+export function unsubscribeNetworkStatus() {
+  return {
+    type: UNSUBSCRIBE_NETWORK_STATUS,
+  }
 }

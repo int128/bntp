@@ -1,25 +1,31 @@
-import { bookmarkRepository, chromeAppRepository } from '../repositories';
-
+export const SUBSCRIBE_BOOKMARKS = 'SUBSCRIBE_BOOKMARKS';
+export const UNSUBSCRIBE_BOOKMARKS = 'UNSUBSCRIBE_BOOKMARKS';
+export const FETCH_BOOKMARKS = 'FETCH_BOOKMARKS';
 export const RECEIVE_BOOKMARKS = 'RECEIVE_BOOKMARKS';
+export const UPDATING_BOOKMARK = 'UPDATING_BOOKMARK';
+export const UPDATED_BOOKMARK = 'UPDATED_BOOKMARK';
+export const REMOVING_BOOKMARK = 'REMOVING_BOOKMARK';
+export const REMOVED_BOOKMARK = 'REMOVED_BOOKMARK';
+
+export const SUBSCRIBE_CHROME_APPS = 'SUBSCRIBE_CHROME_APPS';
+export const UNSUBSCRIBE_CHROME_APPS = 'UNSUBSCRIBE_CHROME_APPS';
+export const FETCH_CHROME_APPS = 'FETCH_CHROME_APPS';
 export const RECEIVE_CHROME_APPS = 'RECEIVE_CHROME_APPS';
+
 export const OPEN_BOOKMARK_EDIT = 'OPEN_BOOKMARK_EDIT';
 export const CHANGE_BOOKMARK_EDIT = 'CHANGE_BOOKMARK_EDIT';
-export const SAVED_BOOKMARK_EDIT = 'SAVED_BOOKMARK_EDIT';
-export const REMOVED_BOOKMARK_EDIT = 'REMOVED_BOOKMARK_EDIT';
 export const CANCEL_BOOKMARK_EDIT = 'CANCEL_BOOKMARK_EDIT';
 
-export function fetchBookmarks() {
-  return dispatch => bookmarkRepository.findAll(bookmarkFolders => dispatch({
-    type: RECEIVE_BOOKMARKS,
-    bookmarkFolders
-  }));
+export function subscribeBookmarks() {
+  return {
+    type: SUBSCRIBE_BOOKMARKS,
+  }
 }
 
-export function fetchApps() {
-  return dispatch => chromeAppRepository.findFolders(chromeAppFolders => dispatch({
-    type: RECEIVE_CHROME_APPS,
-    chromeAppFolders,
-  }));
+export function unsubscribeBookmarks() {
+  return {
+    type: UNSUBSCRIBE_BOOKMARKS,
+  }
 }
 
 export function openBookmarkEdit(bookmark) {
@@ -37,17 +43,17 @@ export function changeBookmarkEdit(bookmark) {
 }
 
 export function saveBookmarkEdit(bookmark) {
-  return dispatch => bookmarkRepository.update(bookmark, () => dispatch({
-    type: SAVED_BOOKMARK_EDIT,
+  return {
+    type: UPDATING_BOOKMARK,
     bookmark
-  }));
+  };
 }
 
 export function removeBookmarkEdit(bookmark) {
-  return dispatch => bookmarkRepository.remove(bookmark, () => dispatch({
-    type: REMOVED_BOOKMARK_EDIT,
+  return {
+    type: REMOVING_BOOKMARK,
     bookmark
-  }));
+  };
 }
 
 export function cancelBookmarkEdit() {
@@ -56,12 +62,14 @@ export function cancelBookmarkEdit() {
   };
 }
 
-export function initialize() {
-  return dispatch => {
-    dispatch(fetchBookmarks());
-    bookmarkRepository.onChange(e => dispatch(fetchBookmarks()));
+export function subscribeChromeApps() {
+  return {
+    type: SUBSCRIBE_CHROME_APPS,
+  }
+}
 
-    dispatch(fetchApps());
-    chromeAppRepository.onChange(e => dispatch(fetchApps()));
-  };
+export function unsubscribeChromeApps() {
+  return {
+    type: UNSUBSCRIBE_CHROME_APPS,
+  }
 }

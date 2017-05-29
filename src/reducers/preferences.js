@@ -3,8 +3,7 @@ import { Seq } from 'immutable';
 import {
   TOGGLE_FOLDER_COLLAPSE,
   RECEIVE_FOLDER_PREFERENCE,
-  RECEIVE_THEMES,
-  SELECT_THEME,
+  RECEIVE_SELECTED_THEME,
   RECEIVE_VISIBILITIES,
   TOGGLE_VISIBILITY,
 } from '../actions/preferences';
@@ -24,17 +23,12 @@ export function folderPreference(state = new FolderPreference(), action) {
 }
 
 export function themes(state = Seq(), action) {
-  switch (action.type) {
-    case RECEIVE_THEMES:
-      return action.themes;
-    default:
-      return state;
-  }
+  return state;
 }
 
 export function selectedTheme(state = null, action) {
   switch (action.type) {
-    case SELECT_THEME:
+    case RECEIVE_SELECTED_THEME:
       return action.theme;
     default:
       return state;

@@ -5,9 +5,19 @@ import { Seq } from 'immutable';
 
 import FoldersContainer from './FoldersContainer';
 
+import { subscribeChromeApps, unsubscribeChromeApps } from '../../actions/bookmarks';
+
 class ChromeAppFoldersContainer extends React.Component {
   static propTypes = {
     chromeAppFolders: PropTypes.instanceOf(Seq).isRequired,
+  }
+
+  componentWillMount() {
+    this.props.dispatch(subscribeChromeApps());
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(unsubscribeChromeApps());
   }
 
   render() {

@@ -5,9 +5,19 @@ import { Seq } from 'immutable';
 
 import FoldersContainer from './FoldersContainer';
 
+import { subscribeBookmarks, unsubscribeBookmarks } from '../../actions/bookmarks';
+
 class BookmarkFoldersContainer extends React.Component {
   static propTypes = {
     bookmarkFolders: PropTypes.instanceOf(Seq).isRequired,
+  }
+
+  componentWillMount() {
+    this.props.dispatch(subscribeBookmarks());
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(unsubscribeBookmarks());
   }
 
   render() {

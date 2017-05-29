@@ -2,16 +2,15 @@ import React from 'react';
 import { render } from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-
-import { initialize as initializeBookmarks } from './actions/bookmarks';
-import { initialize as initializeTopsites } from './actions/topsites';
-import { initialize as initializePreferences } from './actions/preferences';
-import { initialize as initializeNotifications } from './actions/notifications';
 
 import reducers from './reducers';
-import { networkStatusManager } from './infrastructure';
 import Manifest from './infrastructure/Manifest';
+import ListenerMiddleware from './infrastructure/ListenerMiddleware';
+
+import notificationsListener from './listeners/notifications';
+import bookmarksListener from './listeners/bookmarks';
+import topsitesListener from './listeners/topsites';
+import preferencesListener from './listeners/preferences';
 
 import RootContainer from './components/RootContainer';
 
@@ -36,7 +35,6 @@ const initialState = () => {
   const selectedTheme = themePreferenceRepository.getOrDefault();
   const themes = themeRepository.findAll();
   const visibilities = visibilityRepository.findAll();
-  const online = networkStatusManager.isOnline();
   const manifest = Manifest.get();
   return {
     chromePageFolders,
@@ -44,34 +42,21 @@ const initialState = () => {
     selectedTheme,
     themes,
     visibilities,
-    online,
     manifest,
   };
 };
 
-const store = createStore(reducers, initialState(), applyMiddleware(thunk, ...devMiddlewares));
-
-// Apply theme on the root element
-const renderTheme = () => {
-  const { selectedTheme } = store.getState();
-  document.documentElement.className = `Theme__${selectedTheme.id}`;
-};
+const store = createStore(reducers, initialState(),
+  applyMiddleware(
+    ListenerMiddleware(
+      notificationsListener,
+      bookmarksListener,
+      topsitesListener,
+      preferencesListener),
+    ...devMiddlewares));
 
 // Prevent theme-less white page on loading
-renderTheme();
-
-store.subscribe(renderTheme);
-store.subscribe(() => {
-  const { folderPreference, selectedTheme, visibilities } = store.getState();
-  folderPreferenceRepository.save(folderPreference);
-  themePreferenceRepository.save(selectedTheme);
-  visibilityRepository.save(visibilities);
-});
-
-store.dispatch(initializeBookmarks());
-store.dispatch(initializeTopsites());
-store.dispatch(initializePreferences());
-store.dispatch(initializeNotifications());
+document.documentElement.className = `Theme__${store.getState().selectedTheme.id}`;
 
 render(
   <Provider store={store}>

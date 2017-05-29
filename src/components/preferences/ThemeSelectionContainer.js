@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Seq } from 'immutable';
 
-import { selectTheme } from '../../actions/preferences';
+import { selectTheme, subscribeSelectedTheme, unsubscribeSelectedTheme } from '../../actions/preferences';
 
 import Theme from '../../models/preferences/Theme';
 
@@ -11,6 +11,14 @@ class ThemeSelectionContainer extends React.Component {
   static propTypes = {
     themes: PropTypes.instanceOf(Seq).isRequired,
     selectedTheme: PropTypes.instanceOf(Theme),
+  }
+
+  componentWillMount() {
+    this.props.dispatch(subscribeSelectedTheme());
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(unsubscribeSelectedTheme());
   }
 
   render() {

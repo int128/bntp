@@ -23,11 +23,17 @@ export default class VisibilityRepository {
     localStorage.setItem(HIDDEN_COMPONENTS, JSON.stringify(hiddenIds));
   }
 
-  onChange(callback) {
-    window.addEventListener('storage', e => {
+  addListener(callback) {
+    const eventListener = e => {
       if (e.storageArea === localStorage && e.key === HIDDEN_COMPONENTS && e.newValue !== null) {
-        callback(this.findAll());
+        callback();
       }
-    });
+    };
+    window.addEventListener('storage', eventListener);
+    return eventListener;
+  }
+
+  removeListener(eventListener) {
+    window.removeEventListener('storage', eventListener);
   }
 }

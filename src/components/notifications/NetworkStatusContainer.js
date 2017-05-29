@@ -4,9 +4,19 @@ import { connect } from 'react-redux';
 
 import FixedTip from '../kits/FixedTip';
 
+import { subscribeNetworkStatus, unsubscribeNetworkStatus } from '../../actions/notifications';
+
 export class NetworkStatusContainer extends React.Component {
   static propTypes = {
     online: PropTypes.bool.isRequired,
+  }
+
+  componentWillMount() {
+    this.props.dispatch(subscribeNetworkStatus());
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(unsubscribeNetworkStatus());
   }
 
   render() {

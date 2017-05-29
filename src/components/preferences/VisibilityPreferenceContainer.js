@@ -2,13 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { toggleVisibility } from '../../actions/preferences';
+import {
+  toggleVisibility,
+  subscribeVisibilities,
+  unsubscribeVisibilities
+} from '../../actions/preferences';
 
 import Visibilities from '../../models/preferences/Visibilities';
 
 class VisibilityPreferenceContainer extends React.Component {
   static propTypes = {
     visibilities: PropTypes.instanceOf(Visibilities).isRequired,
+  }
+
+  componentWillMount() {
+    this.props.dispatch(subscribeVisibilities());
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(unsubscribeVisibilities());
   }
 
   render() {
