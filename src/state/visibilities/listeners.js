@@ -7,13 +7,13 @@ import * as actionTypes from './actionTypes';
 const eventListenerManager = new EventListenerManager(visibilityRepository);
 
 export default {
-  [actionTypes.SUBSCRIBE_VISIBILITIES]: (action, dispatch, state) => {
+  [actionTypes.SUBSCRIBE_VISIBILITIES]: (action, dispatch) => {
     eventListenerManager.subscribe(() => dispatch({
       type: actionTypes.FETCH_VISIBILITIES,
     }));
   },
 
-  [actionTypes.FETCH_VISIBILITIES]: (action, dispatch, state) => {
+  [actionTypes.FETCH_VISIBILITIES]: (action, dispatch) => {
     const visibilities = visibilityRepository.findAll();
     dispatch({
       type: actionTypes.RECEIVE_VISIBILITIES,
@@ -21,7 +21,7 @@ export default {
     });
   },
 
-  [actionTypes.TOGGLE_VISIBILITY]: (action, dispatch, state) => {
-    visibilityRepository.save(state.visibilities);
+  [actionTypes.TOGGLE_VISIBILITY]: (action, dispatch, store) => {
+    visibilityRepository.save(store.getState().visibilities);
   },
 };

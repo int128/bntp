@@ -7,13 +7,13 @@ import * as actionTypes from './actionTypes';
 const eventListenerManager = new EventListenerManager(themePreferenceRepository);
 
 export default {
-  [actionTypes.SUBSCRIBE_SELECTED_THEME]: (action, dispatch, state) => {
+  [actionTypes.SUBSCRIBE_SELECTED_THEME]: (action, dispatch) => {
     eventListenerManager.subscribe(() => dispatch({
       type: actionTypes.FETCH_SELECTED_THEME,
     }));
   },
 
-  [actionTypes.FETCH_SELECTED_THEME]: (action, dispatch, state) => {
+  [actionTypes.FETCH_SELECTED_THEME]: (action, dispatch) => {
     const theme = themePreferenceRepository.getOrDefault();
     dispatch({
       type: actionTypes.RECEIVE_SELECTED_THEME,
@@ -21,7 +21,7 @@ export default {
     });
   },
 
-  [actionTypes.RECEIVE_SELECTED_THEME]: (action, dispatch, state) => {
+  [actionTypes.RECEIVE_SELECTED_THEME]: (action, dispatch) => {
     const selectedTheme = action.theme;
     document.documentElement.className = `Theme__${selectedTheme.id}`;
     themePreferenceRepository.save(selectedTheme);
