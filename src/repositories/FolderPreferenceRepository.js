@@ -11,11 +11,17 @@ export default class FolderPreferenceRepository {
     localStorage.setItem(COLLAPSED_FOLDERS, folderPreference.toString());
   }
 
-  onChange(callback) {
-    window.addEventListener('storage', e => {
+  addListener(callback) {
+    const eventListener = e => {
       if (e.storageArea === localStorage && e.key === COLLAPSED_FOLDERS && e.newValue !== null) {
-        callback(FolderPreference.fromString(e.newValue));
+        callback();
       }
-    });
+    };
+    window.addEventListener('storage', eventListener);
+    return eventListener;
+  }
+
+  removeListener(eventListener) {
+    window.removeEventListener('storage', eventListener);
   }
 }
