@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import BookmarkFoldersContainer from './bookmarks/BookmarkFoldersContainer';
-import ChromeAppFoldersContainer from './bookmarks/ChromeAppFoldersContainer';
-import ChromePageFoldersContainer from './bookmarks/ChromePageFoldersContainer';
-import BookmarkEditorContainer from './bookmarks/BookmarkEditorContainer';
-import TopSitesContainer from './topsites/TopSitesContainer';
+import BookmarkFoldersContainer from './folders/BookmarkFoldersContainer';
+import ChromeAppFoldersContainer from './folders/ChromeAppFoldersContainer';
+import ChromePageFoldersContainer from './folders/ChromePageFoldersContainer';
+import BookmarkEditorContainer from './folders/BookmarkEditorContainer';
+import TopSitesContainer from './folders/TopSitesContainer';
+
 import NetworkStatusContainer from './notifications/NetworkStatusContainer';
 import Preferences from './preferences/Preferences';
 
