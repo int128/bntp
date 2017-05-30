@@ -20,7 +20,7 @@ class FoldersContainer extends React.Component {
   render() {
     const { dispatch, folders, folderPreference } = this.props;
     return (
-      <div className="Bookmarks">
+      <div>
         {folders.map(folder =>
           <TileFolder key={folder.id}
                       title={folder.title}
