@@ -1,4 +1,4 @@
-import { RECEIVE_NETWORK_STATUS } from '../actions/notifications';
+import { RECEIVE_NETWORK_STATUS } from './actionTypes';
 
 export function online(state = true, action) {
   switch (action.type) {

@@ -5,7 +5,7 @@ import { Seq } from 'immutable';
 
 import FoldersContainer from './FoldersContainer';
 
-import { subscribeBookmarks, unsubscribeBookmarks } from '../../actions/bookmarks';
+import * as actionCreators from '../../state/bookmarks/actionCreators';
 
 class BookmarkFoldersContainer extends React.Component {
   static propTypes = {
@@ -13,11 +13,11 @@ class BookmarkFoldersContainer extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(subscribeBookmarks());
+    this.props.dispatch(actionCreators.subscribeBookmarks());
   }
 
   componentWillUnmount() {
-    this.props.dispatch(unsubscribeBookmarks());
+    this.props.dispatch(actionCreators.unsubscribeBookmarks());
   }
 
   render() {

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Seq } from 'immutable';
 
-import { openBookmarkEdit } from '../../actions/bookmarks';
-import { toggleFolderCollapse } from '../../actions/preferences';
+import { openBookmarkEdit } from '../../state/bookmarks/actionCreators';
+import { toggleFolderCollapse } from '../../state/preferences/actionCreators';
 
 import TileFolder from '../kits/TileFolder';
 import TileFolderItem from '../kits/TileFolderItem';

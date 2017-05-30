@@ -5,7 +5,7 @@ import { Seq } from 'immutable';
 
 import FoldersContainer from './FoldersContainer';
 
-import { subscribeChromeApps, unsubscribeChromeApps } from '../../actions/bookmarks';
+import * as actionCreators from '../../state/bookmarks/actionCreators';
 
 class ChromeAppFoldersContainer extends React.Component {
   static propTypes = {
@@ -13,11 +13,11 @@ class ChromeAppFoldersContainer extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(subscribeChromeApps());
+    this.props.dispatch(actionCreators.subscribeChromeApps());
   }
 
   componentWillUnmount() {
-    this.props.dispatch(unsubscribeChromeApps());
+    this.props.dispatch(actionCreators.unsubscribeChromeApps());
   }
 
   render() {

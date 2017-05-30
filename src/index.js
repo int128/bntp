@@ -1,16 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 
-import reducers from './reducers';
+import reducers from './state/reducers';
+import listeners from './state/listeners';
+
 import Manifest from './infrastructure/Manifest';
 import ListenerMiddleware from './infrastructure/ListenerMiddleware';
-
-import notificationsListener from './listeners/notifications';
-import bookmarksListener from './listeners/bookmarks';
-import topsitesListener from './listeners/topsites';
-import preferencesListener from './listeners/preferences';
 
 import RootContainer from './components/RootContainer';
 
@@ -46,14 +43,10 @@ const initialState = () => {
   };
 };
 
-const store = createStore(reducers, initialState(),
-  applyMiddleware(
-    ListenerMiddleware(
-      notificationsListener,
-      bookmarksListener,
-      topsitesListener,
-      preferencesListener),
-    ...devMiddlewares));
+const store = createStore(
+  combineReducers(reducers),
+  initialState(),
+  applyMiddleware(ListenerMiddleware(listeners), ...devMiddlewares));
 
 // Prevent theme-less white page on loading
 document.documentElement.className = `Theme__${store.getState().selectedTheme.id}`;

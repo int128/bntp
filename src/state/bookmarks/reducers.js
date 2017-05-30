@@ -1,10 +1,10 @@
 import { Seq } from 'immutable';
 
-import * as ActionTypes from '../actions/bookmarks';
+import * as actionTypes from './actionTypes';
 
 export function bookmarkFolders(state = Seq(), action) {
   switch (action.type) {
-    case ActionTypes.RECEIVE_BOOKMARKS:
+    case actionTypes.RECEIVE_BOOKMARKS:
       return action.bookmarkFolders;
     default:
       return state;
@@ -17,7 +17,7 @@ export function chromePageFolders(state = Seq(), action) {
 
 export function chromeAppFolders(state = Seq(), action) {
   switch (action.type) {
-    case ActionTypes.RECEIVE_CHROME_APPS:
+    case actionTypes.RECEIVE_CHROME_APPS:
       return action.chromeAppFolders;
     default:
       return state;
@@ -26,12 +26,12 @@ export function chromeAppFolders(state = Seq(), action) {
 
 export function editingBookmark(state = null, action) {
   switch (action.type) {
-    case ActionTypes.OPEN_BOOKMARK_EDIT:
-    case ActionTypes.CHANGE_BOOKMARK_EDIT:
+    case actionTypes.OPEN_BOOKMARK_EDIT:
+    case actionTypes.CHANGE_BOOKMARK_EDIT:
       return action.bookmark;
-    case ActionTypes.UPDATED_BOOKMARK:
-    case ActionTypes.REMOVED_BOOKMARK:
-    case ActionTypes.CANCEL_BOOKMARK_EDIT:
+    case actionTypes.UPDATED_BOOKMARK:
+    case actionTypes.REMOVED_BOOKMARK:
+    case actionTypes.CANCEL_BOOKMARK_EDIT:
       return null;
     default:
       return state;

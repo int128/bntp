@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import FixedTip from '../kits/FixedTip';
 
-import { subscribeNetworkStatus, unsubscribeNetworkStatus } from '../../actions/notifications';
+import * as actionCreators from '../../state/notifications/actionCreators';
 
 export class NetworkStatusContainer extends React.Component {
   static propTypes = {
@@ -12,11 +12,11 @@ export class NetworkStatusContainer extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(subscribeNetworkStatus());
+    this.props.dispatch(actionCreators.subscribeNetworkStatus());
   }
 
   componentWillUnmount() {
-    this.props.dispatch(unsubscribeNetworkStatus());
+    this.props.dispatch(actionCreators.unsubscribeNetworkStatus());
   }
 
   render() {

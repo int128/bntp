@@ -7,7 +7,7 @@ import BarFolder from '../kits/BarFolder';
 import BarFolderItem from '../kits/BarFolderItem';
 import FloatTip from '../kits/FloatTip';
 
-import { fetchTopSites } from '../../actions/topsites';
+import { fetchTopSites } from '../../state/topsites/actionCreators';
 
 class TopSitesContainer extends React.Component {
   static propTypes = {

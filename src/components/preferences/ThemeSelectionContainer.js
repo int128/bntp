@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Seq } from 'immutable';
 
-import { selectTheme, subscribeSelectedTheme, unsubscribeSelectedTheme } from '../../actions/preferences';
+import * as actionCreators from '../../state/preferences/actionCreators';
 
 import Theme from '../../models/preferences/Theme';
 
@@ -14,11 +14,11 @@ class ThemeSelectionContainer extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(subscribeSelectedTheme());
+    this.props.dispatch(actionCreators.subscribeSelectedTheme());
   }
 
   componentWillUnmount() {
-    this.props.dispatch(unsubscribeSelectedTheme());
+    this.props.dispatch(actionCreators.unsubscribeSelectedTheme());
   }
 
   render() {
@@ -30,7 +30,7 @@ class ThemeSelectionContainer extends React.Component {
             <input type="radio" name="Theme"
               value={theme.id}
               checked={theme.equals(selectedTheme)}
-              onChange={e => dispatch(selectTheme(theme))}/>
+              onChange={e => dispatch(actionCreators.selectTheme(theme))}/>
             {theme.title}
           </label>
         )}

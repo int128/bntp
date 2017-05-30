@@ -2,11 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import {
-  toggleVisibility,
-  subscribeVisibilities,
-  unsubscribeVisibilities
-} from '../../actions/preferences';
+import * as actionCreators from '../../state/preferences/actionCreators';
 
 import Visibilities from '../../models/preferences/Visibilities';
 
@@ -16,11 +12,11 @@ class VisibilityPreferenceContainer extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(subscribeVisibilities());
+    this.props.dispatch(actionCreators.subscribeVisibilities());
   }
 
   componentWillUnmount() {
-    this.props.dispatch(unsubscribeVisibilities());
+    this.props.dispatch(actionCreators.unsubscribeVisibilities());
   }
 
   render() {
@@ -32,7 +28,7 @@ class VisibilityPreferenceContainer extends React.Component {
             <input type="checkbox"
               name={visibility.id}
               checked={visibility.visible}
-              onChange={e => dispatch(toggleVisibility(visibility))}/>
+              onChange={e => dispatch(actionCreators.toggleVisibility(visibility))}/>
             {visibility.title}
           </label>
         )}
