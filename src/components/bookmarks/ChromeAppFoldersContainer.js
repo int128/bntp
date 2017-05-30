@@ -5,7 +5,7 @@ import { Seq } from 'immutable';
 
 import FoldersContainer from './FoldersContainer';
 
-import * as actionCreators from '../../state/bookmarks/actionCreators';
+import * as actionCreators from '../../state/chromeApps/actionCreators';
 
 class ChromeAppFoldersContainer extends React.Component {
   static propTypes = {

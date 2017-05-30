@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Seq } from 'immutable';
 
-import * as actionCreators from '../../state/preferences/actionCreators';
+import * as actionCreators from '../../state/themeSelection/actionCreators';
 
 import Theme from '../../models/preferences/Theme';
 

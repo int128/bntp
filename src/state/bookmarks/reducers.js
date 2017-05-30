@@ -11,19 +11,6 @@ export function bookmarkFolders(state = Seq(), action) {
   }
 }
 
-export function chromePageFolders(state = Seq(), action) {
-  return state;
-}
-
-export function chromeAppFolders(state = Seq(), action) {
-  switch (action.type) {
-    case actionTypes.RECEIVE_CHROME_APPS:
-      return action.chromeAppFolders;
-    default:
-      return state;
-  }
-}
-
 export function editingBookmark(state = null, action) {
   switch (action.type) {
     case actionTypes.OPEN_BOOKMARK_EDIT:

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Seq } from 'immutable';
 
 import { openBookmarkEdit } from '../../state/bookmarks/actionCreators';
-import { toggleFolderCollapse } from '../../state/preferences/actionCreators';
+import { toggleFolderCollapse } from '../../state/folderPreferences/actionCreators';
 
 import TileFolder from '../kits/TileFolder';
 import TileFolderItem from '../kits/TileFolderItem';

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import * as actionCreators from '../../state/preferences/actionCreators';
+import * as actionCreators from '../../state/visibilities/actionCreators';
 
 import Visibilities from '../../models/preferences/Visibilities';
 

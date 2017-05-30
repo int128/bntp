@@ -1,8 +1,8 @@
-import { visibilityRepository } from '../../../repositories';
+import { visibilityRepository } from '../../repositories';
 
-import EventListenerManager from '../../../infrastructure/EventListenerManager';
+import EventListenerManager from '../../infrastructure/EventListenerManager';
 
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from './actionTypes';
 
 const eventListenerManager = new EventListenerManager(visibilityRepository);
 

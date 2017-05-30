@@ -1,8 +1,8 @@
-import { bookmarkRepository } from '../../../repositories';
+import { bookmarkRepository } from '../../repositories';
 
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from './actionTypes';
 
-import EventListenerManager from '../../../infrastructure/EventListenerManager';
+import EventListenerManager from '../../infrastructure/EventListenerManager';
 
 const eventListenerManager = new EventListenerManager(bookmarkRepository);
 

@@ -45,15 +45,3 @@ export function cancelBookmarkEdit() {
     type: actionTypes.CANCEL_BOOKMARK_EDIT,
   };
 }
-
-export function subscribeChromeApps() {
-  return {
-    type: actionTypes.SUBSCRIBE_CHROME_APPS,
-  }
-}
-
-export function unsubscribeChromeApps() {
-  return {
-    type: actionTypes.UNSUBSCRIBE_CHROME_APPS,
-  }
-}
