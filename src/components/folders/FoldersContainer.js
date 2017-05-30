@@ -9,7 +9,7 @@ import { toggleFolderCollapse } from '../../state/folderPreferences/actionCreato
 import TileFolder from '../kits/TileFolder';
 import TileFolderItem from '../kits/TileFolderItem';
 
-import FolderPreference from '../../models/preferences/FolderPreference';
+import FolderPreference from '../../models/FolderPreference';
 
 class FoldersContainer extends React.Component {
   static propTypes = {

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import * as actionCreators from '../../state/visibilities/actionCreators';
 
-import Visibilities from '../../models/preferences/Visibilities';
+import Visibilities from '../../models/Visibilities';
 
 class VisibilityPreferenceContainer extends React.Component {
   static propTypes = {

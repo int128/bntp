@@ -5,7 +5,7 @@ import { Seq } from 'immutable';
 
 import * as actionCreators from '../../state/themeSelection/actionCreators';
 
-import Theme from '../../models/preferences/Theme';
+import Theme from '../../models/Theme';
 
 class ThemeSelectionContainer extends React.Component {
   static propTypes = {

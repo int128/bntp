@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Bookmark from '../../models/bookmarks/Bookmark';
+import Bookmark from '../../models/Bookmark';
 import Link from '../../models/Link';
 
 import './BookmarkEditorForm.css';

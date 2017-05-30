@@ -1,8 +1,8 @@
 import { Seq } from 'immutable';
 
-import Link from '../../models/Link';
-import Bookmark from '../../models/bookmarks/Bookmark';
-import BookmarkFolder from '../../models/bookmarks/BookmarkFolder';
+import Link from '../models/Link';
+import Bookmark from '../models/Bookmark';
+import BookmarkFolder from '../models/BookmarkFolder';
 
 export default class ChromeAppRepository {
   findFolders(callback) {

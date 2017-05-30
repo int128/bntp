@@ -1,7 +1,7 @@
 import { Seq } from 'immutable';
 
-import Link from '../../models/Link';
-import TopSite from '../../models/topsites/TopSite';
+import Link from '../models/Link';
+import TopSite from '../models/TopSite';
 
 export default class TopSiteRepository {
   findAll(callback) {

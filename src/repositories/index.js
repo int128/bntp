@@ -1,13 +1,11 @@
-import BookmarkRepository from './bookmarks/BookmarkRepository';
-import ChromeAppRepository from './bookmarks/ChromeAppRepository';
-import ChromePageRepository from './bookmarks/ChromePageRepository';
-
-import TopSiteRepository from './topsites/TopSiteRepository';
-
-import FolderPreferenceRepository from './preferences/FolderPreferenceRepository';
-import ThemeRepository from './preferences/ThemeRepository';
-import ThemePreferenceRepository from './preferences/ThemePreferenceRepository';
-import VisibilityRepository from './preferences/VisibilityRepository';
+import BookmarkRepository from './BookmarkRepository';
+import ChromeAppRepository from './ChromeAppRepository';
+import ChromePageRepository from './ChromePageRepository';
+import TopSiteRepository from './TopSiteRepository';
+import FolderPreferenceRepository from './FolderPreferenceRepository';
+import ThemeRepository from './ThemeRepository';
+import ThemePreferenceRepository from './ThemePreferenceRepository';
+import VisibilityRepository from './VisibilityRepository';
 
 export const bookmarkRepository = new BookmarkRepository();
 export const chromeAppRepository = new ChromeAppRepository();

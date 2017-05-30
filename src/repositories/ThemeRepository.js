@@ -1,6 +1,6 @@
 import { Seq } from 'immutable';
 
-import Theme from '../../models/preferences/Theme';
+import Theme from '../models/Theme';
 
 export default class ThemeRepository {
   static all = Seq.of(

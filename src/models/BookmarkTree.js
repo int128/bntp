@@ -1,6 +1,6 @@
 import { Record, Seq } from 'immutable';
 
-import Link from '../Link';
+import Link from './Link';
 import Bookmark from './Bookmark';
 import BookmarkFolder from './BookmarkFolder';
 

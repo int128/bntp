@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes';
 
-import Visibilities from '../../models/preferences/Visibilities';
+import Visibilities from '../../models/Visibilities';
 
 export function visibilities(state = new Visibilities(), action) {
   switch (action.type) {

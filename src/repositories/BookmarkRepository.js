@@ -1,4 +1,4 @@
-import BookmarkTree from '../../models/bookmarks/BookmarkTree';
+import BookmarkTree from '../models/BookmarkTree';
 
 export default class BookmarkRepository {
   findAll(callback) {

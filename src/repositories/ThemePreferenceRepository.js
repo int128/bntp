@@ -1,4 +1,4 @@
-import { themeRepository } from '..';
+import { themeRepository } from '.';
 
 const SELECTED_THEME_ID = 'SELECTED_THEME_ID';
 

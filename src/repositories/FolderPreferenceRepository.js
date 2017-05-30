@@ -1,4 +1,4 @@
-import FolderPreference from '../../models/preferences/FolderPreference';
+import FolderPreference from '../models/FolderPreference';
 
 const COLLAPSED_FOLDERS = 'COLLAPSED_FOLDERS';
 

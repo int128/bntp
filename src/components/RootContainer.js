@@ -11,7 +11,7 @@ import TopSitesContainer from './folders/TopSitesContainer';
 import NetworkStatusContainer from './notifications/NetworkStatusContainer';
 import Preferences from './preferences/Preferences';
 
-import Visibilities from '../models/preferences/Visibilities';
+import Visibilities from '../models/Visibilities';
 
 class RootContainer extends React.Component {
   static propTypes = {

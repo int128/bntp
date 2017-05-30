@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes';
 
-import FolderPreference from '../../models/preferences/FolderPreference';
+import FolderPreference from '../../models/FolderPreference';
 
 export function folderPreference(state = new FolderPreference(), action) {
   switch (action.type) {

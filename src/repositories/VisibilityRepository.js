@@ -1,7 +1,7 @@
 import { Seq } from 'immutable';
 
-import Visibility from '../../models/preferences/Visibility';
-import Visibilities from '../../models/preferences/Visibilities';
+import Visibility from '../models/Visibility';
+import Visibilities from '../models/Visibilities';
 
 const HIDDEN_COMPONENTS = 'HIDDEN_COMPONENTS';
 

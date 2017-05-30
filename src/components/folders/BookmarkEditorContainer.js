@@ -6,7 +6,7 @@ import BookmarkEditorForm from './BookmarkEditorForm';
 
 import * as actionCreators from '../../state/bookmarks/actionCreators';
 
-import Bookmark from '../../models/bookmarks/Bookmark';
+import Bookmark from '../../models/Bookmark';
 
 class BookmarkEditorContainer extends React.Component {
   static propTypes = {

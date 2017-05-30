@@ -1,4 +1,4 @@
-import BookmarkTree from '../../models/bookmarks/BookmarkTree';
+import BookmarkTree from '../models/BookmarkTree';
 
 import CHROME_PAGES from './ChromePages.json';
 
