@@ -23,9 +23,6 @@ const store = createStore(
   initialState(),
   applyMiddleware(ListenerMiddleware(listeners), ...devMiddlewares));
 
-// Prevent theme-less white page on loading
-document.documentElement.className = `Theme__${store.getState().selectedTheme.id}`;
-
 render(
   <Provider store={store}>
     <RootContainer/>
