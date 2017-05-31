@@ -9,6 +9,7 @@ export function themes(state = Seq(), action) {
 export function selectedTheme(state = null, action) {
   switch (action.type) {
     case actionTypes.RECEIVE_SELECTED_THEME:
+    case actionTypes.SELECT_THEME:
       return action.theme;
     default:
       return state;

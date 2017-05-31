@@ -14,7 +14,7 @@ export function unsubscribeSelectedTheme() {
 
 export function selectTheme(theme) {
   return {
-    type: actionTypes.RECEIVE_SELECTED_THEME,
+    type: actionTypes.SELECT_THEME,
     theme
   };
 }

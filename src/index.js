@@ -9,9 +9,12 @@ import reducers from './state/reducers';
 import listeners from './state/listeners';
 import initialState from './state/initialState';
 
+import renderInitialState from './state/themeSelection/renderInitialState';
+
 import RootContainer from './components/RootContainer';
 
-import './index.css';
+// Prevent theme-less white page
+renderInitialState();
 
 const devMiddlewares = [];
 if (process.env.NODE_ENV === 'development') {
