@@ -1,4 +1,5 @@
 import BookmarkRepository from './BookmarkRepository';
+import BookmarkPreferenceRepository from './BookmarkPreferenceRepository';
 import ChromeAppRepository from './ChromeAppRepository';
 import ChromePageRepository from './ChromePageRepository';
 import TopSiteRepository from './TopSiteRepository';
@@ -8,6 +9,7 @@ import ThemePreferenceRepository from './ThemePreferenceRepository';
 import VisibilityRepository from './VisibilityRepository';
 
 export const bookmarkRepository = new BookmarkRepository();
+export const bookmarkPreferenceRepository = new BookmarkPreferenceRepository();
 export const chromeAppRepository = new ChromeAppRepository();
 export const chromePageRepository = new ChromePageRepository();
 export const topSiteRepository = new TopSiteRepository();

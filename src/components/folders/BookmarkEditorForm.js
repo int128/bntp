@@ -58,6 +58,12 @@ export default class BookmarkEditorForm extends React.Component {
               onChange={e => this.onInputChange(e)}/>
           </div>
           <div>
+            <input type="text" ref="accessKey"
+              className="BookmarkEditorForm__TextInput"
+              placeholder="Shortcut Key (not assigned)"
+              onChange={e => this.onInputChange(e)}/>
+          </div>
+          <div>
             <input type="submit" value="Update"
               className="BookmarkEditorForm__Button BookmarkEditorForm__Left"/>
             <input type="button" value="Remove"

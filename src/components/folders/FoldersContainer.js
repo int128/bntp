@@ -10,11 +10,13 @@ import TileFolder from '../kits/TileFolder';
 import TileFolderItem from '../kits/TileFolderItem';
 
 import FolderPreference from '../../models/FolderPreference';
+import BookmarkPreference from '../../models/BookmarkPreference';
 
 class FoldersContainer extends React.Component {
   static propTypes = {
     folders: PropTypes.instanceOf(Seq).isRequired,
     folderPreference: PropTypes.instanceOf(FolderPreference).isRequired,
+    bookmarkPreference: PropTypes.instanceOf(BookmarkPreference).isRequired,
   }
 
   componentWillMount() {
@@ -26,7 +28,7 @@ class FoldersContainer extends React.Component {
   }
 
   render() {
-    const { dispatch, folders, folderPreference } = this.props;
+    const { dispatch, folders, folderPreference, bookmarkPreference } = this.props;
     return (
       <div>
         {folders.map(folder =>
@@ -37,6 +39,7 @@ class FoldersContainer extends React.Component {
             {folder.bookmarks.map(bookmark =>
               <TileFolderItem key={bookmark.id}
                               link={bookmark.link}
+                              badge={bookmarkPreference.getAccessKey(bookmark)}
                               canEdit={bookmark.canEdit}
                               editClick={e => dispatch(bookmarksActionCreators.openBookmarkEdit(bookmark))}>
                 {bookmark.title}
@@ -51,6 +54,7 @@ class FoldersContainer extends React.Component {
 
 const mapStateToProps = state => ({
   folderPreference: state.folderPreference,
+  bookmarkPreference: state.bookmarkPreference,
 });
 
 export default connect(mapStateToProps)(FoldersContainer);

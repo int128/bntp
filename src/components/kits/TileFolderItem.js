@@ -8,6 +8,7 @@ import './Tile.css';
 export default class TileFolderItem extends React.Component {
   static propTypes = {
     link: PropTypes.instanceOf(Link).isRequired,
+    badge: PropTypes.string,
     canEdit: PropTypes.bool.isRequired,
     editClick: PropTypes.func.isRequired,
   }
@@ -29,11 +30,14 @@ export default class TileFolderItem extends React.Component {
   }
 
   render() {
-    const { link, canEdit, children } = this.props;
+    const { link, badge, canEdit, children } = this.props;
     return (
       <div className="TileFolderItem">
         <a href={link.url} onClick={e => this.onLinkClick(e)}>
           <div className="TileFolderItem__Button">
+            {badge ?
+              <div className="TileFolderItem__ButtonBadge">{badge}</div>
+            : null}
             <div className="TileFolderItem__ButtonBody"
               style={{backgroundImage: `url(${link.getIcon()})`}}>
               {children}

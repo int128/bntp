@@ -44,6 +44,18 @@
   font-size: 120%;
 }
 
+.TileFolderItem__ButtonBadge {
+    position: absolute;
+    border-radius: 4px;
+    background-color: var(--palette-2);
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    color: var(--palette-00);
+    margin-top: calc(var(--size-folder-item-height) - 16px - var(--size-folder-item-padding));
+    margin-left: var(--size-folder-item-padding);
+}
+
 .TileFolderItem__Button {
   overflow: hidden;
   border-width: 1px;
@@ -62,7 +74,6 @@
 
 .TileFolderItem__ButtonBody {
   padding: var(--size-folder-item-padding);
-  min-height: var(--size-folder-item-height);
   padding-left: calc(var(--size-folder-item-padding) * 2 + var(--size-icon));
   background-repeat: no-repeat;
   /* background-image should be given in HTML */
