@@ -2,17 +2,19 @@ import { bookmarkRepository } from '../../repositories';
 
 import * as actionTypes from './actionTypes';
 
-import EventListenerManager from '../../infrastructure/EventListenerManager';
+import EventBrokers from '../../infrastructure/EventBrokers';
 
-const eventListenerManager = new EventListenerManager(bookmarkRepository);
+const eventBrokers = new EventBrokers({bookmarkRepository});
 
 export default {
   [actionTypes.SUBSCRIBE_BOOKMARKS]: (action, dispatch) => {
-    eventListenerManager.subscribe(() => dispatch({type: actionTypes.FETCH_BOOKMARKS}));
+    eventBrokers.bookmarkRepository.subscribe(() => dispatch({
+      type: actionTypes.FETCH_BOOKMARKS
+    }));
   },
 
   [actionTypes.UNSUBSCRIBE_BOOKMARKS]: (action, dispatch) => {
-    eventListenerManager.unsubscribe();
+    eventBrokers.bookmarkRepository.unsubscribe();
   },
 
   [actionTypes.FETCH_BOOKMARKS]: (action, dispatch) => {

@@ -1,16 +1,20 @@
 import { visibilityRepository } from '../../repositories';
 
-import EventListenerManager from '../../infrastructure/EventListenerManager';
+import EventBrokers from '../../infrastructure/EventBrokers';
 
 import * as actionTypes from './actionTypes';
 
-const eventListenerManager = new EventListenerManager(visibilityRepository);
+const eventBrokers = new EventBrokers({visibilityRepository});
 
 export default {
   [actionTypes.SUBSCRIBE_VISIBILITIES]: (action, dispatch) => {
-    eventListenerManager.subscribe(() => dispatch({
+    eventBrokers.visibilityRepository.subscribe(() => dispatch({
       type: actionTypes.FETCH_VISIBILITIES,
     }));
+  },
+
+  [actionTypes.UNSUBSCRIBE_VISIBILITIES]: (action, dispatch) => {
+    eventBrokers.visibilityRepository.unsubscribe();
   },
 
   [actionTypes.FETCH_VISIBILITIES]: (action, dispatch) => {

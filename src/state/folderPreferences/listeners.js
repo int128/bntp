@@ -2,17 +2,19 @@ import { folderPreferenceRepository } from '../../repositories';
 
 import * as actionTypes from './actionTypes';
 
-import EventListenerManager from '../../infrastructure/EventListenerManager';
+import EventBrokers from '../../infrastructure/EventBrokers';
 
-const eventListenerManager = new EventListenerManager(folderPreferenceRepository);
+const eventBrokers = new EventBrokers({folderPreferenceRepository});
 
 export default {
   [actionTypes.SUBSCRIBE_FOLDER_PREFERENCE]: (action, dispatch) => {
-    eventListenerManager.subscribe(() => dispatch({type: actionTypes.FETCH_FOLDER_PREFERENCE}));
+    eventBrokers.folderPreferenceRepository.subscribe(() => dispatch({
+      type: actionTypes.FETCH_FOLDER_PREFERENCE
+    }));
   },
 
   [actionTypes.UNSUBSCRIBE_FOLDER_PREFERENCE]: (action, dispatch) => {
-    eventListenerManager.unsubscribe();
+    eventBrokers.folderPreferenceRepository.unsubscribe();
   },
 
   [actionTypes.FETCH_FOLDER_PREFERENCE]: (action, dispatch) => {
