@@ -4,7 +4,7 @@ const BookmarkRecord = Record({
   id: null,
   title: null,
   link: null,
-  canEdit: false,
+  canEdit: true,
 });
 
 export default class Bookmark extends BookmarkRecord {

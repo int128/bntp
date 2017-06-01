@@ -36,13 +36,13 @@ class FoldersContainer extends React.Component {
                       title={folder.title}
                       collapsed={folderPreference.isCollapse(folder)}
                       onToggle={collapsed => dispatch(folderPreferencesActionCreators.toggleFolderCollapse(folder))}>
-            {folder.bookmarks.map(bookmark =>
-              <TileFolderItem key={bookmark.id}
-                              link={bookmark.link}
-                              badge={bookmarkPreference.getAccessKey(bookmark)}
-                              canEdit={bookmark.canEdit}
-                              editClick={e => dispatch(bookmarksActionCreators.openBookmarkEdit(bookmark))}>
-                {bookmark.title}
+            {folder.items.map(item =>
+              <TileFolderItem key={item.id}
+                              link={item.link}
+                              badge={bookmarkPreference.getAccessKey(item)}
+                              canEdit={item.canEdit}
+                              editClick={e => dispatch(bookmarksActionCreators.openBookmarkEdit(item))}>
+                {item.title}
               </TileFolderItem>
             )}
           </TileFolder>

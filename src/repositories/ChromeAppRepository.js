@@ -1,20 +1,20 @@
 import { Seq } from 'immutable';
 
 import Link from '../models/Link';
-import Bookmark from '../models/Bookmark';
-import BookmarkFolder from '../models/BookmarkFolder';
+import ChromeApp from '../models/ChromeApp';
+import Folder from '../models/Folder';
 
 export default class ChromeAppRepository {
   findFolders(callback) {
     return window.chrome.management.getAll(managements =>
       callback(
         Seq.of(
-          new BookmarkFolder({
+          new Folder({
             id: 'App',
             title: 'Chrome Apps',
-            bookmarks: Seq(managements)
+            items: Seq(managements)
               .filter(management => /\w+_app/.test(management.type))
-              .map(app => new Bookmark({
+              .map(app => new ChromeApp({
                 id: app.id,
                 title: app.name,
                 link: new Link({
