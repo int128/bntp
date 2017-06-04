@@ -1,14 +1,14 @@
-import FolderPreference from '../models/FolderPreference';
+import FolderPreferences from '../models/FolderPreferences';
 
 const COLLAPSED_FOLDERS = 'COLLAPSED_FOLDERS';
 
 export default class FolderPreferenceRepository {
   get() {
-    return FolderPreference.fromString(localStorage.getItem(COLLAPSED_FOLDERS));
+    return FolderPreferences.fromJSON(localStorage.getItem(COLLAPSED_FOLDERS));
   }
 
-  save(folderPreference) {
-    localStorage.setItem(COLLAPSED_FOLDERS, folderPreference.toString());
+  save(folderPreferences) {
+    localStorage.setItem(COLLAPSED_FOLDERS, folderPreferences.toJSON());
   }
 
   addListener(callback) {

@@ -21,20 +21,6 @@ export default {
     bookmarkRepository.findAll(bookmarkFolders => dispatch({
       type: actionTypes.RECEIVE_BOOKMARKS,
       bookmarkFolders
-    }))
-  },
-
-  [actionTypes.UPDATING_BOOKMARK]: (action, dispatch) => {
-    bookmarkRepository.update(action.bookmark, () => dispatch({
-      type: actionTypes.UPDATED_BOOKMARK,
-      bookmark: action.bookmark
-    }))
-  },
-
-  [actionTypes.REMOVING_BOOKMARK]: (action, dispatch) => {
-    bookmarkRepository.remove(action.bookmark, () => dispatch({
-      type: actionTypes.REMOVED_BOOKMARK,
-      bookmark: action.bookmark
-    }))
+    }));
   },
 };

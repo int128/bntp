@@ -9,11 +9,11 @@ export default class TileFolder extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     collapsed: PropTypes.bool,
-    onToggle: PropTypes.func,
+    onToggleClick: PropTypes.func,
   }
 
   onClick(e, collapsed) {
-    this.props.onToggle(!this.props.collapsed);
+    this.props.onToggleClick(!this.props.collapsed);
     e.preventDefault();
   }
 

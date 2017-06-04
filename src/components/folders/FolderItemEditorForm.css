@@ -1,4 +1,4 @@
-.BookmarkEditorForm__Wrap {
+.FolderItemEditorForm__Wrap {
   position: fixed;
   top: 0;
   left: 0;
@@ -8,7 +8,7 @@
   z-index: 10;
 }
 
-.BookmarkEditorForm {
+.FolderItemEditorForm {
   margin: 32px;
   background-color: var(--palette-3);
   padding: 16px;
@@ -16,8 +16,8 @@
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
 }
 
-.BookmarkEditorForm__TextInput,
-.BookmarkEditorForm__UrlInput {
+.FolderItemEditorForm__TextInput,
+.FolderItemEditorForm__UrlInput {
   box-sizing: border-box;
   width: 100%;
   margin-top: 4px;
@@ -29,14 +29,14 @@
   border: none;
 }
 
-.BookmarkEditorForm__UrlInput {
+.FolderItemEditorForm__UrlInput {
   padding-left: 32px;
   background-position-x: 8px;
   background-position-y: 8px;
   background-repeat: no-repeat;
 }
 
-.BookmarkEditorForm__Button {
+.FolderItemEditorForm__Button {
   margin-top: 4px;
   margin-bottom: 4px;
   padding: 8px;
@@ -46,18 +46,18 @@
   border: none;
 }
 
-.BookmarkEditorForm__Button:hover {
+.FolderItemEditorForm__Button:hover {
   background-color: var(--palette-1);
 }
 
-.BookmarkEditorForm__ClearFix {
+.FolderItemEditorForm__ClearFix {
   clear: both;
 }
 
-.BookmarkEditorForm__Left {
+.FolderItemEditorForm__Left {
   float: left;
 }
 
-.BookmarkEditorForm__Right {
+.FolderItemEditorForm__Right {
   float: right;
 }

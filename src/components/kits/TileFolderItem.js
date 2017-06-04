@@ -10,7 +10,7 @@ export default class TileFolderItem extends React.Component {
     link: PropTypes.instanceOf(Link).isRequired,
     badge: PropTypes.string,
     canEdit: PropTypes.bool.isRequired,
-    editClick: PropTypes.func.isRequired,
+    onEditClick: PropTypes.func.isRequired,
   }
 
   onLinkClick(e) {
@@ -25,8 +25,7 @@ export default class TileFolderItem extends React.Component {
   }
 
   onEditClick(e) {
-    const { editClick } = this.props;
-    editClick(e);
+    this.props.onEditClick(e);
   }
 
   render() {

@@ -3,47 +3,41 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Seq } from 'immutable';
 
-import * as bookmarksActionCreators from '../../state/bookmarks/actionCreators';
-import * as folderPreferencesActionCreators from '../../state/folderPreferences/actionCreators';
+import FolderPreferences from '../../models/FolderPreferences';
 
+import FolderItemContainer from './FolderItemContainer';
 import TileFolder from '../kits/TileFolder';
-import TileFolderItem from '../kits/TileFolderItem';
 
-import FolderPreference from '../../models/FolderPreference';
-import BookmarkPreference from '../../models/BookmarkPreference';
+import * as actionCreators from '../../state/folderPreferences/actionCreators';
 
 class FoldersContainer extends React.Component {
   static propTypes = {
+    folderPreferences: PropTypes.instanceOf(FolderPreferences).isRequired,
     folders: PropTypes.instanceOf(Seq).isRequired,
-    folderPreference: PropTypes.instanceOf(FolderPreference).isRequired,
-    bookmarkPreference: PropTypes.instanceOf(BookmarkPreference).isRequired,
+    onEditClick: PropTypes.func,
   }
 
   componentWillMount() {
-    this.props.dispatch(folderPreferencesActionCreators.subscribeFolderPreferences());
+    this.props.dispatch(actionCreators.subscribe());
   }
 
   componentWillUnmount() {
-    this.props.dispatch(folderPreferencesActionCreators.unsubscribeFolderPreferences());
+    this.props.dispatch(actionCreators.unsubscribe());
   }
 
   render() {
-    const { dispatch, folders, folderPreference, bookmarkPreference } = this.props;
+    const { dispatch, folderPreferences, folders, onEditClick } = this.props;
     return (
       <div>
         {folders.map(folder =>
           <TileFolder key={folder.id}
                       title={folder.title}
-                      collapsed={folderPreference.isCollapse(folder)}
-                      onToggle={collapsed => dispatch(folderPreferencesActionCreators.toggleFolderCollapse(folder))}>
+                      collapsed={folderPreferences.isCollapsed(folder)}
+                      onToggleClick={() => dispatch(actionCreators.toggle(folder))}>
             {folder.items.map(item =>
-              <TileFolderItem key={item.id}
-                              link={item.link}
-                              badge={bookmarkPreference.getAccessKey(item)}
-                              canEdit={item.canEdit}
-                              editClick={e => dispatch(bookmarksActionCreators.openBookmarkEdit(item))}>
-                {item.title}
-              </TileFolderItem>
+              <FolderItemContainer key={item.id}
+                                   item={item}
+                                   onEditClick={item => onEditClick(item)}/>
             )}
           </TileFolder>
         )}
@@ -53,8 +47,7 @@ class FoldersContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  folderPreference: state.folderPreference,
-  bookmarkPreference: state.bookmarkPreference,
+  folderPreferences: state.folderPreferences,
 });
 
 export default connect(mapStateToProps)(FoldersContainer);

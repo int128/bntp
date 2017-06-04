@@ -13,16 +13,18 @@ class BookmarkFoldersContainer extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(actionCreators.subscribeBookmarks());
+    this.props.dispatch(actionCreators.subscribe());
   }
 
   componentWillUnmount() {
-    this.props.dispatch(actionCreators.unsubscribeBookmarks());
+    this.props.dispatch(actionCreators.unsubscribe());
   }
 
   render() {
     const { bookmarkFolders } = this.props;
-    return <FoldersContainer folders={bookmarkFolders} />;
+    return (
+      <FoldersContainer folders={bookmarkFolders}/>
+    );
   }
 }
 

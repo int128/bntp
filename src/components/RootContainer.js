@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import BookmarkFoldersContainer from './folders/BookmarkFoldersContainer';
 import ChromeAppFoldersContainer from './folders/ChromeAppFoldersContainer';
 import ChromePageFoldersContainer from './folders/ChromePageFoldersContainer';
-import BookmarkEditorContainer from './folders/BookmarkEditorContainer';
+import FolderItemEditorContainer from './folders/FolderItemEditorContainer';
 import TopSitesContainer from './folders/TopSitesContainer';
 
 import NetworkStatusContainer from './notifications/NetworkStatusContainer';
@@ -23,7 +23,7 @@ class RootContainer extends React.Component {
     return (
       <div>
         <NetworkStatusContainer />
-        <BookmarkEditorContainer />
+        <FolderItemEditorContainer />
         {visibilities.isVisible('top-sites') ? <TopSitesContainer/> : null}
         {visibilities.isVisible('bookmarks') ? (
           <div>

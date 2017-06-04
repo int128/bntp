@@ -1,20 +1,20 @@
 import * as actionTypes from './actionTypes';
 
-export function subscribeFolderPreferences() {
+export function subscribe() {
   return {
-    type: actionTypes.SUBSCRIBE_FOLDER_PREFERENCE,
+    type: actionTypes.SUBSCRIBE_FOLDER_PREFERENCES,
   }
 }
 
-export function unsubscribeFolderPreferences() {
+export function unsubscribe() {
   return {
-    type: actionTypes.UNSUBSCRIBE_FOLDER_PREFERENCE,
+    type: actionTypes.UNSUBSCRIBE_FOLDER_PREFERENCES,
   }
 }
 
-export function toggleFolderCollapse(folder) {
+export function toggle(folder) {
   return {
-    type: actionTypes.TOGGLE_FOLDER_COLLAPSE,
-    folder,
-  };
+    type: actionTypes.TOGGLE_FOLDER,
+    folder
+  }
 }
