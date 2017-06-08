@@ -3,20 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as actionCreators from '../../state/visibilities/actionCreators';
+import connectToEventListener from '../../state/visibilities/connectToEventListener';
 
 import Visibilities from '../../models/Visibilities';
 
 class VisibilityPreferenceContainer extends React.Component {
   static propTypes = {
     visibilities: PropTypes.instanceOf(Visibilities).isRequired,
-  }
-
-  componentWillMount() {
-    this.props.dispatch(actionCreators.subscribeVisibilities());
-  }
-
-  componentWillUnmount() {
-    this.props.dispatch(actionCreators.unsubscribeVisibilities());
   }
 
   render() {
@@ -41,4 +34,4 @@ const mapStateToProps = state => ({
   visibilities: state.visibilities,
 });
 
-export default connect(mapStateToProps)(VisibilityPreferenceContainer);
+export default connect(mapStateToProps)(connectToEventListener(VisibilityPreferenceContainer));

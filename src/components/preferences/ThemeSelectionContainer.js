@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Seq } from 'immutable';
 
 import * as actionCreators from '../../state/themeSelection/actionCreators';
+import connectToEventListener from '../../state/themeSelection/connectToEventListener';
 
 import Theme from '../../models/Theme';
 
@@ -11,14 +12,6 @@ class ThemeSelectionContainer extends React.Component {
   static propTypes = {
     themes: PropTypes.instanceOf(Seq).isRequired,
     selectedTheme: PropTypes.instanceOf(Theme),
-  }
-
-  componentWillMount() {
-    this.props.dispatch(actionCreators.subscribeSelectedTheme());
-  }
-
-  componentWillUnmount() {
-    this.props.dispatch(actionCreators.unsubscribeSelectedTheme());
   }
 
   render() {
@@ -44,4 +37,4 @@ const mapStateToProps = state => ({
   selectedTheme: state.selectedTheme,
 });
 
-export default connect(mapStateToProps)(ThemeSelectionContainer);
+export default connect(mapStateToProps)(connectToEventListener(ThemeSelectionContainer));

@@ -5,19 +5,11 @@ import { Seq } from 'immutable';
 
 import FoldersContainer from './FoldersContainer';
 
-import * as actionCreators from '../../state/bookmarks/actionCreators';
+import connectToEventListener from '../../state/bookmarks/connectToEventListener';
 
 class BookmarkFoldersContainer extends React.Component {
   static propTypes = {
     bookmarkFolders: PropTypes.instanceOf(Seq).isRequired,
-  }
-
-  componentWillMount() {
-    this.props.dispatch(actionCreators.subscribe());
-  }
-
-  componentWillUnmount() {
-    this.props.dispatch(actionCreators.unsubscribe());
   }
 
   render() {
@@ -32,4 +24,4 @@ const mapStateToProps = state => ({
   bookmarkFolders: state.bookmarkFolders,
 });
 
-export default connect(mapStateToProps)(BookmarkFoldersContainer);
+export default connect(mapStateToProps)(connectToEventListener(BookmarkFoldersContainer));

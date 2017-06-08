@@ -9,20 +9,13 @@ import FolderItemContainer from './FolderItemContainer';
 import TileFolder from '../kits/TileFolder';
 
 import * as actionCreators from '../../state/folderPreferences/actionCreators';
+import connectToEventListener from '../../state/folderPreferences/connectToEventListener';
 
 class FoldersContainer extends React.Component {
   static propTypes = {
     folderPreferences: PropTypes.instanceOf(FolderPreferences).isRequired,
     folders: PropTypes.instanceOf(Seq).isRequired,
     onEditClick: PropTypes.func,
-  }
-
-  componentWillMount() {
-    this.props.dispatch(actionCreators.subscribe());
-  }
-
-  componentWillUnmount() {
-    this.props.dispatch(actionCreators.unsubscribe());
   }
 
   render() {
@@ -50,4 +43,4 @@ const mapStateToProps = state => ({
   folderPreferences: state.folderPreferences,
 });
 
-export default connect(mapStateToProps)(FoldersContainer);
+export default connect(mapStateToProps)(connectToEventListener(FoldersContainer));

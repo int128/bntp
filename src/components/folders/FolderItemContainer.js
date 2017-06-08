@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 
 import TileFolderItem from '../kits/TileFolderItem';
 
-import * as actionCreators from '../../state/folderItemPreferences/actionCreators';
-import * as editorActionCreators from '../../state/folderItemEditor/actionCreators';
+import connectToEventListener from '../../state/folderItemPreferences/connectToEventListener';
+import * as actionCreators from '../../state/folderItemEditor/actionCreators';
 
 import FolderItemPreferences from '../../models/FolderItemPreferences';
 import Bookmark from '../../models/Bookmark';
@@ -24,14 +24,6 @@ class FolderItemContainer extends React.Component {
     item: PropTypes.oneOfType(FolderItemTypes).isRequired,
   }
 
-  componentWillMount() {
-    this.props.dispatch(actionCreators.subscribe());
-  }
-
-  componentWillUnmount() {
-    this.props.dispatch(actionCreators.unsubscribe());
-  }
-
   render() {
     const { dispatch, item, folderItemPreferences } = this.props;
     const folderItemPreference = folderItemPreferences.get(item.id);
@@ -40,7 +32,7 @@ class FolderItemContainer extends React.Component {
         link={item.link}
         badge={folderItemPreference.accessKey}
         canEdit={item.canEdit}
-        onEditClick={() => dispatch(editorActionCreators.open(item, folderItemPreference))}>
+        onEditClick={() => dispatch(actionCreators.open(item, folderItemPreference))}>
         {item.title}
       </TileFolderItem>
     );
@@ -51,4 +43,4 @@ const mapStateToProps = state => ({
   folderItemPreferences: state.folderItemPreferences,
 });
 
-export default connect(mapStateToProps)(FolderItemContainer);
+export default connect(mapStateToProps)(connectToEventListener(FolderItemContainer));

@@ -4,23 +4,15 @@ import { connect } from 'react-redux';
 
 import FixedTip from '../kits/FixedTip';
 
-import * as actionCreators from '../../state/notifications/actionCreators';
+import connectToEventListener from '../../state/notifications/connectToEventListener';
 
 export class NetworkStatusContainer extends React.Component {
   static propTypes = {
-    online: PropTypes.bool.isRequired,
-  }
-
-  componentWillMount() {
-    this.props.dispatch(actionCreators.subscribeNetworkStatus());
-  }
-
-  componentWillUnmount() {
-    this.props.dispatch(actionCreators.unsubscribeNetworkStatus());
+    networkStatus: PropTypes.bool.isRequired,
   }
 
   render() {
-    if (this.props.online === false) {
+    if (this.props.networkStatus === false) {
       return <FixedTip>Network is Offline</FixedTip>;
     } else {
       return null;
@@ -29,7 +21,7 @@ export class NetworkStatusContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  online: state.online,
+  networkStatus: state.networkStatus,
 });
 
-export default connect(mapStateToProps)(NetworkStatusContainer);
+export default connect(mapStateToProps)(connectToEventListener(NetworkStatusContainer));
