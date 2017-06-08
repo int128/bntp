@@ -32,12 +32,9 @@ class FolderItemEditorContainer extends React.Component {
         <FolderItemEditorForm
           folderItem={editingFolderItem}
           folderItemPreference={editingFolderItemPreference}
-          onChange={(folderItem, folderItemPreference) =>
-            dispatch(actionCreators.notifyChange(folderItem, folderItemPreference))}
-          onSubmit={(folderItem, folderItemPreference) =>
-            dispatch(actionCreators.save(folderItem, folderItemPreference))}
-          onRemove={(folderItem, folderItemPreference) =>
-            dispatch(actionCreators.remove(folderItem, folderItemPreference))}
+          onChange={(item, preference) => dispatch(actionCreators.notifyChange(item, preference))}
+          onSubmit={(item, preference) => dispatch(actionCreators.save(item, preference))}
+          onRemove={(item, preference) => dispatch(actionCreators.remove(item, preference))}
           onCancel={() => dispatch(actionCreators.cancel())}/>
       );
     }

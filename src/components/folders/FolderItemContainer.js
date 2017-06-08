@@ -27,14 +27,14 @@ class FolderItemContainer extends React.Component {
 
   render() {
     const { dispatch, item, folderItemPreferences } = this.props;
-    const folderItemPreference = folderItemPreferences.get(item.id);
+    const preference = folderItemPreferences.get(item.id);
     return (
       <TileFolderItem
         link={item.link}
-        badge={folderItemPreference.accessKey}
+        badge={preference.accessKey}
         canEdit={true}
         onLinkClick={e => dispatch(actionCreators.open(item))}
-        onEditClick={e => dispatch(editorActionCreators.open(item, folderItemPreference))}>
+        onEditClick={e => dispatch(editorActionCreators.open(item, preference))}>
         {item.title}
       </TileFolderItem>
     );

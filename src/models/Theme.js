@@ -1,9 +1,7 @@
 import { Record } from 'immutable';
 
-const ThemeRecord = Record({
+export default class Theme extends Record({
   id: null,
   title: null,
-});
-
-export default class Theme extends ThemeRecord {
+}) {
 }

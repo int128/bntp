@@ -1,12 +1,10 @@
 import { Record, Seq } from 'immutable';
 
-const LinkRecord = Record({
+export default class Link extends Record({
   url: null,
   app: false,
   icons: null,
-});
-
-export default class Link extends LinkRecord {
+}) {
   isSpecial = () => this.url.match(/^(chrome|file|javascript):/)
 
   isApp = () => this.app

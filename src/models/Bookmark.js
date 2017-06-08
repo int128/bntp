@@ -1,12 +1,10 @@
 import { Record } from 'immutable';
 
-const BookmarkRecord = Record({
+export default class Bookmark extends Record({
   id: null,
   title: null,
   link: null,
-});
-
-export default class Bookmark extends BookmarkRecord {
+}) {
   canEditTitle = true
   canEditLink = true
 

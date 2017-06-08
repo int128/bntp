@@ -1,10 +1,8 @@
 import { Record, Seq } from 'immutable';
 
-const FolderRecord = Record({
+export default class Folder extends Record({
   id: null,
   title: null,
   items: Seq(),
-});
-
-export default class Folder extends FolderRecord {
+}) {
 }
