@@ -5,7 +5,10 @@ export default class FolderItemPreference extends Record({
   accessKey: null,
 }) {
   setAccessKey(accessKey) {
-    const canonical = accessKey.substring(0, 1).toUpperCase();
-    return new FolderItemPreference(this.set('accessKey', canonical));
+    if (accessKey.length === 1) {
+      return new FolderItemPreference(this.set('accessKey', accessKey.toUpperCase()));
+    } else {
+      return new FolderItemPreference(this.set('accessKey', null));
+    }
   }
 }

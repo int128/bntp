@@ -22,7 +22,11 @@ export default class FolderItemPreferences {
   }
 
   set(folderItemPreference) {
-    return new FolderItemPreferences(this.idMap.toMap().set(folderItemPreference.id, folderItemPreference));
+    return new FolderItemPreferences(this.idMap
+      .filterNot(_ => _.accessKey === folderItemPreference.accessKey)
+      .toMap()
+      .set(folderItemPreference.id, folderItemPreference)
+      .filterNot(_ => _.accessKey === null));
   }
 
   toJSON() {
