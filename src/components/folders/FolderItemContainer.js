@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import TileFolderItem from '../kits/TileFolderItem';
 
 import connectToEventListener from '../../state/folderItemPreferences/connectToEventListener';
-import * as actionCreators from '../../state/folderItemEditor/actionCreators';
+import * as actionCreators from '../../state/folderItemPreferences/actionCreators';
+import * as editorActionCreators from '../../state/folderItemEditor/actionCreators';
 
 import FolderItemPreferences from '../../models/FolderItemPreferences';
 import Bookmark from '../../models/Bookmark';
@@ -31,8 +32,9 @@ class FolderItemContainer extends React.Component {
       <TileFolderItem
         link={item.link}
         badge={folderItemPreference.accessKey}
-        canEdit={item.canEdit}
-        onEditClick={() => dispatch(actionCreators.open(item, folderItemPreference))}>
+        canEdit={true}
+        onLinkClick={e => dispatch(actionCreators.open(item))}
+        onEditClick={e => dispatch(editorActionCreators.open(item, folderItemPreference))}>
         {item.title}
       </TileFolderItem>
     );

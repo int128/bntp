@@ -8,6 +8,7 @@ import BarFolderItem from '../kits/BarFolderItem';
 import FloatTip from '../kits/FloatTip';
 
 import { fetchTopSites } from '../../state/topsites/actionCreators';
+import * as actionCreators from '../../state/folderItemPreferences/actionCreators';
 
 class TopSitesContainer extends React.Component {
   static propTypes = {
@@ -19,13 +20,15 @@ class TopSitesContainer extends React.Component {
   }
 
   render() {
-    const { topSites } = this.props;
+    const { dispatch, topSites } = this.props;
     return (
       <div className="TopSites">
         <BarFolder>
           {topSites.map((topSite, index) =>
             <FloatTip key={index} title={topSite.title}>
-              <BarFolderItem link={topSite.link} />
+              <BarFolderItem
+                link={topSite.link}
+                onLinkClick={e => dispatch(actionCreators.open(topSite))} />
             </FloatTip>
           )}
         </BarFolder>

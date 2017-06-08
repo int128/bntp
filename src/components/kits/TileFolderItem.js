@@ -10,22 +10,17 @@ export default class TileFolderItem extends React.Component {
     link: PropTypes.instanceOf(Link).isRequired,
     badge: PropTypes.string,
     canEdit: PropTypes.bool.isRequired,
+    onLinkClick: PropTypes.func.isRequired,
     onEditClick: PropTypes.func.isRequired,
   }
 
-  onLinkClick(e) {
-    const { link } = this.props;
-    if (link.isSpecial()) {
-      window.chrome.tabs.create({url: link.url});
-      e.preventDefault();
-    } else if (link.isApp()) {
-      window.chrome.management.launchApp(link.url);
-      e.preventDefault();
-    }
+  onEditClick(e) {
+    this.props.onEditClick();
   }
 
-  onEditClick(e) {
-    this.props.onEditClick(e);
+  onLinkClick(e) {
+    e.preventDefault();
+    this.props.onLinkClick();
   }
 
   render() {

@@ -10,6 +10,7 @@ import listeners from './state/listeners';
 import initialState from './state/initialState';
 
 import renderInitialState from './state/themeSelection/renderInitialState';
+import registerKeyHook from './state/folderItemPreferences/registerKeyHook';
 
 import RootContainer from './components/RootContainer';
 
@@ -25,6 +26,8 @@ const store = createStore(
   combineReducers(reducers),
   initialState(),
   applyMiddleware(ListenerMiddleware(listeners), ...devMiddlewares));
+
+registerKeyHook(store.dispatch);
 
 render(
   <Provider store={store}>

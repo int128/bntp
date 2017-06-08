@@ -1,4 +1,4 @@
-import { Map } from 'immutable';
+import { Seq } from 'immutable';
 
 import FolderItemPreference from './FolderItemPreference';
 
@@ -8,15 +8,21 @@ export default class FolderItemPreferences {
   }
 
   constructor(idMap) {
-    this.idMap = Map(idMap);
+    this.idMap = Seq(idMap);
   }
 
   get(id) {
     return new FolderItemPreference(this.idMap.get(id, {id: id}));
   }
 
+  findByAccessKey(accessKey) {
+    return this.idMap
+      .map(folderItemPreference => new FolderItemPreference(folderItemPreference))
+      .find(folderItemPreference => folderItemPreference.accessKey === accessKey);
+  }
+
   set(folderItemPreference) {
-    return new FolderItemPreferences(this.idMap.set(folderItemPreference.id, folderItemPreference));
+    return new FolderItemPreferences(this.idMap.toMap().set(folderItemPreference.id, folderItemPreference));
   }
 
   toJSON() {

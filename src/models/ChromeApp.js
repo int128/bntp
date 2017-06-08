@@ -4,8 +4,9 @@ const ChromeAppRecord = Record({
   id: null,
   title: null,
   link: null,
-  canEdit: false,
 });
 
 export default class ChromeApp extends ChromeAppRecord {
+  setTitle = () => this
+  setUrl = () => this
 }
