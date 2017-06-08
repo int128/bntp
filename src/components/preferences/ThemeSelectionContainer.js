@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Seq } from 'immutable';
 
-import * as actionCreators from '../../state/themeSelection/actionCreators';
-import connectToEventListener from '../../state/themeSelection/connectToEventListener';
+import * as actionCreators from '../../state/preferences/actionCreators';
+import * as connectors from '../../state/preferences/connectors';
 
 import Theme from '../../models/Theme';
 
@@ -37,4 +37,4 @@ const mapStateToProps = state => ({
   selectedTheme: state.selectedTheme,
 });
 
-export default connect(mapStateToProps)(connectToEventListener(ThemeSelectionContainer));
+export default connect(mapStateToProps)(connectors.themes(ThemeSelectionContainer));

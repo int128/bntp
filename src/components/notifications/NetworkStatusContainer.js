@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import FixedTip from '../kits/FixedTip';
 
-import connectToEventListener from '../../state/notifications/connectToEventListener';
+import * as connectors from '../../state/notifications/connectors';
 
 export class NetworkStatusContainer extends React.Component {
   static propTypes = {
@@ -24,4 +24,4 @@ const mapStateToProps = state => ({
   networkStatus: state.networkStatus,
 });
 
-export default connect(mapStateToProps)(connectToEventListener(NetworkStatusContainer));
+export default connect(mapStateToProps)(connectors.networkStatus(NetworkStatusContainer));

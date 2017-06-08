@@ -9,7 +9,7 @@ import reducers from './state/reducers';
 import listeners from './state/listeners';
 import initialState from './state/initialState';
 
-import renderInitialState from './state/themeSelection/renderInitialState';
+import renderInitialState from './state/preferences/renderInitialState';
 import registerKeyHook from './state/folderItem/registerKeyHook';
 
 import RootContainer from './components/RootContainer';
