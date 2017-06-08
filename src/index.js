@@ -10,7 +10,7 @@ import listeners from './state/listeners';
 import initialState from './state/initialState';
 
 import renderInitialState from './state/themeSelection/renderInitialState';
-import registerKeyHook from './state/folderItemPreferences/registerKeyHook';
+import registerKeyHook from './state/folderItem/registerKeyHook';
 
 import RootContainer from './components/RootContainer';
 

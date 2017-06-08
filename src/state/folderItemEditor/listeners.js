@@ -1,7 +1,7 @@
 import { bookmarkRepository, folderItemPreferenceRepository } from '../../repositories';
 
 import * as actionTypes from './actionTypes';
-import * as folderItemPreferencesActionTypes from '../folderItemPreferences/actionTypes';
+import * as folderItemActionTypes from '../folderItem/actionTypes';
 
 import Bookmark from '../../models/Bookmark';
 
@@ -10,7 +10,7 @@ export default {
     const folderItemPreferences = store.getState().folderItemPreferences.set(folderItemPreference);
     folderItemPreferenceRepository.save(folderItemPreferences);
     dispatch({
-      type: folderItemPreferencesActionTypes.RECEIVE_FOLDER_ITEM_PREFERENCES,
+      type: folderItemActionTypes.RECEIVE_FOLDER_ITEM_PREFERENCES,
       folderItemPreferences
     });
 

@@ -6,3 +6,9 @@ export function open(folderItem) {
     folderItem
   }
 }
+
+export function fetchTopSites() {
+  return {
+    type: actionTypes.FETCH_TOP_SITES
+  };
+}

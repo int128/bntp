@@ -1,19 +1,13 @@
-import bookmarks from './bookmarks/listeners'
-import chromeApps from './chromeApps/listeners'
-import themeSelection from './themeSelection/listeners'
-import topsites from './topsites/listeners'
-import visibilities from './visibilities/listeners'
-import folderPreferences from './folderPreferences/listeners'
-import folderItemPreferences from './folderItemPreferences/listeners'
+import folder from './folder/listeners'
+import folderItem from './folderItem/listeners'
 import folderItemEditor from './folderItemEditor/listeners'
+import themeSelection from './themeSelection/listeners'
+import visibilities from './visibilities/listeners'
 
 export default {
-  ...bookmarks,
-  ...chromeApps,
-  ...themeSelection,
-  ...topsites,
-  ...visibilities,
-  ...folderPreferences,
-  ...folderItemPreferences,
+  ...folder,
+  ...folderItem,
   ...folderItemEditor,
+  ...themeSelection,
+  ...visibilities,
 };

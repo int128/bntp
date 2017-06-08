@@ -5,7 +5,7 @@ import { Seq } from 'immutable';
 
 import FoldersContainer from './FoldersContainer';
 
-import connectToEventListener from '../../state/bookmarks/connectToEventListener';
+import * as connectors from '../../state/folderItem/connectors';
 
 class BookmarkFoldersContainer extends React.Component {
   static propTypes = {
@@ -24,4 +24,4 @@ const mapStateToProps = state => ({
   bookmarkFolders: state.bookmarkFolders,
 });
 
-export default connect(mapStateToProps)(connectToEventListener(BookmarkFoldersContainer));
+export default connect(mapStateToProps)(connectors.bookmarks(BookmarkFoldersContainer));

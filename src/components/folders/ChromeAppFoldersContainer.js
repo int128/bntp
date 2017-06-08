@@ -5,7 +5,7 @@ import { Seq } from 'immutable';
 
 import FoldersContainer from './FoldersContainer';
 
-import connectToEventListener from '../../state/chromeApps/connectToEventListener';
+import * as connectors from '../../state/folderItem/connectors';
 
 class ChromeAppFoldersContainer extends React.Component {
   static propTypes = {
@@ -22,4 +22,4 @@ const mapStateToProps = state => ({
   chromeAppFolders: state.chromeAppFolders,
 });
 
-export default connect(mapStateToProps)(connectToEventListener(ChromeAppFoldersContainer));
+export default connect(mapStateToProps)(connectors.chromeApps(ChromeAppFoldersContainer));
