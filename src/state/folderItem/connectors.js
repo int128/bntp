@@ -1,18 +1,18 @@
-import connectToEventListener from '../../infrastructure/connectToEventListener';
+import * as Connector from '../../infrastructure/Connector';
 
 import * as repositories from '../../repositories';
 
 import * as actionTypes from './actionTypes';
 
-export const bookmarks = connectToEventListener(repositories.bookmarkRepository, () => ({
+export const bookmarks = Connector.eager(repositories.bookmarkRepository, () => ({
   type: actionTypes.FETCH_BOOKMARKS
 }));
 
-export const chromeApps = connectToEventListener(repositories.chromeAppRepository, () => ({
+export const chromeApps = Connector.eager(repositories.chromeAppRepository, () => ({
   type: actionTypes.FETCH_CHROME_APPS
 }));
 
-export const folderItemPreferences = connectToEventListener(repositories.folderItemPreferenceRepository, () => ({
+export const folderItemPreferences = Connector.lazy(repositories.folderItemPreferenceRepository, () => ({
   type: actionTypes.RECEIVE_FOLDER_ITEM_PREFERENCES,
   folderItemPreferences: repositories.folderItemPreferenceRepository.get()
 }));

@@ -9,7 +9,6 @@ class EventListenerConnector {
   subscribe(dispatcher) {
     if (this.subscriberCount === 0) {
       this.eventListener = this.repository.addListener(dispatcher);
-      dispatcher();
     }
     this.subscriberCount++;
   }
@@ -22,7 +21,7 @@ class EventListenerConnector {
   }
 }
 
-const connectToEventListener = (repository, actionCreator) => {
+const connectorCreator = eager => (repository, actionCreator) => {
   const connector = new EventListenerConnector(repository);
   return component => class SubscriberComponent extends component {
     componentWillMount() {
@@ -30,6 +29,9 @@ const connectToEventListener = (repository, actionCreator) => {
         super.componentWillMount();
       }
       connector.subscribe(() => this.props.dispatch(actionCreator()));
+      if (eager) {
+        this.props.dispatch(actionCreator());
+      }
     }
 
     componentWillUnmount() {
@@ -41,4 +43,5 @@ const connectToEventListener = (repository, actionCreator) => {
   };
 }
 
-export default connectToEventListener;
+export const eager = connectorCreator(true);
+export const lazy = connectorCreator(false);

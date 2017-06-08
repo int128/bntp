@@ -37,4 +37,4 @@ const mapStateToProps = state => ({
   selectedTheme: state.selectedTheme,
 });
 
-export default connect(mapStateToProps)(connectors.themes(ThemeSelectionContainer));
+export default connect(mapStateToProps)(connectors.selectedTheme(ThemeSelectionContainer));
