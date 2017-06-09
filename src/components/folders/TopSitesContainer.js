@@ -26,7 +26,8 @@ class TopSitesContainer extends React.Component {
           {topSites.map((topSite, index) =>
             <FloatTip key={index} title={topSite.title}>
               <BarFolderItem
-                link={topSite.link}
+                url={topSite.url}
+                icon={topSite.icon}
                 onLinkClick={e => dispatch(actionCreators.open(topSite))} />
             </FloatTip>
           )}

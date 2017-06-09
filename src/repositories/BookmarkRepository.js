@@ -1,6 +1,5 @@
 import { Seq } from 'immutable';
 
-import Link from '../models/Link';
 import Bookmark from '../models/Bookmark';
 import Folder from '../models/Folder';
 
@@ -20,7 +19,7 @@ export default class BookmarkRepository {
           .map(child => new Bookmark({
             id: child.id,
             title: child.title,
-            link: new Link({url: child.url}),
+            url: child.url,
           })),
       });
       if (folder.items.isEmpty()) {
@@ -35,7 +34,7 @@ export default class BookmarkRepository {
   update(bookmark, callback) {
     window.chrome.bookmarks.update(bookmark.id, {
       title: bookmark.title,
-      url: bookmark.link.url,
+      url: bookmark.url,
     }, callback);
   }
 

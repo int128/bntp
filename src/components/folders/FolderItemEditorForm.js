@@ -65,10 +65,10 @@ export default class FolderItemEditorForm extends React.Component {
               onChange={e => this.onInputChange(e)}/>
           </div>
           <div>
-            <input type="text" ref="url" defaultValue={folderItem.link.url}
+            <input type="text" ref="url" defaultValue={folderItem.url}
               readOnly={folderItem.canEditLink !== true}
               className="FolderItemEditorForm__UrlInput"
-              style={{backgroundImage: `url(${folderItem.link.getIcon()})`}}
+              style={{backgroundImage: `url(${folderItem.icon})`}}
               onChange={e => this.onInputChange(e)}/>
           </div>
           <div>

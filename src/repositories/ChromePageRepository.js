@@ -2,7 +2,6 @@ import { Seq } from 'immutable';
 
 import Folder from '../models/Folder';
 import ChromePage from '../models/ChromePage';
-import Link from '../models/Link';
 
 import CHROME_PAGES from './ChromePages.json';
 
@@ -14,7 +13,7 @@ export default class ChromePageRepository {
       items: Seq(CHROME_PAGES.children).map(page => new ChromePage({
         id: page.id,
         title: page.title,
-        link: new Link({url: page.url}),
+        url: page.url,
       })),
     }));
   }

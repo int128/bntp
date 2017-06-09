@@ -1,6 +1,5 @@
 import { Seq } from 'immutable';
 
-import Link from '../models/Link';
 import ChromeApp from '../models/ChromeApp';
 import Folder from '../models/Folder';
 
@@ -17,11 +16,7 @@ export default class ChromeAppRepository {
               .map(app => new ChromeApp({
                 id: app.id,
                 title: app.name,
-                link: new Link({
-                  app: true,
-                  url: app.id,
-                  icons: app.icons,
-                }),
+                icons: app.icons,
               }))
           })
         )
