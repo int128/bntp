@@ -4,11 +4,10 @@ export default class FolderItemPreference extends Record({
   id: null,
   accessKey: null,
 }) {
-  setAccessKey(accessKey) {
-    if (accessKey.length === 1) {
-      return new FolderItemPreference(this.set('accessKey', accessKey.toUpperCase()));
-    } else {
-      return new FolderItemPreference(this.set('accessKey', null));
-    }
+  merge(map) {
+    return new FolderItemPreference(super.merge({
+      ...map,
+      accessKey: (map.accessKey.length === 1) ? map.accessKey.toUpperCase() : null,
+    }));
   }
 }

@@ -13,8 +13,9 @@ export default class Bookmark extends Record({
     this.icon = `chrome://favicon/${this.url}`;
   }
 
-  setTitle = title => new Bookmark(this.set('title', title));
-  setUrl = url => new Bookmark(this.set('url', url));
+  merge(map) {
+    return new Bookmark(super.merge(map));
+  }
 
   open() {
     const { url } = this;

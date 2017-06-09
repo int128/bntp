@@ -5,13 +5,14 @@ export default class ChromeApp extends Record({
   title: null,
   icons: Seq(),
 }) {
-  setTitle = () => this
-  setUrl = () => this
-
   constructor(record) {
     super(record);
     this.url = this.id;
     this.icon = Seq(this.icons).maxBy(icon => icon.size).url;
+  }
+
+  merge(map) {
+    return new ChromeApp(super.merge(map));
   }
 
   open() {

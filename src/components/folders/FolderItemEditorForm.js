@@ -43,14 +43,16 @@ export default class FolderItemEditorForm extends React.Component {
   }
 
   getEditingFolderItem() {
-    return this.props.folderItem
-      .setTitle(this.refs.title.value)
-      .setUrl(this.refs.url.value);
+    return this.props.folderItem.merge({
+      title: this.refs.title.value,
+      url: this.refs.url.value,
+    });
   }
 
   getEditingFolderItemPreference() {
-    return this.props.folderItemPreference
-      .setAccessKey(this.refs.accessKey.value);
+    return this.props.folderItemPreference.merge({
+      accessKey: this.refs.accessKey.value,
+    });
   }
 
   render() {
@@ -66,7 +68,7 @@ export default class FolderItemEditorForm extends React.Component {
           </div>
           <div>
             <input type="text" ref="url" defaultValue={folderItem.url}
-              readOnly={folderItem.canEditLink !== true}
+              readOnly={folderItem.canEditUrl !== true}
               className="FolderItemEditorForm__UrlInput"
               style={{backgroundImage: `url(${folderItem.icon})`}}
               onChange={e => this.onInputChange(e)}/>

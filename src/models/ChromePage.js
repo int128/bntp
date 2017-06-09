@@ -5,12 +5,13 @@ export default class ChromePage extends Record({
   title: null,
   url: null,
 }) {
-  setTitle = () => this
-  setUrl = () => this
-
   constructor(record) {
     super(record);
     this.icon = `chrome://favicon/${this.url}`;
+  }
+
+  merge(map) {
+    return new ChromePage(super.merge(map));
   }
 
   open() {
