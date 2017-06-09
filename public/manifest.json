@@ -6,7 +6,6 @@
     "bookmarks",
     "chrome://favicon/",
     "topSites",
-    "tabs",
     "management"
   ],
   "chrome_url_overrides": {
