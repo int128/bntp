@@ -24,6 +24,10 @@ export default class FolderItemEditorForm extends React.Component {
     onCancel: PropTypes.func.isRequired,
   }
 
+  componentDidMount() {
+    this.refs.title.focus();
+  }
+
   onSubmit(e) {
     e.preventDefault();
     this.props.onSubmit(this.getEditingFolderItem(), this.getEditingFolderItemPreference());
