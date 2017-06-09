@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes';
 
 export default function registerKeyHook(dispatch) {
-  window.addEventListener('keydown', e => {
+  window.addEventListener('keypress', e => {
     if (e.target === document.body && e.key.length === 1) {
       const key = e.key.toUpperCase();
       dispatch({
