@@ -26,7 +26,7 @@ export default class FolderItemPreferences {
       .filterNot(_ => _.accessKey === folderItemPreference.accessKey)
       .toMap()
       .set(folderItemPreference.id, folderItemPreference)
-      .filterNot(_ => _.accessKey === null));
+      .filterNot(_ => _.accessKey === FolderItemPreference.NO_ACCESS_KEY));
   }
 
   toJSON() {

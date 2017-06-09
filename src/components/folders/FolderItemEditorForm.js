@@ -74,7 +74,7 @@ export default class FolderItemEditorForm extends React.Component {
               onChange={e => this.onInputChange(e)}/>
           </div>
           <div>
-            <input type="text" ref="accessKey" defaultValue={folderItemPreference.accessKey}
+            <input type="text" ref="accessKey" value={folderItemPreference.accessKey}
               maxLength={1}
               className="FolderItemEditorForm__TextInput"
               placeholder="Shortcut Key (not assigned)"
