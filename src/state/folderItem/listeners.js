@@ -1,3 +1,5 @@
+import { Seq } from 'immutable';
+
 import * as repositories from '../../repositories';
 
 import * as actionTypes from './actionTypes';
@@ -22,5 +24,25 @@ export default {
       type: actionTypes.RECEIVE_TOP_SITES,
       topSites,
     }));
+  },
+
+  [actionTypes.OPEN_FOLDER_ITEM_BY_ACCESS_KEY]: ({accessKey}, dispatch, store) => {
+    const {
+      folderItemPreferences,
+      bookmarkFolders,
+      chromeAppFolders,
+      chromePageFolders
+    } = store.getState();
+    const folderItemPreference = folderItemPreferences.findByAccessKey(accessKey);
+    if (folderItemPreference) {
+      const folderItemId = folderItemPreference.id;
+      const folderItem = Seq.of(bookmarkFolders, chromeAppFolders, chromePageFolders)
+        .flatMap(folders => folders)
+        .flatMap(folder => folder.items)
+        .find(folderItem => folderItem.id === folderItemId);
+      if (folderItem) {
+        folderItem.open();
+      }
+    }
   },
 };

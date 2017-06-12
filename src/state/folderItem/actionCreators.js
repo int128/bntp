@@ -7,6 +7,13 @@ export function open(folderItem) {
   }
 }
 
+export function openByAccessKey(accessKey) {
+  return {
+    type: actionTypes.OPEN_FOLDER_ITEM_BY_ACCESS_KEY,
+    accessKey
+  }
+}
+
 export function fetchTopSites() {
   return {
     type: actionTypes.FETCH_TOP_SITES
