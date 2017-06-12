@@ -33,6 +33,12 @@ export default class FolderItemEditorForm extends React.Component {
     this.props.onSubmit(this.getEditingFolderItem(), this.getEditingFolderItemPreference());
   }
 
+  onKeyDown(e) {
+    if (e.key === 'Escape') {
+      this.props.onCancel(this.getEditingFolderItem(), this.getEditingFolderItemPreference());
+    }
+  }
+
   onWrapClick(e) {
     e.preventDefault();
     this.props.onCancel(this.getEditingFolderItem(), this.getEditingFolderItemPreference());
@@ -63,7 +69,10 @@ export default class FolderItemEditorForm extends React.Component {
     const { folderItem, folderItemPreference } = this.props;
     return (
       <div className="FolderItemEditorForm__Wrap" onClick={e => this.onWrapClick(e)}>
-        <form className="FolderItemEditorForm" onClick={e => e.stopPropagation()} onSubmit={e => this.onSubmit(e)}>
+        <form className="FolderItemEditorForm"
+          onClick={e => e.stopPropagation()}
+          onSubmit={e => this.onSubmit(e)}
+          onKeyDown={e => this.onKeyDown(e)}>
           <div>
             <input type="text" ref="title" defaultValue={folderItem.title}
               readOnly={folderItem.canEditTitle !== true}
