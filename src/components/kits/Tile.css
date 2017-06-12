@@ -35,6 +35,7 @@
 
 .TileFolder__Heading,
 .TileFolderItem {
+  position: relative;
   display: inline-block;
   margin-bottom: var(--size-folder-item-margin);
   margin-right: var(--size-folder-item-margin);
@@ -46,7 +47,7 @@
 
 .TileFolderItem__ButtonBadge {
     position: absolute;
-    border-radius: 4px;
+    border-radius: 3px;
     background-color: var(--palette-2);
     width: 16px;
     height: 16px;
@@ -84,6 +85,8 @@
 
 .TileFolderItem__EditButton {
   position: absolute;
+  bottom: var(--size-folder-item-padding);
+  right: 0;
 }
 
 .TileFolderItem .TileFolderItem__EditButton {
@@ -92,18 +95,19 @@
 
 .TileFolderItem:hover .TileFolderItem__EditButton {
   display: block;
-  opacity: 0.5;
 }
 
-.TileFolderItem:hover .TileFolderItem__EditButton:hover {
-  display: block;
-  opacity: 1;
-}
-
-.TileFolderItem button {
-  color: var(--palette-3);
-  background-color: var(--palette-01);
-  border: none;
+.TileFolderItem__EditButton a {
+  padding-bottom: var(--size-folder-item-padding);
+  padding-right: var(--size-folder-item-padding);
+  padding-left: var(--size-folder-item-padding);
   border-radius: 3px;
-  padding: var(--size-folder-item-padding);
+  color: var(--palette-1);
+  font-size: 120%;
+  font-weight: bold;
+}
+
+.TileFolderItem__EditButton a:hover {
+  color: var(--palette-01);
+  background-color: var(--palette-2);
 }

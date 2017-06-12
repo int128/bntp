@@ -14,6 +14,7 @@ export default class TileFolderItem extends React.Component {
   }
 
   onEditClick(e) {
+    e.preventDefault();
     this.props.onEditClick();
   }
 
@@ -39,7 +40,7 @@ export default class TileFolderItem extends React.Component {
         </a>
         {canEdit ?
           <div className="TileFolderItem__EditButton">
-            <button onClick={e => this.onEditClick(e)}>Edit</button>
+            <a href="#edit" onClick={e => this.onEditClick(e)}>&hellip;</a>
           </div>
         : null}
       </div>
