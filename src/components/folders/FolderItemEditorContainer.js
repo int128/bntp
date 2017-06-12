@@ -19,15 +19,14 @@ const FolderItemTypes = [
 
 class FolderItemEditorContainer extends React.Component {
   static propTypes = {
+    showFolderItemEditor: PropTypes.bool.isRequired,
     editingFolderItem: PropTypes.oneOfType(FolderItemTypes),
     editingFolderItemPreference: PropTypes.instanceOf(FolderItemPreference),
   }
 
   render() {
-    const { dispatch, editingFolderItem, editingFolderItemPreference } = this.props;
-    if (editingFolderItem === null || editingFolderItemPreference === null) {
-      return null;
-    } else {
+    const { dispatch, showFolderItemEditor, editingFolderItem, editingFolderItemPreference } = this.props;
+    if (showFolderItemEditor === true) {
       return (
         <FolderItemEditorForm
           folderItem={editingFolderItem}
@@ -37,11 +36,14 @@ class FolderItemEditorContainer extends React.Component {
           onRemove={(item, preference) => dispatch(actionCreators.remove(item, preference))}
           onCancel={() => dispatch(actionCreators.cancel())}/>
       );
+    } else {
+      return null;
     }
   }
 }
 
 const mapStateToProps = state => ({
+  showFolderItemEditor: state.showFolderItemEditor,
   editingFolderItem: state.editingFolderItem,
   editingFolderItemPreference: state.editingFolderItemPreference,
 });
