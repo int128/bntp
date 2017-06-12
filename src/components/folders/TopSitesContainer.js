@@ -19,7 +19,7 @@ class TopSitesContainer extends React.Component {
   }
 
   render() {
-    const { dispatch, topSites } = this.props;
+    const { topSites } = this.props;
     return (
       <div className="TopSites">
         <BarFolder>
@@ -28,7 +28,7 @@ class TopSitesContainer extends React.Component {
               <BarFolderItem
                 url={topSite.url}
                 icon={topSite.icon}
-                onLinkClick={e => dispatch(actionCreators.open(topSite))} />
+                onLinkClick={e => topSite.open()} />
             </FloatTip>
           )}
         </BarFolder>
