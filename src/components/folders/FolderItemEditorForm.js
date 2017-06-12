@@ -21,7 +21,6 @@ export default class FolderItemEditorForm extends React.Component {
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
@@ -31,17 +30,6 @@ export default class FolderItemEditorForm extends React.Component {
   onSubmit(e) {
     e.preventDefault();
     this.props.onSubmit(this.getEditingFolderItem(), this.getEditingFolderItemPreference());
-  }
-
-  onKeyDown(e) {
-    if (e.key === 'Escape') {
-      this.props.onCancel(this.getEditingFolderItem(), this.getEditingFolderItemPreference());
-    }
-  }
-
-  onWrapClick(e) {
-    e.preventDefault();
-    this.props.onCancel(this.getEditingFolderItem(), this.getEditingFolderItemPreference());
   }
 
   onInputChange(e) {
@@ -68,41 +56,36 @@ export default class FolderItemEditorForm extends React.Component {
   render() {
     const { folderItem, folderItemPreference } = this.props;
     return (
-      <div className="FolderItemEditorForm__Wrap" onClick={e => this.onWrapClick(e)}>
-        <form className="FolderItemEditorForm"
-          onClick={e => e.stopPropagation()}
-          onSubmit={e => this.onSubmit(e)}
-          onKeyDown={e => this.onKeyDown(e)}>
-          <div>
-            <input type="text" ref="title" defaultValue={folderItem.title}
-              readOnly={folderItem.canEditTitle !== true}
-              className="FolderItemEditorForm__TextInput"
-              onChange={e => this.onInputChange(e)}/>
-          </div>
-          <div>
-            <input type="text" ref="url" defaultValue={folderItem.url}
-              readOnly={folderItem.canEditUrl !== true}
-              className="FolderItemEditorForm__UrlInput"
-              style={{backgroundImage: `url(${folderItem.icon})`}}
-              onChange={e => this.onInputChange(e)}/>
-          </div>
-          <div>
-            <input type="text" ref="accessKey" value={folderItemPreference.accessKey}
-              maxLength={1}
-              className="FolderItemEditorForm__TextInput"
-              placeholder="Shortcut Key (not assigned)"
-              onChange={e => this.onInputChange(e)}/>
-          </div>
-          <div>
-            <input type="submit" value="Update"
-              className="FolderItemEditorForm__Button FolderItemEditorForm__Left"/>
-            <input type="button" value="Remove"
-              className="FolderItemEditorForm__Button FolderItemEditorForm__Right"
-              onClick={e => this.onRemoveClick(e)}/>
-          </div>
-          <div className="FolderItemEditorForm__ClearFix"></div>
-        </form>
-      </div>
+      <form onSubmit={e => this.onSubmit(e)}>
+        <div>
+          <input type="text" ref="title" defaultValue={folderItem.title}
+            readOnly={folderItem.canEditTitle !== true}
+            className="FolderItemEditorForm__TextInput"
+            onChange={e => this.onInputChange(e)}/>
+        </div>
+        <div>
+          <input type="text" ref="url" defaultValue={folderItem.url}
+            readOnly={folderItem.canEditUrl !== true}
+            className="FolderItemEditorForm__UrlInput"
+            style={{backgroundImage: `url(${folderItem.icon})`}}
+            onChange={e => this.onInputChange(e)}/>
+        </div>
+        <div>
+          <input type="text" ref="accessKey" value={folderItemPreference.accessKey}
+            maxLength={1}
+            className="FolderItemEditorForm__TextInput"
+            placeholder="Shortcut Key (not assigned)"
+            onChange={e => this.onInputChange(e)}/>
+        </div>
+        <div>
+          <input type="submit" value="Update"
+            className="FolderItemEditorForm__Button FolderItemEditorForm__Left"/>
+          <input type="button" value="Remove"
+            className="FolderItemEditorForm__Button FolderItemEditorForm__Right"
+            onClick={e => this.onRemoveClick(e)}/>
+        </div>
+        <div className="FolderItemEditorForm__ClearFix"></div>
+      </form>
     );
   }
 }

@@ -13,6 +13,7 @@
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-modal": "^1.7.12",
     "react-redux": "^5.0.5",
     "redux": "^3.6.0",
     "redux-logger": "^2.10.2"

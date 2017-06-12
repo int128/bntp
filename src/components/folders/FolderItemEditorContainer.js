@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import ReactModal from 'react-modal';
 
 import FolderItemEditorForm from './FolderItemEditorForm';
 
@@ -26,19 +27,23 @@ class FolderItemEditorContainer extends React.Component {
 
   render() {
     const { dispatch, showFolderItemEditor, editingFolderItem, editingFolderItemPreference } = this.props;
-    if (showFolderItemEditor === true) {
-      return (
-        <FolderItemEditorForm
-          folderItem={editingFolderItem}
-          folderItemPreference={editingFolderItemPreference}
-          onChange={(item, preference) => dispatch(actionCreators.notifyChange(item, preference))}
-          onSubmit={(item, preference) => dispatch(actionCreators.save(item, preference))}
-          onRemove={(item, preference) => dispatch(actionCreators.remove(item, preference))}
-          onCancel={() => dispatch(actionCreators.cancel())}/>
-      );
-    } else {
-      return null;
-    }
+    return (
+      <ReactModal
+        isOpen={showFolderItemEditor}
+        onRequestClose={() => dispatch(actionCreators.cancel())}
+        contentLabel="FolderItemEditorForm"
+        className="FolderItemEditorForm__Modal"
+        overlayClassName="FolderItemEditorForm__Overlay">
+        {showFolderItemEditor ?
+          <FolderItemEditorForm
+            folderItem={editingFolderItem}
+            folderItemPreference={editingFolderItemPreference}
+            onChange={(item, preference) => dispatch(actionCreators.notifyChange(item, preference))}
+            onSubmit={(item, preference) => dispatch(actionCreators.save(item, preference))}
+            onRemove={(item, preference) => dispatch(actionCreators.remove(item, preference))}/>
+        : null}
+      </ReactModal>
+    );
   }
 }
 

@@ -1,4 +1,12 @@
-.FolderItemEditorForm__Wrap {
+.FolderItemEditorForm__Modal {
+  margin: 32px;
+  background-color: var(--palette-3);
+  padding: 16px;
+  border-radius: 4px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+.FolderItemEditorForm__Overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -6,14 +14,6 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 10;
-}
-
-.FolderItemEditorForm {
-  margin: 32px;
-  background-color: var(--palette-3);
-  padding: 16px;
-  border-radius: 4px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
 }
 
 .FolderItemEditorForm__TextInput,
