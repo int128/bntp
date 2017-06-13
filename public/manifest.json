@@ -1,6 +1,6 @@
 {
   "name": "BNTP: Bookmarks in New Tab Page",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "Lightweight New Tab Page with Bookmarks and Top Sites",
   "permissions": [
     "bookmarks",
