@@ -17,7 +17,7 @@ export default class FolderPreferences {
     if (this.isCollapsed(folder)) {
       return new FolderPreferences(this.collapsedFolderIds.filterNot(id => id === folder.id));
     } else {
-      return new FolderPreferences(this.collapsedFolderIds.concat(folder.id));
+      return new FolderPreferences(this.collapsedFolderIds.valueSeq().concat(folder.id));
     }
   }
 
