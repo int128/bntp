@@ -9,7 +9,7 @@ Architecture
 
 * React
 * Redux
-* [Middleware Listener Pattern](https://medium.com/@alexandereardon/the-middleware-listener-pattern-better-asynchronous-actions-in-redux-16164fb6186f)
+* Redux Saga
 * Immutable.js
 * ES6
 * Chrome Extension API

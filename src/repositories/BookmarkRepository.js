@@ -1,11 +1,14 @@
 import { Seq } from 'immutable';
+import ChromePromise from 'chrome-promise';
 
 import Bookmark from '../models/Bookmark';
 import Folder from '../models/Folder';
 
 export default class BookmarkRepository {
-  findAll(callback) {
-    return window.chrome.bookmarks.getTree(tree => callback(BookmarkRepository.flatten(tree)));
+  chrome = new ChromePromise();
+
+  *findAll() {
+    return BookmarkRepository.flatten(yield this.chrome.bookmarks.getTree());
   }
 
   static flatten(tree) {
@@ -31,15 +34,15 @@ export default class BookmarkRepository {
     return traverse({children: tree});
   }
 
-  update(bookmark, callback) {
-    window.chrome.bookmarks.update(bookmark.id, {
+  *update(bookmark) {
+    return yield this.chrome.bookmarks.update(bookmark.id, {
       title: bookmark.title,
       url: bookmark.url,
-    }, callback);
+    });
   }
 
-  remove(bookmark, callback) {
-    window.chrome.bookmarks.remove(bookmark.id, callback);
+  *remove(bookmark) {
+    return yield this.chrome.bookmarks.remove(bookmark.id);
   }
 
   addListener(callback) {

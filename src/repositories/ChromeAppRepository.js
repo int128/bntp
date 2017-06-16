@@ -1,26 +1,25 @@
 import { Seq } from 'immutable';
+import ChromePromise from 'chrome-promise';
 
 import ChromeApp from '../models/ChromeApp';
 import Folder from '../models/Folder';
 
 export default class ChromeAppRepository {
-  findFolders(callback) {
-    return window.chrome.management.getAll(managements =>
-      callback(
-        Seq.of(
-          new Folder({
-            id: 'App',
-            title: 'Chrome Apps',
-            items: Seq(managements)
-              .filter(management => /\w+_app/.test(management.type))
-              .map(app => new ChromeApp({
-                id: app.id,
-                title: app.name,
-                icons: app.icons,
-              }))
-          })
-        )
-      )
+  chrome = new ChromePromise();
+
+  *findFolders() {
+    return Seq.of(
+      new Folder({
+        id: 'App',
+        title: 'Chrome Apps',
+        items: Seq(yield this.chrome.management.getAll())
+          .filter(management => /\w+_app/.test(management.type))
+          .map(app => new ChromeApp({
+            id: app.id,
+            title: app.name,
+            icons: app.icons,
+          }))
+      })
     );
   }
 

@@ -2,12 +2,11 @@ import React from 'react';
 import { render } from 'react-dom';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-
-import ListenerMiddleware from './infrastructure/ListenerMiddleware';
+import createSagaMiddleware from 'redux-saga'
 
 import reducers from './state/reducers';
-import listeners from './state/listeners';
 import initialState from './state/initialState';
+import rootSaga from './state/sagas';
 
 import renderInitialState from './state/preferences/renderInitialState';
 import registerKeyHook from './state/keyHook/registerKeyHook';
@@ -22,10 +21,13 @@ if (process.env.NODE_ENV === 'development') {
   devMiddlewares.push(require('redux-logger')());
 }
 
+const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   combineReducers(reducers),
   initialState(),
-  applyMiddleware(ListenerMiddleware(listeners), ...devMiddlewares));
+  applyMiddleware(sagaMiddleware, ...devMiddlewares));
+
+sagaMiddleware.run(rootSaga);
 
 registerKeyHook(store.dispatch);
 
