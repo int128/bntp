@@ -26,7 +26,7 @@ class FolderItemContainer extends React.Component {
 
   render() {
     const { dispatch, item, folderItemPreferences } = this.props;
-    const preference = folderItemPreferences.get(item.id);
+    const preference = folderItemPreferences.getById(item.id);
     return (
       <TileFolderItem
         url={item.url}
