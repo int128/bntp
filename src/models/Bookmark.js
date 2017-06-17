@@ -4,17 +4,20 @@ export default class Bookmark extends Record({
   id: null,
   title: null,
   url: null,
+  icon: null,
 }) {
   canEditTitle = true
   canEditUrl = true
 
   constructor(record) {
-    super(record);
-    this.icon = `chrome://favicon/${this.url}`;
+    super({
+      ...record,
+      icon: `chrome://favicon/${record.url}`,
+    });
   }
 
   merge(map) {
-    return new Bookmark(super.merge(map));
+    return new Bookmark(super.merge(map).toJS());
   }
 
   open() {

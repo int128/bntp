@@ -3,10 +3,13 @@ import { Record } from 'immutable';
 export default class TopSite extends Record({
   url: null,
   title: null,
+  icon: null,
 }) {
   constructor(record) {
-    super(record);
-    this.icon = `chrome://favicon/${this.url}`;
+    super({
+      ...record,
+      icon: `chrome://favicon/${record.url}`,
+    });
   }
 
   open() {

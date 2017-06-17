@@ -4,15 +4,19 @@ export default class ChromeApp extends Record({
   id: null,
   title: null,
   icons: Seq(),
+  url: null,
+  icon: null,
 }) {
-  constructor(record) {
-    super(record);
-    this.url = this.id;
-    this.icon = Seq(this.icons).maxBy(icon => icon.size).url;
+  constructor(map) {
+    super({
+      ...map,
+      url: map.id,
+      icon: Seq(map.icons).maxBy(icon => icon.size).url,
+    });
   }
 
   merge(map) {
-    return new ChromeApp(super.merge(map));
+    return new ChromeApp(super.merge(map).toJS());
   }
 
   open() {
