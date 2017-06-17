@@ -2,13 +2,13 @@ import { Seq } from 'immutable';
 
 import * as actionTypes from './actionTypes';
 
+import FolderPreferences from '../../models/FolderPreferences';
 import FolderItemPreferences from '../../models/FolderItemPreferences';
 
 export function bookmarkFolders(state = Seq(), action) {
   switch (action.type) {
     case actionTypes.RECEIVE_BOOKMARKS:
       return action.bookmarkFolders;
-
     default:
       return state;
   }
@@ -36,11 +36,21 @@ export function topSites(state = Seq(), action) {
   }
 }
 
+export function folderPreferences(state = new FolderPreferences(), action) {
+  switch (action.type) {
+    case actionTypes.RECEIVE_FOLDER_PREFERENCES:
+      return action.folderPreferences;
+    case actionTypes.TOGGLE_FOLDER:
+      return state.toggle(action.folder);
+    default:
+      return state;
+  }
+}
+
 export function folderItemPreferences(state = new FolderItemPreferences(), action) {
   switch (action.type) {
     case actionTypes.RECEIVE_FOLDER_ITEM_PREFERENCES:
       return action.folderItemPreferences;
-
     default:
       return state;
   }

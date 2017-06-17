@@ -21,6 +21,11 @@ function* fetchTopSites() {
   yield put({type: actionTypes.RECEIVE_TOP_SITES, topSites});
 }
 
+function* saveFolderPreferences() {
+  const { folderPreferences } = yield select();
+  repositories.folderPreferenceRepository.save(folderPreferences);
+}
+
 function* handleAccessKey({key}) {
   const { showFolderItemEditor } = yield select();
   if (showFolderItemEditor === false) {
@@ -52,6 +57,7 @@ export default function* () {
   yield takeEvery(actionTypes.FETCH_BOOKMARKS, fetchBookmarkFolders);
   yield takeEvery(actionTypes.FETCH_CHROME_APPS, fetchChromeAppFolders);
   yield takeEvery(actionTypes.FETCH_TOP_SITES, fetchTopSites);
+  yield takeEvery(actionTypes.TOGGLE_FOLDER, saveFolderPreferences);
 
   yield takeEvery(keyHookActionTypes.RECEIVE_CHARACTER_KEY, handleAccessKey);
 }

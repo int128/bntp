@@ -5,3 +5,10 @@ export function fetchTopSites() {
     type: actionTypes.FETCH_TOP_SITES
   };
 }
+
+export function toggleFolder(folder) {
+  return {
+    type: actionTypes.TOGGLE_FOLDER,
+    folder
+  }
+}

@@ -8,8 +8,8 @@ import FolderPreferences from '../../models/FolderPreferences';
 import FolderItemContainer from './FolderItemContainer';
 import TileFolder from '../kits/TileFolder';
 
-import * as actionCreators from '../../state/folder/actionCreators';
-import * as connectors from '../../state/folder/connectors';
+import * as actionCreators from '../../state/folderItem/actionCreators';
+import * as connectors from '../../state/folderItem/connectors';
 
 class FoldersContainer extends React.Component {
   static propTypes = {
@@ -26,7 +26,7 @@ class FoldersContainer extends React.Component {
           <TileFolder key={folder.id}
                       title={folder.title}
                       collapsed={folderPreferences.isCollapsed(folder)}
-                      onToggleClick={() => dispatch(actionCreators.toggle(folder))}>
+                      onToggleClick={() => dispatch(actionCreators.toggleFolder(folder))}>
             {folder.items.map(item =>
               <FolderItemContainer key={item.id}
                                    item={item}
