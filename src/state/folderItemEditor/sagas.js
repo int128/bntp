@@ -1,38 +1,34 @@
-import { takeEvery, select, put } from 'redux-saga/effects';
+import { takeEvery, put } from 'redux-saga/effects';
 
 import * as actionTypes from './actionTypes';
-import * as folderItemActionTypes from '../folderItem/actionTypes';
+
+import * as actionCreators from '../folderItem/actionCreators';
 
 import * as repositories from '../../repositories';
 
 import Bookmark from '../../models/Bookmark';
 
 function* save({folderItem, folderItemPreference}) {
-  const { folderItemPreferences } = yield select();
-  const updated = folderItemPreferences.set(folderItemPreference);
-  repositories.folderItemPreferenceRepository.save(updated);
-  yield put({
-    type: folderItemActionTypes.RECEIVE_FOLDER_ITEM_PREFERENCES,
-    folderItemPreferences: updated
-  });
-
+  yield put(actionCreators.saveFolderItemPreference(folderItemPreference));
   if (folderItem instanceof Bookmark) {
-    yield repositories.bookmarkRepository.update(folderItem);
+    try {
+      yield repositories.bookmarkRepository.update(folderItem);
+      yield put({type: actionTypes.SAVE_SUCCEEDED_FOLDER_ITEM_EDITOR});
+    } catch ({message}) {
+      yield put({type: actionTypes.SAVE_FAILED_FOLDER_ITEM_EDITOR, message});
+    }
+  } else {
+    yield put({type: actionTypes.SAVE_SUCCEEDED_FOLDER_ITEM_EDITOR});
   }
-  yield put({
-    type: actionTypes.SAVED_FOLDER_ITEM_EDITOR,
-    folderItem
-  });
 }
 
 function* remove({folderItem}) {
-  if (folderItem instanceof Bookmark) {
+  try {
     yield repositories.bookmarkRepository.remove(folderItem);
+    yield put({type: actionTypes.REMOVE_SUCCEEDED_FOLDER_ITEM_EDITOR});
+  } catch ({message}) {
+    yield put({type: actionTypes.REMOVE_FAILED_FOLDER_ITEM_EDITOR, message});
   }
-  yield put({
-    type: actionTypes.REMOVED_FOLDER_ITEM_EDITOR,
-    folderItem
-  });
 }
 
 export default function* () {

@@ -51,6 +51,8 @@ export function folderItemPreferences(state = new FolderItemPreferences(), actio
   switch (action.type) {
     case actionTypes.RECEIVE_FOLDER_ITEM_PREFERENCES:
       return action.folderItemPreferences;
+    case actionTypes.SAVE_FOLDER_ITEM_PREFERENCE:
+      return state.set(action.folderItemPreference);
     default:
       return state;
   }

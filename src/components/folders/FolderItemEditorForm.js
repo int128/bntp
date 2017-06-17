@@ -18,6 +18,7 @@ export default class FolderItemEditorForm extends React.Component {
   static propTypes = {
     folderItem: PropTypes.oneOfType(FolderItemTypes).isRequired,
     folderItemPreference: PropTypes.instanceOf(FolderItemPreference).isRequired,
+    message: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
@@ -54,7 +55,7 @@ export default class FolderItemEditorForm extends React.Component {
   }
 
   render() {
-    const { folderItem, folderItemPreference } = this.props;
+    const { folderItem, folderItemPreference, message } = this.props;
     return (
       <form onSubmit={e => this.onSubmit(e)}>
         <div>
@@ -80,6 +81,7 @@ export default class FolderItemEditorForm extends React.Component {
         <div>
           <input type="submit" value="Update"
             className="FolderItemEditorForm__Button FolderItemEditorForm__Left"/>
+          <div className="FolderItemEditorForm__Message FolderItemEditorForm__Left">{message}</div>
           <input type="button" value="Remove"
             className="FolderItemEditorForm__Button FolderItemEditorForm__Right"
             onClick={e => this.onRemoveClick(e)}/>

@@ -5,13 +5,24 @@ export function showFolderItemEditor(state = false, action) {
     case actionTypes.OPEN_FOLDER_ITEM_EDITOR:
       return true;
 
-    case actionTypes.SAVED_FOLDER_ITEM_EDITOR:
-    case actionTypes.REMOVED_FOLDER_ITEM_EDITOR:
+    case actionTypes.SAVE_SUCCEEDED_FOLDER_ITEM_EDITOR:
+    case actionTypes.REMOVE_SUCCEEDED_FOLDER_ITEM_EDITOR:
     case actionTypes.CANCEL_FOLDER_ITEM_EDITOR:
       return false;
 
     default:
       return state;
+  }
+}
+
+export function folderItemEditorError(state = null, action) {
+  switch (action.type) {
+    case actionTypes.SAVE_FAILED_FOLDER_ITEM_EDITOR:
+    case actionTypes.REMOVE_FAILED_FOLDER_ITEM_EDITOR:
+      return action.message;
+
+    default:
+      return null;
   }
 }
 
@@ -21,8 +32,8 @@ export function editingFolderItem(state = null, action) {
     case actionTypes.CHANGE_FOLDER_ITEM_EDITOR:
       return action.folderItem;
 
-    case actionTypes.SAVED_FOLDER_ITEM_EDITOR:
-    case actionTypes.REMOVED_FOLDER_ITEM_EDITOR:
+    case actionTypes.SAVE_SUCCEEDED_FOLDER_ITEM_EDITOR:
+    case actionTypes.REMOVE_SUCCEEDED_FOLDER_ITEM_EDITOR:
     case actionTypes.CANCEL_FOLDER_ITEM_EDITOR:
       return null;
 
@@ -37,8 +48,8 @@ export function editingFolderItemPreference(state = null, action) {
     case actionTypes.CHANGE_FOLDER_ITEM_EDITOR:
       return action.folderItemPreference;
 
-    case actionTypes.SAVED_FOLDER_ITEM_EDITOR:
-    case actionTypes.REMOVED_FOLDER_ITEM_EDITOR:
+    case actionTypes.SAVE_SUCCEEDED_FOLDER_ITEM_EDITOR:
+    case actionTypes.REMOVE_SUCCEEDED_FOLDER_ITEM_EDITOR:
     case actionTypes.CANCEL_FOLDER_ITEM_EDITOR:
       return null;
 

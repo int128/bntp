@@ -50,6 +50,13 @@
   background-color: var(--palette-1);
 }
 
+.FolderItemEditorForm__Message {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 8px;
+  color: var(--palette-03);
+}
+
 .FolderItemEditorForm__ClearFix {
   clear: both;
 }
