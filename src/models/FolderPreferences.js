@@ -14,7 +14,7 @@ export default class FolderPreferences {
   }
 
   getById(id) {
-    return this.mapById.get(id, FolderPreference.DEFAULT);
+    return this.mapById.get(id, new FolderPreference({id}));
   }
 
   set(folderPreference) {
@@ -25,14 +25,8 @@ export default class FolderPreferences {
     return new FolderPreferences(altered);
   }
 
-  isCollapsed(folder) {
-    return this.getById(folder.id).collapsed;
-  }
-
   toggle(folder) {
-    const id = folder.id;
-    const folderPreference = this.getById(id);
-    return this.set(folderPreference.merge({id}).toggle());
+    return this.set(this.getById(folder.id).toggle());
   }
 
   toArray() {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Seq } from 'immutable';
 
-import FoldersContainer from './FoldersContainer';
+import FolderContainer from './FolderContainer';
 
 import * as connectors from '../../state/folderItem/connectors';
 
@@ -14,7 +14,11 @@ class ChromeAppFoldersContainer extends React.Component {
 
   render() {
     const { chromeAppFolders } = this.props;
-    return <FoldersContainer folders={chromeAppFolders} />;
+    return (
+      <div>
+        {chromeAppFolders.map(folder => <FolderContainer key={folder.id} folder={folder}/>)}
+      </div>
+    );
   }
 }
 

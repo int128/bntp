@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Seq } from 'immutable';
 
-import FoldersContainer from './FoldersContainer';
+import FolderContainer from './FolderContainer';
 
 import * as connectors from '../../state/folderItem/connectors';
 
@@ -15,7 +15,9 @@ class BookmarkFoldersContainer extends React.Component {
   render() {
     const { bookmarkFolders } = this.props;
     return (
-      <FoldersContainer folders={bookmarkFolders}/>
+      <div>
+        {bookmarkFolders.map(folder => <FolderContainer key={folder.id} folder={folder}/>)}
+      </div>
     );
   }
 }
