@@ -3,14 +3,11 @@ import { Seq } from 'immutable';
 import FolderItemPreference from './FolderItemPreference';
 
 export default class FolderItemPreferences {
-  static fromJSON(json) {
-    return new FolderItemPreferences(JSON.parse(json));
-  }
-
-  constructor(list) {
-    this.list = Seq(list)
-      .map(map => new FolderItemPreference(map))
-      .valueSeq();  // avoid error even if map is given
+  /**
+   * @param {Array<FolderItemPreference>} arrayOfFolderItemPreferences 
+   */
+  constructor(arrayOfFolderItemPreferences) {
+    this.list = Seq(arrayOfFolderItemPreferences);
     this.mapById = this.list
       .groupBy(folderItemPreference => folderItemPreference.id)
       .map(list => list.first());
@@ -28,18 +25,15 @@ export default class FolderItemPreferences {
   }
 
   set(folderItemPreference) {
-    const filtered = this.list
+    const altered = this.list
+      .filter(e => e.id !== folderItemPreference.id)
       .filter(e => e.accessKey !== folderItemPreference.accessKey)
+      .concat(Seq.of(folderItemPreference))
       .filter(e => e.accessKey !== FolderItemPreference.NO_ACCESS_KEY);
-    if (folderItemPreference.accessKey !== FolderItemPreference.NO_ACCESS_KEY) {
-      const appended = filtered.concat(Seq.of(folderItemPreference));
-      return new FolderItemPreferences(appended);
-    } else {
-      return new FolderItemPreferences(filtered);
-    }
+    return new FolderItemPreferences(altered);
   }
 
-  toJSON() {
-    return JSON.stringify(this.list.toJSON());
+  toArray() {
+    return this.list.toArray();
   }
 }

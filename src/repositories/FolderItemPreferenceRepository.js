@@ -1,14 +1,19 @@
+import { Seq } from 'immutable';
+
+import FolderItemPreference from '../models/FolderItemPreference';
 import FolderItemPreferences from '../models/FolderItemPreferences';
 
 const FOLDER_ITEM_PREFERENCES = 'FOLDER_ITEM_PREFERENCES';
 
 export default class FolderItemPreferenceRepository {
   get() {
-    return FolderItemPreferences.fromJSON(localStorage.getItem(FOLDER_ITEM_PREFERENCES));
+    const json = JSON.parse(localStorage.getItem(FOLDER_ITEM_PREFERENCES));
+    const array = Seq(json).map(object => new FolderItemPreference(object)).toArray();
+    return new FolderItemPreferences(array);
   }
 
   save(folderItemPreferences) {
-    localStorage.setItem(FOLDER_ITEM_PREFERENCES, folderItemPreferences.toJSON());
+    localStorage.setItem(FOLDER_ITEM_PREFERENCES, JSON.stringify(folderItemPreferences.toArray()));
   }
 
   addListener(callback) {

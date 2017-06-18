@@ -1,27 +1,41 @@
 import { Seq } from 'immutable';
 
+import FolderPreference from './FolderPreference';
+
 export default class FolderPreferences {
-  static fromJSON(json) {
-    return new FolderPreferences(JSON.parse(json));
+  /**
+   * @param {Array<FolderPreference>} arrayOfFolderPreference 
+   */
+  constructor(arrayOfFolderPreference) {
+    this.list = Seq(arrayOfFolderPreference);
+    this.mapById = this.list
+      .groupBy(folderPreference => folderPreference.id)
+      .map(list => list.first());
   }
 
-  constructor(collapsedFolderIds) {
-    this.collapsedFolderIds = Seq(collapsedFolderIds);
+  getById(id) {
+    return this.mapById.get(id, FolderPreference.DEFAULT);
+  }
+
+  set(folderPreference) {
+    const altered = this.list
+      .filter(e => e.id !== folderPreference.id)
+      .concat(Seq.of(folderPreference))
+      .filter(e => e.collapsed === true);
+    return new FolderPreferences(altered);
   }
 
   isCollapsed(folder) {
-    return this.collapsedFolderIds.contains(folder.id);
+    return this.getById(folder.id).collapsed;
   }
 
   toggle(folder) {
-    if (this.isCollapsed(folder)) {
-      return new FolderPreferences(this.collapsedFolderIds.filterNot(id => id === folder.id));
-    } else {
-      return new FolderPreferences(this.collapsedFolderIds.valueSeq().concat(folder.id));
-    }
+    const id = folder.id;
+    const folderPreference = this.getById(id);
+    return this.set(folderPreference.merge({id}).toggle());
   }
 
-  toJSON() {
-    return JSON.stringify(this.collapsedFolderIds.toJSON());
+  toArray() {
+    return this.list.toArray();
   }
 }
