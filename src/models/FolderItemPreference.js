@@ -1,4 +1,4 @@
-import { Record } from 'immutable';
+import { Record, Seq } from 'immutable';
 
 const NO_ACCESS_KEY = '';
 
@@ -13,5 +13,12 @@ export default class FolderItemPreference extends Record({
       ...map,
       accessKey: (map.accessKey.length === 1) ? map.accessKey.toUpperCase() : NO_ACCESS_KEY,
     }));
+  }
+
+  findFolderItemFrom(...folders) {
+    return Seq(folders)
+      .flatMap(folders => folders)
+      .flatMap(folder => folder.items)
+      .find(folderItem => folderItem.id === this.id);
   }
 }

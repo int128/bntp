@@ -1,4 +1,3 @@
-import { Seq } from 'immutable';
 import { takeEvery, put, select } from 'redux-saga/effects';
 
 import * as actionTypes from './actionTypes';
@@ -67,11 +66,11 @@ function* openFolderItemByAccessKey({key}) {
   } = yield select();
   const folderItemPreference = folderItemPreferences.findByAccessKey(key);
   if (folderItemPreference) {
-    const folderItemId = folderItemPreference.id;
-    const folderItem = Seq.of(bookmarkFolders, chromeAppFolders, chromePageFolders)
-      .flatMap(folders => folders)
-      .flatMap(folder => folder.items)
-      .find(folderItem => folderItem.id === folderItemId);
+    const folderItem = folderItemPreference.findFolderItemFrom(
+      bookmarkFolders,
+      chromeAppFolders,
+      chromePageFolders,
+    );
     if (folderItem) {
       folderItem.open();
     }
