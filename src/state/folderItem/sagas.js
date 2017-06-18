@@ -22,13 +22,33 @@ function* fetchTopSites() {
 }
 
 function* saveFolderPreferences() {
-  const { folderPreferences } = yield select();
-  repositories.folderPreferenceRepository.save(folderPreferences);
+  const {
+    folderPreferences,
+    bookmarkFolders,
+    chromeAppFolders,
+    chromePageFolders,
+  } = yield select();
+  const filtered = folderPreferences.filterExistentFoldersIn(
+    bookmarkFolders,
+    chromeAppFolders,
+    chromePageFolders,
+  );
+  repositories.folderPreferenceRepository.save(filtered);
 }
 
 function* saveFolderItemPreferences() {
-  const { folderItemPreferences } = yield select();
-  repositories.folderItemPreferenceRepository.save(folderItemPreferences);
+  const {
+    folderItemPreferences,
+    bookmarkFolders,
+    chromeAppFolders,
+    chromePageFolders,
+  } = yield select();
+  const filtered = folderItemPreferences.filterExistentFolderItemsIn(
+    bookmarkFolders,
+    chromeAppFolders,
+    chromePageFolders,
+  );
+  repositories.folderItemPreferenceRepository.save(filtered);
 }
 
 function* handleAccessKey({key}) {

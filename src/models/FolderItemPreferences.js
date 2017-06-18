@@ -24,6 +24,15 @@ export default class FolderItemPreferences {
     return this.mapByAccessKey.get(accessKey);
   }
 
+  filterExistentFolderItemsIn(...folders) {
+    const existentFolderItemIdSeq = Seq(folders)
+      .flatMap(folders => folders)
+      .flatMap(folder => folder.items)
+      .map(folderItem => folderItem.id);
+    return this.list.filter(folderItemPreference =>
+      existentFolderItemIdSeq.contains(folderItemPreference.id));
+  }
+
   set(folderItemPreference) {
     const altered = this.list
       .filter(e => e.id !== folderItemPreference.id)
