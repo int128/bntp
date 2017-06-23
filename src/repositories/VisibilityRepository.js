@@ -23,17 +23,15 @@ export default class VisibilityRepository {
     localStorage.setItem(HIDDEN_COMPONENTS, JSON.stringify(hiddenIds));
   }
 
-  addListener(callback) {
-    const eventListener = e => {
-      if (e.storageArea === localStorage && e.key === HIDDEN_COMPONENTS && e.newValue !== null) {
-        callback();
+  poll() {
+    return new Promise(resolve => {
+      const callback = e => {
+        if (e.storageArea === localStorage && e.key === HIDDEN_COMPONENTS && e.newValue !== null) {
+          window.removeEventListener('storage', callback);
+          resolve();
+        }
       }
-    };
-    window.addEventListener('storage', eventListener);
-    return eventListener;
-  }
-
-  removeListener(eventListener) {
-    window.removeEventListener('storage', eventListener);
+      window.addEventListener('storage', callback);
+    });
   }
 }

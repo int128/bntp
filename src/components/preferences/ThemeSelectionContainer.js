@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Seq } from 'immutable';
 
 import * as actionCreators from '../../state/preferences/actionCreators';
-import * as connectors from '../../state/preferences/connectors';
 
 import Theme from '../../models/Theme';
 
@@ -37,4 +36,4 @@ const mapStateToProps = state => ({
   selectedTheme: state.selectedTheme,
 });
 
-export default connect(mapStateToProps)(connectors.selectedTheme(ThemeSelectionContainer));
+export default connect(mapStateToProps)(ThemeSelectionContainer);

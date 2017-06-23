@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import TileFolderItem from '../kits/TileFolderItem';
 
-import * as connectors from '../../state/folderItem/connectors';
 import * as actionCreators from '../../state/folderItemEditor/actionCreators';
 
 import FolderItemPreferences from '../../models/FolderItemPreferences';
@@ -45,4 +44,4 @@ const mapStateToProps = state => ({
   folderItemPreferences: state.folderItemPreferences,
 });
 
-export default connect(mapStateToProps)(connectors.folderItemPreferences(FolderItemContainer));
+export default connect(mapStateToProps)(FolderItemContainer);

@@ -9,7 +9,6 @@ import FolderItemContainer from './FolderItemContainer';
 import TileFolder from '../kits/TileFolder';
 
 import * as actionCreators from '../../state/folderItem/actionCreators';
-import * as connectors from '../../state/folderItem/connectors';
 
 class FolderContainer extends React.Component {
   static propTypes = {
@@ -44,4 +43,4 @@ const mapStateToProps = state => ({
   folderPreferences: state.folderPreferences,
 });
 
-export default connect(mapStateToProps)(connectors.folderPreferences(FolderContainer));
+export default connect(mapStateToProps)(FolderContainer);

@@ -16,17 +16,15 @@ export default class FolderItemPreferenceRepository {
     localStorage.setItem(FOLDER_ITEM_PREFERENCES, JSON.stringify(folderItemPreferences.toArray()));
   }
 
-  addListener(callback) {
-    const eventListener = e => {
-      if (e.storageArea === localStorage && e.key === FOLDER_ITEM_PREFERENCES && e.newValue !== null) {
-        callback();
+  poll() {
+    return new Promise(resolve => {
+      const callback = e => {
+        if (e.storageArea === localStorage && e.key === FOLDER_ITEM_PREFERENCES && e.newValue !== null) {
+          window.removeEventListener('storage', callback);
+          resolve();
+        }
       }
-    };
-    window.addEventListener('storage', eventListener);
-    return eventListener;
-  }
-
-  removeListener(eventListener) {
-    window.removeEventListener('storage', eventListener);
+      window.addEventListener('storage', callback);
+    });
   }
 }

@@ -25,17 +25,15 @@ export default class FolderPreferenceRepository {
     localStorage.removeItem(COLLAPSED_FOLDERS);
   }
 
-  addListener(callback) {
-    const eventListener = e => {
-      if (e.storageArea === localStorage && e.key === COLLAPSED_FOLDERS && e.newValue !== null) {
-        callback();
+  poll() {
+    return new Promise(resolve => {
+      const callback = e => {
+        if (e.storageArea === localStorage && e.key === FOLDER_PREFERENCES && e.newValue !== null) {
+          window.removeEventListener('storage', callback);
+          resolve();
+        }
       }
-    };
-    window.addEventListener('storage', eventListener);
-    return eventListener;
-  }
-
-  removeListener(eventListener) {
-    window.removeEventListener('storage', eventListener);
+      window.addEventListener('storage', callback);
+    });
   }
 }

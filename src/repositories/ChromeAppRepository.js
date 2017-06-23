@@ -23,17 +23,20 @@ export default class ChromeAppRepository {
     );
   }
 
-  addListener(callback) {
-    window.chrome.management.onInstalled.addListener(callback);
-    window.chrome.management.onUninstalled.addListener(callback);
-    window.chrome.management.onEnabled.addListener(callback);
-    window.chrome.management.onDisabled.addListener(callback);
-  }
+  poll() {
+    return new Promise(resolve => {
+      const callback = e => {
+        window.chrome.management.onInstalled.removeListener(callback);
+        window.chrome.management.onUninstalled.removeListener(callback);
+        window.chrome.management.onEnabled.removeListener(callback);
+        window.chrome.management.onDisabled.removeListener(callback);
+        resolve();
+      }
 
-  removeListener(callback) {
-    window.chrome.management.onInstalled.removeListener(callback);
-    window.chrome.management.onUninstalled.removeListener(callback);
-    window.chrome.management.onEnabled.removeListener(callback);
-    window.chrome.management.onDisabled.removeListener(callback);
+      window.chrome.management.onInstalled.addListener(callback);
+      window.chrome.management.onUninstalled.addListener(callback);
+      window.chrome.management.onEnabled.addListener(callback);
+      window.chrome.management.onDisabled.addListener(callback);
+    });
   }
 }

@@ -9,7 +9,6 @@ import initialState from './state/initialState';
 import rootSaga from './state/sagas';
 
 import renderInitialState from './state/preferences/renderInitialState';
-import registerKeyHook from './state/keyHook/registerKeyHook';
 
 import RootContainer from './components/RootContainer';
 
@@ -28,8 +27,6 @@ const store = createStore(
   applyMiddleware(sagaMiddleware, ...devMiddlewares));
 
 sagaMiddleware.run(rootSaga);
-
-registerKeyHook(store.dispatch);
 
 render(
   <Provider store={store}>

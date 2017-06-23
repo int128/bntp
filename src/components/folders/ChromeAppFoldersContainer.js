@@ -5,8 +5,6 @@ import { Seq } from 'immutable';
 
 import FolderContainer from './FolderContainer';
 
-import * as connectors from '../../state/folderItem/connectors';
-
 class ChromeAppFoldersContainer extends React.Component {
   static propTypes = {
     chromeAppFolders: PropTypes.instanceOf(Seq).isRequired,
@@ -26,4 +24,4 @@ const mapStateToProps = state => ({
   chromeAppFolders: state.chromeAppFolders,
 });
 
-export default connect(mapStateToProps)(connectors.chromeApps(ChromeAppFoldersContainer));
+export default connect(mapStateToProps)(ChromeAppFoldersContainer);

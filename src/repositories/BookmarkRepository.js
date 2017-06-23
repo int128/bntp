@@ -45,19 +45,22 @@ export default class BookmarkRepository {
     return yield this.chrome.bookmarks.remove(bookmark.id);
   }
 
-  addListener(callback) {
-    window.chrome.bookmarks.onCreated.addListener(callback);
-    window.chrome.bookmarks.onRemoved.addListener(callback);
-    window.chrome.bookmarks.onChanged.addListener(callback);
-    window.chrome.bookmarks.onMoved.addListener(callback);
-    window.chrome.bookmarks.onChildrenReordered.addListener(callback);
-  }
+  poll() {
+    return new Promise(resolve => {
+      const callback = e => {
+        window.chrome.bookmarks.onCreated.removeListener(callback);
+        window.chrome.bookmarks.onRemoved.removeListener(callback);
+        window.chrome.bookmarks.onChanged.removeListener(callback);
+        window.chrome.bookmarks.onMoved.removeListener(callback);
+        window.chrome.bookmarks.onChildrenReordered.removeListener(callback);
+        resolve(e);
+      };
 
-  removeListener(callback) {
-    window.chrome.bookmarks.onCreated.removeListener(callback);
-    window.chrome.bookmarks.onRemoved.removeListener(callback);
-    window.chrome.bookmarks.onChanged.removeListener(callback);
-    window.chrome.bookmarks.onMoved.removeListener(callback);
-    window.chrome.bookmarks.onChildrenReordered.removeListener(callback);
+      window.chrome.bookmarks.onCreated.addListener(callback);
+      window.chrome.bookmarks.onRemoved.addListener(callback);
+      window.chrome.bookmarks.onChanged.addListener(callback);
+      window.chrome.bookmarks.onMoved.addListener(callback);
+      window.chrome.bookmarks.onChildrenReordered.addListener(callback);
+    });
   }
 }

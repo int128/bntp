@@ -5,8 +5,6 @@ import { Seq } from 'immutable';
 
 import FolderContainer from './FolderContainer';
 
-import * as connectors from '../../state/folderItem/connectors';
-
 class BookmarkFoldersContainer extends React.Component {
   static propTypes = {
     bookmarkFolders: PropTypes.instanceOf(Seq).isRequired,
@@ -26,4 +24,4 @@ const mapStateToProps = state => ({
   bookmarkFolders: state.bookmarkFolders,
 });
 
-export default connect(mapStateToProps)(connectors.bookmarks(BookmarkFoldersContainer));
+export default connect(mapStateToProps)(BookmarkFoldersContainer);

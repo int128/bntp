@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as actionCreators from '../../state/preferences/actionCreators';
-import * as connectors from '../../state/preferences/connectors';
 
 import Visibilities from '../../models/Visibilities';
 
@@ -34,4 +33,4 @@ const mapStateToProps = state => ({
   visibilities: state.visibilities,
 });
 
-export default connect(mapStateToProps)(connectors.visibilities(VisibilityPreferenceContainer));
+export default connect(mapStateToProps)(VisibilityPreferenceContainer);

@@ -1,15 +1,18 @@
 export default {
-  addListener(eventListener) {
-    window.addEventListener('online', eventListener);
-    window.addEventListener('offline', eventListener);
-  },
-
-  removeListener(eventListener) {
-    window.removeEventListener('online', eventListener);
-    window.removeEventListener('offline', eventListener);
-  },
-
   get() {
     return window.navigator.onLine;
+  },
+
+  poll() {
+    return new Promise(resolve => {
+      const callback = e => {
+        window.removeEventListener('online', callback);
+        window.removeEventListener('offline', callback);
+        resolve(e);
+      };
+
+      window.addEventListener('online', callback);
+      window.addEventListener('offline', callback);
+    });
   }
 }
