@@ -8,6 +8,7 @@ import './Tile.css';
 export default class TileFolder extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
+    indent: PropTypes.number.isRequired,
     collapsed: PropTypes.bool.isRequired,
     onToggleClick: PropTypes.func.isRequired,
   }
@@ -18,14 +19,16 @@ export default class TileFolder extends React.Component {
   }
 
   render() {
-    const { title, collapsed, children } = this.props;
+    const { title, indent, collapsed, children } = this.props;
     return (
-      <section className="TileFolder">
-        {collapsed
-          ? <CollapsedHeading title={title} onClick={e => this.onClick(e)}/>
-          : <ExpandedHeading title={title} onClick={e => this.onClick(e)}/>}
-        {collapsed ? null : children}
-      </section>
+      <div style={{marginLeft: indent * 80}}>
+        <section className="TileFolder">
+          {collapsed
+            ? <CollapsedHeading title={title} onClick={e => this.onClick(e)}/>
+            : <ExpandedHeading title={title} onClick={e => this.onClick(e)}/>}
+          {collapsed ? null : children}
+        </section>
+      </div>
     );
   }
 }

@@ -12,26 +12,22 @@ export default class BookmarkRepository {
   }
 
   static flatten(arrayOfBookmarkTreeNodes) {
-    function traverse(bookmarkTreeNode) {
-      const children = Seq(bookmarkTreeNode.children);
-      const folders = children
-        .filter(child => child.url === undefined)
-        .flatMap(child => traverse(child));
-      const items = children
-        .filterNot(child => child.url === undefined)
-        .map(child => new Bookmark({
-          id: child.id,
-          title: child.title,
-          url: child.url,
-        }));
-      if (items.isEmpty()) {
-        return folders;
+    function traverse(node, depth = 0) {
+      const folderNodes = Seq(node.children).filter(child => child.url === undefined);
+      const bookmarkNodes = Seq(node.children).filter(child => child.url !== undefined);
+      if (bookmarkNodes.isEmpty()) {
+        return folderNodes.flatMap(child => traverse(child, depth));
       } else {
         return Seq.of(new Folder({
-          id: bookmarkTreeNode.id,
-          title: bookmarkTreeNode.title,
-          items,
-        })).concat(folders);
+          id: node.id,
+          title: node.title,
+          items: bookmarkNodes.map(child => new Bookmark({
+            id: child.id,
+            title: child.title,
+            url: child.url,
+          })),
+          depth,
+        })).concat(folderNodes.flatMap(child => traverse(child, depth + 1)));
       }
     }
     return Seq(arrayOfBookmarkTreeNodes).flatMap(traverse);

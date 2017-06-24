@@ -25,6 +25,7 @@ class FolderContainer extends React.Component {
         <TileFolder
           key={folder.id}
           title={folder.title}
+          indent={folder.depth}
           collapsed={folderPreference.collapsed}
           onToggleClick={() => dispatch(actionCreators.toggleFolder(folder))}>
           {folder.items.map(item =>
