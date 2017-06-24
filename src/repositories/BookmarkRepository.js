@@ -11,27 +11,30 @@ export default class BookmarkRepository {
     return BookmarkRepository.flatten(yield this.chrome.bookmarks.getTree());
   }
 
-  static flatten(tree) {
-    function traverse(parent) {
-      const children = Seq(parent.children);
-      const folders = children.filter(child => child.url === undefined).flatMap(traverse);
-      const folder = new Folder({
-        id: parent.id,
-        title: parent.title,
-        items: children.filterNot(child => child.url === undefined)
-          .map(child => new Bookmark({
-            id: child.id,
-            title: child.title,
-            url: child.url,
-          })),
-      });
-      if (folder.items.isEmpty()) {
+  static flatten(arrayOfBookmarkTreeNodes) {
+    function traverse(bookmarkTreeNode) {
+      const children = Seq(bookmarkTreeNode.children);
+      const folders = children
+        .filter(child => child.url === undefined)
+        .flatMap(child => traverse(child));
+      const items = children
+        .filterNot(child => child.url === undefined)
+        .map(child => new Bookmark({
+          id: child.id,
+          title: child.title,
+          url: child.url,
+        }));
+      if (items.isEmpty()) {
         return folders;
       } else {
-        return Seq.of(folder).concat(folders);
+        return Seq.of(new Folder({
+          id: bookmarkTreeNode.id,
+          title: bookmarkTreeNode.title,
+          items,
+        })).concat(folders);
       }
     }
-    return traverse({children: tree});
+    return Seq(arrayOfBookmarkTreeNodes).flatMap(traverse);
   }
 
   *update(bookmark) {
