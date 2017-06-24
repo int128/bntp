@@ -11,7 +11,7 @@ export default class VisibilityRepository {
     new Visibility({id: 'bookmarks', title: 'Bookmarks'}),
   )
 
-  findAll() {
+  getAll() {
     const hiddenIds = Seq(JSON.parse(localStorage.getItem(HIDDEN_COMPONENTS)));
     return new Visibilities(
       VisibilityRepository.all.map(visibility =>

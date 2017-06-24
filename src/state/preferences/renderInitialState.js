@@ -1,7 +1,7 @@
-import { themePreferenceRepository } from '../../repositories';
+import { themeRepository } from '../../repositories';
 
 import RootTheme from '../../components/RootTheme';
 
 export default function () {
-  RootTheme.render(themePreferenceRepository.getOrDefault());
+  RootTheme.render(themeRepository.getAll().getSelected());
 }

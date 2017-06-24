@@ -1,8 +1,7 @@
-import { Seq } from 'immutable';
-
 import * as actionTypes from './actionTypes';
 
 import Visibilities from '../../models/Visibilities';
+import Themes from '../../models/Themes';
 
 export function visibilities(state = new Visibilities(), action) {
   switch (action.type) {
@@ -15,15 +14,12 @@ export function visibilities(state = new Visibilities(), action) {
   }
 }
 
-export function themes(state = Seq(), action) {
-  return state;
-}
-
-export function selectedTheme(state = null, action) {
+export function themes(state = new Themes(), action) {
   switch (action.type) {
-    case actionTypes.RECEIVE_SELECTED_THEME:
+    case actionTypes.RECEIVE_THEMES:
+      return action.themes;
     case actionTypes.SELECT_THEME:
-      return action.theme;
+      return state.select(action.theme);
     default:
       return state;
   }

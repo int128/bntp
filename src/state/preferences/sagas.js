@@ -9,16 +9,17 @@ import * as repositories from '../../repositories';
 function* subscribeVisibilities() {
   while (true) {
     yield repositories.visibilityRepository.poll();
-    const visibilities = repositories.visibilityRepository.findAll();
+    const visibilities = repositories.visibilityRepository.getAll();
     yield put({type: actionTypes.RECEIVE_VISIBILITIES, visibilities});
   }
 }
 
-function* subscribeSelectedTheme() {
+function* subscribeThemes() {
   while (true) {
-    yield repositories.themePreferenceRepository.poll();
-    const theme = repositories.themePreferenceRepository.getOrDefault();
-    yield put({type: actionTypes.RECEIVE_SELECTED_THEME, theme});
+    yield repositories.themeRepository.poll();
+    const themes = repositories.themeRepository.getAll();
+    yield put({type: actionTypes.RECEIVE_THEMES, themes});
+    RootTheme.render(themes.getSelected());
   }
 }
 
@@ -27,21 +28,22 @@ function* saveVisibility() {
   repositories.visibilityRepository.save(visibilities);
 }
 
-function saveAndRenderTheme({theme}) {
-  repositories.themePreferenceRepository.save(theme);
-  RootTheme.render(theme);
+function* saveTheme() {
+  const { themes } = yield select();
+  repositories.themeRepository.save(themes);
 }
 
-function renderTheme({theme}) {
-  RootTheme.render(theme);
+function* renderTheme() {
+  const { themes } = yield select();
+  RootTheme.render(themes.getSelected());
 }
 
 export default function* () {
   yield fork(subscribeVisibilities);
-  yield fork(subscribeSelectedTheme);
+  yield fork(subscribeThemes);
 
   yield takeEvery(actionTypes.TOGGLE_VISIBILITY, saveVisibility);
 
-  yield takeEvery(actionTypes.SELECT_THEME, saveAndRenderTheme);
-  yield takeEvery(actionTypes.RECEIVE_SELECTED_THEME, renderTheme);
+  yield takeEvery(actionTypes.SELECT_THEME, saveTheme);
+  yield takeEvery(actionTypes.SELECT_THEME, renderTheme);
 }

@@ -6,7 +6,7 @@ import * as actionCreators from '../../state/preferences/actionCreators';
 
 import Visibilities from '../../models/Visibilities';
 
-class VisibilityPreferenceContainer extends React.Component {
+class VisibilitiesContainer extends React.Component {
   static propTypes = {
     visibilities: PropTypes.instanceOf(Visibilities).isRequired,
   }
@@ -33,4 +33,4 @@ const mapStateToProps = state => ({
   visibilities: state.visibilities,
 });
 
-export default connect(mapStateToProps)(VisibilityPreferenceContainer);
+export default connect(mapStateToProps)(VisibilitiesContainer);

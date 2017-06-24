@@ -5,9 +5,8 @@ import * as repositories from '../repositories';
 
 export default () => ({
   chromePageFolders: repositories.chromePageRepository.findFolders(),
-  visibilities: repositories.visibilityRepository.findAll(),
-  selectedTheme: repositories.themePreferenceRepository.getOrDefault(),
-  themes: repositories.themeRepository.findAll(),
+  visibilities: repositories.visibilityRepository.getAll(),
+  themes: repositories.themeRepository.getAll(),
   manifest: Manifest.get(),
   folderPreferences: repositories.folderPreferenceRepository.get(),
   folderItemPreferences: repositories.folderItemPreferenceRepository.get(),

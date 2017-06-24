@@ -1,7 +1,7 @@
 import React from 'react';
 
-import ThemeSelectionContainer from './ThemeSelectionContainer';
-import VisibilityPreferenceContainer from './VisibilityPreferenceContainer';
+import ThemesContainer from './ThemesContainer';
+import VisibilitiesContainer from './VisibilitiesContainer';
 import ProductContainer from './ProductContainer';
 
 import './Preferences.css';
@@ -10,11 +10,11 @@ export default () =>
   <div className="Preferences">
     <form>
       <p>Themes</p>
-      <ThemeSelectionContainer />
+      <ThemesContainer />
     </form>
     <form>
       <p>Toggle</p>
-      <VisibilityPreferenceContainer />
+      <VisibilitiesContainer />
     </form>
     <form>
       <ProductContainer />

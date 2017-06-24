@@ -1,27 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Seq } from 'immutable';
 
 import * as actionCreators from '../../state/preferences/actionCreators';
 
-import Theme from '../../models/Theme';
+import Themes from '../../models/Themes';
 
-class ThemeSelectionContainer extends React.Component {
+class ThemesContainer extends React.Component {
   static propTypes = {
-    themes: PropTypes.instanceOf(Seq).isRequired,
-    selectedTheme: PropTypes.instanceOf(Theme),
+    themes: PropTypes.instanceOf(Themes).isRequired,
   }
 
   render() {
-    const { themes, selectedTheme, dispatch } = this.props;
+    const { themes, dispatch } = this.props;
     return (
       <div>
         {themes.map(theme =>
           <label key={theme.id}>
             <input type="radio" name="Theme"
               value={theme.id}
-              checked={theme.equals(selectedTheme)}
+              checked={theme.selected}
               onChange={e => dispatch(actionCreators.selectTheme(theme))}/>
             {theme.title}
           </label>
@@ -33,7 +31,6 @@ class ThemeSelectionContainer extends React.Component {
 
 const mapStateToProps = state => ({
   themes: state.themes,
-  selectedTheme: state.selectedTheme,
 });
 
-export default connect(mapStateToProps)(ThemeSelectionContainer);
+export default connect(mapStateToProps)(ThemesContainer);
