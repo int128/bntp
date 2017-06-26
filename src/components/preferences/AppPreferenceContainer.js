@@ -25,6 +25,19 @@ class AppPreferenceContainer extends React.Component {
             onChange={e => this.setAppPreference({indentFolders: e.target.checked})}/>
           Indent Folders
         </label>
+
+        <label>
+          <input type="checkbox"
+            checked={appPreference.showBookmarks}
+            onChange={e => this.setAppPreference({showBookmarks: e.target.checked})}/>
+          Bookmarks
+        </label>
+        <label>
+          <input type="checkbox"
+            checked={appPreference.showTopSites}
+            onChange={e => this.setAppPreference({showTopSites: e.target.checked})}/>
+          Top Sites
+        </label>
       </div>
     );
   }

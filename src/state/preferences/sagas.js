@@ -6,14 +6,6 @@ import * as actionTypes from './actionTypes';
 
 import * as repositories from '../../repositories';
 
-function* subscribeVisibilities() {
-  while (true) {
-    yield repositories.visibilityRepository.poll();
-    const visibilities = repositories.visibilityRepository.getAll();
-    yield put({type: actionTypes.RECEIVE_VISIBILITIES, visibilities});
-  }
-}
-
 function* subscribeThemes() {
   while (true) {
     yield repositories.themeRepository.poll();
@@ -29,11 +21,6 @@ function* subscribeAppPreference() {
     const appPreference = repositories.appPreferenceRepository.get();
     yield put({type: actionTypes.RECEIVE_APP_PREFERENCE, appPreference});
   }
-}
-
-function* saveVisibility() {
-  const { visibilities } = yield select();
-  repositories.visibilityRepository.save(visibilities);
 }
 
 function* saveTheme() {
@@ -52,11 +39,8 @@ function* saveAppPreference() {
 }
 
 export default function* () {
-  yield fork(subscribeVisibilities);
   yield fork(subscribeThemes);
   yield fork(subscribeAppPreference);
-
-  yield takeEvery(actionTypes.TOGGLE_VISIBILITY, saveVisibility);
 
   yield takeEvery(actionTypes.SELECT_THEME, saveTheme);
   yield takeEvery(actionTypes.SELECT_THEME, renderTheme);

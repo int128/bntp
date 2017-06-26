@@ -2,7 +2,7 @@ import AppPreference from '../models/AppPreference';
 
 const APP_PREFERENCE = 'APP_PREFERENCE';
 
-export default class FolderPreferenceRepository {
+export default class AppPreferenceRepository {
   get() {
     const json = JSON.parse(localStorage.getItem(APP_PREFERENCE));
     return new AppPreference(json);
@@ -10,6 +10,8 @@ export default class FolderPreferenceRepository {
 
   save(appPreference) {
     localStorage.setItem(APP_PREFERENCE, JSON.stringify(appPreference.toJS()));
+    // clean up old key
+    localStorage.removeItem('HIDDEN_COMPONENTS');
   }
 
   poll() {

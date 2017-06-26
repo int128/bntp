@@ -11,21 +11,21 @@ import TopSitesContainer from './folders/TopSitesContainer';
 import NetworkStatusContainer from './notifications/NetworkStatusContainer';
 import Preferences from './preferences/Preferences';
 
-import Visibilities from '../models/Visibilities';
+import AppPreference from '../models/AppPreference';
 
 class RootContainer extends React.Component {
   static propTypes = {
-    visibilities: PropTypes.instanceOf(Visibilities).isRequired,
+    appPreference: PropTypes.instanceOf(AppPreference).isRequired,
   }
 
   render() {
-    const { visibilities } = this.props;
+    const { appPreference } = this.props;
     return (
       <div>
         <NetworkStatusContainer />
         <FolderItemEditorContainer />
-        {visibilities.isVisible('top-sites') ? <TopSitesContainer/> : null}
-        {visibilities.isVisible('bookmarks') ? (
+        {appPreference.showTopSites ? <TopSitesContainer/> : null}
+        {appPreference.showBookmarks ? (
           <div>
             <BookmarkFoldersContainer/>
             <ChromeAppFoldersContainer/>
@@ -39,7 +39,7 @@ class RootContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  visibilities: state.visibilities,
+  appPreference: state.appPreference,
 });
 
 export default connect(mapStateToProps)(RootContainer);
