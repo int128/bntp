@@ -1,9 +1,9 @@
-export default {
-  get() {
+export default class NetworkStatus {
+  static get() {
     return window.navigator.onLine;
-  },
+  }
 
-  poll() {
+  static poll() {
     return new Promise(resolve => {
       const callback = e => {
         window.removeEventListener('online', callback);

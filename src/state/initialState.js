@@ -1,5 +1,5 @@
 import Manifest from '../infrastructure/Manifest';
-import networkStatusService from '../infrastructure/networkStatusService';
+import NetworkStatus from '../infrastructure/NetworkStatus';
 
 import * as repositories from '../repositories';
 
@@ -10,5 +10,5 @@ export default () => ({
   manifest: Manifest.get(),
   folderPreferences: repositories.folderPreferenceRepository.get(),
   folderItemPreferences: repositories.folderItemPreferenceRepository.get(),
-  networkStatus: networkStatusService.get(),
+  networkStatus: NetworkStatus.get(),
 });
