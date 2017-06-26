@@ -23,6 +23,14 @@ function* subscribeThemes() {
   }
 }
 
+function* subscribeAppPreference() {
+  while (true) {
+    yield repositories.appPreferenceRepository.poll();
+    const appPreference = repositories.appPreferenceRepository.get();
+    yield put({type: actionTypes.RECEIVE_APP_PREFERENCE, appPreference});
+  }
+}
+
 function* saveVisibility() {
   const { visibilities } = yield select();
   repositories.visibilityRepository.save(visibilities);
@@ -38,12 +46,20 @@ function* renderTheme() {
   RootTheme.render(themes.getSelected());
 }
 
+function* saveAppPreference() {
+  const { appPreference } = yield select();
+  repositories.appPreferenceRepository.save(appPreference);
+}
+
 export default function* () {
   yield fork(subscribeVisibilities);
   yield fork(subscribeThemes);
+  yield fork(subscribeAppPreference);
 
   yield takeEvery(actionTypes.TOGGLE_VISIBILITY, saveVisibility);
 
   yield takeEvery(actionTypes.SELECT_THEME, saveTheme);
   yield takeEvery(actionTypes.SELECT_THEME, renderTheme);
+
+  yield takeEvery(actionTypes.SET_APP_PREFERENCE, saveAppPreference);
 }

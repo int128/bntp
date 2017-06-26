@@ -7,6 +7,7 @@ export default () => ({
   chromePageFolders: repositories.chromePageRepository.findFolders(),
   visibilities: repositories.visibilityRepository.getAll(),
   themes: repositories.themeRepository.getAll(),
+  appPreference: repositories.appPreferenceRepository.get(),
   manifest: Manifest.get(),
   folderPreferences: repositories.folderPreferenceRepository.get(),
   folderItemPreferences: repositories.folderItemPreferenceRepository.get(),

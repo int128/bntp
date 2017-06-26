@@ -13,3 +13,10 @@ export function selectTheme(theme) {
     theme
   };
 }
+
+export function setAppPreference(map) {
+  return {
+    type: actionTypes.SET_APP_PREFERENCE,
+    map
+  };
+}

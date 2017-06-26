@@ -14,18 +14,19 @@ class FolderContainer extends React.Component {
   static propTypes = {
     folderPreferences: PropTypes.instanceOf(FolderPreferences).isRequired,
     folder: PropTypes.instanceOf(Folder).isRequired,
+    indentFolders: PropTypes.bool.isRequired,
     onEditClick: PropTypes.func,
   }
 
   render() {
-    const { dispatch, folderPreferences, folder, onEditClick } = this.props;
+    const { dispatch, folderPreferences, folder, indentFolders, onEditClick } = this.props;
     const folderPreference = folderPreferences.getById(folder.id);
     return (
       <div>
         <TileFolder
           key={folder.id}
           title={folder.title}
-          indent={folder.depth}
+          indent={indentFolders ? folder.depth : 0}
           collapsed={folderPreference.collapsed}
           onToggleClick={() => dispatch(actionCreators.toggleFolder(folder))}>
           {folder.items.map(item =>
@@ -42,6 +43,7 @@ class FolderContainer extends React.Component {
 
 const mapStateToProps = state => ({
   folderPreferences: state.folderPreferences,
+  indentFolders: state.appPreference.indentFolders,
 });
 
 export default connect(mapStateToProps)(FolderContainer);

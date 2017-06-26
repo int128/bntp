@@ -1,3 +1,4 @@
+import AppPreferenceRepository from './AppPreferenceRepository';
 import BookmarkRepository from './BookmarkRepository';
 import ChromeAppRepository from './ChromeAppRepository';
 import ChromePageRepository from './ChromePageRepository';
@@ -7,6 +8,7 @@ import FolderItemPreferenceRepository from './FolderItemPreferenceRepository';
 import ThemeRepository from './ThemeRepository';
 import VisibilityRepository from './VisibilityRepository';
 
+export const appPreferenceRepository = new AppPreferenceRepository();
 export const bookmarkRepository = new BookmarkRepository();
 export const chromeAppRepository = new ChromeAppRepository();
 export const chromePageRepository = new ChromePageRepository();
