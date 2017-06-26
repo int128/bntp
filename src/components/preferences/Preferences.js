@@ -2,7 +2,7 @@ import React from 'react';
 
 import ThemesContainer from './ThemesContainer';
 import VisibilitiesContainer from './VisibilitiesContainer';
-import ProductContainer from './ProductContainer';
+import ManifestContainer from './ManifestContainer';
 
 import './Preferences.css';
 
@@ -17,6 +17,6 @@ export default () =>
       <VisibilitiesContainer />
     </form>
     <form>
-      <ProductContainer />
+      <ManifestContainer />
     </form>
   </div>

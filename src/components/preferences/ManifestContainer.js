@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-class ProductContainer extends React.Component {
+class ManifestContainer extends React.Component {
   static propTypes = {
     manifest: PropTypes.any.isRequired,
   }
@@ -26,4 +26,4 @@ const mapStateToProps = state => ({
   manifest: state.manifest,
 });
 
-export default connect(mapStateToProps)(ProductContainer);
+export default connect(mapStateToProps)(ManifestContainer);
