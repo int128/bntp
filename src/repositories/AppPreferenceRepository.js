@@ -2,14 +2,27 @@ import AppPreference from '../models/AppPreference';
 import { THEMES } from '../models/Themes';
 
 const APP_PREFERENCE = 'APP_PREFERENCE';
+const SELECTED_THEME_ID = 'SELECTED_THEME_ID';
+const HIDDEN_COMPONENTS = 'HIDDEN_COMPONENTS';
 
 export default class AppPreferenceRepository {
   get() {
+    const oldSelectedThemeId = JSON.parse(localStorage.getItem(SELECTED_THEME_ID));
     const json = JSON.parse(localStorage.getItem(APP_PREFERENCE));
-    return new AppPreference({
-      ...json,
-      theme: THEMES.getById(json.theme),
-    });
+
+    const theme = THEMES.getById(this.extractThemeIdFrom(json, oldSelectedThemeId));
+    return new AppPreference({...json, theme});
+  }
+
+  extractThemeIdFrom(json, oldSelectedThemeId) {
+    if (oldSelectedThemeId) {
+      // migrate old key
+      return oldSelectedThemeId;
+    } else if (json) {
+      return json.theme;
+    } else {
+      return null;
+    }
   }
 
   save(appPreference) {
@@ -20,8 +33,8 @@ export default class AppPreferenceRepository {
     }));
 
     // clean up old key
-    localStorage.removeItem('HIDDEN_COMPONENTS');
-    localStorage.removeItem('SELECTED_THEME_ID');
+    localStorage.removeItem(HIDDEN_COMPONENTS);
+    localStorage.removeItem(SELECTED_THEME_ID);
   }
 
   poll() {
