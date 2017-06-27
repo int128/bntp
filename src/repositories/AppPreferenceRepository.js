@@ -25,12 +25,21 @@ export default class AppPreferenceRepository {
     }
   }
 
+  /**
+   * @param {AppPreference} appPreference 
+   */
   save(appPreference) {
-    const json = appPreference.toJS();
-    localStorage.setItem(APP_PREFERENCE, JSON.stringify({
-      ...json,
-      theme: json.theme.id,
-    }));
+    const json = appPreference.toMap()
+      .filter((value, key) => value !== AppPreference.DEFAULT.get(key))
+      .map((value, key) => {
+        switch (key) {
+          case 'theme':
+            return value.id;
+          default:
+            return value;
+        }
+      });
+    localStorage.setItem(APP_PREFERENCE, JSON.stringify(json));
 
     // clean up old key
     localStorage.removeItem(HIDDEN_COMPONENTS);

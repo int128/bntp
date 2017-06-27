@@ -8,7 +8,5 @@ export default class AppPreference extends Record({
   showBookmarks: true,
   theme: THEMES.getDefault(),
 }) {
-  merge(map) {
-    return new AppPreference(super.merge(map));
-  }
+  static DEFAULT = new AppPreference()
 }
