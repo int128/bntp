@@ -1,39 +1,38 @@
 import { Seq } from 'immutable';
+import PreferenceStorage from '../infrastructure/PreferenceStorage';
 
 import FolderPreference from '../models/FolderPreference';
 import FolderPreferences from '../models/FolderPreferences';
 
-const FOLDER_PREFERENCES = 'FOLDER_PREFERENCES';
-const COLLAPSED_FOLDERS = 'COLLAPSED_FOLDERS';
-
 export default class FolderPreferenceRepository {
+  preferenceStorage = new PreferenceStorage('FOLDER_PREFERENCES')
+  oldCollapsedFoldersStorage = new PreferenceStorage('COLLAPSED_FOLDERS')
+
   get() {
     // migrate old data
-    if (localStorage.getItem(COLLAPSED_FOLDERS)) {
-      const json = JSON.parse(localStorage.getItem(COLLAPSED_FOLDERS));
-      const array = Seq(json).map(id => new FolderPreference({id, collapsed: true})).toArray();
-      return new FolderPreferences(array);
+    const collapsedFolders = this.oldCollapsedFoldersStorage.get();
+    if (collapsedFolders !== null) {
+      const arrayOfFolderPreferences = Seq(collapsedFolders)
+        .map(id => new FolderPreference({id, collapsed: true}))
+        .toArray();
+      return new FolderPreferences(arrayOfFolderPreferences);
     }
 
-    const json = JSON.parse(localStorage.getItem(FOLDER_PREFERENCES));
-    const array = Seq(json).map(object => new FolderPreference(object)).toArray();
-    return new FolderPreferences(array);
+    const json = this.preferenceStorage.get();
+    const arrayOfFolderPreferences = Seq(json)
+      .map(object => new FolderPreference(object))
+      .toArray();
+    return new FolderPreferences(arrayOfFolderPreferences);
   }
 
   save(folderPreferences) {
-    localStorage.setItem(FOLDER_PREFERENCES, JSON.stringify(folderPreferences.toArray()));
-    localStorage.removeItem(COLLAPSED_FOLDERS);
+    this.preferenceStorage.save(folderPreferences.toArray());
+
+    // remove old data
+    this.oldCollapsedFoldersStorage.remove();
   }
 
   poll() {
-    return new Promise(resolve => {
-      const callback = e => {
-        if (e.storageArea === localStorage && e.key === FOLDER_PREFERENCES && e.newValue !== null) {
-          window.removeEventListener('storage', callback);
-          resolve();
-        }
-      }
-      window.addEventListener('storage', callback);
-    });
+    return this.preferenceStorage.poll();
   }
 }
