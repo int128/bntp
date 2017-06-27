@@ -4,23 +4,24 @@ import { connect } from 'react-redux';
 
 import * as actionCreators from '../../state/preferences/actionCreators';
 
-import Themes from '../../models/Themes';
+import { THEMES } from '../../models/Themes';
+import Theme from '../../models/Theme';
 
 class ThemesContainer extends React.Component {
   static propTypes = {
-    themes: PropTypes.instanceOf(Themes).isRequired,
+    selectedTheme: PropTypes.instanceOf(Theme).isRequired,
   }
 
   render() {
-    const { themes, dispatch } = this.props;
+    const { selectedTheme, dispatch } = this.props;
     return (
       <div>
-        {themes.map(theme =>
+        {THEMES.map(theme =>
           <label key={theme.id}>
             <input type="radio" name="Theme"
               value={theme.id}
-              checked={theme.selected}
-              onChange={e => dispatch(actionCreators.selectTheme(theme))}/>
+              checked={theme.id === selectedTheme.id}
+              onChange={e => dispatch(actionCreators.setAppPreference({theme}))}/>
             {theme.title}
           </label>
         )}
@@ -30,7 +31,7 @@ class ThemesContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  themes: state.themes,
+  selectedTheme: state.appPreference.theme,
 });
 
 export default connect(mapStateToProps)(ThemesContainer);

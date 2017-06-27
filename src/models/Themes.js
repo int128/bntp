@@ -1,6 +1,12 @@
 import { Seq } from 'immutable';
 
-export default class Themes {
+import Theme from './Theme';
+
+export class Themes {
+  static get() {
+    return THEMES;
+  }
+
   constructor(themes) {
     this.themes = Seq(themes);
   }
@@ -10,14 +16,17 @@ export default class Themes {
   }
 
   getById(id) {
-    return this.themes.find(theme => theme.id === id, null, this.themes.first());
+    return this.themes.find(theme => theme.id === id, null, this.getDefault());
   }
 
-  getSelected() {
-    return this.themes.find(theme => theme.selected);
-  }
-
-  select(selected) {
-    return new Themes(this.themes.map(theme => theme.set('selected', theme.id === selected.id)));
+  getDefault() {
+    return this.themes.first();
   }
 }
+
+export const THEMES = new Themes([
+  new Theme({id: 'light', title: 'Light'}),
+  new Theme({id: 'dark', title: 'Dark'}),
+  new Theme({id: 'solarized-light', title: 'Solarized Light'}),
+  new Theme({id: 'solarized-dark', title: 'Solarized Dark'}),
+])

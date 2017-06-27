@@ -8,12 +8,7 @@ import reducers from './state/reducers';
 import initialState from './state/initialState';
 import rootSaga from './state/sagas';
 
-import renderInitialState from './state/preferences/renderInitialState';
-
 import RootContainer from './components/RootContainer';
-
-// Prevent theme-less white page
-renderInitialState();
 
 const devMiddlewares = [];
 if (process.env.NODE_ENV === 'development') {
