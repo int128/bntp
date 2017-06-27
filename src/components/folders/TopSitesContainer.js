@@ -22,7 +22,7 @@ class TopSitesContainer extends React.Component {
               <BarFolderItem
                 url={topSite.url}
                 icon={topSite.icon}
-                onLinkClick={e => topSite.open()} />
+                onLinkClick={e => topSite.openIfSpecialLink()} />
             </FloatTip>
           )}
         </BarFolder>

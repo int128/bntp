@@ -19,8 +19,9 @@ export default class TileFolderItem extends React.Component {
   }
 
   onLinkClick(e) {
-    e.preventDefault();
-    this.props.onLinkClick();
+    if (this.props.onLinkClick() === true) {
+      e.preventDefault();
+    }
   }
 
   render() {

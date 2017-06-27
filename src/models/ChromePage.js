@@ -17,8 +17,13 @@ export default class ChromePage extends Record({
     return new ChromePage(super.merge(map).toJS());
   }
 
-  open() {
+  openIfSpecialLink() {
     const { url } = this;
     window.chrome.tabs.create({url});
+    return true;
+  }
+
+  open() {
+    this.openIfSpecialLink();
   }
 }

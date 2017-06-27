@@ -20,11 +20,19 @@ export default class Bookmark extends Record({
     return new Bookmark(super.merge(map).toJS());
   }
 
-  open() {
+  openIfSpecialLink() {
     const { url } = this;
     if (url.match(/^(chrome|file|javascript):/)) {
       window.chrome.tabs.create({url});
+      return true;
     } else {
+      return false;
+    }
+  }
+
+  open() {
+    const { url } = this;
+    if (this.openIfSpecialLink() === false) {
       window.location.href = url;
     }
   }

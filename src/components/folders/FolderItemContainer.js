@@ -32,7 +32,7 @@ class FolderItemContainer extends React.Component {
         icon={item.icon}
         badge={preference.accessKey}
         canEdit={true}
-        onLinkClick={e => item.open()}
+        onLinkClick={e => item.openIfSpecialLink()}
         onEditClick={e => dispatch(actionCreators.open(item, preference))}>
         {item.title}
       </TileFolderItem>
