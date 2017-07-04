@@ -11,9 +11,15 @@ class RootThemeContainer extends React.Component {
     theme: PropTypes.instanceOf(Theme).isRequired,
   }
 
+  componentDidMount() {
+    document.documentElement.className = `Theme__${this.props.theme.id}`;
+  }
+
+  componentDidUpdate() {
+    document.documentElement.className = `Theme__${this.props.theme.id}`;
+  }
+
   render() {
-    const { theme } = this.props;
-    document.documentElement.className = `Theme__${theme.id}`;
     return null;
   }
 }
