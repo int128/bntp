@@ -12,11 +12,9 @@ class ManifestContainer extends React.Component {
     return (
       <div>
         <p>{manifest.name} {manifest.version}</p>
-        <label>
-          <a href={`https://chrome.google.com/webstore/detail/${manifest.id}`}>
-            Review on Web Store
-          </a>
-        </label>
+        <a href={`https://chrome.google.com/webstore/detail/${manifest.id}`}>
+          <label>Review on Web Store</label>
+        </a>
       </div>
     );
   }
