@@ -36,6 +36,18 @@ export default class FolderPreferences {
     return this.set(this.getById(folder.id).toggle());
   }
 
+  toggleAll(collapsed, ...foldersObjects) {
+    if (collapsed === true) {
+      const toggled = Seq(foldersObjects)
+        .flatMap(folders => folders)
+        .map(folder => this.getById(folder.id))
+        .map(folderPreference => folderPreference.collapse());
+      return new FolderPreferences(toggled);
+    } else {
+      return new FolderPreferences();
+    }
+  }
+
   toArray() {
     return this.list.toArray();
   }

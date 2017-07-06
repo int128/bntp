@@ -98,6 +98,25 @@ function* saveFolderItemPreferences() {
   repositories.folderItemPreferenceRepository.save(filtered);
 }
 
+function* toggleAllFolders({collapsed}) {
+  const {
+    folderPreferences,
+    bookmarkFolders,
+    chromeAppFolders,
+    chromePageFolders,
+  } = yield select();
+  const toggled = folderPreferences.toggleAll(collapsed,
+    bookmarkFolders,
+    chromeAppFolders,
+    chromePageFolders,
+  );
+  yield put({
+    type: actionTypes.RECEIVE_FOLDER_PREFERENCES,
+    folderPreferences: toggled,
+  });
+  repositories.folderPreferenceRepository.save(toggled);
+}
+
 export default function* () {
   yield fork(subscribeBookmarkFolders);
   yield fork(subscribeChromeAppFolders);
@@ -107,5 +126,6 @@ export default function* () {
   yield fork(subscribeAccessKey);
 
   yield takeEvery(actionTypes.TOGGLE_FOLDER, saveFolderPreferences);
+  yield takeEvery(actionTypes.TOGGLE_ALL_FOLDERS, toggleAllFolders);
   yield takeEvery(actionTypes.SAVE_FOLDER_ITEM_PREFERENCE, saveFolderItemPreferences);
 }

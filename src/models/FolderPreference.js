@@ -8,6 +8,10 @@ export default class FolderPreference extends Record({
     return new FolderPreference(super.merge(map));
   }
 
+  collapse() {
+    return this.merge({collapsed: true});
+  }
+
   toggle() {
     return this.merge({collapsed: !this.collapsed});
   }
