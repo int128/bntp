@@ -10,6 +10,8 @@ import rootSaga from './state/sagas';
 
 import RootContainer from './components/RootContainer';
 
+import './index.css';
+
 const devMiddlewares = [];
 if (process.env.NODE_ENV === 'development') {
   devMiddlewares.push(require('redux-logger')());
