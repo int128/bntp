@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Link from './Link';
+
 import './Bar.css';
 
 export default class BarFolderItem extends React.Component {
@@ -10,22 +12,16 @@ export default class BarFolderItem extends React.Component {
     onLinkClick: PropTypes.func.isRequired,
   }
 
-  onLinkClick(e) {
-    if (this.props.onLinkClick() === true) {
-      e.preventDefault();
-    }
-  }
-
   render() {
-    const { url, icon } = this.props;
+    const { url, icon, onLinkClick } = this.props;
     return (
       <div className="BarFolderItem">
-        <a href={url} onClick={e => this.onLinkClick(e)}>
+        <Link url={url} onClick={e => onLinkClick(e)}>
           <div className="BarFolderItem__Button">
             <div className="BarFolderItem__ButtonBody" style={{backgroundImage: `url(${icon})`}}>
             </div>
           </div>
-        </a>
+        </Link>
       </div>
     );
   }

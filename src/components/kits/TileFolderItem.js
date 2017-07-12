@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Link from './Link';
+
 import './Tile.css';
 
 export default class TileFolderItem extends React.Component {
@@ -18,17 +20,11 @@ export default class TileFolderItem extends React.Component {
     this.props.onEditClick();
   }
 
-  onLinkClick(e) {
-    if (this.props.onLinkClick() === true) {
-      e.preventDefault();
-    }
-  }
-
   render() {
-    const { url, icon, badge, canEdit, children } = this.props;
+    const { url, icon, badge, canEdit, onLinkClick, children } = this.props;
     return (
       <div className="TileFolderItem">
-        <a href={url} onClick={e => this.onLinkClick(e)}>
+        <Link url={url} onClick={e => onLinkClick(e)}>
           <div className="TileFolderItem__Button">
             {badge ?
               <div className="TileFolderItem__ButtonBadge">{badge}</div>
@@ -38,7 +34,7 @@ export default class TileFolderItem extends React.Component {
               {children}
             </div>
           </div>
-        </a>
+        </Link>
         {canEdit ?
           <div className="TileFolderItem__EditButton">
             <a href="#edit" onClick={e => this.onEditClick(e)}>&hellip;</a>
