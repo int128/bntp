@@ -6,3 +6,9 @@ export function setAppPreference(map) {
     map
   };
 }
+
+export function makeDonation() {
+  return {
+    type: actionTypes.MAKE_DONATION,
+  };
+}

@@ -12,3 +12,11 @@ export function appPreference(state = new AppPreference(), action) {
       return state;
   }
 }
+
+export function purchases(state = [], action) {
+  switch (action.type) {
+    case actionTypes.RECEIVE_PURCHASES:
+    default:
+      return state;
+  }
+}
