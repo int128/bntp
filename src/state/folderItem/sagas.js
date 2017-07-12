@@ -1,5 +1,6 @@
 import { fork, takeEvery, put, select } from 'redux-saga/effects';
 import { pollCharacter } from '../../infrastructure/GlobalKeyHook';
+import { openLink } from '../../infrastructure/LinkOpener';
 
 import * as actionTypes from './actionTypes';
 
@@ -61,7 +62,7 @@ function* subscribeAccessKey() {
           chromePageFolders,
         );
         if (folderItem) {
-          folderItem.open();
+          openLink(folderItem);
         }
       }
     }

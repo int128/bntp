@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { openLinkIfSpecialLink } from '../../infrastructure/LinkOpener';
 
 import TileFolderItem from '../kits/TileFolderItem';
 
@@ -32,7 +33,7 @@ class FolderItemContainer extends React.Component {
         icon={item.icon}
         badge={preference.accessKey}
         canEdit={true}
-        onLinkClick={e => item.openIfSpecialLink()}
+        onLinkClick={e => openLinkIfSpecialLink(item)}
         onEditClick={e => dispatch(actionCreators.open(item, preference))}>
         {item.title}
       </TileFolderItem>

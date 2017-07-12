@@ -11,6 +11,9 @@
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
+  "browser_action": {
+    "default_popup": "index.html#popup"
+  },
   "icons": {
     "48": "small_tiles.png",
     "128": "small_tiles_128.png"

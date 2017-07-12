@@ -16,14 +16,4 @@ export default class ChromePage extends Record({
   merge(map) {
     return new ChromePage(super.merge(map).toJS());
   }
-
-  openIfSpecialLink() {
-    const { url } = this;
-    window.chrome.tabs.create({url});
-    return true;
-  }
-
-  open() {
-    this.openIfSpecialLink();
-  }
 }

@@ -18,13 +18,4 @@ export default class ChromeApp extends Record({
   merge(map) {
     return new ChromeApp(super.merge(map).toJS());
   }
-
-  openIfSpecialLink() {
-    window.chrome.management.launchApp(this.id);
-    return true;
-  }
-
-  open() {
-    this.openIfSpecialLink();
-  }
 }
