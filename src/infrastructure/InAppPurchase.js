@@ -1,6 +1,5 @@
 import Purchase from '../models/Purchase';
 
-import './iap/buy';
 const { google } = window;
 
 export default class InAppPurchase {
