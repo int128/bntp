@@ -22,7 +22,7 @@ class ManifestContainer extends React.Component {
     const { manifest, purchases } = this.props;
     return (
       <div>
-        <p>{manifest.name} {manifest.version}</p>
+        <h4>{manifest.name} {manifest.version}</h4>
         <p>
           Thank you for using the app.
         </p>

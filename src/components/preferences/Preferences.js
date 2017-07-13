@@ -10,15 +10,15 @@ import './Preferences.css';
 export default () =>
   <div className="Preferences">
     <form>
-      <p>Filter</p>
+      <h4>Filter</h4>
       <FilterContainer />
     </form>
     <form>
-      <p>Preferences</p>
+      <h4>Preferences</h4>
       <AppPreferenceContainer />
     </form>
     <form>
-      <p>Themes</p>
+      <h4>Themes</h4>
       <ThemesContainer />
     </form>
     <form>

@@ -7,6 +7,10 @@
   text-align: center;
 }
 
+.Preferences h4 {
+  margin-bottom: var(--size-preference-item-margin);
+}
+
 .Preferences form label,
 .Preferences form button {
   display: inline-block;
@@ -26,8 +30,4 @@
 
 .Preferences form input {
   margin-right: var(--size-preference-item-padding);
-}
-
-.Preferences form input[type='radio']:checked + span {
-  font-weight: bold;
 }
