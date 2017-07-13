@@ -23,18 +23,34 @@
   z-index: 10;
   max-width: 160px;
   display: none;
+  overflow: hidden;
 }
 
 .FloatTip:hover .FloatTip__Baloon {
   display: block;
 }
 
-.FloatTip__Baloon:hover {
-  opacity: 0;
-  transition: opacity 0.25s linear;
+.FloatTip:hover .FloatTip__Baloon:hover {
+  height: 0;
+  animation: FloatTip__Baloon__FadeOut 0.25s linear;
 }
 
 .FloatTip__Body {
   margin-top: 3px;
   white-space: normal;
+  pointer-events: none;
+}
+
+@keyframes FloatTip__Baloon__FadeOut {
+  from {
+    opacity: 1;
+    height: initial;
+  }
+  99% {
+    height: initial;
+  }
+  to {
+    opacity: 0;
+    height: 0;
+  }
 }
