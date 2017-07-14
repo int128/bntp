@@ -5,6 +5,7 @@ import ChromePageRepository from './ChromePageRepository';
 import TopSiteRepository from './TopSiteRepository';
 import FolderPreferenceRepository from './FolderPreferenceRepository';
 import FolderItemPreferenceRepository from './FolderItemPreferenceRepository';
+import DemoDataRepository from './DemoDataRepository';
 
 export const appPreferenceRepository = new AppPreferenceRepository();
 export const bookmarkRepository = new BookmarkRepository();
@@ -13,3 +14,4 @@ export const chromePageRepository = new ChromePageRepository();
 export const topSiteRepository = new TopSiteRepository();
 export const folderPreferenceRepository = new FolderPreferenceRepository();
 export const folderItemPreferenceRepository = new FolderItemPreferenceRepository();
+export const demoDataRepository = new DemoDataRepository();

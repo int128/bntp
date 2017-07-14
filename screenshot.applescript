@@ -6,8 +6,8 @@ tell application "Google Chrome"
   delay 1
 
   -- default and activate demo
-  execute active tab of chromeWindow javascript "localStorage.clear()"
-  execute active tab of chromeWindow javascript "localStorage.setItem('demo', true)"
+  execute active tab of chromeWindow javascript "sessionStorage.clear()"
+  execute active tab of chromeWindow javascript "sessionStorage.setItem('demo', true)"
 
   -- theme
   reload active tab of chromeWindow
@@ -23,19 +23,18 @@ tell application "Google Chrome"
   do shell script "screencapture -w build/screenshot-highlight-default.png"
 
   -- theme
-  execute active tab of chromeWindow javascript "localStorage.setItem('theme', 'dark')"
+  execute active tab of chromeWindow javascript "localStorage.setItem('APP_PREFERENCE', '{"theme":"dark"}')"
   reload active tab of chromeWindow
   delay 1
   do shell script "screencapture -w build/screenshot-whole-dark.png"
 
   -- theme
-  execute active tab of chromeWindow javascript "localStorage.setItem('theme', 'solarized-light')"
+  execute active tab of chromeWindow javascript "localStorage.setItem('APP_PREFERENCE', '{"theme":"solarized-light"}')"
   reload active tab of chromeWindow
   delay 1
   do shell script "screencapture -w build/screenshot-whole-solarized-light.png"
 
   -- preferences
-  execute active tab of chromeWindow javascript "localStorage.setItem('showTopSites', 'false')"
   reload active tab of chromeWindow
   delay 1
   tell application "System Events"
@@ -45,15 +44,13 @@ tell application "Google Chrome"
   end tell
   do shell script "screencapture -w build/screenshot-tail-solarized-light.png"
 
-  execute active tab of chromeWindow javascript "localStorage.removeItem('showTopSites')"
-
   -- theme
-  execute active tab of chromeWindow javascript "localStorage.setItem('theme', 'solarized-dark')"
+  execute active tab of chromeWindow javascript "localStorage.setItem('APP_PREFERENCE', '{"theme":"solarized-dark"}')"
   reload active tab of chromeWindow
   delay 1
   do shell script "screencapture -w build/screenshot-whole-solarized-dark.png"
 
   -- inactivate demo mode
-  execute active tab of chromeWindow javascript "localStorage.clear()"
+  execute active tab of chromeWindow javascript "sessionStorage.clear()"
   close chromeWindow
 end tell

@@ -27,6 +27,12 @@ function* subscribeTopSites() {
   yield put({type: actionTypes.RECEIVE_TOP_SITES, topSites});
 }
 
+function* fetchDemoData() {
+  const { bookmarkFolders, topSites } = yield repositories.demoDataRepository.get();
+  yield put({type: actionTypes.RECEIVE_BOOKMARKS, bookmarkFolders});
+  yield put({type: actionTypes.RECEIVE_TOP_SITES, topSites});
+}
+
 function* subscribeFolderPreferences() {
   while (true) {
     yield repositories.folderPreferenceRepository.poll();
@@ -119,9 +125,14 @@ function* toggleAllFolders({collapsed}) {
 }
 
 export default function* () {
-  yield fork(subscribeBookmarkFolders);
-  yield fork(subscribeChromeAppFolders);
-  yield fork(subscribeTopSites);
+  if (sessionStorage.getItem('demo') === null) {
+    yield fork(subscribeBookmarkFolders);
+    yield fork(subscribeChromeAppFolders);
+    yield fork(subscribeTopSites);
+  } else {
+    yield fork(fetchDemoData);
+  }
+
   yield fork(subscribeFolderPreferences);
   yield fork(subscribeFolderItemPreferences);
   yield fork(subscribeAccessKey);

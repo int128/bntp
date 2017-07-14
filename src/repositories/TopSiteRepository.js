@@ -7,7 +7,11 @@ export default class TopSiteRepository {
   chrome = new ChromePromise();
 
   *findAll() {
-    return Seq(yield this.chrome.topSites.get()).map(topSite => new TopSite({
+    return TopSiteRepository.mapJson(yield this.chrome.topSites.get());
+  }
+
+  static mapJson(topSites) {
+    return Seq(topSites).map(topSite => new TopSite({
       title: topSite.title,
       url: topSite.url,
     }));
