@@ -19,13 +19,21 @@ function* saveAppPreference() {
 }
 
 function* fetchPurchases() {
-  const purchases = yield InAppPurchase.getPurchases();
-  yield put({type: actionTypes.RECEIVE_PURCHASES, purchases});
+  try {
+    const purchases = yield InAppPurchase.getPurchases();
+    yield put({type: actionTypes.RECEIVE_PURCHASES, purchases});
+  } catch (e) {
+    console.warn('Could not fetch purchases', e);
+  }
 }
 
 function* makeDonation() {
-  const orderId = yield InAppPurchase.buy('donation');
-  console.info(`InAppPurchase.buy => orderId: ${orderId}`);
+  try {
+    const orderId = yield InAppPurchase.buy('donation');
+    console.info(`InAppPurchase.buy => orderId: ${orderId}`);
+  } catch (e) {
+    console.warn('Could not make a request for purchase', e);
+  }
   yield fetchPurchases();
 }
 
