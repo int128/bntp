@@ -1,7 +1,7 @@
 #!/bin/bash -xe
 
 test "$TRAVIS_TAG"
-sed -i -e "s/SNAPSHOT/$TRAVIS_TAG/g" public/manifest.json
+sed -i -e "s/0\\.0\\.0\\.0/$TRAVIS_TAG/g" public/manifest.json
 npm run clean
 npm run build
 npm run zip
