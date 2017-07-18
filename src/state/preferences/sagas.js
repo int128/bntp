@@ -9,7 +9,7 @@ function* subscribeAppPreference() {
   const appPreferenceRepository = new AppPreferenceRepository();
   while (true) {
     yield appPreferenceRepository.poll();
-    const appPreference = appPreferenceRepository.appPreferenceRepository.get();
+    const appPreference = appPreferenceRepository.get();
     yield put({type: actionTypes.RECEIVE_APP_PREFERENCE, appPreference});
   }
 }
