@@ -4,47 +4,58 @@ import { openLink } from '../../infrastructure/LinkOpener';
 
 import * as actionTypes from './actionTypes';
 
-import * as repositories from '../../repositories';
+import BookmarkRepository from '../../repositories/BookmarkRepository';
+import ChromeAppRepository from '../../repositories/ChromeAppRepository';
+import TopSiteRepository from '../../repositories/TopSiteRepository';
+import DemoDataRepository from '../../repositories/DemoDataRepository';
+import FolderPreferenceRepository from '../../repositories/FolderPreferenceRepository';
+import FolderItemPreferenceRepository from '../../repositories/FolderItemPreferenceRepository';
 
 function* subscribeBookmarkFolders() {
+  const bookmarkRepository = new BookmarkRepository();
   while (true) {
-    const bookmarkFolders = yield repositories.bookmarkRepository.findAll();
+    const bookmarkFolders = yield bookmarkRepository.findAll();
     yield put({type: actionTypes.RECEIVE_BOOKMARKS, bookmarkFolders});
-    yield repositories.bookmarkRepository.poll();
+    yield bookmarkRepository.poll();
   }
 }
 
 function* subscribeChromeAppFolders() {
+  const chromeAppRepository = new ChromeAppRepository();
   while (true) {
-    const chromeAppFolders = yield repositories.chromeAppRepository.findFolders();
+    const chromeAppFolders = yield chromeAppRepository.findFolders();
     yield put({type: actionTypes.RECEIVE_CHROME_APPS, chromeAppFolders});
-    yield repositories.chromeAppRepository.poll();
+    yield chromeAppRepository.poll();
   }
 }
 
 function* subscribeTopSites() {
-  const topSites = yield repositories.topSiteRepository.findAll();
+  const topSiteRepository = new TopSiteRepository();
+  const topSites = yield topSiteRepository.findAll();
   yield put({type: actionTypes.RECEIVE_TOP_SITES, topSites});
 }
 
 function* fetchDemoData() {
-  const { bookmarkFolders, topSites } = yield repositories.demoDataRepository.get();
+  const demoDataRepository = new DemoDataRepository();
+  const { bookmarkFolders, topSites } = yield demoDataRepository.get();
   yield put({type: actionTypes.RECEIVE_BOOKMARKS, bookmarkFolders});
   yield put({type: actionTypes.RECEIVE_TOP_SITES, topSites});
 }
 
 function* subscribeFolderPreferences() {
+  const folderPreferenceRepository = new FolderPreferenceRepository();
   while (true) {
-    yield repositories.folderPreferenceRepository.poll();
-    const folderPreferences = repositories.folderPreferenceRepository.get();
+    yield folderPreferenceRepository.poll();
+    const folderPreferences = folderPreferenceRepository.get();
     yield put({type: actionTypes.RECEIVE_FOLDER_PREFERENCES, folderPreferences});
   }
 }
 
 function* subscribeFolderItemPreferences() {
+  const folderItemPreferenceRepository = new FolderItemPreferenceRepository();
   while (true) {
-    yield repositories.folderItemPreferenceRepository.poll();
-    const folderItemPreferences = repositories.folderItemPreferenceRepository.get();
+    yield folderItemPreferenceRepository.poll();
+    const folderItemPreferences = folderItemPreferenceRepository.get();
     yield put({type: actionTypes.RECEIVE_FOLDER_ITEM_PREFERENCES, folderItemPreferences});
   }
 }
@@ -76,6 +87,7 @@ function* subscribeAccessKey() {
 }
 
 function* saveFolderPreferences() {
+  const folderPreferenceRepository = new FolderPreferenceRepository();
   const {
     folderPreferences,
     bookmarkFolders,
@@ -87,10 +99,11 @@ function* saveFolderPreferences() {
     chromeAppFolders,
     chromePageFolders,
   );
-  repositories.folderPreferenceRepository.save(filtered);
+  folderPreferenceRepository.save(filtered);
 }
 
 function* saveFolderItemPreferences() {
+  const folderItemPreferenceRepository = new FolderItemPreferenceRepository();
   const {
     folderItemPreferences,
     bookmarkFolders,
@@ -102,10 +115,11 @@ function* saveFolderItemPreferences() {
     chromeAppFolders,
     chromePageFolders,
   );
-  repositories.folderItemPreferenceRepository.save(filtered);
+  folderItemPreferenceRepository.save(filtered);
 }
 
 function* toggleAllFolders({collapsed}) {
+  const folderPreferenceRepository = new FolderPreferenceRepository();
   const {
     folderPreferences,
     bookmarkFolders,
@@ -121,7 +135,7 @@ function* toggleAllFolders({collapsed}) {
     type: actionTypes.RECEIVE_FOLDER_PREFERENCES,
     folderPreferences: toggled,
   });
-  repositories.folderPreferenceRepository.save(toggled);
+  folderPreferenceRepository.save(toggled);
 }
 
 export default function* () {

@@ -3,19 +3,21 @@ import InAppPurchase from '../../infrastructure/InAppPurchase';
 
 import * as actionTypes from './actionTypes';
 
-import * as repositories from '../../repositories';
+import AppPreferenceRepository from '../../repositories/AppPreferenceRepository';
 
 function* subscribeAppPreference() {
+  const appPreferenceRepository = new AppPreferenceRepository();
   while (true) {
-    yield repositories.appPreferenceRepository.poll();
-    const appPreference = repositories.appPreferenceRepository.get();
+    yield appPreferenceRepository.poll();
+    const appPreference = appPreferenceRepository.appPreferenceRepository.get();
     yield put({type: actionTypes.RECEIVE_APP_PREFERENCE, appPreference});
   }
 }
 
 function* saveAppPreference() {
+  const appPreferenceRepository = new AppPreferenceRepository();
   const { appPreference } = yield select();
-  repositories.appPreferenceRepository.save(appPreference);
+  appPreferenceRepository.save(appPreference);
 }
 
 function* fetchPurchases() {

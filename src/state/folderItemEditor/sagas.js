@@ -4,15 +4,16 @@ import * as actionTypes from './actionTypes';
 
 import * as actionCreators from '../folderItem/actionCreators';
 
-import * as repositories from '../../repositories';
+import BookmarkRepository from '../../repositories/BookmarkRepository';
 
 import Bookmark from '../../models/Bookmark';
 
 function* save({folderItem, folderItemPreference}) {
+  const bookmarkRepository = new BookmarkRepository();
   yield put(actionCreators.saveFolderItemPreference(folderItemPreference));
   if (folderItem instanceof Bookmark) {
     try {
-      yield repositories.bookmarkRepository.update(folderItem);
+      yield bookmarkRepository.update(folderItem);
       yield put({type: actionTypes.SAVE_SUCCEEDED_FOLDER_ITEM_EDITOR});
     } catch ({message}) {
       yield put({type: actionTypes.SAVE_FAILED_FOLDER_ITEM_EDITOR, message});
@@ -23,8 +24,9 @@ function* save({folderItem, folderItemPreference}) {
 }
 
 function* remove({folderItem}) {
+  const bookmarkRepository = new BookmarkRepository();
   try {
-    yield repositories.bookmarkRepository.remove(folderItem);
+    yield bookmarkRepository.remove(folderItem);
     yield put({type: actionTypes.REMOVE_SUCCEEDED_FOLDER_ITEM_EDITOR});
   } catch ({message}) {
     yield put({type: actionTypes.REMOVE_FAILED_FOLDER_ITEM_EDITOR, message});

@@ -1,14 +1,12 @@
 import Purchase from '../models/Purchase';
 
-const { google } = window;
-
 export default class InAppPurchase {
   /**
    * @returns {Array<Purchase>} array of purchase details
    */
   static *getPurchases() {
     const purchases = yield new Promise((resolve, reject) => {
-      google.payments.inapp.getPurchases({
+      window.google.payments.inapp.getPurchases({
         parameters: {env: 'prod'},
         success: resolve,
         failure: reject,
@@ -23,7 +21,7 @@ export default class InAppPurchase {
    */
   static *buy(sku) {
     const buy = yield new Promise((resolve, reject) => {
-      google.payments.inapp.buy({
+      window.google.payments.inapp.buy({
         parameters: {env: 'prod'},
         sku,
         success: resolve,
