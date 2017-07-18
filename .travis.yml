@@ -2,8 +2,8 @@ sudo: false
 language: node_js
 node_js:
   - 6
-script:
-  - npm test
-  - npm run build
-  - npm run zip
-  - ./scripts/github-release.sh
+deploy:
+  provider: script
+  script: scripts/github-release.sh
+  on:
+    tags: true
