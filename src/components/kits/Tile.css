@@ -73,6 +73,24 @@
   box-shadow: 0 0 calc(var(--size-folder-item-margin) * 3) var(--palette-01);
 }
 
+.TileFolderItem .Tooltip {
+  visibility: hidden;
+  background-color: black;
+  color: #fff;
+  transform: translateY(calc(var(--size-folder-item-height) - var(--size-folder-item-padding) + 10px));
+  text-align: center;
+  padding: 5px 5px;
+  border-radius: 2px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+.TileFolderItem:hover .Tooltip {
+  visibility: visible;
+}
+
 .TileFolderItem__ButtonBody {
   padding: var(--size-folder-item-padding);
   padding-left: calc(var(--size-folder-item-padding) * 2 + var(--size-icon));

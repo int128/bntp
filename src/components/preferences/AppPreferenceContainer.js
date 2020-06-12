@@ -28,6 +28,13 @@ class AppPreferenceContainer extends React.Component {
 
         <label>
           <input type="checkbox"
+            checked={appPreference.showSearchField}
+            onChange={e => this.setAppPreference({showSearchField: e.target.checked})}/>
+          Search
+        </label>
+
+        <label>
+          <input type="checkbox"
             checked={appPreference.showBookmarks}
             onChange={e => this.setAppPreference({showBookmarks: e.target.checked})}/>
           Bookmarks

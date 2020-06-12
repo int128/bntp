@@ -9,23 +9,26 @@ import ChromeAppFoldersContainer from './folders/ChromeAppFoldersContainer';
 import ChromePageFoldersContainer from './folders/ChromePageFoldersContainer';
 import FolderItemEditorContainer from './folders/FolderItemEditorContainer';
 import TopSitesContainer from './folders/TopSitesContainer';
+import SearchContainer from './folders/SearchContainer';
 
 import NetworkStatusContainer from './notifications/NetworkStatusContainer';
 import Preferences from './preferences/Preferences';
 
 class RootContainer extends React.Component {
   static propTypes = {
+    showSearchField: PropTypes.bool.isRequired,
     showBookmarks: PropTypes.bool.isRequired,
     showTopSites: PropTypes.bool.isRequired,
   }
 
   render() {
-    const { showBookmarks, showTopSites } = this.props;
+    const { showSearchField, showBookmarks, showTopSites } = this.props;
     return (
       <div>
         <RootThemeContainer />
         <NetworkStatusContainer />
         <FolderItemEditorContainer />
+        {showSearchField ? <SearchContainer/> : null}
         {showTopSites ? <TopSitesContainer/> : null}
         {showBookmarks ? (
           <div>
@@ -41,6 +44,7 @@ class RootContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  showSearchField: state.appPreference.showSearchField,
   showBookmarks: state.appPreference.showBookmarks,
   showTopSites: state.appPreference.showTopSites,
 });

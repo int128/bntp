@@ -24,6 +24,7 @@ export default class TileFolderItem extends React.Component {
     const { url, icon, badge, canEdit, onLinkClick, children } = this.props;
     return (
       <div className="TileFolderItem">
+        <span className="Tooltip">{url}</span>
         <Link url={url} onClick={e => onLinkClick(e)}>
           <div className="TileFolderItem__Button">
             {badge ?
