@@ -13,3 +13,7 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+.TileFolderItem__ButtonBody {
+  height: 200px;
+}
