@@ -1,25 +1,22 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
+  "name": "BNTP: Bookmarks in New Tab Page",
+  "version": "0.0.0.0",
+  "description": "Lightweight New Tab Page with Bookmarks and Top Sites",
+  "permissions": [
+    "bookmarks",
+    "chrome://favicon/",
+    "topSites",
+    "management"
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "browser_action": {
+    "default_popup": "index.html#popup"
+  },
+  "icons": {
+    "48": "small_tiles.png",
+    "128": "small_tiles_128.png"
+  },
+  "manifest_version": 2
 }
