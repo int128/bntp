@@ -11,8 +11,13 @@ export function TopSites() {
   );
 }
 
+interface TopSite {
+  title: string;
+  url: string;
+}
+
 function useTopSites() {
-  const [topSites, setTopSites] = useState<chrome.topSites.MostVisitedURL[]>([]);
+  const [topSites, setTopSites] = useState<TopSite[]>([]);
   useEffect(() => {
     chrome.topSites.get(results => {
       setTopSites(results);
