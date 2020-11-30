@@ -1,12 +1,34 @@
 import React, { useEffect, useState } from 'react';
 
+import './TopSites.css';
+import './Tip.css';
+
 export function TopSites() {
   const topSites = useTopSites();
   return (
     <div className="TopSites">
-      <ul>
-        {topSites.map((e, i) => <li key={i}><a href={e.url}>{e.title}</a></li>)}
-      </ul>
+      {topSites.map((topSite, i) => <TopSiteComponent key={i} topSite={topSite} />)}
+    </div>
+  );
+}
+
+function TopSiteComponent(props: {topSite: TopSite}) {
+  const favicon = `chrome://favicon/${props.topSite.url}`;
+  return (
+    <div className="TopSiteItem">
+      <div className="FloatTip">
+        <a href={props.topSite.url}>
+          <div className="TopSiteItem__Button">
+            <div className="TopSiteItem__ButtonBody" style={{backgroundImage: `url(${favicon})`}}>
+            </div>
+          </div>
+        </a>
+        <div className="FloatTip__Baloon">
+          <div className="FloatTip__Body">
+            {props.topSite.title}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
