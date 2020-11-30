@@ -20,16 +20,6 @@ export function BookmarkFolders() {
   );
 }
 
-function useBookmarkFolders() {
-  const [bookmarkFolders, setBookmarkFolders] = useState<BookmarkFolder[]>([]);
-  useEffect(() => {
-    chrome.bookmarks.getTree(results => {
-      setBookmarkFolders(flatten(results));
-    });
-  }, []);
-  return bookmarkFolders;
-}
-
 interface BookmarkFolder {
   title: string;
   bookmarks: Bookmark[];
@@ -38,6 +28,29 @@ interface BookmarkFolder {
 interface Bookmark {
   title: string;
   url: string;
+}
+
+function useBookmarkFolders() {
+  const [bookmarkFolders, setBookmarkFolders] = useState<BookmarkFolder[]>([]);
+  useEffect(() => {
+    function handleChange() {
+      chrome.bookmarks.getTree(results => setBookmarkFolders(flatten(results)));
+    }
+    handleChange();
+    chrome.bookmarks.onChanged.addListener(handleChange);
+    chrome.bookmarks.onChildrenReordered.addListener(handleChange);
+    chrome.bookmarks.onCreated.addListener(handleChange);
+    chrome.bookmarks.onMoved.addListener(handleChange);
+    chrome.bookmarks.onRemoved.addListener(handleChange);
+    return () => {
+      chrome.bookmarks.onChanged.removeListener(handleChange);
+      chrome.bookmarks.onChildrenReordered.removeListener(handleChange);
+      chrome.bookmarks.onCreated.removeListener(handleChange);
+      chrome.bookmarks.onMoved.removeListener(handleChange);
+      chrome.bookmarks.onRemoved.removeListener(handleChange);
+    };
+  }, []);
+  return bookmarkFolders;
 }
 
 function flatten(nodes: chrome.bookmarks.BookmarkTreeNode[]): BookmarkFolder[] {
