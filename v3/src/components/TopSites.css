@@ -1,0 +1,46 @@
+.TopSites {
+  --size-folder-margin-y: 3px;
+  --size-folder-margin-x: 15px;
+  --size-folder-margin-y: 5px;
+  --size-folder-padding-x: 15px;
+  --size-folder-padding-y: 5px;
+  --size-folder-item-margin: 5px;
+  --size-folder-item-padding: 5px;
+  --size-folder-item-width: 48px;
+  --size-folder-item-height: 48px;
+  --size-icon: 16px;
+}
+
+.TopSiteItem {
+  display: inline-block;
+  margin-bottom: var(--size-folder-item-margin);
+  margin-right: var(--size-folder-item-margin);
+}
+
+.TopSiteItem__Button {
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  border-radius: 3px;
+  width: var(--size-folder-item-width);
+  height: var(--size-folder-item-height);
+  background-color: var(--palette-3);
+}
+
+.TopSiteItem__Button:hover {
+  background-color: var(--palette-2);
+  box-shadow: 0 0 calc(var(--size-folder-item-margin) * 3) var(--palette-01);
+}
+
+.TopSiteItem__ButtonBody {
+  background-position-x: calc((var(--size-folder-item-width) - var(--size-icon)) / 2);
+  background-position-y: calc((var(--size-folder-item-height) - var(--size-icon)) / 2);
+
+  padding: var(--size-folder-item-padding);
+  min-height: var(--size-folder-item-height);
+  padding-left: calc(var(--size-folder-item-padding) * 2 + var(--size-icon));
+  background-repeat: no-repeat;
+  /* background-image should be given in HTML */
+  background-size: 16px;
+}
