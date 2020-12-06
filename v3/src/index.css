@@ -1,3 +1,6 @@
 body {
   margin: 0;
+
+  background-color: var(--palette-3);
+  color: var(--palette-03);
 }

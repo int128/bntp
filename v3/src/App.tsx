@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 
 import { BookmarkFolders } from './components/BookmarkFolders';
+import { Themes } from './components/Themes';
 import { TopSites } from './components/TopSites';
 
 function App() {
@@ -11,6 +12,8 @@ function App() {
       <TopSites />
       <h2>Bookmarks</h2>
       <BookmarkFolders />
+      <h2>Preferences</h2>
+      <Themes />
     </div>
   );
 }
