@@ -27,13 +27,13 @@
   background-color: var(--palette-2);
 }
 
-.TopSiteItem {
+.TopSite {
   display: inline-block;
   margin-bottom: var(--size-folder-item-margin);
   margin-right: var(--size-folder-item-margin);
 }
 
-.TopSiteItem__Button {
+.TopSite__Button {
   overflow: hidden;
   border-width: 1px;
   border-style: solid;
@@ -44,12 +44,12 @@
   background-color: var(--palette-3);
 }
 
-.TopSiteItem__Button:hover {
+.TopSite__Button:hover {
   background-color: var(--palette-2);
   box-shadow: 0 0 calc(var(--size-folder-item-margin) * 3) var(--palette-01);
 }
 
-.TopSiteItem__ButtonBody {
+.TopSite__ButtonBody {
   background-position-x: calc((var(--size-folder-item-width) - var(--size-icon)) / 2);
   background-position-y: calc((var(--size-folder-item-height) - var(--size-icon)) / 2);
 

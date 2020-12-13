@@ -7,25 +7,25 @@ export function TopSites() {
   const topSites = useTopSites();
   return (
     <div className="TopSites">
-      {topSites.map((topSite, i) => <TopSiteComponent key={i} topSite={topSite} />)}
+      {topSites.map(TopSiteComponent)}
     </div>
   );
 }
 
-function TopSiteComponent(props: {topSite: TopSite}) {
-  const favicon = `chrome://favicon/${props.topSite.url}`;
+function TopSiteComponent(topSite: TopSite, index: number) {
+  const favicon = `chrome://favicon/${topSite.url}`;
   return (
-    <div className="TopSiteItem">
+    <div className="TopSite" key={index}>
       <div className="FloatTip">
-        <a href={props.topSite.url}>
-          <div className="TopSiteItem__Button">
-            <div className="TopSiteItem__ButtonBody" style={{backgroundImage: `url(${favicon})`}}>
+        <a href={topSite.url}>
+          <div className="TopSite__Button">
+            <div className="TopSite__ButtonBody" style={{backgroundImage: `url(${favicon})`}}>
             </div>
           </div>
         </a>
         <div className="FloatTip__Baloon">
           <div className="FloatTip__Body">
-            {props.topSite.title}
+            {topSite.title}
           </div>
         </div>
       </div>
