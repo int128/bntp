@@ -11,6 +11,22 @@
   --size-icon: 16px;
 }
 
+.TopSites {
+  overflow-x: hidden;
+  white-space: nowrap;
+
+  border-radius: 3px;
+  margin-top: var(--size-folder-margin-y);
+  margin-bottom: var(--size-folder-margin-y);
+  margin-left: var(--size-folder-margin-x);
+  margin-right: var(--size-folder-margin-x);
+  padding-top: var(--size-folder-padding-y);
+  padding-bottom: calc(var(--size-folder-padding-y) - var(--size-folder-item-margin));
+  padding-left: var(--size-folder-padding-x);
+  padding-right: calc(var(--size-folder-padding-x) - var(--size-folder-item-margin));
+  background-color: var(--palette-2);
+}
+
 .TopSiteItem {
   display: inline-block;
   margin-bottom: var(--size-folder-item-margin);
