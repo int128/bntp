@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Bookmark, BookmarkFolder } from '../models';
+import { subscribeBookmarks } from '../repositories/Bookmarks';
 
 import './BookmarkFolders.css';
 
@@ -44,61 +46,16 @@ function BookmarkComponent(bookmark: Bookmark, index: number) {
   )
 }
 
-interface BookmarkFolder {
-  title: string;
-  bookmarks: Bookmark[];
-}
-
-interface Bookmark {
-  title: string;
-  url: string;
-}
-
 function useBookmarkFolders() {
   const [bookmarkFolders, setBookmarkFolders] = useState<BookmarkFolder[]>([]);
   useEffect(() => {
-    function handleChange() {
-      chrome.bookmarks.getTree(results => setBookmarkFolders(flatten(results)));
-    }
-    handleChange();
-    chrome.bookmarks.onChanged.addListener(handleChange);
-    chrome.bookmarks.onChildrenReordered.addListener(handleChange);
-    chrome.bookmarks.onCreated.addListener(handleChange);
-    chrome.bookmarks.onMoved.addListener(handleChange);
-    chrome.bookmarks.onRemoved.addListener(handleChange);
+    const subscription = subscribeBookmarks(bookmarkFolders => {
+      setBookmarkFolders(bookmarkFolders);
+    });
+    subscription.refresh();
     return () => {
-      chrome.bookmarks.onChanged.removeListener(handleChange);
-      chrome.bookmarks.onChildrenReordered.removeListener(handleChange);
-      chrome.bookmarks.onCreated.removeListener(handleChange);
-      chrome.bookmarks.onMoved.removeListener(handleChange);
-      chrome.bookmarks.onRemoved.removeListener(handleChange);
+      subscription.unsubscribe();
     };
   }, []);
   return bookmarkFolders;
-}
-
-function flatten(nodes: chrome.bookmarks.BookmarkTreeNode[]): BookmarkFolder[] {
-  return nodes.flatMap(traverse);
-}
-
-function traverse(node: chrome.bookmarks.BookmarkTreeNode, depth = 0): BookmarkFolder[] {
-  if (node.children === undefined) {
-    return []
-  }
-
-  const folderNodes = node.children.filter(child => child.url === undefined);
-  const folders = folderNodes.flatMap(folderNode => traverse(folderNode, depth + 1));
-
-  const bookmarkNodes = node.children.filter(child => child.url !== undefined);
-  if (bookmarkNodes.length > 0) {
-    const folder = {
-      title: node.title,
-      bookmarks: bookmarkNodes.map(b => ({
-        title: b.title,
-        url: b.url || '',
-      })),
-    };
-    return [folder].concat(folders);
-  }
-  return folders;
 }
