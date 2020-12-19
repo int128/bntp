@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import './TopSites.css';
 import './Tip.css';
+import { TopSite } from '../models';
+import { getTopSites } from '../repositories/TopSites';
 
 export function TopSites() {
   const topSites = useTopSites();
@@ -33,17 +35,10 @@ function TopSiteComponent(topSite: TopSite, index: number) {
   );
 }
 
-interface TopSite {
-  title: string;
-  url: string;
-}
-
 function useTopSites() {
   const [topSites, setTopSites] = useState<TopSite[]>([]);
   useEffect(() => {
-    chrome.topSites.get(results => {
-      setTopSites(results);
-    });
+    getTopSites(setTopSites);
   }, []);
   return topSites;
 }

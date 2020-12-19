@@ -8,6 +8,11 @@ export interface Bookmark {
   url: string
 }
 
+export interface TopSite {
+  title: string;
+  url: string;
+}
+
 export interface Subscription {
   refresh(): void
   unsubscribe(): void
