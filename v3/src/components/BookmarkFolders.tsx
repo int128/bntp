@@ -4,7 +4,7 @@ import { subscribeBookmarks } from '../repositories/Bookmarks';
 
 import './BookmarkFolders.css';
 
-export function BookmarkFolders() {
+export const BookmarkFolders: FC = () => {
   const bookmarkFolders = useBookmarkFolders();
   const [collapsedIDs, setCollapsedIDs] = useLocalStorage<string[]>('v3.collapsedBookmarkFolderIDs', []);
   const onExpand = (folder: BookmarkFolder) => {
@@ -47,15 +47,19 @@ const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({ folder, col
           <span className="BookmarkFolder__HeadingText">{folder.title}</span>
         </a>
       </div>
-      {folder.bookmarks.map(BookmarkComponent)}
+      {folder.bookmarks.map((b, i) => <BookmarkComponent key={i} bookmark={b} />)}
     </section>
   )
 }
 
-function BookmarkComponent(bookmark: Bookmark, index: number) {
+interface BookmarkComponentProps {
+  bookmark: Bookmark
+}
+
+const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark }) => {
   const favicon = `chrome://favicon/${bookmark.url}`;
   return (
-    <div className="Bookmark" key={index}>
+    <div className="Bookmark">
       <a href={bookmark.url}>
         <div className="Bookmark__Button">
           {

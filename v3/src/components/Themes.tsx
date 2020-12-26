@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import './Themes.css';
 
-export function Themes() {
+export const Themes: FC = () => {
   const THEMES = ['light', 'dark', 'solarized-light', 'solarized-dark'];
 
   const [selectedTheme, setSelectedTheme] = useLocalStorage('SelectedTheme', THEMES[0]);
