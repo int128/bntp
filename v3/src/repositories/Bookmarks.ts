@@ -38,6 +38,7 @@ function traverse(node: chrome.bookmarks.BookmarkTreeNode, depth = 0): BookmarkF
   const bookmarkNodes = node.children.filter(child => child.url !== undefined);
   if (bookmarkNodes.length > 0) {
     const folder = {
+      id: node.id,
       title: node.title,
       bookmarks: bookmarkNodes.map(b => ({
         title: b.title,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Bookmark, BookmarkFolder } from '../models';
 import { subscribeBookmarks } from '../repositories/Bookmarks';
 
@@ -6,20 +6,47 @@ import './BookmarkFolders.css';
 
 export function BookmarkFolders() {
   const bookmarkFolders = useBookmarkFolders();
+  const [collapsedIDs, setCollapsedIDs] = useLocalStorage<string[]>('v3.collapsedBookmarkFolderIDs', []);
+  const onExpand = (folder: BookmarkFolder) => {
+    setCollapsedIDs(collapsedIDs.filter(id => id !== folder.id));
+  }
+  const onCollapse = (folder: BookmarkFolder) => {
+    setCollapsedIDs([folder.id].concat(collapsedIDs))
+  }
   return (
     <div className="Bookmarks">
-      {bookmarkFolders.map(BookmarkFolderComponent)}
+      {bookmarkFolders.map((f, i) =>
+        <BookmarkFolderComponent key={i} folder={f} collapsedIDs={collapsedIDs} onExpand={onExpand} onCollapse={onCollapse} />)}
     </div>
   );
 }
 
-function BookmarkFolderComponent(folder: BookmarkFolder, index: number) {
-  return (
-    <section className="BookmarkFolder" key={index}>
-      <div className="BookmarkFolder__Heading BookmarkFolder__Heading__Expand">
-        <span className="BookmarkFolder__HeadingText">{folder.title}</span>
-      </div>
+interface BookmarkFolderComponentProps {
+  folder: BookmarkFolder
+  collapsedIDs: string[]
+  onCollapse: (folder: BookmarkFolder) => void
+  onExpand: (folder: BookmarkFolder) => void
+}
 
+const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({ folder, collapsedIDs, onCollapse, onExpand }) => {
+  if (collapsedIDs.includes(folder.id)) {
+    return (
+      <section className="BookmarkFolder">
+        <div className="BookmarkFolder__Heading BookmarkFolder__Heading__Collapsed">
+          <a href="#Expand" onClick={e => { onExpand(folder); e.preventDefault() }}>
+            <span className="BookmarkFolder__HeadingText">{folder.title}</span>
+          </a>
+        </div>
+      </section>
+    )
+  }
+  return (
+    <section className="BookmarkFolder">
+      <div className="BookmarkFolder__Heading BookmarkFolder__Heading__Expand">
+        <a href="#Collapse" onClick={e => { onCollapse(folder); e.preventDefault() }}>
+          <span className="BookmarkFolder__HeadingText">{folder.title}</span>
+        </a>
+      </div>
       {folder.bookmarks.map(BookmarkComponent)}
     </section>
   )
@@ -58,4 +85,39 @@ function useBookmarkFolders() {
     };
   }, []);
   return bookmarkFolders;
+}
+
+function useLocalStorage<T>(localStorageKey: string, initialValue: T): [T, (value: T) => void] {
+  const [storedValue, setStoredValue] = useState<T>(() => {
+    const value = localStorage.getItem(localStorageKey);
+    if (value === null) {
+      return initialValue;
+    }
+    try {
+      return JSON.parse(value);
+    } catch {
+      return initialValue;
+    }
+  });
+
+  useEffect(() => {
+    function handleStorageEvent(e: StorageEvent) {
+      if (e.storageArea === localStorage && e.key === localStorageKey && e.newValue !== null) {
+        try {
+          setStoredValue(JSON.parse(e.newValue));
+        } catch {
+          setStoredValue(initialValue);
+        }
+      }
+    }
+    window.addEventListener('storage', handleStorageEvent);
+    return () => {
+      window.removeEventListener('storage', handleStorageEvent);
+    };
+  }, [setStoredValue, localStorageKey, initialValue]);
+
+  return [storedValue, (value: T) => {
+    setStoredValue(value);
+    localStorage.setItem(localStorageKey, JSON.stringify(value));
+  }];
 }

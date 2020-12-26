@@ -1,4 +1,5 @@
 export interface BookmarkFolder {
+  id: string
   title: string
   bookmarks: Bookmark[]
 }
