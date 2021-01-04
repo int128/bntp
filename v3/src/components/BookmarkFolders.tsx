@@ -1,39 +1,37 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Bookmark, BookmarkFolder } from '../models';
+import { Bookmark, BookmarkFolder, BookmarkFolderPreference, collapseBookmarkFolder, expandBookmarkFolder } from '../models';
 import { subscribeBookmarks } from '../repositories/Bookmarks';
 
 import './BookmarkFolders.css';
 
 export const BookmarkFolders: FC = () => {
   const bookmarkFolders = useBookmarkFolders();
-  const [collapsedIDs, setCollapsedIDs] = useLocalStorage<string[]>('v3.collapsedBookmarkFolderIDs', []);
-  const onExpand = (folder: BookmarkFolder) => {
-    setCollapsedIDs(collapsedIDs.filter(id => id !== folder.id));
-  }
-  const onCollapse = (folder: BookmarkFolder) => {
-    setCollapsedIDs([folder.id].concat(collapsedIDs))
-  }
+  const [preference, setPreference] = useLocalStorage<BookmarkFolderPreference>('v3.bookmarkFolderPreference', { collapsedIDs: [] });
   return (
     <div className="Bookmarks">
       {bookmarkFolders.map((f, i) =>
-        <BookmarkFolderComponent key={i} folder={f} collapsedIDs={collapsedIDs} onExpand={onExpand} onCollapse={onCollapse} />)}
+        <BookmarkFolderComponent key={i} folder={f}
+          collapsed={preference.collapsedIDs.includes(f.id)}
+          onExpand={() => setPreference(expandBookmarkFolder(preference, f.id))}
+          onCollapse={() => setPreference(collapseBookmarkFolder(preference, f.id))}
+        />)}
     </div>
   );
 }
 
 interface BookmarkFolderComponentProps {
   folder: BookmarkFolder
-  collapsedIDs: string[]
-  onCollapse: (folder: BookmarkFolder) => void
-  onExpand: (folder: BookmarkFolder) => void
+  collapsed: boolean
+  onCollapse: () => void
+  onExpand: () => void
 }
 
-const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({ folder, collapsedIDs, onCollapse, onExpand }) => {
-  if (collapsedIDs.includes(folder.id)) {
+const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({ folder, collapsed, onCollapse, onExpand }) => {
+  if (collapsed) {
     return (
       <section className="BookmarkFolder">
         <div className="BookmarkFolder__Heading BookmarkFolder__Heading__Collapsed">
-          <a href="#Expand" onClick={e => { onExpand(folder); e.preventDefault() }}>
+          <a href="#Expand" onClick={e => { onExpand(); e.preventDefault() }}>
             <span className="BookmarkFolder__HeadingText">{folder.title}</span>
           </a>
         </div>
@@ -43,7 +41,7 @@ const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({ folder, col
   return (
     <section className="BookmarkFolder">
       <div className="BookmarkFolder__Heading BookmarkFolder__Heading__Expand">
-        <a href="#Collapse" onClick={e => { onCollapse(folder); e.preventDefault() }}>
+        <a href="#Collapse" onClick={e => { onCollapse(); e.preventDefault() }}>
           <span className="BookmarkFolder__HeadingText">{folder.title}</span>
         </a>
       </div>
