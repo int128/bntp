@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 
-import './TopSites.css';
-import './Tip.css';
-import { TopSite } from '../models';
-import { getTopSites } from '../repositories/TopSites';
+import './component.css';
+import './componentTip.css';
+import { TopSite } from './model';
+import { getTopSites } from './repository';
 
 export const TopSites: FC = () => {
   const topSites = useTopSites();

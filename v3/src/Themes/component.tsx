@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 
-import './Themes.css';
+import './component.css';
 
 export const Themes: FC = () => {
   const THEMES = ['light', 'dark', 'solarized-light', 'solarized-dark'];

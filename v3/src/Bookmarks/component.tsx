@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Bookmark, BookmarkFolder, BookmarkFolderPreference, collapseBookmarkFolder, expandBookmarkFolder } from '../models';
-import { subscribeBookmarks } from '../repositories/Bookmarks';
+import { Bookmark, BookmarkFolder, BookmarkFolderPreference, collapseBookmarkFolder, expandBookmarkFolder } from './model';
+import { subscribeBookmarks } from './repository';
 
-import './BookmarkFolders.css';
+import './component.css';
 
 export const BookmarkFolders: FC = () => {
   const bookmarkFolders = useBookmarkFolders();

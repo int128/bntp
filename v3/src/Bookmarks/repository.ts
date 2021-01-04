@@ -1,4 +1,4 @@
-import { BookmarkFolder, Subscription } from "../models";
+import { BookmarkFolder, Subscription } from "./model";
 
 export function subscribeBookmarks(handler: (bookmarkFolders: BookmarkFolder[]) => void): Subscription {
   function listener() {
