@@ -1,0 +1,33 @@
+.Preferences {
+  --size-preference-item-margin: 3px;
+  --size-preference-item-padding: 10px;
+
+  margin-top: 15px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.Preferences h4 {
+  margin-bottom: var(--size-preference-item-margin);
+}
+
+.Preferences form label,
+.Preferences form button {
+  display: inline-block;
+  font: inherit;
+  color: inherit;
+  margin: var(--size-preference-item-margin);
+  padding: var(--size-preference-item-padding);
+  border-radius: 3px;
+  border: none;
+  background-color: var(--palette-2);
+}
+
+.Preferences form label:hover,
+.Preferences form button:hover {
+  background-color: var(--palette-1);
+}
+
+.Preferences form input {
+  margin-right: var(--size-preference-item-padding);
+}
