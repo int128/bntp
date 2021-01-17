@@ -10,15 +10,16 @@ const {createCompiler} = require('react-dev-utils/WebpackDevServerUtils');
 
 const config = configFactory('development');
 
-// remove webpackDevClientEntry when env is development
-if (config.entry instanceof Array) {
-  config.entry.unshift();
-}
+const devSocket = {
+  warnings: () => {},
+  errors: () => {},
+};
 
 const compiler = createCompiler({
   urls: [],
   useTypeScript: true,
   useYarn: true,
+  devSocket,
   config,
   webpack,
 });
