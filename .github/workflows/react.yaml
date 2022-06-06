@@ -1,0 +1,30 @@
+name: react
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/react.yaml
+      - src/**
+      - package.json
+      - yarn.lock
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/react.yaml
+      - src/**
+      - package.json
+      - yarn.lock
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+      - run: yarn
+      - run: yarn test
