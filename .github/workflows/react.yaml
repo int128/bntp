@@ -28,6 +28,7 @@ jobs:
           cache: yarn
       - run: yarn
       - run: yarn test
+      - run: yarn lint
 
   generate:
     runs-on: ubuntu-latest
