@@ -46,15 +46,15 @@
 }
 
 .Bookmark__ButtonBadge {
-    position: absolute;
-    border-radius: 3px;
-    background-color: var(--palette-2);
-    width: 16px;
-    height: 16px;
-    text-align: center;
-    color: var(--palette-00);
-    margin-top: calc(var(--size-folder-item-height) - 16px - var(--size-folder-item-padding));
-    margin-left: var(--size-folder-item-padding);
+  position: absolute;
+  border-radius: 3px;
+  background-color: var(--palette-2);
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  color: var(--palette-00);
+  margin-top: calc(var(--size-folder-item-height) - 16px - var(--size-folder-item-padding));
+  margin-left: var(--size-folder-item-padding);
 }
 
 .Bookmark__Button {
