@@ -1,4 +1,4 @@
-export type BookmarkFolderID = string;
+export type BookmarkFolderID = string
 
 export interface BookmarkFolder {
   id: BookmarkFolderID
@@ -20,16 +20,22 @@ export interface BookmarkFolderPreference {
   collapsedIDs: BookmarkFolderID[]
 }
 
-export function collapseBookmarkFolder(preferences: BookmarkFolderPreference, id: BookmarkFolderID): BookmarkFolderPreference {
+export function collapseBookmarkFolder(
+  preferences: BookmarkFolderPreference,
+  id: BookmarkFolderID
+): BookmarkFolderPreference {
   return {
     ...preferences,
     collapsedIDs: preferences.collapsedIDs.concat(id),
-  };
+  }
 }
 
-export function expandBookmarkFolder(preferences: BookmarkFolderPreference, id: BookmarkFolderID): BookmarkFolderPreference {
+export function expandBookmarkFolder(
+  preferences: BookmarkFolderPreference,
+  id: BookmarkFolderID
+): BookmarkFolderPreference {
   return {
     ...preferences,
-    collapsedIDs: preferences.collapsedIDs.filter(e => e !== id),
-  };
+    collapsedIDs: preferences.collapsedIDs.filter((e) => e !== id),
+  }
 }

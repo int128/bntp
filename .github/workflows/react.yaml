@@ -28,3 +28,18 @@ jobs:
           cache: yarn
       - run: yarn
       - run: yarn test
+
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+      - run: yarn
+      - run: yarn format
+      - uses: int128/update-generated-files-action@v2

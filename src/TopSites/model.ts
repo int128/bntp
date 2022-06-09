@@ -1,4 +1,4 @@
 export interface TopSite {
-  title: string;
-  url: string;
+  title: string
+  url: string
 }
