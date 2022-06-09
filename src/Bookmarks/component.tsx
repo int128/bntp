@@ -121,7 +121,7 @@ function useLocalStorage<T>(localStorageKey: string, initialValue: T): [T, (valu
       return initialValue
     }
     try {
-      return JSON.parse(value)
+      return JSON.parse(value) as T
     } catch {
       return initialValue
     }
@@ -131,7 +131,7 @@ function useLocalStorage<T>(localStorageKey: string, initialValue: T): [T, (valu
     function handleStorageEvent(e: StorageEvent) {
       if (e.storageArea === localStorage && e.key === localStorageKey && e.newValue !== null) {
         try {
-          setStoredValue(JSON.parse(e.newValue))
+          setStoredValue(JSON.parse(e.newValue) as T)
         } catch {
           setStoredValue(initialValue)
         }
