@@ -20,6 +20,8 @@
     "start": "node scripts/start.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "format": "prettier --write src scripts",
+    "format-check": "prettier --check src scripts",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -42,6 +44,7 @@
   },
   "devDependencies": {
     "@types/chrome": "^0.0.188",
-    "jest-chrome": "^0.7.2"
+    "jest-chrome": "^0.7.2",
+    "prettier": "^2.6.2"
   }
 }
