@@ -26,7 +26,7 @@ const compiler = createCompiler({
 
 compiler.watch({}, () => {
   // sync the static files
-  fs.copySync('public', 'dist', {
+  fs.copySync('public', 'build', {
     dereference: true,
     filter: (f) => f !== 'public/index.html',
   })
