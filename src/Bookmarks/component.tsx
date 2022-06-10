@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import {
   Bookmark,
   BookmarkFolder,
@@ -8,7 +8,8 @@ import {
 } from './model'
 
 import './component.css'
-import { useBookmarkFolders, useLocalStorage } from './hook'
+import { subscribeBookmarks } from './repository'
+import { useLocalStorage } from '../infrastructure/localstorage'
 
 export const BookmarkFolders: FC = () => {
   const bookmarkFolders = useBookmarkFolders()
@@ -98,4 +99,14 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark }) => {
       </div>
     </div>
   )
+}
+
+export const useBookmarkFolders = () => {
+  const [bookmarkFolders, setBookmarkFolders] = useState<BookmarkFolder[]>([])
+  useEffect(() => {
+    const subscription = subscribeBookmarks((bookmarkFolders) => setBookmarkFolders(bookmarkFolders))
+    subscription.refresh()
+    return () => subscription.unsubscribe()
+  }, [])
+  return bookmarkFolders
 }

@@ -1,16 +1,4 @@
 import { useEffect, useState } from 'react'
-import { BookmarkFolder } from './model'
-import { subscribeBookmarks } from './repository'
-
-export const useBookmarkFolders = () => {
-  const [bookmarkFolders, setBookmarkFolders] = useState<BookmarkFolder[]>([])
-  useEffect(() => {
-    const subscription = subscribeBookmarks((bookmarkFolders) => setBookmarkFolders(bookmarkFolders))
-    subscription.refresh()
-    return () => subscription.unsubscribe()
-  }, [])
-  return bookmarkFolders
-}
 
 export const useLocalStorage = <T>(localStorageKey: string, initialValue: T): [T, (value: T) => void] => {
   const [storedValue, setStoredValue] = useState<T>(() => {
