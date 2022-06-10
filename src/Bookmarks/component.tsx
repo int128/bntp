@@ -30,7 +30,7 @@ export const BookmarkFolders: FC = () => {
   )
 }
 
-interface BookmarkFolderComponentProps {
+type BookmarkFolderComponentProps = {
   folder: BookmarkFolder
   collapsed: boolean
   onCollapse: () => void
@@ -75,7 +75,7 @@ const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({ folder, col
   )
 }
 
-interface BookmarkComponentProps {
+type BookmarkComponentProps = {
   bookmark: Bookmark
 }
 

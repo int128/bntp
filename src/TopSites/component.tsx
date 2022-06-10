@@ -16,7 +16,7 @@ export const TopSites: FC = () => {
   )
 }
 
-interface TopSiteComponentProps {
+type TopSiteComponentProps = {
   topSite: TopSite
 }
 
