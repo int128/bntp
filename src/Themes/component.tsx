@@ -28,7 +28,7 @@ export const Themes: FC = () => {
   )
 }
 
-function useLocalStorage(localStorageKey: string, initialValue: string): [string, (value: string) => void] {
+const useLocalStorage = (localStorageKey: string, initialValue: string): [string, (value: string) => void] => {
   const [storedValue, setStoredValue] = useState<string>(() => {
     const value = localStorage.getItem(localStorageKey)
     if (value === null) {
@@ -38,7 +38,7 @@ function useLocalStorage(localStorageKey: string, initialValue: string): [string
   })
 
   useEffect(() => {
-    function handleStorageEvent(e: StorageEvent) {
+    const handleStorageEvent = (e: StorageEvent) => {
       if (e.storageArea === localStorage && e.key === localStorageKey && e.newValue !== null) {
         setStoredValue(e.newValue)
       }

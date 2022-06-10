@@ -20,22 +20,18 @@ export type BookmarkFolderPreference = {
   collapsedIDs: BookmarkFolderID[]
 }
 
-export function collapseBookmarkFolder(
+export const collapseBookmarkFolder = (
   preferences: BookmarkFolderPreference,
   id: BookmarkFolderID
-): BookmarkFolderPreference {
-  return {
-    ...preferences,
-    collapsedIDs: preferences.collapsedIDs.concat(id),
-  }
-}
+): BookmarkFolderPreference => ({
+  ...preferences,
+  collapsedIDs: preferences.collapsedIDs.concat(id),
+})
 
-export function expandBookmarkFolder(
+export const expandBookmarkFolder = (
   preferences: BookmarkFolderPreference,
   id: BookmarkFolderID
-): BookmarkFolderPreference {
-  return {
-    ...preferences,
-    collapsedIDs: preferences.collapsedIDs.filter((e) => e !== id),
-  }
-}
+): BookmarkFolderPreference => ({
+  ...preferences,
+  collapsedIDs: preferences.collapsedIDs.filter((e) => e !== id),
+})
