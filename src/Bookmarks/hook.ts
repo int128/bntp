@@ -5,13 +5,9 @@ import { subscribeBookmarks } from './repository'
 export const useBookmarkFolders = () => {
   const [bookmarkFolders, setBookmarkFolders] = useState<BookmarkFolder[]>([])
   useEffect(() => {
-    const subscription = subscribeBookmarks((bookmarkFolders) => {
-      setBookmarkFolders(bookmarkFolders)
-    })
+    const subscription = subscribeBookmarks((bookmarkFolders) => setBookmarkFolders(bookmarkFolders))
     subscription.refresh()
-    return () => {
-      subscription.unsubscribe()
-    }
+    return () => subscription.unsubscribe()
   }, [])
   return bookmarkFolders
 }
@@ -40,9 +36,7 @@ export const useLocalStorage = <T>(localStorageKey: string, initialValue: T): [T
       }
     }
     window.addEventListener('storage', handleStorageEvent)
-    return () => {
-      window.removeEventListener('storage', handleStorageEvent)
-    }
+    return () => window.removeEventListener('storage', handleStorageEvent)
   }, [setStoredValue, localStorageKey, initialValue])
 
   return [

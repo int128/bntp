@@ -40,8 +40,6 @@ const TopSiteComponent: FC<TopSiteComponentProps> = ({ topSite }) => {
 
 const useTopSites = () => {
   const [topSites, setTopSites] = useState<TopSite[]>([])
-  useEffect(() => {
-    getTopSites(setTopSites)
-  }, [])
+  useEffect(() => getTopSites(setTopSites), [])
   return topSites
 }
