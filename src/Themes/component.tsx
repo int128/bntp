@@ -44,9 +44,7 @@ const useLocalStorage = (localStorageKey: string, initialValue: string): [string
       }
     }
     window.addEventListener('storage', handleStorageEvent)
-    return () => {
-      window.removeEventListener('storage', handleStorageEvent)
-    }
+    return () => window.removeEventListener('storage', handleStorageEvent)
   }, [setStoredValue, localStorageKey])
 
   return [
