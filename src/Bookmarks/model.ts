@@ -1,41 +1,37 @@
 export type BookmarkFolderID = string
 
-export interface BookmarkFolder {
+export type BookmarkFolder = {
   id: BookmarkFolderID
   title: string
   bookmarks: Bookmark[]
 }
 
-export interface Bookmark {
+export type Bookmark = {
   title: string
   url: string
 }
 
-export interface Subscription {
+export type Subscription = {
   refresh(): void
   unsubscribe(): void
 }
 
-export interface BookmarkFolderPreference {
+export type BookmarkFolderPreference = {
   collapsedIDs: BookmarkFolderID[]
 }
 
-export function collapseBookmarkFolder(
+export const collapseBookmarkFolder = (
   preferences: BookmarkFolderPreference,
   id: BookmarkFolderID
-): BookmarkFolderPreference {
-  return {
-    ...preferences,
-    collapsedIDs: preferences.collapsedIDs.concat(id),
-  }
-}
+): BookmarkFolderPreference => ({
+  ...preferences,
+  collapsedIDs: preferences.collapsedIDs.concat(id),
+})
 
-export function expandBookmarkFolder(
+export const expandBookmarkFolder = (
   preferences: BookmarkFolderPreference,
   id: BookmarkFolderID
-): BookmarkFolderPreference {
-  return {
-    ...preferences,
-    collapsedIDs: preferences.collapsedIDs.filter((e) => e !== id),
-  }
-}
+): BookmarkFolderPreference => ({
+  ...preferences,
+  collapsedIDs: preferences.collapsedIDs.filter((e) => e !== id),
+})

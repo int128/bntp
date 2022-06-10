@@ -1,4 +1,4 @@
-export interface TopSite {
+export type TopSite = {
   title: string
   url: string
 }

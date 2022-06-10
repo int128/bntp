@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import './component.css'
 import './componentTip.css'
@@ -16,7 +16,7 @@ export const TopSites: FC = () => {
   )
 }
 
-interface TopSiteComponentProps {
+type TopSiteComponentProps = {
   topSite: TopSite
 }
 
@@ -38,7 +38,7 @@ const TopSiteComponent: FC<TopSiteComponentProps> = ({ topSite }) => {
   )
 }
 
-function useTopSites() {
+const useTopSites = () => {
   const [topSites, setTopSites] = useState<TopSite[]>([])
   useEffect(() => {
     getTopSites(setTopSites)
