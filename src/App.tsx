@@ -1,4 +1,3 @@
-import React from 'react'
 import './App.css'
 
 import { BookmarkFolders } from './Bookmarks/component'
