@@ -16,7 +16,7 @@ You can add it by the following steps:
 
 1. Open the Chrome Extensions page.
 1. Click "Load unpacked" button.
-1. Select `/dist` directory.
+1. Select `/build` directory.
 1. Open a new tab.
 
 ### `yarn test`
