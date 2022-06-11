@@ -1,5 +1,7 @@
 describe('empty spec', () => {
   it('passes', () => {
-    cy.visit('https://example.cypress.io')
+    cy.window().then((window) => {
+      window.location.href = 'chrome-extension://mkiipdhclnnejkpfpplmjmnoildlghmb/index.html'
+    })
   })
 })
