@@ -35,3 +35,34 @@ export const expandBookmarkFolder = (
   ...preferences,
   collapsedIDs: preferences.collapsedIDs.filter((e) => e !== id),
 })
+
+export const chromePages: BookmarkFolder = {
+  id: 'Chrome',
+  title: 'Chrome Pages',
+  bookmarks: [
+    {
+      title: 'Bookmarks',
+      url: 'chrome://bookmarks',
+    },
+    {
+      title: 'Downloads',
+      url: 'chrome://downloads',
+    },
+    {
+      title: 'Apps',
+      url: 'chrome://apps',
+    },
+    {
+      title: 'Plugins',
+      url: 'chrome://plugins',
+    },
+    {
+      title: 'Settings',
+      url: 'chrome://settings',
+    },
+    {
+      title: 'Internals',
+      url: 'chrome://about',
+    },
+  ],
+}
