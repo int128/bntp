@@ -6,7 +6,7 @@ export const getManifest = (): Manifest => {
   if (chrome.runtime === undefined) {
     return {
       id: 'id',
-      name: 'bntp',
+      name: 'BNTP: Bookmarks in New Tab Page',
       version: '1.0.0',
       manifest_version: 2,
     }
