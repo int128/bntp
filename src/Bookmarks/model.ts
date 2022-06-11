@@ -53,10 +53,6 @@ export const chromePages: BookmarkFolder = {
       url: 'chrome://apps',
     },
     {
-      title: 'Plugins',
-      url: 'chrome://plugins',
-    },
-    {
       title: 'Settings',
       url: 'chrome://settings',
     },
