@@ -27,3 +27,8 @@ jobs:
       - uses: cypress-io/github-action@v4
         with:
           component: true
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: screenshots
+          path: cypress/screenshots
