@@ -1,0 +1,29 @@
+name: cypress
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/cypress.yaml
+      - src/**
+      - cypress/**
+      - package.json
+      - yarn.lock
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/cypress.yaml
+      - src/**
+      - cypress/**
+      - package.json
+      - yarn.lock
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cypress-io/github-action@v4
+        with:
+          component: true
