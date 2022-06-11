@@ -3,8 +3,12 @@ import { BookmarkFolder, Subscription } from './model'
 export const subscribeBookmarks = (handler: (bookmarkFolders: BookmarkFolder[]) => void): Subscription => {
   if (chrome.bookmarks === undefined) {
     return {
-      refresh() { return },
-      unsubscribe() { return },
+      refresh() {
+        return
+      },
+      unsubscribe() {
+        return
+      },
     }
   }
 
