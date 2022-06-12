@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import { getManifest } from './repository'
 
-export const Manifest: FC = () => {
+const ManifestComponent: FC = () => {
   const [manifest] = useState(getManifest())
   return (
     <div>
@@ -15,3 +15,5 @@ export const Manifest: FC = () => {
     </div>
   )
 }
+
+export default ManifestComponent

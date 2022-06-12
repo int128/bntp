@@ -11,7 +11,7 @@ import './component.css'
 import { subscribeBookmarks } from './repository'
 import { useLocalStorage } from '../infrastructure/localstorage'
 
-export const BookmarkFolders: FC = () => {
+const BookmarkFoldersComponent: FC = () => {
   const bookmarkFolders = useBookmarkFolders()
   const [preference, setPreference] = useLocalStorage<BookmarkFolderPreference>('v3.bookmarkFolderPreference', {
     collapsedIDs: [],
@@ -30,6 +30,8 @@ export const BookmarkFolders: FC = () => {
     </div>
   )
 }
+
+export default BookmarkFoldersComponent
 
 type BookmarkFolderComponentProps = {
   folder: BookmarkFolder

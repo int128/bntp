@@ -3,7 +3,7 @@ import { useLocalStorage } from '../infrastructure/localstorage'
 
 import './component.css'
 
-export const Themes: FC = () => {
+const ThemesComponent: FC = () => {
   const THEMES = ['light', 'dark', 'solarized-light', 'solarized-dark']
 
   const [selectedTheme, setSelectedTheme] = useLocalStorage<string>('SelectedTheme', THEMES[0])
@@ -28,3 +28,5 @@ export const Themes: FC = () => {
     </div>
   )
 }
+
+export default ThemesComponent
