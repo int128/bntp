@@ -5,7 +5,7 @@ import './componentTip.css'
 import { TopSite } from './model'
 import { getTopSites } from './repository'
 
-export const TopSites: FC = () => {
+const TopSitesComponent: FC = () => {
   const topSites = useTopSites()
   return (
     <div className="TopSites">
@@ -15,6 +15,8 @@ export const TopSites: FC = () => {
     </div>
   )
 }
+
+export default TopSitesComponent
 
 type TopSiteComponentProps = {
   topSite: TopSite
