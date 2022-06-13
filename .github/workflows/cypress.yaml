@@ -28,11 +28,10 @@ jobs:
         with:
           component: true
       - uses: int128/upload-artifact-wiki-action@v0
-        id: upload-artifact-wiki-action
+        id: upload-artifact-wiki
         with:
           path: cypress/screenshots/**/*.png
       - uses: int128/comment-action@v1
         with:
           post: |
-            ## Screenshot
             <img width="512" src="${{ steps.upload-artifact-wiki.outputs.url }}/cypress/screenshots/App.cy.tsx/App%20--%20mounts.png">
