@@ -27,7 +27,7 @@ jobs:
       - uses: cypress-io/github-action@v4
         with:
           component: true
-      - uses: int128/upload-artifact-wiki-action@v1
+      - uses: int128/upload-artifact-wiki-action@v0
         id: upload-artifact-wiki-action
         with:
           path: cypress/screenshots/**/*.png
