@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, ReactElement, useEffect, useState } from 'react'
 import {
   Bookmark,
   BookmarkFolder,
@@ -11,7 +11,7 @@ import './component.css'
 import { subscribeBookmarks } from './repository'
 import { useLocalStorage } from '../infrastructure/localstorage'
 
-export const BookmarkFolders: FC = () => {
+const BookmarkFoldersComponent: FC = () => {
   const bookmarkFolders = useBookmarkFolders()
   const [preference, setPreference] = useLocalStorage<BookmarkFolderPreference>('v3.bookmarkFolderPreference', {
     collapsedIDs: [],
@@ -30,6 +30,8 @@ export const BookmarkFolders: FC = () => {
     </div>
   )
 }
+
+export default BookmarkFoldersComponent
 
 type BookmarkFolderComponentProps = {
   folder: BookmarkFolder
@@ -84,7 +86,7 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark }) => {
   const favicon = `chrome://favicon/${bookmark.url}`
   return (
     <div className="Bookmark">
-      <a href={bookmark.url}>
+      <Link href={bookmark.url}>
         <div className="Bookmark__Button">
           {
             //<div className="Bookmark__ButtonBadge">A</div>
@@ -93,12 +95,35 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark }) => {
             {bookmark.title}
           </div>
         </div>
-      </a>
+      </Link>
       <div className="Bookmark__EditButton">
         <a href="#edit">&hellip;</a>
       </div>
     </div>
   )
+}
+
+type LinkProps = {
+  href: string
+  children: ReactElement
+}
+
+const Link: FC<LinkProps> = ({ href, children }) => {
+  // handle the special links
+  if (href.match(/^(chrome|file|javascript):/)) {
+    return (
+      <a
+        href={href}
+        onClick={(e) => {
+          e.preventDefault()
+          void chrome.tabs.create({ url: href })
+        }}
+      >
+        {children}
+      </a>
+    )
+  }
+  return <a href={href}>{children}</a>
 }
 
 export const useBookmarkFolders = () => {

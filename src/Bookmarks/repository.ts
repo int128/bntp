@@ -1,4 +1,4 @@
-import { BookmarkFolder, Subscription } from './model'
+import { BookmarkFolder, chromePages, Subscription } from './model'
 
 export const subscribeBookmarks = (handler: (bookmarkFolders: BookmarkFolder[]) => void): Subscription => {
   if (chrome.bookmarks === undefined) {
@@ -12,7 +12,7 @@ export const subscribeBookmarks = (handler: (bookmarkFolders: BookmarkFolder[]) 
     }
   }
 
-  const listener = () => chrome.bookmarks.getTree((tree) => handler(flatten(tree)))
+  const listener = () => chrome.bookmarks.getTree((tree) => handler(transformBookmarks(tree)))
   chrome.bookmarks.onChanged.addListener(listener)
   chrome.bookmarks.onChildrenReordered.addListener(listener)
   chrome.bookmarks.onCreated.addListener(listener)
@@ -30,6 +30,12 @@ export const subscribeBookmarks = (handler: (bookmarkFolders: BookmarkFolder[]) 
       chrome.bookmarks.onRemoved.removeListener(listener)
     },
   }
+}
+
+const transformBookmarks = (nodes: chrome.bookmarks.BookmarkTreeNode[]): BookmarkFolder[] => {
+  const folders = flatten(nodes)
+  folders.push(chromePages)
+  return folders
 }
 
 const flatten = (nodes: chrome.bookmarks.BookmarkTreeNode[]): BookmarkFolder[] => nodes.flatMap(traverse)
