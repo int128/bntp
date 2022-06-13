@@ -27,8 +27,12 @@ jobs:
       - uses: cypress-io/github-action@v4
         with:
           component: true
-      - uses: actions/upload-artifact@v3
-        if: always()
+      - uses: int128/upload-artifact-wiki-action@v1
+        id: upload-artifact-wiki-action
         with:
-          name: screenshots
-          path: cypress/screenshots
+          path: cypress/screenshots/**/*.png
+      - uses: int128/comment-action@v1
+        with:
+          post: |
+            ## Screenshot
+            <img width="512" src="${{ steps.upload-artifact-wiki.outputs.url }}/cypress/screenshots/App.cy.tsx/App%20--%20mounts.png">
