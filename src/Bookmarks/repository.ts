@@ -1,6 +1,17 @@
 import { BookmarkFolder, chromePages, Subscription } from './model'
 
 export const subscribeBookmarks = (handler: (bookmarkFolders: BookmarkFolder[]) => void): Subscription => {
+  if (chrome.bookmarks === undefined) {
+    return {
+      refresh() {
+        return
+      },
+      unsubscribe() {
+        return
+      },
+    }
+  }
+
   const listener = () => chrome.bookmarks.getTree((tree) => handler(transformBookmarks(tree)))
   chrome.bookmarks.onChanged.addListener(listener)
   chrome.bookmarks.onChildrenReordered.addListener(listener)

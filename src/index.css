@@ -3,6 +3,8 @@ body {
 
   background-color: var(--palette-3);
   color: var(--palette-03);
+
+  font-family: sans-serif;
 }
 
 a {
