@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react'
 import { useLocalStorage } from '../infrastructure/localstorage'
-import { Toggles } from './model'
+import { defaultToggles, Toggles } from './model'
 
 export type TogglesChangeHandler = {
   onTogglesChange: (toggles: Toggles) => void
@@ -9,15 +9,20 @@ export type TogglesChangeHandler = {
 type TogglesProps = TogglesChangeHandler
 
 const TogglesComponent: FC<TogglesProps> = ({ onTogglesChange }) => {
-  const [toggles, setToggles] = useLocalStorage<Toggles>('v3.toggles', {
-    bookmarks: true,
-    topSites: true,
-  })
+  const [toggles, setToggles] = useLocalStorage<Toggles>('v3.toggles', defaultToggles)
   useEffect(() => {
     onTogglesChange(toggles)
   })
   return (
     <div>
+      <label>
+        <input
+          type="checkbox"
+          checked={toggles.indent}
+          onChange={(e) => setToggles({ ...toggles, indent: e.target.checked })}
+        />
+        Indent
+      </label>
       <label>
         <input
           type="checkbox"
