@@ -23,9 +23,8 @@ const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ indent })
   return (
     <div className="Bookmarks">
       {bookmarkFolders.map((f, i) => (
-        <div style={{ marginLeft: indent ? f.depth * 80 : undefined }}>
+        <div key={i} style={{ marginLeft: indent ? f.depth * 80 : undefined }}>
           <BookmarkFolderComponent
-            key={i}
             folder={f}
             collapsed={preference.collapsedIDs.includes(f.id)}
             onExpand={() => setPreference(expandBookmarkFolder(preference, f.id))}
