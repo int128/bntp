@@ -2,6 +2,7 @@ export type BookmarkFolderID = string
 
 export type BookmarkFolder = {
   id: BookmarkFolderID
+  depth: number
   title: string
   bookmarks: Bookmark[]
 }
@@ -38,6 +39,7 @@ export const expandBookmarkFolder = (
 
 export const chromePages: BookmarkFolder = {
   id: 'Chrome',
+  depth: 0,
   title: 'Chrome Pages',
   bookmarks: [
     {

@@ -11,7 +11,11 @@ import './component.css'
 import { subscribeBookmarks } from './repository'
 import { useLocalStorage } from '../infrastructure/localstorage'
 
-const BookmarkFoldersComponent: FC = () => {
+type BookmarkFoldersComponentProps = {
+  indent: boolean
+}
+
+const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ indent }) => {
   const bookmarkFolders = useBookmarkFolders()
   const [preference, setPreference] = useLocalStorage<BookmarkFolderPreference>('v3.bookmarkFolderPreference', {
     collapsedIDs: [],
@@ -19,13 +23,14 @@ const BookmarkFoldersComponent: FC = () => {
   return (
     <div className="Bookmarks">
       {bookmarkFolders.map((f, i) => (
-        <BookmarkFolderComponent
-          key={i}
-          folder={f}
-          collapsed={preference.collapsedIDs.includes(f.id)}
-          onExpand={() => setPreference(expandBookmarkFolder(preference, f.id))}
-          onCollapse={() => setPreference(collapseBookmarkFolder(preference, f.id))}
-        />
+        <div key={i} style={{ marginLeft: indent ? f.depth * 80 : undefined }}>
+          <BookmarkFolderComponent
+            folder={f}
+            collapsed={preference.collapsedIDs.includes(f.id)}
+            onExpand={() => setPreference(expandBookmarkFolder(preference, f.id))}
+            onCollapse={() => setPreference(collapseBookmarkFolder(preference, f.id))}
+          />
+        </div>
       ))}
     </div>
   )

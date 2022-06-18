@@ -44,21 +44,24 @@ const traverse = (node: chrome.bookmarks.BookmarkTreeNode, depth = 0): BookmarkF
   if (node.children === undefined) {
     return []
   }
-
   const folderNodes = node.children.filter((child) => child.url === undefined)
-  const folders = folderNodes.flatMap((folderNode) => traverse(folderNode, depth + 1))
-
   const bookmarkNodes = node.children.filter((child) => child.url !== undefined)
-  if (bookmarkNodes.length > 0) {
-    const folder = {
-      id: node.id,
-      title: node.title,
-      bookmarks: bookmarkNodes.map((b) => ({
-        title: b.title,
-        url: b.url || '',
-      })),
-    }
-    return [folder].concat(folders)
+
+  if (bookmarkNodes.length === 0) {
+    return folderNodes.flatMap((folderNode) => traverse(folderNode, depth))
   }
-  return folders
+
+  const bookmarks = bookmarkNodes.map((b) => ({
+    title: b.title,
+    url: b.url || '',
+  }))
+  const folder = {
+    id: node.id,
+    depth,
+    title: node.title,
+    bookmarks,
+  }
+
+  const folders = folderNodes.flatMap((folderNode) => traverse(folderNode, depth + 1))
+  return [folder, ...folders]
 }
