@@ -10,6 +10,23 @@ import {
 import './component.css'
 import { subscribeBookmarks } from './repository'
 import { useLocalStorage } from '../infrastructure/localstorage'
+import BookmarkEditor from '../BookmarkEditor/component'
+
+type BookmarksComponentProps = {
+  indent: boolean
+}
+
+const BookmarksComponent: FC<BookmarksComponentProps> = ({ indent }) => {
+  const [editingBookmark, setEditingBookmark] = useState<Bookmark>()
+  return (
+    <div>
+      <BookmarkFoldersComponent indent={indent} onEditClick={setEditingBookmark} />
+      <BookmarkEditor bookmark={editingBookmark} onRequestClose={() => setEditingBookmark(undefined)} />
+    </div>
+  )
+}
+
+export default BookmarksComponent
 
 type BookmarkFoldersComponentProps = {
   indent: boolean
@@ -37,8 +54,6 @@ const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ indent, o
     </div>
   )
 }
-
-export default BookmarkFoldersComponent
 
 type BookmarkFolderComponentProps = {
   folder: BookmarkFolder
