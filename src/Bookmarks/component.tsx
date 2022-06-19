@@ -13,9 +13,10 @@ import { useLocalStorage } from '../infrastructure/localstorage'
 
 type BookmarkFoldersComponentProps = {
   indent: boolean
+  onEditClick: (bookmark: Bookmark) => void
 }
 
-const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ indent }) => {
+const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ indent, onEditClick }) => {
   const bookmarkFolders = useBookmarkFolders()
   const [preference, setPreference] = useLocalStorage<BookmarkFolderPreference>('v3.bookmarkFolderPreference', {
     collapsedIDs: [],
@@ -29,6 +30,7 @@ const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ indent })
             collapsed={preference.collapsedIDs.includes(f.id)}
             onExpand={() => setPreference(expandBookmarkFolder(preference, f.id))}
             onCollapse={() => setPreference(collapseBookmarkFolder(preference, f.id))}
+            onEditClick={onEditClick}
           />
         </div>
       ))}
@@ -43,9 +45,16 @@ type BookmarkFolderComponentProps = {
   collapsed: boolean
   onCollapse: () => void
   onExpand: () => void
+  onEditClick: (bookmark: Bookmark) => void
 }
 
-const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({ folder, collapsed, onCollapse, onExpand }) => {
+const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({
+  folder,
+  collapsed,
+  onCollapse,
+  onExpand,
+  onEditClick,
+}) => {
   if (collapsed) {
     return (
       <section className="BookmarkFolder">
@@ -77,7 +86,7 @@ const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({ folder, col
         </a>
       </div>
       {folder.bookmarks.map((b, i) => (
-        <BookmarkComponent key={i} bookmark={b} />
+        <BookmarkComponent key={i} bookmark={b} onEditClick={onEditClick} />
       ))}
     </section>
   )
@@ -85,9 +94,10 @@ const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({ folder, col
 
 type BookmarkComponentProps = {
   bookmark: Bookmark
+  onEditClick: (bookmark: Bookmark) => void
 }
 
-const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark }) => {
+const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, onEditClick }) => {
   const favicon = `chrome://favicon/${bookmark.url}`
   return (
     <div className="Bookmark">
@@ -102,7 +112,15 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark }) => {
         </div>
       </Link>
       <div className="Bookmark__EditButton">
-        <a href="#edit">&hellip;</a>
+        <a
+          href="#Edit"
+          onClick={(e) => {
+            onEditClick(bookmark)
+            e.preventDefault()
+          }}
+        >
+          &hellip;
+        </a>
       </div>
     </div>
   )

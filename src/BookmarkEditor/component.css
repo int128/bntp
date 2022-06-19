@@ -1,0 +1,78 @@
+.BookmarkEditor__Modal {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.BookmarkEditor__Overlay {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.BookmarkEditor__Form {
+  margin: 32px;
+  background-color: var(--palette-3);
+  padding: 16px;
+  border-radius: 4px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+.BookmarkEditor__TextInput,
+.BookmarkEditor__UrlInput {
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 8px;
+  border-radius: 4px;
+  color: inherit;
+  background-color: var(--palette-2);
+  border: none;
+}
+
+.BookmarkEditor__UrlInput {
+  padding-left: 32px;
+  background-position-x: 8px;
+  background-position-y: 8px;
+  background-repeat: no-repeat;
+}
+
+.BookmarkEditor__Button {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 8px;
+  border-radius: 4px;
+  color: inherit;
+  background-color: var(--palette-2);
+  border: none;
+}
+
+.BookmarkEditor__Button:hover {
+  background-color: var(--palette-1);
+}
+
+.BookmarkEditor__Message {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 8px;
+  color: var(--palette-03);
+}
+
+.BookmarkEditor__ClearFix {
+  clear: both;
+}
+
+.BookmarkEditor__Left {
+  float: left;
+}
+
+.BookmarkEditor__Right {
+  float: right;
+}
