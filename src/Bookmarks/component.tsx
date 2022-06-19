@@ -21,7 +21,11 @@ const BookmarksComponent: FC<BookmarksComponentProps> = ({ indent }) => {
   return (
     <div>
       <BookmarkFoldersComponent indent={indent} onEditClick={setEditingBookmark} />
-      <BookmarkEditor bookmark={editingBookmark} onRequestClose={() => setEditingBookmark(undefined)} />
+      <BookmarkEditor
+        bookmark={editingBookmark}
+        onChange={setEditingBookmark}
+        onRequestClose={() => setEditingBookmark(undefined)}
+      />
     </div>
   )
 }

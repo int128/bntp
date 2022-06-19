@@ -1,4 +1,4 @@
-import { BookmarkFolder, chromePages, Subscription } from './model'
+import { Bookmark, BookmarkFolder, chromePages, Subscription } from './model'
 
 export const subscribeBookmarks = (handler: (bookmarkFolders: BookmarkFolder[]) => void): Subscription => {
   if (chrome.bookmarks === undefined) {
@@ -12,6 +12,7 @@ export const subscribeBookmarks = (handler: (bookmarkFolders: BookmarkFolder[]) 
     }
   }
 
+  // TODO: use promise in chrome manifest v3
   const listener = () => chrome.bookmarks.getTree((tree) => handler(transformBookmarks(tree)))
   chrome.bookmarks.onChanged.addListener(listener)
   chrome.bookmarks.onChildrenReordered.addListener(listener)
@@ -52,6 +53,7 @@ const traverse = (node: chrome.bookmarks.BookmarkTreeNode, depth = 0): BookmarkF
   }
 
   const bookmarks = bookmarkNodes.map((b) => ({
+    id: b.id,
     title: b.title,
     url: b.url || '',
   }))
@@ -65,3 +67,12 @@ const traverse = (node: chrome.bookmarks.BookmarkTreeNode, depth = 0): BookmarkF
   const folders = folderNodes.flatMap((folderNode) => traverse(folderNode, depth + 1))
   return [folder, ...folders]
 }
+
+export const updateBookmark = async (bookmark: Bookmark): Promise<void> =>
+  new Promise((resolve) => {
+    if (bookmark.id === undefined) {
+      return
+    }
+    // TODO: use promise in chrome manifest v3
+    chrome.bookmarks.update(bookmark.id, { url: bookmark.url, title: bookmark.title }, () => resolve())
+  })

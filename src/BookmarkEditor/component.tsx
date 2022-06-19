@@ -1,14 +1,16 @@
 import { FC } from 'react'
 import { Bookmark } from '../Bookmarks/model'
+import { updateBookmark } from '../Bookmarks/repository'
 
 import './component.css'
 
 type BookmarkEditorComponentProps = {
   bookmark?: Bookmark
+  onChange: (bookmark: Bookmark) => void
   onRequestClose: () => void
 }
 
-const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ bookmark, onRequestClose }) => {
+const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ bookmark, onChange, onRequestClose }) => {
   if (bookmark === undefined) {
     return null
   }
@@ -17,15 +19,14 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ bookmark, o
       <div className="BookmarkEditor__Modal">
         <FormComponent
           bookmark={bookmark}
-          onSubmit={() => {
-            onRequestClose()
-          }}
+          onChange={onChange}
+          onSubmit={() => void updateBookmark(bookmark).then(() => onRequestClose())}
           onRemove={() => {
             onRequestClose()
           }}
         />
       </div>
-      <div className="BookmarkEditor__Overlay" onClick={onRequestClose} />
+      <div className="BookmarkEditor__Overlay" onClick={() => onRequestClose()} />
     </div>
   )
 }
@@ -34,11 +35,12 @@ export default BookmarkEditorComponent
 
 type FormComponentProps = {
   bookmark: Bookmark
+  onChange: (bookmark: Bookmark) => void
   onSubmit: () => void
   onRemove: () => void
 }
 
-const FormComponent: FC<FormComponentProps> = ({ bookmark, onSubmit, onRemove }) => {
+const FormComponent: FC<FormComponentProps> = ({ bookmark, onChange, onSubmit, onRemove }) => {
   const favicon = `chrome://favicon/${bookmark.url}`
   return (
     <form
@@ -49,14 +51,20 @@ const FormComponent: FC<FormComponentProps> = ({ bookmark, onSubmit, onRemove })
       }}
     >
       <div>
-        <input type="text" defaultValue={bookmark.title} className="BookmarkEditor__TextInput" />
+        <input
+          type="text"
+          value={bookmark.title}
+          className="BookmarkEditor__TextInput"
+          onChange={(e) => onChange({ ...bookmark, title: e.target.value })}
+        />
       </div>
       <div>
         <input
           type="text"
-          defaultValue={bookmark.url}
+          value={bookmark.url}
           className="BookmarkEditor__UrlInput"
           style={{ backgroundImage: `url(${favicon})` }}
+          onChange={(e) => onChange({ ...bookmark, url: e.target.value })}
         />
       </div>
       <div>
