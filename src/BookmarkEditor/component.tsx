@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Bookmark } from '../Bookmarks/model'
-import { updateBookmark } from '../Bookmarks/repository'
+import { removeBookmark, updateBookmark } from '../Bookmarks/repository'
 
 import './component.css'
 
@@ -21,9 +21,7 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ bookmark, o
           bookmark={bookmark}
           onChange={onChange}
           onSubmit={() => void updateBookmark(bookmark).then(() => onRequestClose())}
-          onRemove={() => {
-            onRequestClose()
-          }}
+          onRemove={() => void removeBookmark(bookmark).then(() => onRequestClose())}
         />
       </div>
       <div className="BookmarkEditor__Overlay" onClick={() => onRequestClose()} />

@@ -76,3 +76,12 @@ export const updateBookmark = async (bookmark: Bookmark): Promise<void> =>
     // TODO: use promise in chrome manifest v3
     chrome.bookmarks.update(bookmark.id, { url: bookmark.url, title: bookmark.title }, () => resolve())
   })
+
+export const removeBookmark = async (bookmark: Bookmark): Promise<void> =>
+  new Promise((resolve) => {
+    if (bookmark.id === undefined) {
+      return
+    }
+    // TODO: use promise in chrome manifest v3
+    chrome.bookmarks.remove(bookmark.id, () => resolve())
+  })
