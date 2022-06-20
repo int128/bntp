@@ -19,7 +19,7 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ bookmark, o
       <div className="BookmarkEditor__Modal">
         <FormComponent
           bookmark={bookmark}
-          onChange={onChange}
+          onChange={() => onChange()}
           onSubmit={() => void updateBookmark(bookmark).then(() => onRequestClose())}
           onRemove={() => void removeBookmark(bookmark).then(() => onRequestClose())}
         />
@@ -68,7 +68,7 @@ const FormComponent: FC<FormComponentProps> = ({ bookmark, onChange, onSubmit, o
       <div>
         <input
           type="text"
-          defaultValue={undefined /* message */}
+          value={undefined /* TODO */}
           maxLength={1}
           className="BookmarkEditor__TextInput"
           placeholder="Shortcut Key (not assigned)"
@@ -76,7 +76,7 @@ const FormComponent: FC<FormComponentProps> = ({ bookmark, onChange, onSubmit, o
       </div>
       <div>
         <input type="submit" value="Update" className="BookmarkEditor__Button BookmarkEditor__Left" />
-        <div className="BookmarkEditor__Message BookmarkEditor__Left">{/* message */}</div>
+        <div className="BookmarkEditor__Message BookmarkEditor__Left">{/* TODO: error message */}</div>
         <input
           type="button"
           value="Remove"
