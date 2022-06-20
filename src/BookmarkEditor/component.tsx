@@ -19,7 +19,7 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ bookmark, o
       <div className="BookmarkEditor__Modal">
         <FormComponent
           bookmark={bookmark}
-          onChange={() => onChange()}
+          onChange={() => onChange(bookmark)}
           onSubmit={() => void updateBookmark(bookmark).then(() => onRequestClose())}
           onRemove={() => void removeBookmark(bookmark).then(() => onRequestClose())}
         />
