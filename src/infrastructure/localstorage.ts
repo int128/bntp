@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 
 type LocalStorageSpec<T> = {
-  key: string,
-  initialValue: T,
-  stringify: (value: T) => string,
+  key: string
+  initialValue: T
+  stringify: (value: T) => string
   parse: (stored: string) => T
 }
 
