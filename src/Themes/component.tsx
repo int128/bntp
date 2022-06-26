@@ -3,10 +3,10 @@ import { useLocalStorage } from '../infrastructure/localstorage'
 
 import './component.css'
 
-const ThemesComponent: FC = () => {
-  const THEMES = ['light', 'dark', 'solarized-light', 'solarized-dark']
+const THEMES = ['light', 'dark', 'solarized-light', 'solarized-dark']
 
-  const [selectedTheme, setSelectedTheme] = useLocalStorage<string>('SelectedTheme', THEMES[0])
+const ThemesComponent: FC = () => {
+  const [selectedTheme, setSelectedTheme] = useSelectedTheme()
   useEffect(() => {
     document.documentElement.className = `Theme__${selectedTheme}`
   })
@@ -30,3 +30,11 @@ const ThemesComponent: FC = () => {
 }
 
 export default ThemesComponent
+
+const useSelectedTheme = () =>
+  useLocalStorage({
+    key: 'v3.selectedTheme',
+    initialValue: THEMES[0],
+    parse: (value: string) => value,
+    stringify: (stored: string) => stored,
+  })

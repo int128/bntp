@@ -39,9 +39,7 @@ type BookmarkFoldersComponentProps = {
 
 const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ indent, onEditClick }) => {
   const bookmarkFolders = useBookmarkFolders()
-  const [preference, setPreference] = useLocalStorage<BookmarkFolderPreference>('v3.bookmarkFolderPreference', {
-    collapsedIDs: [],
-  })
+  const [preference, setPreference] = useBookmarkFolderPreference()
   return (
     <div className="Bookmarks">
       {bookmarkFolders.map((f, i) => (
@@ -58,6 +56,14 @@ const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ indent, o
     </div>
   )
 }
+
+const useBookmarkFolderPreference = () =>
+  useLocalStorage<BookmarkFolderPreference>({
+    key: 'v3.bookmarkFolderPreference',
+    initialValue: { collapsedIDs: [] },
+    parse: (stored: string) => JSON.parse(stored) as BookmarkFolderPreference,
+    stringify: (value: BookmarkFolderPreference) => JSON.stringify(value),
+  })
 
 type BookmarkFolderComponentProps = {
   folder: BookmarkFolder

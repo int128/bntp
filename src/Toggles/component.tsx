@@ -9,7 +9,7 @@ export type TogglesChangeHandler = {
 type TogglesProps = TogglesChangeHandler
 
 const TogglesComponent: FC<TogglesProps> = ({ onTogglesChange }) => {
-  const [toggles, setToggles] = useLocalStorage<Toggles>('v3.toggles', defaultToggles)
+  const [toggles, setToggles] = useToggles()
   useEffect(() => {
     onTogglesChange(toggles)
   })
@@ -44,3 +44,11 @@ const TogglesComponent: FC<TogglesProps> = ({ onTogglesChange }) => {
 }
 
 export default TogglesComponent
+
+const useToggles = () =>
+  useLocalStorage<Toggles>({
+    key: 'v3.toggles',
+    initialValue: defaultToggles,
+    parse: (stored: string) => JSON.parse(stored) as Toggles,
+    stringify: (value: Toggles) => JSON.stringify(value),
+  })
