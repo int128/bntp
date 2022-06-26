@@ -1,37 +1,48 @@
 import { useEffect, useState } from 'react'
 
-export const useLocalStorage = <T>(localStorageKey: string, initialValue: T): [T, (value: T) => void] => {
+type LocalStorageSpec<T> = {
+  key: string
+  initialValue: T
+  stringify: (value: T) => string
+  parse: (stored: string) => T
+}
+
+export const useLocalStorage = <T>(spec: LocalStorageSpec<T>): [T, (value: T) => void] => {
   const [storedValue, setStoredValue] = useState<T>(() => {
-    const value = localStorage.getItem(localStorageKey)
+    const value = localStorage.getItem(spec.key)
     if (value === null) {
-      return initialValue
+      return spec.initialValue
     }
     try {
-      return JSON.parse(value) as T
-    } catch {
-      return initialValue
+      return spec.parse(value)
+    } catch (e) {
+      console.warn(e)
+      return spec.initialValue
     }
   })
 
   useEffect(() => {
     const handleStorageEvent = (e: StorageEvent) => {
-      if (e.storageArea === localStorage && e.key === localStorageKey && e.newValue !== null) {
+      if (e.storageArea === localStorage && e.key === spec.key && e.newValue !== null) {
+        let value
         try {
-          setStoredValue(JSON.parse(e.newValue) as T)
-        } catch {
-          setStoredValue(initialValue)
+          value = spec.parse(e.newValue)
+        } catch (e) {
+          console.warn(e)
+          value = spec.initialValue
         }
+        setStoredValue(value)
       }
     }
     window.addEventListener('storage', handleStorageEvent)
     return () => window.removeEventListener('storage', handleStorageEvent)
-  }, [setStoredValue, localStorageKey, initialValue])
+  }, [setStoredValue, spec])
 
   return [
     storedValue,
     (value: T) => {
       setStoredValue(value)
-      localStorage.setItem(localStorageKey, JSON.stringify(value))
+      localStorage.setItem(spec.key, spec.stringify(value))
     },
   ]
 }
