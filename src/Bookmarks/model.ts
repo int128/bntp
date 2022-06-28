@@ -7,10 +7,13 @@ export type BookmarkFolder = {
   bookmarks: Bookmark[]
 }
 
+export type BookmarkID = string
+
 export type Bookmark = {
-  id?: string
+  id?: BookmarkID
   title: string
   url: string
+  accessKey?: string
 }
 
 export class BookmarkFolderIDs {
@@ -23,6 +26,16 @@ export class BookmarkFolderIDs {
   contains = (id: BookmarkFolderID): boolean => this.ids.indexOf(id) !== -1
   add = (id: BookmarkFolderID) => new BookmarkFolderIDs([...this.ids, id])
   remove = (id: BookmarkFolderID) => new BookmarkFolderIDs(this.ids.filter((e) => e !== id))
+}
+
+export class AccessKeyMap {
+  keys: Map<string, BookmarkID>
+
+  constructor(keys: Map<string, BookmarkID>) {
+    this.keys = keys
+  }
+
+  get = (key: string): BookmarkID | undefined => this.keys.get(key)
 }
 
 export const chromePages: BookmarkFolder = {

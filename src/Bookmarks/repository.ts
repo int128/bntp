@@ -1,34 +1,52 @@
 import { useEffect, useState } from 'react'
 import { useLocalStorage } from '../infrastructure/localstorage'
-import { Bookmark, BookmarkFolder, chromePages, BookmarkFolderIDs } from './model'
+import { Bookmark, BookmarkFolder, chromePages, BookmarkFolderIDs, AccessKeyMap } from './model'
 
 export const useBookmarkFolders = () => {
   const [bookmarkFolders, setBookmarkFolders] = useState<BookmarkFolder[]>([])
+  const [accessKeyMap, setAccessKeyMap] = useAccessKeyMap()
   useEffect(() => {
-    void getBookmarks().then(setBookmarkFolders)
-    return subscribeBookmarks(setBookmarkFolders)
-  }, [])
+    void getBookmarks(accessKeyMap).then(setBookmarkFolders)
+    return subscribeBookmarks(setBookmarkFolders, accessKeyMap)
+  }, [accessKeyMap])
   return bookmarkFolders
 }
 
-const getBookmarks = async (): Promise<BookmarkFolder[]> =>
+const useAccessKeyMap = () =>
+  useLocalStorage<AccessKeyMap>({
+    key: 'v3.bookmarkAccessKeys',
+    initialValue: new AccessKeyMap(new Map()),
+    parse: (stored: string): AccessKeyMap => {
+      const p = JSON.parse(stored) as unknown
+      if (Array.isArray(p)) {
+        return new AccessKeyMap(new Map(p))
+      }
+      throw new Error(`invalid JSON: ${stored}`)
+    },
+    stringify: (value: AccessKeyMap) => JSON.stringify(value),
+  })
+
+const getBookmarks = async (accessKeyMap: AccessKeyMap): Promise<BookmarkFolder[]> =>
   new Promise((resolve) => {
     if (chrome.bookmarks === undefined) {
       return
     }
     // TODO: use promise in chrome manifest v3
     chrome.bookmarks.getTree((tree) => {
-      const bookmarks = transformBookmarks(tree)
+      const bookmarks = transformBookmarks(tree, accessKeyMap)
       resolve(bookmarks)
     })
   })
 
-const subscribeBookmarks = (handler: (bookmarkFolders: BookmarkFolder[]) => void): (() => void) => {
+const subscribeBookmarks = (
+  handler: (bookmarkFolders: BookmarkFolder[]) => void,
+  accessKeyMap: AccessKeyMap
+): (() => void) => {
   if (chrome.bookmarks === undefined) {
     return () => undefined
   }
 
-  const listener = () => void getBookmarks().then(handler)
+  const listener = () => void getBookmarks(accessKeyMap).then(handler)
   chrome.bookmarks.onChanged.addListener(listener)
   chrome.bookmarks.onChildrenReordered.addListener(listener)
   chrome.bookmarks.onCreated.addListener(listener)
@@ -43,15 +61,16 @@ const subscribeBookmarks = (handler: (bookmarkFolders: BookmarkFolder[]) => void
   }
 }
 
-const transformBookmarks = (nodes: chrome.bookmarks.BookmarkTreeNode[]): BookmarkFolder[] => {
-  const folders = flatten(nodes)
+const transformBookmarks = (
+  nodes: chrome.bookmarks.BookmarkTreeNode[],
+  accessKeyMap: AccessKeyMap
+): BookmarkFolder[] => {
+  const folders = nodes.flatMap((node) => traverse(node, accessKeyMap))
   folders.push(chromePages)
   return folders
 }
 
-const flatten = (nodes: chrome.bookmarks.BookmarkTreeNode[]): BookmarkFolder[] => nodes.flatMap(traverse)
-
-const traverse = (node: chrome.bookmarks.BookmarkTreeNode, depth = 0): BookmarkFolder[] => {
+const traverse = (node: chrome.bookmarks.BookmarkTreeNode, accessKeyMap: AccessKeyMap, depth = 0): BookmarkFolder[] => {
   if (node.children === undefined) {
     return []
   }
@@ -59,13 +78,14 @@ const traverse = (node: chrome.bookmarks.BookmarkTreeNode, depth = 0): BookmarkF
   const bookmarkNodes = node.children.filter((child) => child.url !== undefined)
 
   if (bookmarkNodes.length === 0) {
-    return folderNodes.flatMap((folderNode) => traverse(folderNode, depth))
+    return folderNodes.flatMap((folderNode) => traverse(folderNode, accessKeyMap, depth))
   }
 
-  const bookmarks = bookmarkNodes.map((b) => ({
+  const bookmarks: Bookmark[] = bookmarkNodes.map((b) => ({
     id: b.id,
     title: b.title,
     url: b.url || '',
+    accessKey: accessKeyMap.get(b.id),
   }))
   const folder = {
     id: node.id,
@@ -74,7 +94,7 @@ const traverse = (node: chrome.bookmarks.BookmarkTreeNode, depth = 0): BookmarkF
     bookmarks,
   }
 
-  const folders = folderNodes.flatMap((folderNode) => traverse(folderNode, depth + 1))
+  const folders = folderNodes.flatMap((folderNode) => traverse(folderNode, accessKeyMap, depth + 1))
   return [folder, ...folders]
 }
 
