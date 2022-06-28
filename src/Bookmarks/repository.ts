@@ -1,4 +1,5 @@
-import { Bookmark, BookmarkFolder, chromePages, Subscription } from './model'
+import { useLocalStorage } from '../infrastructure/localstorage'
+import { Bookmark, BookmarkFolder, chromePages, BookmarkFolderIDs, Subscription } from './model'
 
 export const subscribeBookmarks = (handler: (bookmarkFolders: BookmarkFolder[]) => void): Subscription => {
   if (chrome.bookmarks === undefined) {
@@ -84,4 +85,18 @@ export const removeBookmark = async (bookmark: Bookmark): Promise<void> =>
     }
     // TODO: use promise in chrome manifest v3
     chrome.bookmarks.remove(bookmark.id, () => resolve())
+  })
+
+export const useCollapsedBookmarkFolderIDs = () =>
+  useLocalStorage<BookmarkFolderIDs>({
+    key: 'v3.collapsedBookmarkFolderIDs',
+    initialValue: new BookmarkFolderIDs(),
+    parse: (stored: string): BookmarkFolderIDs => {
+      const p = JSON.parse(stored) as unknown
+      if (Array.isArray(p)) {
+        return new BookmarkFolderIDs(p as string[])
+      }
+      throw new Error(`invalid JSON: ${stored}`)
+    },
+    stringify: (value: BookmarkFolderIDs) => JSON.stringify(value.ids),
   })

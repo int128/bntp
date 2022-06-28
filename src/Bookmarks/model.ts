@@ -18,25 +18,17 @@ export type Subscription = {
   unsubscribe(): void
 }
 
-export type BookmarkFolderPreference = {
-  collapsedIDs: BookmarkFolderID[]
+export class BookmarkFolderIDs {
+  ids: readonly BookmarkFolderID[]
+
+  constructor(ids: BookmarkFolderID[] = []) {
+    this.ids = ids
+  }
+
+  contains = (id: BookmarkFolderID): boolean => this.ids.indexOf(id) !== -1
+  add = (id: BookmarkFolderID) => new BookmarkFolderIDs([...this.ids, id])
+  remove = (id: BookmarkFolderID) => new BookmarkFolderIDs(this.ids.filter((e) => e !== id))
 }
-
-export const collapseBookmarkFolder = (
-  preferences: BookmarkFolderPreference,
-  id: BookmarkFolderID
-): BookmarkFolderPreference => ({
-  ...preferences,
-  collapsedIDs: preferences.collapsedIDs.concat(id),
-})
-
-export const expandBookmarkFolder = (
-  preferences: BookmarkFolderPreference,
-  id: BookmarkFolderID
-): BookmarkFolderPreference => ({
-  ...preferences,
-  collapsedIDs: preferences.collapsedIDs.filter((e) => e !== id),
-})
 
 export const chromePages: BookmarkFolder = {
   id: 'Chrome',

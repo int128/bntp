@@ -1,15 +1,8 @@
 import { FC, ReactElement, useEffect, useState } from 'react'
-import {
-  Bookmark,
-  BookmarkFolder,
-  BookmarkFolderPreference,
-  collapseBookmarkFolder,
-  expandBookmarkFolder,
-} from './model'
+import { Bookmark, BookmarkFolder } from './model'
 
 import './component.css'
-import { subscribeBookmarks } from './repository'
-import { useLocalStorage } from '../infrastructure/localstorage'
+import { subscribeBookmarks, useCollapsedBookmarkFolderIDs } from './repository'
 import BookmarkEditor from '../BookmarkEditor/component'
 
 type BookmarksComponentProps = {
@@ -39,16 +32,16 @@ type BookmarkFoldersComponentProps = {
 
 const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ indent, onEditClick }) => {
   const bookmarkFolders = useBookmarkFolders()
-  const [preference, setPreference] = useBookmarkFolderPreference()
+  const [collapsedBookmarkFolderIDs, setCollapsedBookmarkFolderIDs] = useCollapsedBookmarkFolderIDs()
   return (
     <div className="Bookmarks">
       {bookmarkFolders.map((f, i) => (
         <div key={i} style={{ marginLeft: indent ? f.depth * 80 : undefined }}>
           <BookmarkFolderComponent
             folder={f}
-            collapsed={preference.collapsedIDs.includes(f.id)}
-            onExpand={() => setPreference(expandBookmarkFolder(preference, f.id))}
-            onCollapse={() => setPreference(collapseBookmarkFolder(preference, f.id))}
+            collapsed={collapsedBookmarkFolderIDs.contains(f.id)}
+            onExpand={() => setCollapsedBookmarkFolderIDs(collapsedBookmarkFolderIDs.remove(f.id))}
+            onCollapse={() => setCollapsedBookmarkFolderIDs(collapsedBookmarkFolderIDs.add(f.id))}
             onEditClick={onEditClick}
           />
         </div>
@@ -56,14 +49,6 @@ const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ indent, o
     </div>
   )
 }
-
-const useBookmarkFolderPreference = () =>
-  useLocalStorage<BookmarkFolderPreference>({
-    key: 'v3.bookmarkFolderPreference',
-    initialValue: { collapsedIDs: [] },
-    parse: (stored: string) => JSON.parse(stored) as BookmarkFolderPreference,
-    stringify: (value: BookmarkFolderPreference) => JSON.stringify(value),
-  })
 
 type BookmarkFolderComponentProps = {
   folder: BookmarkFolder
