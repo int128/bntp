@@ -9,7 +9,7 @@ const ThemesComponent: FC = () => {
   const [selectedTheme, setSelectedTheme] = useSelectedTheme(THEMES[0])
   useEffect(() => {
     document.documentElement.className = `Theme__${selectedTheme}`
-  })
+  }, [selectedTheme])
 
   return (
     <div>
