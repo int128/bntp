@@ -1,36 +1,35 @@
 import { useLocalStorage } from '../infrastructure/localstorage'
-import { Bookmark, BookmarkFolder, chromePages, BookmarkFolderIDs, Subscription } from './model'
+import { Bookmark, BookmarkFolder, chromePages, BookmarkFolderIDs } from './model'
 
-export const subscribeBookmarks = (handler: (bookmarkFolders: BookmarkFolder[]) => void): Subscription => {
-  if (chrome.bookmarks === undefined) {
-    return {
-      refresh() {
-        return
-      },
-      unsubscribe() {
-        return
-      },
+export const getBookmarks = async (): Promise<BookmarkFolder[]> =>
+  new Promise((resolve) => {
+    if (chrome.bookmarks === undefined) {
+      return
     }
+    // TODO: use promise in chrome manifest v3
+    chrome.bookmarks.getTree((tree) => {
+      const bookmarks = transformBookmarks(tree)
+      resolve(bookmarks)
+    })
+  })
+
+export const subscribeBookmarks = (handler: (bookmarkFolders: BookmarkFolder[]) => void): (() => void) => {
+  if (chrome.bookmarks === undefined) {
+    return () => undefined
   }
 
-  // TODO: use promise in chrome manifest v3
-  const listener = () => chrome.bookmarks.getTree((tree) => handler(transformBookmarks(tree)))
+  const listener = () => void getBookmarks().then(handler)
   chrome.bookmarks.onChanged.addListener(listener)
   chrome.bookmarks.onChildrenReordered.addListener(listener)
   chrome.bookmarks.onCreated.addListener(listener)
   chrome.bookmarks.onMoved.addListener(listener)
   chrome.bookmarks.onRemoved.addListener(listener)
-  return {
-    refresh() {
-      listener()
-    },
-    unsubscribe() {
-      chrome.bookmarks.onChanged.removeListener(listener)
-      chrome.bookmarks.onChildrenReordered.removeListener(listener)
-      chrome.bookmarks.onCreated.removeListener(listener)
-      chrome.bookmarks.onMoved.removeListener(listener)
-      chrome.bookmarks.onRemoved.removeListener(listener)
-    },
+  return () => {
+    chrome.bookmarks.onChanged.removeListener(listener)
+    chrome.bookmarks.onChildrenReordered.removeListener(listener)
+    chrome.bookmarks.onCreated.removeListener(listener)
+    chrome.bookmarks.onMoved.removeListener(listener)
+    chrome.bookmarks.onRemoved.removeListener(listener)
   }
 }
 

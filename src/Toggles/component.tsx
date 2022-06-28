@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import { Toggles } from './model'
 import { useToggles } from './repository'
 
@@ -10,9 +10,7 @@ type TogglesProps = TogglesChangeHandler
 
 const TogglesComponent: FC<TogglesProps> = ({ onTogglesChange }) => {
   const [toggles, setToggles] = useToggles()
-  useEffect(() => {
-    onTogglesChange(toggles)
-  }, [toggles, onTogglesChange])
+  onTogglesChange(toggles)
   return (
     <div>
       <label>

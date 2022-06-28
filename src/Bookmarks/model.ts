@@ -13,11 +13,6 @@ export type Bookmark = {
   url: string
 }
 
-export type Subscription = {
-  refresh(): void
-  unsubscribe(): void
-}
-
 export class BookmarkFolderIDs {
   ids: readonly BookmarkFolderID[]
 
