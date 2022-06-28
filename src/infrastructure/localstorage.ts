@@ -21,22 +21,20 @@ export const useLocalStorage = <T>(spec: LocalStorageSpec<T>): [T, (value: T) =>
     }
   })
 
-  useEffect(() => {
-    const handleStorageEvent = (e: StorageEvent) => {
-      if (e.storageArea === localStorage && e.key === spec.key && e.newValue !== null) {
+  useEffect(
+    () =>
+      subscribeLocalStorage(spec.key, (newValue: string) => {
         let value
         try {
-          value = spec.parse(e.newValue)
+          value = spec.parse(newValue)
         } catch (e) {
           console.warn(e)
           value = spec.initialValue
         }
         setStoredValue(value)
-      }
-    }
-    window.addEventListener('storage', handleStorageEvent)
-    return () => window.removeEventListener('storage', handleStorageEvent)
-  }, [setStoredValue, spec])
+      }),
+    [setStoredValue, spec]
+  )
 
   return [
     storedValue,
@@ -45,4 +43,14 @@ export const useLocalStorage = <T>(spec: LocalStorageSpec<T>): [T, (value: T) =>
       localStorage.setItem(spec.key, spec.stringify(value))
     },
   ]
+}
+
+const subscribeLocalStorage = (key: string, handler: (newValue: string) => void): (() => void) => {
+  const listener = (e: StorageEvent) => {
+    if (e.storageArea === localStorage && e.key === key && e.newValue !== null) {
+      handler(e.newValue)
+    }
+  }
+  window.addEventListener('storage', listener)
+  return () => window.removeEventListener('storage', listener)
 }
