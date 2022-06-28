@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@types/chrome": "0.0.191",
-    "cypress": "10.2.0",
+    "cypress": "10.3.0",
     "jest-chrome": "0.7.2",
     "prettier": "2.7.1"
   }
