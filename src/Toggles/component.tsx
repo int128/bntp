@@ -12,7 +12,7 @@ const TogglesComponent: FC<TogglesProps> = ({ onTogglesChange }) => {
   const [toggles, setToggles] = useToggles()
   useEffect(() => {
     onTogglesChange(toggles)
-  })
+  }, [toggles, onTogglesChange])
   return (
     <div>
       <label>

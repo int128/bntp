@@ -162,7 +162,7 @@ const Link: FC<LinkProps> = ({ href, children }) => {
 export const useBookmarkFolders = () => {
   const [bookmarkFolders, setBookmarkFolders] = useState<BookmarkFolder[]>([])
   useEffect(() => {
-    const subscription = subscribeBookmarks((bookmarkFolders) => setBookmarkFolders(bookmarkFolders))
+    const subscription = subscribeBookmarks(setBookmarkFolders)
     subscription.refresh()
     return () => subscription.unsubscribe()
   }, [])
