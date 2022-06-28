@@ -1,9 +1,9 @@
-import { FC, ReactElement, useEffect, useState } from 'react'
+import { FC, ReactElement, useState } from 'react'
 import { Bookmark, BookmarkFolder } from './model'
+import { useBookmarkFolders, useCollapsedBookmarkFolderIDs } from './repository'
+import BookmarkEditor from '../BookmarkEditor/component'
 
 import './component.css'
-import { getBookmarks, subscribeBookmarks, useCollapsedBookmarkFolderIDs } from './repository'
-import BookmarkEditor from '../BookmarkEditor/component'
 
 type BookmarksComponentProps = {
   indent: boolean
@@ -48,13 +48,6 @@ const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ indent, o
       ))}
     </div>
   )
-}
-
-export const useBookmarkFolders = () => {
-  const [bookmarkFolders, setBookmarkFolders] = useState<BookmarkFolder[]>([])
-  void getBookmarks().then(setBookmarkFolders)
-  useEffect(() => subscribeBookmarks(setBookmarkFolders), [])
-  return bookmarkFolders
 }
 
 type BookmarkFolderComponentProps = {

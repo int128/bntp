@@ -1,7 +1,15 @@
+import { useEffect, useState } from 'react'
 import { useLocalStorage } from '../infrastructure/localstorage'
 import { Bookmark, BookmarkFolder, chromePages, BookmarkFolderIDs } from './model'
 
-export const getBookmarks = async (): Promise<BookmarkFolder[]> =>
+export const useBookmarkFolders = () => {
+  const [bookmarkFolders, setBookmarkFolders] = useState<BookmarkFolder[]>([])
+  void getBookmarks().then(setBookmarkFolders)
+  useEffect(() => subscribeBookmarks(setBookmarkFolders), [])
+  return bookmarkFolders
+}
+
+const getBookmarks = async (): Promise<BookmarkFolder[]> =>
   new Promise((resolve) => {
     if (chrome.bookmarks === undefined) {
       return
@@ -13,7 +21,7 @@ export const getBookmarks = async (): Promise<BookmarkFolder[]> =>
     })
   })
 
-export const subscribeBookmarks = (handler: (bookmarkFolders: BookmarkFolder[]) => void): (() => void) => {
+const subscribeBookmarks = (handler: (bookmarkFolders: BookmarkFolder[]) => void): (() => void) => {
   if (chrome.bookmarks === undefined) {
     return () => undefined
   }
