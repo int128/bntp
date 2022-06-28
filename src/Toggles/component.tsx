@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react'
-import { useLocalStorage } from '../infrastructure/localstorage'
-import { defaultToggles, Toggles } from './model'
+import { Toggles } from './model'
+import { useToggles } from './repository'
 
 export type TogglesChangeHandler = {
   onTogglesChange: (toggles: Toggles) => void
@@ -44,11 +44,3 @@ const TogglesComponent: FC<TogglesProps> = ({ onTogglesChange }) => {
 }
 
 export default TogglesComponent
-
-const useToggles = () =>
-  useLocalStorage<Toggles>({
-    key: 'v3.toggles',
-    initialValue: defaultToggles,
-    parse: (stored: string) => JSON.parse(stored) as Toggles,
-    stringify: (value: Toggles) => JSON.stringify(value),
-  })
