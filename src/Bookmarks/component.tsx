@@ -2,7 +2,7 @@ import { FC, ReactElement, useEffect, useState } from 'react'
 import { Bookmark, BookmarkFolder } from './model'
 
 import './component.css'
-import { subscribeBookmarks, useCollapsedBookmarkFolderIDs } from './repository'
+import { getBookmarks, subscribeBookmarks, useCollapsedBookmarkFolderIDs } from './repository'
 import BookmarkEditor from '../BookmarkEditor/component'
 
 type BookmarksComponentProps = {
@@ -48,6 +48,13 @@ const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ indent, o
       ))}
     </div>
   )
+}
+
+export const useBookmarkFolders = () => {
+  const [bookmarkFolders, setBookmarkFolders] = useState<BookmarkFolder[]>([])
+  void getBookmarks().then(setBookmarkFolders)
+  useEffect(() => subscribeBookmarks(setBookmarkFolders), [])
+  return bookmarkFolders
 }
 
 type BookmarkFolderComponentProps = {
@@ -157,14 +164,4 @@ const Link: FC<LinkProps> = ({ href, children }) => {
     )
   }
   return <a href={href}>{children}</a>
-}
-
-export const useBookmarkFolders = () => {
-  const [bookmarkFolders, setBookmarkFolders] = useState<BookmarkFolder[]>([])
-  useEffect(() => {
-    const subscription = subscribeBookmarks(setBookmarkFolders)
-    subscription.refresh()
-    return () => subscription.unsubscribe()
-  }, [])
-  return bookmarkFolders
 }
