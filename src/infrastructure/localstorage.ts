@@ -21,20 +21,18 @@ export const useLocalStorage = <T>(spec: LocalStorageSpec<T>): [T, (value: T) =>
     }
   })
 
-  useEffect(
-    () =>
-      subscribeLocalStorage(spec.key, (newValue: string) => {
-        let value
-        try {
-          value = spec.parse(newValue)
-        } catch (e) {
-          console.warn(e)
-          value = spec.initialValue
-        }
-        setStoredValue(value)
-      }),
-    [setStoredValue, spec]
-  )
+  useEffect(() => {
+    return subscribeLocalStorage(spec.key, (rawValue: string) => {
+      let value
+      try {
+        value = spec.parse(rawValue)
+      } catch (e) {
+        console.warn(e)
+        value = spec.initialValue
+      }
+      setStoredValue(value)
+    })
+  }, [spec])
 
   return [
     storedValue,
