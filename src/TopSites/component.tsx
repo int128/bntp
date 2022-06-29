@@ -1,9 +1,9 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
+import { TopSite } from './model'
+import { useTopSites } from './repository'
 
 import './component.css'
 import './componentTip.css'
-import { TopSite } from './model'
-import { getTopSites } from './repository'
 
 const TopSitesComponent: FC = () => {
   const topSites = useTopSites()
@@ -38,10 +38,4 @@ const TopSiteComponent: FC<TopSiteComponentProps> = ({ topSite }) => {
       </div>
     </div>
   )
-}
-
-const useTopSites = () => {
-  const [topSites, setTopSites] = useState<TopSite[]>([])
-  void getTopSites().then(setTopSites)
-  return topSites
 }

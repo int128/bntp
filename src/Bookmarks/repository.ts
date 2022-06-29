@@ -4,8 +4,10 @@ import { Bookmark, BookmarkFolder, chromePages, BookmarkFolderIDs } from './mode
 
 export const useBookmarkFolders = () => {
   const [bookmarkFolders, setBookmarkFolders] = useState<BookmarkFolder[]>([])
-  void getBookmarks().then(setBookmarkFolders)
-  useEffect(() => subscribeBookmarks(setBookmarkFolders), [])
+  useEffect(() => {
+    void getBookmarks().then(setBookmarkFolders)
+    return subscribeBookmarks(setBookmarkFolders)
+  }, [])
   return bookmarkFolders
 }
 
