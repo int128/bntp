@@ -39,9 +39,9 @@ const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ indent, o
         <div key={i} style={{ marginLeft: indent ? f.depth * 80 : undefined }}>
           <BookmarkFolderComponent
             folder={f}
-            collapsed={collapsedBookmarkFolderIDs.contains(f.id)}
-            onExpand={() => setCollapsedBookmarkFolderIDs(collapsedBookmarkFolderIDs.remove(f.id))}
-            onCollapse={() => setCollapsedBookmarkFolderIDs(collapsedBookmarkFolderIDs.add(f.id))}
+            collapsed={collapsedBookmarkFolderIDs.some((id) => id === f.id)}
+            onExpand={() => setCollapsedBookmarkFolderIDs(collapsedBookmarkFolderIDs.filter((id) => id !== f.id))}
+            onCollapse={() => setCollapsedBookmarkFolderIDs([...collapsedBookmarkFolderIDs, f.id])}
             onEditClick={onEditClick}
           />
         </div>

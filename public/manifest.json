@@ -6,7 +6,8 @@
     "bookmarks",
     "chrome://favicon/",
     "topSites",
-    "management"
+    "management",
+    "storage"
   ],
   "chrome_url_overrides": {
     "newtab": "index.html"

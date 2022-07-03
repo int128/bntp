@@ -13,18 +13,6 @@ export type Bookmark = {
   url: string
 }
 
-export class BookmarkFolderIDs {
-  ids: readonly BookmarkFolderID[]
-
-  constructor(ids: BookmarkFolderID[] = []) {
-    this.ids = ids
-  }
-
-  contains = (id: BookmarkFolderID): boolean => this.ids.indexOf(id) !== -1
-  add = (id: BookmarkFolderID) => new BookmarkFolderIDs([...this.ids, id])
-  remove = (id: BookmarkFolderID) => new BookmarkFolderIDs(this.ids.filter((e) => e !== id))
-}
-
 export const chromePages: BookmarkFolder = {
   id: 'Chrome',
   depth: 0,

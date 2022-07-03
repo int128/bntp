@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useLocalStorage } from '../infrastructure/localstorage'
-import { Bookmark, BookmarkFolder, chromePages, BookmarkFolderIDs } from './model'
+import { useChromeStorage } from '../infrastructure/chromeStorage'
+import { Bookmark, BookmarkFolder, chromePages, BookmarkFolderID } from './model'
 
 export const useBookmarkFolders = () => {
   const [bookmarkFolders, setBookmarkFolders] = useState<BookmarkFolder[]>([])
@@ -97,15 +97,13 @@ export const removeBookmark = async (bookmark: Bookmark): Promise<void> =>
   })
 
 export const useCollapsedBookmarkFolderIDs = () =>
-  useLocalStorage<BookmarkFolderIDs>({
+  useChromeStorage<BookmarkFolderID[]>({
+    areaName: 'sync',
     key: 'v3.collapsedBookmarkFolderIDs',
-    initialValue: new BookmarkFolderIDs(),
-    parse: (stored: string): BookmarkFolderIDs => {
-      const p = JSON.parse(stored) as unknown
-      if (Array.isArray(p)) {
-        return new BookmarkFolderIDs(p as string[])
+    initialValue: [],
+    assertType: (value: unknown) => {
+      if (!Array.isArray(value)) {
+        throw new Error('value is not array')
       }
-      throw new Error(`invalid JSON: ${stored}`)
     },
-    stringify: (value: BookmarkFolderIDs) => JSON.stringify(value.ids),
   })

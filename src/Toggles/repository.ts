@@ -1,16 +1,14 @@
-import { useLocalStorage } from '../infrastructure/localstorage'
+import { useChromeStorage } from '../infrastructure/chromeStorage'
 import { defaultToggles, Toggles } from './model'
 
 export const useToggles = () =>
-  useLocalStorage<Toggles>({
+  useChromeStorage<Toggles>({
+    areaName: 'sync',
     key: 'v3.toggles',
     initialValue: defaultToggles,
-    parse: (stored: string): Toggles => {
-      const p = JSON.parse(stored) as unknown
-      if (typeof p === 'object') {
-        return p as Toggles
+    assertType: (value: unknown) => {
+      if (typeof value !== 'object' || value === null) {
+        throw new Error('value is not object')
       }
-      throw new Error(`invalid JSON: ${stored}`)
     },
-    stringify: (value: Toggles) => JSON.stringify(value),
   })
