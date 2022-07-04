@@ -1,9 +1,13 @@
-import { useLocalStorage } from '../infrastructure/localstorage'
+import { useChromeStorage } from '../infrastructure/chromeStorage'
 
 export const useSelectedTheme = (initialValue: string) =>
-  useLocalStorage({
+  useChromeStorage<string>({
+    areaName: 'sync',
     key: 'v3.selectedTheme',
     initialValue,
-    parse: (value: string) => value,
-    stringify: (stored: string) => stored,
+    assertType: (value: unknown) => {
+      if (typeof value !== 'string') {
+        throw new Error('value is not string')
+      }
+    },
   })

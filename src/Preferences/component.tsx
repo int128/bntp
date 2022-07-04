@@ -1,16 +1,14 @@
 import { FC } from 'react'
 import Manifest from '../Manifest/component'
 import Themes from '../Themes/component'
-import Toggles, { TogglesChangeHandler } from '../Toggles/component'
+import Toggles from '../Toggles/component'
 import './component.css'
 
-type PreferencesProps = TogglesChangeHandler
-
-const PreferencesComponent: FC<PreferencesProps> = ({ onTogglesChange }) => (
+const PreferencesComponent: FC = () => (
   <div className="Preferences">
     <form>
       <h4>Toggles</h4>
-      <Toggles onTogglesChange={onTogglesChange} />
+      <Toggles />
       <h4>Themes</h4>
       <Themes />
       <Manifest />

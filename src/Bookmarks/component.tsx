@@ -32,18 +32,11 @@ type BookmarkFoldersComponentProps = {
 
 const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ indent, onEditClick }) => {
   const bookmarkFolders = useBookmarkFolders()
-  const [collapsedBookmarkFolderIDs, setCollapsedBookmarkFolderIDs] = useCollapsedBookmarkFolderIDs()
   return (
     <div className="Bookmarks">
       {bookmarkFolders.map((f, i) => (
         <div key={i} style={{ marginLeft: indent ? f.depth * 80 : undefined }}>
-          <BookmarkFolderComponent
-            folder={f}
-            collapsed={collapsedBookmarkFolderIDs.contains(f.id)}
-            onExpand={() => setCollapsedBookmarkFolderIDs(collapsedBookmarkFolderIDs.remove(f.id))}
-            onCollapse={() => setCollapsedBookmarkFolderIDs(collapsedBookmarkFolderIDs.add(f.id))}
-            onEditClick={onEditClick}
-          />
+          <BookmarkFolderComponent folder={f} onEditClick={onEditClick} />
         </div>
       ))}
     </div>
@@ -52,19 +45,12 @@ const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ indent, o
 
 type BookmarkFolderComponentProps = {
   folder: BookmarkFolder
-  collapsed: boolean
-  onCollapse: () => void
-  onExpand: () => void
   onEditClick: (bookmark: Bookmark) => void
 }
 
-const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({
-  folder,
-  collapsed,
-  onCollapse,
-  onExpand,
-  onEditClick,
-}) => {
+const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({ folder, onEditClick }) => {
+  const [collapsedBookmarkFolderIDs, setCollapsedBookmarkFolderIDs] = useCollapsedBookmarkFolderIDs()
+  const collapsed = collapsedBookmarkFolderIDs.some((id) => id === folder.id)
   if (collapsed) {
     return (
       <section className="BookmarkFolder">
@@ -72,7 +58,8 @@ const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({
           <a
             href="#Expand"
             onClick={(e) => {
-              onExpand()
+              const removed = collapsedBookmarkFolderIDs.filter((id) => id !== folder.id)
+              setCollapsedBookmarkFolderIDs(removed)
               e.preventDefault()
             }}
           >
@@ -88,7 +75,8 @@ const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({
         <a
           href="#Collapse"
           onClick={(e) => {
-            onCollapse()
+            const added = [...collapsedBookmarkFolderIDs, folder.id]
+            setCollapsedBookmarkFolderIDs(added)
             e.preventDefault()
           }}
         >
