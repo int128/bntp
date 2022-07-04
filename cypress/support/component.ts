@@ -20,6 +20,7 @@ import './commands'
 // require('./commands')
 
 import { mount } from 'cypress/react'
+import chrome from './chrome'
 
 import '../../src/index.css'
 
@@ -39,3 +40,6 @@ Cypress.Commands.add('mount', mount)
 
 // Example use:
 // cy.mount(<MyComponent />)
+
+// Mock Chrome API
+Object.assign(global, { chrome })
