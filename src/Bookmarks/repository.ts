@@ -13,9 +13,6 @@ export const useBookmarkFolders = () => {
 
 const getBookmarks = async (): Promise<BookmarkFolder[]> =>
   new Promise((resolve) => {
-    if (chrome.bookmarks === undefined) {
-      return
-    }
     // TODO: use promise in chrome manifest v3
     chrome.bookmarks.getTree((tree) => {
       const bookmarks = transformBookmarks(tree)
@@ -24,10 +21,6 @@ const getBookmarks = async (): Promise<BookmarkFolder[]> =>
   })
 
 const subscribeBookmarks = (handler: (bookmarkFolders: BookmarkFolder[]) => void): (() => void) => {
-  if (chrome.bookmarks === undefined) {
-    return () => undefined
-  }
-
   const listener = () => void getBookmarks().then(handler)
   chrome.bookmarks.onChanged.addListener(listener)
   chrome.bookmarks.onChildrenReordered.addListener(listener)
