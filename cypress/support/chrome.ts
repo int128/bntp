@@ -1,6 +1,9 @@
+import bookmarks from '../fixtures/bookmarks'
+import topSites from '../fixtures/topSites'
+
 const chrome = {
   bookmarks: {
-    getTree: () => undefined,
+    getTree: (f: (bookmarks: unknown) => void) => f(bookmarks),
     onChanged: { addListener: () => undefined },
     onChildrenReordered: { addListener: () => undefined },
     onCreated: { addListener: () => undefined },
@@ -11,7 +14,7 @@ const chrome = {
   },
 
   topSites: {
-    get: () => undefined,
+    get: (f: (topSites: unknown) => void) => f(topSites),
   },
 
   storage: {
@@ -31,7 +34,7 @@ const chrome = {
       version: '1.0.0.0',
       manifest_version: 2,
     }),
-  }
+  },
 }
 
 export default chrome
