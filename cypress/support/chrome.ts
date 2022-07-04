@@ -1,4 +1,19 @@
 const chrome = {
+  bookmarks: {
+    getTree: () => undefined,
+    onChanged: { addListener: () => undefined },
+    onChildrenReordered: { addListener: () => undefined },
+    onCreated: { addListener: () => undefined },
+    onMoved: { addListener: () => undefined },
+    onRemoved: { addListener: () => undefined },
+    update: () => undefined,
+    remove: () => undefined,
+  },
+
+  topSites: {
+    get: () => undefined,
+  },
+
   storage: {
     sync: {
       get: () => undefined,
@@ -8,6 +23,15 @@ const chrome = {
       addListener: () => undefined,
     },
   },
+
+  runtime: {
+    id: 'dummy',
+    getManifest: () => ({
+      name: 'BNTP: Bookmarks in New Tab Page',
+      version: '1.0.0.0',
+      manifest_version: 2,
+    }),
+  }
 }
 
 export default chrome
