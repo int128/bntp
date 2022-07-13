@@ -1,9 +1,8 @@
+import './component.css'
+import './componentTip.css'
 import { FC } from 'react'
 import { TopSite } from './model'
 import { useTopSites } from './repository'
-
-import './component.css'
-import './componentTip.css'
 
 const TopSitesComponent: FC = () => {
   const topSites = useTopSites()

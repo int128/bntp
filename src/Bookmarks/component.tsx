@@ -1,10 +1,9 @@
-import React, { FC, ReactElement, useState } from 'react'
+import './component.css'
 import { Bookmark, BookmarkFolder } from './model'
+import React, { FC, ReactElement, useState } from 'react'
 import { useBookmarkFolders, useCollapsedBookmarkFolderIDs } from './repository'
 import BookmarkEditor from '../BookmarkEditor/component'
 import { useToggles } from '../Toggles/repository'
-
-import './component.css'
 
 const BookmarksComponent: FC = () => {
   const [editingBookmark, setEditingBookmark] = useState<Bookmark>()
