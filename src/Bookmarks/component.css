@@ -11,6 +11,10 @@
   --size-icon: 16px;
 }
 
+.BookmarkFolder__Indent {
+  margin-left: calc(80px * var(--depth));
+}
+
 .BookmarkFolder {
   border-radius: 3px;
   margin-top: var(--size-folder-margin-y);
