@@ -5,7 +5,7 @@ import { FC } from 'react'
 
 type BookmarkEditorComponentProps = {
   bookmark?: Bookmark
-  onChange: (bookmark: Bookmark) => void
+  onChange: (newValue: Bookmark) => void
   onRequestClose: () => void
 }
 
@@ -18,7 +18,7 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ bookmark, o
       <div className="BookmarkEditor__Modal">
         <FormComponent
           bookmark={bookmark}
-          onChange={() => onChange(bookmark)}
+          onChange={onChange}
           onSubmit={() => void updateBookmark(bookmark).then(() => onRequestClose())}
           onRemove={() => void removeBookmark(bookmark).then(() => onRequestClose())}
         />
@@ -32,7 +32,7 @@ export default BookmarkEditorComponent
 
 type FormComponentProps = {
   bookmark: Bookmark
-  onChange: (bookmark: Bookmark) => void
+  onChange: (newValue: Bookmark) => void
   onSubmit: () => void
   onRemove: () => void
 }
