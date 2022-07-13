@@ -44,11 +44,13 @@ const traverseTree = (tree: chrome.bookmarks.BookmarkTreeNode[], depth = 0): Boo
     }
     const folderNodes = node.children.filter((child) => child.url === undefined)
     const bookmarkNodes = node.children.filter((child) => child.url !== undefined)
+
+    const childFolders = traverseTree(folderNodes, depth)
     if (bookmarkNodes.length === 0) {
-      return traverseTree(folderNodes, depth)
+      return childFolders
     }
 
-    const folder = {
+    const thisFolder = {
       id: node.id,
       depth,
       title: node.title,
@@ -58,8 +60,7 @@ const traverseTree = (tree: chrome.bookmarks.BookmarkTreeNode[], depth = 0): Boo
         url: b.url || '',
       })),
     }
-    const folders = traverseTree(folderNodes, depth + 1)
-    return [folder, ...folders]
+    return [thisFolder, ...childFolders]
   })
 
 export const updateBookmark = async (bookmark: Bookmark): Promise<void> =>
