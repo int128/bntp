@@ -1,8 +1,7 @@
-import { FC } from 'react'
-import { Bookmark } from '../Bookmarks/model'
-import { removeBookmark, updateBookmark } from '../Bookmarks/repository'
-
 import './component.css'
+import { removeBookmark, updateBookmark } from '../Bookmarks/repository'
+import { Bookmark } from '../Bookmarks/model'
+import { FC } from 'react'
 
 type BookmarkEditorComponentProps = {
   bookmark?: Bookmark

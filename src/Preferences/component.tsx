@@ -1,8 +1,8 @@
+import './component.css'
 import { FC } from 'react'
 import Manifest from '../Manifest/component'
 import Themes from '../Themes/component'
 import Toggles from '../Toggles/component'
-import './component.css'
 
 const PreferencesComponent: FC = () => (
   <div className="Preferences">

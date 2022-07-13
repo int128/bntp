@@ -1,6 +1,5 @@
-import { FC, useEffect } from 'react'
-
 import './component.css'
+import { FC, useEffect } from 'react'
 import { useSelectedTheme } from './repository'
 
 const THEMES = ['light', 'dark', 'solarized-light', 'solarized-dark']

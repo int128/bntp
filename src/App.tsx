@@ -1,9 +1,8 @@
 import './App.css'
-
 import Bookmarks from './Bookmarks/component'
 import Preferences from './Preferences/component'
-import { useToggles } from './Toggles/repository'
 import TopSites from './TopSites/component'
+import { useToggles } from './Toggles/repository'
 
 const App = () => {
   const [toggles] = useToggles()

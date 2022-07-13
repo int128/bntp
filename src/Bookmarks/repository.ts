@@ -1,6 +1,6 @@
+import { Bookmark, BookmarkFolder, BookmarkFolderID, chromePages } from './model'
 import { useEffect, useState } from 'react'
 import { useChromeStorage } from '../infrastructure/chromeStorage'
-import { Bookmark, BookmarkFolder, chromePages, BookmarkFolderID } from './model'
 
 export const useBookmarkFolders = () => {
   const [bookmarkFolders, setBookmarkFolders] = useState<BookmarkFolder[]>([])
