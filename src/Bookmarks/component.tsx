@@ -1,4 +1,4 @@
-import { FC, ReactElement, useState } from 'react'
+import React, { FC, ReactElement, useState } from 'react'
 import { Bookmark, BookmarkFolder } from './model'
 import { useBookmarkFolders, useCollapsedBookmarkFolderIDs } from './repository'
 import BookmarkEditor from '../BookmarkEditor/component'
@@ -28,24 +28,28 @@ type BookmarkFoldersComponentProps = {
 
 const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ onEditClick }) => {
   const [toggles] = useToggles()
-  const indentStyle = (f: BookmarkFolder): React.CSSProperties => {
-    if (toggles.indent) {
-      return { marginLeft: f.depth * 80 }
-    }
-    return {}
-  }
-
   const bookmarkFolders = useBookmarkFolders()
   return (
     <div className="Bookmarks">
       {bookmarkFolders.map((f, i) => (
-        <div key={i} style={indentStyle(f)}>
+        <BookmarkFolderIndent key={i} depth={toggles.indent ? f.depth : 0}>
           <BookmarkFolderComponent folder={f} onEditClick={onEditClick} />
-        </div>
+        </BookmarkFolderIndent>
       ))}
     </div>
   )
 }
+
+type BookmarkFolderIndentProps = {
+  depth: number
+  children: ReactElement
+}
+
+const BookmarkFolderIndent: FC<BookmarkFolderIndentProps> = ({ depth, children }) => (
+  <div className="BookmarkFolder__Indent" style={{ '--depth': depth } as React.CSSProperties}>
+    {children}
+  </div>
+)
 
 type BookmarkFolderComponentProps = {
   folder: BookmarkFolder
