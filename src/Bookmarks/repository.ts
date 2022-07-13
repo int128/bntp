@@ -15,7 +15,8 @@ const getBookmarks = async (): Promise<BookmarkFolder[]> =>
   new Promise((resolve) => {
     // TODO: use promise in chrome manifest v3
     chrome.bookmarks.getTree((tree) => {
-      const bookmarks = transformBookmarks(tree)
+      const bookmarks = traverseTree(tree)
+      bookmarks.push(chromePages)
       resolve(bookmarks)
     })
   })
@@ -36,40 +37,29 @@ const subscribeBookmarks = (handler: (bookmarkFolders: BookmarkFolder[]) => void
   }
 }
 
-const transformBookmarks = (nodes: chrome.bookmarks.BookmarkTreeNode[]): BookmarkFolder[] => {
-  const folders = flatten(nodes)
-  folders.push(chromePages)
-  return folders
-}
+const traverseTree = (tree: chrome.bookmarks.BookmarkTreeNode[], depth = 0): BookmarkFolder[] =>
+  tree.flatMap((node) => {
+    if (node.children === undefined) {
+      return []
+    }
+    const childFolders = node.children.filter((child) => child.url === undefined)
+    const childBookmarks = node.children.filter((child) => child.url !== undefined)
+    if (childBookmarks.length === 0) {
+      return traverseTree(childFolders, depth)
+    }
 
-const flatten = (nodes: chrome.bookmarks.BookmarkTreeNode[]): BookmarkFolder[] => nodes.flatMap(traverse)
-
-const traverse = (node: chrome.bookmarks.BookmarkTreeNode, depth = 0): BookmarkFolder[] => {
-  if (node.children === undefined) {
-    return []
-  }
-  const folderNodes = node.children.filter((child) => child.url === undefined)
-  const bookmarkNodes = node.children.filter((child) => child.url !== undefined)
-
-  if (bookmarkNodes.length === 0) {
-    return folderNodes.flatMap((folderNode) => traverse(folderNode, depth))
-  }
-
-  const bookmarks = bookmarkNodes.map((b) => ({
-    id: b.id,
-    title: b.title,
-    url: b.url || '',
-  }))
-  const folder = {
-    id: node.id,
-    depth,
-    title: node.title,
-    bookmarks,
-  }
-
-  const folders = folderNodes.flatMap((folderNode) => traverse(folderNode, depth + 1))
-  return [folder, ...folders]
-}
+    const thisFolder = {
+      id: node.id,
+      depth,
+      title: node.title,
+      bookmarks: childBookmarks.map((b) => ({
+        id: b.id,
+        title: b.title,
+        url: b.url || '',
+      })),
+    }
+    return [thisFolder, ...traverseTree(childFolders, depth + 1)]
+  })
 
 export const updateBookmark = async (bookmark: Bookmark): Promise<void> =>
   new Promise((resolve) => {
