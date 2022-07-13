@@ -10,7 +10,7 @@ const App = () => {
   return (
     <div className="App">
       {toggles?.topSites ? <TopSites /> : null}
-      {toggles?.bookmarks ? <Bookmarks indent={toggles.indent} /> : null}
+      {toggles?.bookmarks ? <Bookmarks /> : null}
       <Preferences />
     </div>
   )

@@ -2,18 +2,15 @@ import { FC, ReactElement, useState } from 'react'
 import { Bookmark, BookmarkFolder } from './model'
 import { useBookmarkFolders, useCollapsedBookmarkFolderIDs } from './repository'
 import BookmarkEditor from '../BookmarkEditor/component'
+import { useToggles } from '../Toggles/repository'
 
 import './component.css'
 
-type BookmarksComponentProps = {
-  indent: boolean
-}
-
-const BookmarksComponent: FC<BookmarksComponentProps> = ({ indent }) => {
+const BookmarksComponent: FC = () => {
   const [editingBookmark, setEditingBookmark] = useState<Bookmark>()
   return (
     <div>
-      <BookmarkFoldersComponent indent={indent} onEditClick={setEditingBookmark} />
+      <BookmarkFoldersComponent onEditClick={setEditingBookmark} />
       <BookmarkEditor
         bookmark={editingBookmark}
         onChange={setEditingBookmark}
@@ -26,16 +23,23 @@ const BookmarksComponent: FC<BookmarksComponentProps> = ({ indent }) => {
 export default BookmarksComponent
 
 type BookmarkFoldersComponentProps = {
-  indent: boolean
   onEditClick: (bookmark: Bookmark) => void
 }
 
-const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ indent, onEditClick }) => {
+const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ onEditClick }) => {
+  const [toggles] = useToggles()
+  const indentStyle = (f: BookmarkFolder): React.CSSProperties => {
+    if (toggles.indent) {
+      return { marginLeft: f.depth * 80 }
+    }
+    return {}
+  }
+
   const bookmarkFolders = useBookmarkFolders()
   return (
     <div className="Bookmarks">
       {bookmarkFolders.map((f, i) => (
-        <div key={i} style={{ marginLeft: indent ? f.depth * 80 : undefined }}>
+        <div key={i} style={indentStyle(f)}>
           <BookmarkFolderComponent folder={f} onEditClick={onEditClick} />
         </div>
       ))}
