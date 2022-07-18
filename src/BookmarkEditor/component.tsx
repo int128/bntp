@@ -1,29 +1,50 @@
 import './component.css'
-import { removeBookmark, updateBookmark } from '../Bookmarks/repository'
-import { Bookmark } from '../Bookmarks/model'
-import { FC } from 'react'
+import { FC, useState } from 'react'
+import { removeBookmark, updateBookmark, useBookmarkPreferences } from '../Bookmarks/repository'
+import BookmarkFoldersComponent from '../Bookmarks/component'
+import { EditingBookmark } from './model'
 
-type BookmarkEditorComponentProps = {
-  bookmark?: Bookmark
-  onChange: (newValue: Bookmark) => void
-  onRequestClose: () => void
-}
-
-const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ bookmark, onChange, onRequestClose }) => {
-  if (bookmark === undefined) {
-    return null
-  }
+const BookmarkEditorComponent: FC = () => {
+  const [editingBookmark, setEditingBookmark] = useState<EditingBookmark>()
+  const [bookmarkPreferences, setBookmarkPreferences] = useBookmarkPreferences()
+  const close = () => setEditingBookmark(undefined)
   return (
     <div>
-      <div className="BookmarkEditor__Modal">
-        <FormComponent
-          bookmark={bookmark}
-          onChange={onChange}
-          onSubmit={() => void updateBookmark(bookmark).then(() => onRequestClose())}
-          onRemove={() => void removeBookmark(bookmark).then(() => onRequestClose())}
-        />
-      </div>
-      <div className="BookmarkEditor__Overlay" onClick={() => onRequestClose()} />
+      <BookmarkFoldersComponent
+        onEditClick={(bookmark) => {
+          const p = bookmarkPreferences.find((p) => p.id === bookmark.id)
+          setEditingBookmark({ ...bookmark, shortcutKey: p?.shortcutKey })
+        }}
+      />
+      {editingBookmark !== undefined ? (
+        <div>
+          <div className="BookmarkEditor__Modal">
+            <FormComponent
+              bookmark={editingBookmark}
+              onChange={setEditingBookmark}
+              onSubmit={() => {
+                const { id, shortcutKey } = editingBookmark
+                if (!shortcutKey) {
+                  setBookmarkPreferences(bookmarkPreferences.filter((p) => p.id !== id))
+                  close()
+                  return
+                }
+                void updateBookmark(editingBookmark).then(() => {
+                  setBookmarkPreferences([...bookmarkPreferences.filter((p) => p.id !== id), { id, shortcutKey }])
+                  close()
+                })
+              }}
+              onRemove={() =>
+                void removeBookmark(editingBookmark).then(() => {
+                  setBookmarkPreferences(bookmarkPreferences.filter((p) => p.id !== editingBookmark.id))
+                  close()
+                })
+              }
+            />
+          </div>
+          <div className="BookmarkEditor__Overlay" onClick={close} />
+        </div>
+      ) : null}
     </div>
   )
 }
@@ -31,8 +52,8 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ bookmark, o
 export default BookmarkEditorComponent
 
 type FormComponentProps = {
-  bookmark: Bookmark
-  onChange: (newValue: Bookmark) => void
+  bookmark: EditingBookmark
+  onChange: (newValue: EditingBookmark) => void
   onSubmit: () => void
   onRemove: () => void
 }
@@ -67,10 +88,11 @@ const FormComponent: FC<FormComponentProps> = ({ bookmark, onChange, onSubmit, o
       <div>
         <input
           type="text"
-          value={undefined /* TODO */}
+          value={bookmark.shortcutKey ?? ''}
           maxLength={1}
           className="BookmarkEditor__TextInput"
           placeholder="Shortcut Key (not assigned)"
+          onChange={(e) => onChange({ ...bookmark, shortcutKey: e.target.value })}
         />
       </div>
       <div>

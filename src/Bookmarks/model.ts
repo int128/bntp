@@ -13,6 +13,11 @@ export type Bookmark = {
   url: string
 }
 
+export type BookmarkPreference = {
+  id: string
+  shortcutKey: string
+}
+
 export const chromePages: BookmarkFolder = {
   id: 'Chrome',
   depth: 0,

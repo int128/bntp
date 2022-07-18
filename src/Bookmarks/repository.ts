@@ -1,4 +1,4 @@
-import { Bookmark, BookmarkFolder, BookmarkFolderID, chromePages } from './model'
+import { Bookmark, BookmarkFolder, BookmarkFolderID, BookmarkPreference, chromePages } from './model'
 import { useEffect, useState } from 'react'
 import { useChromeStorage } from '../infrastructure/chromeStorage'
 
@@ -77,6 +77,18 @@ export const useCollapsedBookmarkFolderIDs = () =>
   useChromeStorage<BookmarkFolderID[]>({
     areaName: 'sync',
     key: 'v3.collapsedBookmarkFolderIDs',
+    initialValue: [],
+    assertType: (value: unknown) => {
+      if (!Array.isArray(value)) {
+        throw new Error('value is not array')
+      }
+    },
+  })
+
+export const useBookmarkPreferences = () =>
+  useChromeStorage<BookmarkPreference[]>({
+    areaName: 'sync',
+    key: 'v3.bookmarkPreferences',
     initialValue: [],
     assertType: (value: unknown) => {
       if (!Array.isArray(value)) {
