@@ -1,48 +1,46 @@
 import './component.css'
-import { FC, useState } from 'react'
 import { removeBookmark, updateBookmark, useBookmarkPreferences } from '../Bookmarks/repository'
-import BookmarkFoldersComponent from '../Bookmarks/component'
+import { Bookmark } from '../Bookmarks/model'
 import { EditingBookmark } from './model'
+import { FC } from 'react'
 
-const BookmarkEditorComponent: FC = () => {
-  const [editingBookmark, setEditingBookmark] = useState<EditingBookmark>()
+type BookmarkEditorComponentProps = {
+  editingBookmark?: EditingBookmark
+  onChange: (newValue: Bookmark) => void
+  onRequestClose: () => void
+}
+
+const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBookmark, onChange, onRequestClose }) => {
   const [bookmarkPreferences, setBookmarkPreferences] = useBookmarkPreferences()
-  const close = () => setEditingBookmark(undefined)
   return (
     <div>
-      <BookmarkFoldersComponent
-        onEditClick={(bookmark) => {
-          const p = bookmarkPreferences.find((p) => p.id === bookmark.id)
-          setEditingBookmark({ ...bookmark, shortcutKey: p?.shortcutKey })
-        }}
-      />
       {editingBookmark !== undefined ? (
         <div>
           <div className="BookmarkEditor__Modal">
             <FormComponent
               bookmark={editingBookmark}
-              onChange={setEditingBookmark}
+              onChange={onChange}
               onSubmit={() => {
                 const { id, shortcutKey } = editingBookmark
                 if (!shortcutKey) {
                   setBookmarkPreferences(bookmarkPreferences.filter((p) => p.id !== id))
-                  close()
+                  onRequestClose()
                   return
                 }
                 void updateBookmark(editingBookmark).then(() => {
                   setBookmarkPreferences([...bookmarkPreferences.filter((p) => p.id !== id), { id, shortcutKey }])
-                  close()
+                  onRequestClose()
                 })
               }}
               onRemove={() =>
                 void removeBookmark(editingBookmark).then(() => {
                   setBookmarkPreferences(bookmarkPreferences.filter((p) => p.id !== editingBookmark.id))
-                  close()
+                  onRequestClose()
                 })
               }
             />
           </div>
-          <div className="BookmarkEditor__Overlay" onClick={close} />
+          <div className="BookmarkEditor__Overlay" onClick={onRequestClose} />
         </div>
       ) : null}
     </div>

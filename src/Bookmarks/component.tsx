@@ -1,8 +1,25 @@
 import './component.css'
 import { Bookmark, BookmarkFolder, BookmarkPreference } from './model'
-import React, { FC, ReactElement } from 'react'
+import React, { FC, ReactElement, useState } from 'react'
 import { useBookmarkFolders, useBookmarkPreferences, useCollapsedBookmarkFolderIDs } from './repository'
+import BookmarkEditorComponent from '../BookmarkEditor/component'
 import { useToggles } from '../Toggles/repository'
+
+const BookmarksComponent: FC = () => {
+  const [editingBookmark, setEditingBookmark] = useState<Bookmark>()
+  return (
+    <div>
+      <BookmarkFoldersComponent onEditClick={setEditingBookmark} />
+      <BookmarkEditorComponent
+        editingBookmark={editingBookmark}
+        onChange={setEditingBookmark}
+        onRequestClose={() => setEditingBookmark(undefined)}
+      />
+    </div>
+  )
+}
+
+export default BookmarksComponent
 
 type BookmarkFoldersComponentProps = {
   onEditClick: (bookmark: Bookmark) => void
@@ -22,8 +39,6 @@ const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ onEditCli
     </div>
   )
 }
-
-export default BookmarkFoldersComponent
 
 type BookmarkFolderIndentProps = {
   depth: number
