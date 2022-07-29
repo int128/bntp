@@ -1,12 +1,13 @@
 import './component.css'
-import { Bookmark, BookmarkFolder, BookmarkPreference } from './model'
+import { Bookmark, BookmarkFolder, ShortcutMap } from './model'
 import React, { FC, ReactElement, useState } from 'react'
-import { useBookmarkFolders, useBookmarkPreferences, useCollapsedBookmarkFolderIDs } from './repository'
+import { useBookmarkFolders, useCollapsedBookmarkFolderIDs, useShortcutMap } from './repository'
 import BookmarkEditorComponent from '../BookmarkEditor/component'
+import { EditingBookmark } from '../BookmarkEditor/model'
 import { useToggles } from '../Toggles/repository'
 
 const BookmarksComponent: FC = () => {
-  const [editingBookmark, setEditingBookmark] = useState<Bookmark>()
+  const [editingBookmark, setEditingBookmark] = useState<EditingBookmark>()
   return (
     <div>
       <BookmarkFoldersComponent onEditClick={setEditingBookmark} />
@@ -21,19 +22,21 @@ const BookmarksComponent: FC = () => {
 
 export default BookmarksComponent
 
-type BookmarkFoldersComponentProps = {
-  onEditClick: (bookmark: Bookmark) => void
+type onEditClickHandler = {
+  onEditClick: (b: EditingBookmark) => void
 }
+
+type BookmarkFoldersComponentProps = onEditClickHandler
 
 const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ onEditClick }) => {
   const [toggles] = useToggles()
   const bookmarkFolders = useBookmarkFolders()
-  const [bookmarkPreferences] = useBookmarkPreferences()
+  const [shortcutMap] = useShortcutMap()
   return (
     <div className="Bookmarks">
       {bookmarkFolders.map((f, i) => (
         <BookmarkFolderIndent key={i} depth={toggles.indent ? f.depth : 0}>
-          <BookmarkFolderComponent folder={f} bookmarkPreferences={bookmarkPreferences} onEditClick={onEditClick} />
+          <BookmarkFolderComponent folder={f} shortcutMap={shortcutMap} onEditClick={onEditClick} />
         </BookmarkFolderIndent>
       ))}
     </div>
@@ -53,11 +56,10 @@ const BookmarkFolderIndent: FC<BookmarkFolderIndentProps> = ({ depth, children }
 
 type BookmarkFolderComponentProps = {
   folder: BookmarkFolder
-  bookmarkPreferences: BookmarkPreference[]
-  onEditClick: (bookmark: Bookmark) => void
-}
+  shortcutMap: ShortcutMap
+} & onEditClickHandler
 
-const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({ folder, bookmarkPreferences, onEditClick }) => {
+const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({ folder, shortcutMap, onEditClick }) => {
   const [collapsedBookmarkFolderIDs, setCollapsedBookmarkFolderIDs] = useCollapsedBookmarkFolderIDs()
   const collapsed = collapsedBookmarkFolderIDs.some((id) => id === folder.id)
   if (collapsed) {
@@ -93,7 +95,7 @@ const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({ folder, boo
         </a>
       </div>
       {folder.bookmarks.map((b, i) => (
-        <BookmarkComponent key={i} bookmark={b} bookmarkPreferences={bookmarkPreferences} onEditClick={onEditClick} />
+        <BookmarkComponent key={i} bookmark={b} shortcutMap={shortcutMap} onEditClick={onEditClick} />
       ))}
     </section>
   )
@@ -101,13 +103,12 @@ const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({ folder, boo
 
 type BookmarkComponentProps = {
   bookmark: Bookmark
-  bookmarkPreferences: BookmarkPreference[]
-  onEditClick: (bookmark: Bookmark) => void
-}
+  shortcutMap: ShortcutMap
+} & onEditClickHandler
 
-const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, bookmarkPreferences, onEditClick }) => {
+const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap, onEditClick }) => {
   const favicon = `chrome://favicon/${bookmark.url}`
-  const shortcutKey = bookmarkPreferences.find((b) => b.id === bookmark.id)?.shortcutKey
+  const shortcutKey = shortcutMap.getByID(bookmark.id)
   return (
     <div className="Bookmark">
       <Link href={bookmark.url}>
@@ -122,7 +123,7 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, bookmarkPrefe
         <a
           href="#Edit"
           onClick={(e) => {
-            onEditClick(bookmark)
+            onEditClick({ ...bookmark, shortcutKey })
             e.preventDefault()
           }}
         >

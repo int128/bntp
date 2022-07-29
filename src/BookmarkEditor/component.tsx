@@ -1,5 +1,5 @@
 import './component.css'
-import { removeBookmark, updateBookmark, useBookmarkPreferences } from '../Bookmarks/repository'
+import { removeBookmark, updateBookmark, useShortcutMap } from '../Bookmarks/repository'
 import { Bookmark } from '../Bookmarks/model'
 import { EditingBookmark } from './model'
 import { FC } from 'react'
@@ -11,7 +11,7 @@ type BookmarkEditorComponentProps = {
 }
 
 const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBookmark, onChange, onRequestClose }) => {
-  const [bookmarkPreferences, setBookmarkPreferences] = useBookmarkPreferences()
+  const [shortcutMap, setShortcutMap] = useShortcutMap()
   return (
     <div>
       {editingBookmark !== undefined ? (
@@ -21,20 +21,20 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBook
               bookmark={editingBookmark}
               onChange={onChange}
               onSubmit={() => {
-                const { id, shortcutKey } = editingBookmark
+                const { shortcutKey } = editingBookmark
                 if (!shortcutKey) {
-                  setBookmarkPreferences(bookmarkPreferences.filter((p) => p.id !== id))
+                  setShortcutMap(shortcutMap.delete(editingBookmark.id))
                   onRequestClose()
                   return
                 }
                 void updateBookmark(editingBookmark).then(() => {
-                  setBookmarkPreferences([...bookmarkPreferences.filter((p) => p.id !== id), { id, shortcutKey }])
+                  setShortcutMap(shortcutMap.set(editingBookmark.id, shortcutKey))
                   onRequestClose()
                 })
               }}
               onRemove={() =>
                 void removeBookmark(editingBookmark).then(() => {
-                  setBookmarkPreferences(bookmarkPreferences.filter((p) => p.id !== editingBookmark.id))
+                  setShortcutMap(shortcutMap.delete(editingBookmark.id))
                   onRequestClose()
                 })
               }

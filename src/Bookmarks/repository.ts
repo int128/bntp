@@ -1,4 +1,4 @@
-import { Bookmark, BookmarkFolder, BookmarkFolderID, BookmarkPreference, chromePages } from './model'
+import { Bookmark, BookmarkFolder, BookmarkFolderID, ShortcutEntries, ShortcutMap, chromePages } from './model'
 import { useEffect, useState } from 'react'
 import { useChromeStorage } from '../infrastructure/chromeStorage'
 
@@ -85,10 +85,10 @@ export const useCollapsedBookmarkFolderIDs = () =>
     },
   })
 
-export const useBookmarkPreferences = () =>
-  useChromeStorage<BookmarkPreference[]>({
+export const useShortcutMap = (): [ShortcutMap, (newMap: ShortcutMap) => void] => {
+  const [entries, setEntries] = useChromeStorage<ShortcutEntries>({
     areaName: 'sync',
-    key: 'v3.bookmarkPreferences',
+    key: 'v3.shortcutKeyMap',
     initialValue: [],
     assertType: (value: unknown) => {
       if (!Array.isArray(value)) {
@@ -96,3 +96,5 @@ export const useBookmarkPreferences = () =>
       }
     },
   })
+  return [new ShortcutMap(entries), (newMap: ShortcutMap) => setEntries(newMap.entries())]
+}
