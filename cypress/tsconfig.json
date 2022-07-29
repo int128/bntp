@@ -1,9 +1,7 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "lib": ["es5", "dom"],
-    "types": ["cypress", "node"],
-    "jsx": "react-jsx"
-  },
-  "include": ["**/*.ts", "**/*.tsx"]
+  "extends": "@tsconfig/cypress/tsconfig.json",
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }
