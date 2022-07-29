@@ -38,8 +38,8 @@
     ]
   },
   "devDependencies": {
-    "@tsconfig/create-react-app": "^1.0.2",
-    "@tsconfig/cypress": "^1.0.0",
+    "@tsconfig/create-react-app": "1.0.2",
+    "@tsconfig/cypress": "1.0.0",
     "@types/chrome": "0.0.193",
     "cypress": "10.3.1",
     "jest-chrome": "0.7.2",
