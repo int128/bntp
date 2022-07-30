@@ -12,37 +12,36 @@ type BookmarkEditorComponentProps = {
 
 const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBookmark, onChange, onRequestClose }) => {
   const [shortcutMap, setShortcutMap] = useShortcutMap()
+  if (editingBookmark === undefined) {
+    return null
+  }
   return (
     <div>
-      {editingBookmark !== undefined ? (
-        <div>
-          <div className="BookmarkEditor__Modal">
-            <FormComponent
-              bookmark={editingBookmark}
-              onChange={onChange}
-              onSubmit={() => {
-                const { shortcutKey } = editingBookmark
-                if (!shortcutKey) {
-                  setShortcutMap(shortcutMap.deleteByBookmarkID(editingBookmark.id))
-                  onRequestClose()
-                  return
-                }
-                void updateBookmark(editingBookmark).then(() => {
-                  setShortcutMap(shortcutMap.set(editingBookmark.id, shortcutKey))
-                  onRequestClose()
-                })
-              }}
-              onRemove={() =>
-                void removeBookmark(editingBookmark).then(() => {
-                  setShortcutMap(shortcutMap.deleteByBookmarkID(editingBookmark.id))
-                  onRequestClose()
-                })
-              }
-            />
-          </div>
-          <div className="BookmarkEditor__Overlay" onClick={onRequestClose} />
-        </div>
-      ) : null}
+      <div className="BookmarkEditor__Modal">
+        <FormComponent
+          bookmark={editingBookmark}
+          onChange={onChange}
+          onSubmit={() => {
+            const { shortcutKey } = editingBookmark
+            if (!shortcutKey) {
+              setShortcutMap(shortcutMap.deleteByBookmarkID(editingBookmark.id))
+              onRequestClose()
+              return
+            }
+            void updateBookmark(editingBookmark).then(() => {
+              setShortcutMap(shortcutMap.set(editingBookmark.id, shortcutKey))
+              onRequestClose()
+            })
+          }}
+          onRemove={() =>
+            void removeBookmark(editingBookmark).then(() => {
+              setShortcutMap(shortcutMap.deleteByBookmarkID(editingBookmark.id))
+              onRequestClose()
+            })
+          }
+        />
+      </div>
+      <div className="BookmarkEditor__Overlay" onClick={() => onRequestClose()} />
     </div>
   )
 }
