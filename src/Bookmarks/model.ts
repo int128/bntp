@@ -47,12 +47,11 @@ export class ShortcutMap {
     }
   }
 
-  set(id: BookmarkID, key: ShortcutKey): ShortcutMap {
-    return new ShortcutMap([[key, id], ...this.entries])
-  }
-
-  deleteByBookmarkID(bookmarkID: BookmarkID): ShortcutMap {
-    return new ShortcutMap(this.entries.filter(([, id]) => id !== bookmarkID))
+  set(bookmarkID: BookmarkID, key: ShortcutKey | undefined): ShortcutMap {
+    if (!key) {
+      return new ShortcutMap(this.entries.filter(([, id]) => id !== bookmarkID))
+    }
+    return new ShortcutMap([[key, bookmarkID], ...this.entries])
   }
 
   serialize = (): [string, string][] => [...this.entries]

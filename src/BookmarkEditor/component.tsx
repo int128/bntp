@@ -1,6 +1,6 @@
 import './component.css'
 import { Bookmark, shortcutKeyOf } from '../Bookmarks/model'
-import { removeBookmark, updateBookmark, useShortcutMap } from '../Bookmarks/repository'
+import { removeBookmark, useShortcutMap } from '../Bookmarks/repository'
 import { EditingBookmark } from './model'
 import { FC } from 'react'
 
@@ -23,19 +23,12 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBook
           onChange={onChange}
           onSubmit={() => {
             const { shortcutKey } = editingBookmark
-            if (!shortcutKey) {
-              setShortcutMap(shortcutMap.deleteByBookmarkID(editingBookmark.id))
-              onRequestClose()
-              return
-            }
-            void updateBookmark(editingBookmark).then(() => {
-              setShortcutMap(shortcutMap.set(editingBookmark.id, shortcutKey))
-              onRequestClose()
-            })
+            setShortcutMap(shortcutMap.set(editingBookmark.id, shortcutKey))
+            onRequestClose()
           }}
           onRemove={() =>
             void removeBookmark(editingBookmark).then(() => {
-              setShortcutMap(shortcutMap.deleteByBookmarkID(editingBookmark.id))
+              setShortcutMap(shortcutMap.set(editingBookmark.id, undefined))
               onRequestClose()
             })
           }
