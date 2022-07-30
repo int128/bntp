@@ -1,5 +1,5 @@
 import './component.css'
-import { Bookmark, ShortcutKeyFrom } from '../Bookmarks/model'
+import { Bookmark, shortcutKeyOf } from '../Bookmarks/model'
 import { removeBookmark, updateBookmark, useShortcutMap } from '../Bookmarks/repository'
 import { EditingBookmark } from './model'
 import { FC } from 'react'
@@ -90,7 +90,7 @@ const FormComponent: FC<FormComponentProps> = ({ bookmark, onChange, onSubmit, o
           maxLength={1}
           className="BookmarkEditor__TextInput"
           placeholder="Shortcut Key (not assigned)"
-          onChange={(e) => onChange({ ...bookmark, shortcutKey: ShortcutKeyFrom(e.target.value) })}
+          onChange={(e) => onChange({ ...bookmark, shortcutKey: shortcutKeyOf(e.target.value) })}
         />
       </div>
       <div>

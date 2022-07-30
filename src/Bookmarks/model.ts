@@ -15,21 +15,21 @@ export type Bookmark = {
   url: string
 }
 
-export type ShortcutKey = string
+export type ShortcutKey = string & {
+  readonly ShortcutKey: unique symbol
+}
 
-export const ShortcutKeyFrom = (s: string): ShortcutKey => s.charAt(0).toUpperCase()
-
-export type ShortcutEntries = [ShortcutKey, BookmarkID][]
+export const shortcutKeyOf = (s: string): ShortcutKey => s.charAt(0).toUpperCase() as ShortcutKey
 
 export class ShortcutMap {
-  private readonly entries: ShortcutEntries
+  private readonly entries: [ShortcutKey, BookmarkID][]
 
-  constructor(entries: ShortcutEntries) {
+  constructor(entries: [string, string][]) {
     this.entries = []
     const keySet = new Set<ShortcutKey>()
     const bookmarkSet = new Set<BookmarkID>()
     for (const [key, id] of entries) {
-      const sanitizedKey = ShortcutKeyFrom(key)
+      const sanitizedKey = shortcutKeyOf(key)
       if (!sanitizedKey || !id || keySet.has(sanitizedKey) || bookmarkSet.has(id)) {
         continue
       }
@@ -55,7 +55,7 @@ export class ShortcutMap {
     return new ShortcutMap(this.entries.filter(([, id]) => id !== bookmarkID))
   }
 
-  serialize = () => [...this.entries]
+  serialize = (): [string, string][] => [...this.entries]
 }
 
 export const chromePages: BookmarkFolder = {
