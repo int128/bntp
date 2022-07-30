@@ -1,5 +1,5 @@
-import { Bookmark } from '../Bookmarks/model'
+import { Bookmark, ShortcutKey } from '../Bookmarks/model'
 
 export type EditingBookmark = Bookmark & {
-  shortcutKey?: string
+  shortcutKey?: ShortcutKey
 }

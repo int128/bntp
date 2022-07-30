@@ -17,6 +17,8 @@ export type Bookmark = {
 
 export type ShortcutKey = string
 
+export const ShortcutKeyFrom = (s: string): ShortcutKey => s.charAt(0).toUpperCase()
+
 export type ShortcutEntries = [ShortcutKey, BookmarkID][]
 
 export class ShortcutMap {
@@ -27,7 +29,7 @@ export class ShortcutMap {
     const keySet = new Set<ShortcutKey>()
     const bookmarkSet = new Set<BookmarkID>()
     for (const [key, id] of entries) {
-      const sanitizedKey = key.charAt(0).toUpperCase()
+      const sanitizedKey = ShortcutKeyFrom(key)
       if (!sanitizedKey || !id || keySet.has(sanitizedKey) || bookmarkSet.has(id)) {
         continue
       }
