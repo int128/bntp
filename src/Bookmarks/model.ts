@@ -20,13 +20,25 @@ export type ShortcutKey = string
 export type ShortcutEntries = [ShortcutKey, BookmarkID][]
 
 export class ShortcutMap {
-  private readonly map: Map<ShortcutKey, BookmarkID>
+  private readonly entries: ShortcutEntries
+
   constructor(entries: ShortcutEntries) {
-    this.map = new Map(entries)
+    this.entries = []
+    const keySet = new Set<ShortcutKey>()
+    const bookmarkSet = new Set<BookmarkID>()
+    for (const [key, id] of entries) {
+      const sanitizedKey = key.charAt(0).toUpperCase()
+      if (!sanitizedKey || !id || keySet.has(sanitizedKey) || bookmarkSet.has(id)) {
+        continue
+      }
+      keySet.add(sanitizedKey)
+      bookmarkSet.add(id)
+      this.entries.push([sanitizedKey, id])
+    }
   }
 
   getByBookmarkID(bookmarkID: BookmarkID): ShortcutKey | undefined {
-    for (const [key, id] of this.map) {
+    for (const [key, id] of this.entries) {
       if (id === bookmarkID) {
         return key
       }
@@ -34,16 +46,14 @@ export class ShortcutMap {
   }
 
   set(id: BookmarkID, key: ShortcutKey): ShortcutMap {
-    return new ShortcutMap([...this.entries(), [key, id]])
+    return new ShortcutMap([[key, id], ...this.entries])
   }
 
   deleteByBookmarkID(bookmarkID: BookmarkID): ShortcutMap {
-    return new ShortcutMap(this.entries().filter(([, id]) => id !== bookmarkID))
+    return new ShortcutMap(this.entries.filter(([, id]) => id !== bookmarkID))
   }
 
-  entries(): ShortcutEntries {
-    return [...this.map.entries()]
-  }
+  serialize = () => [...this.entries]
 }
 
 export const chromePages: BookmarkFolder = {

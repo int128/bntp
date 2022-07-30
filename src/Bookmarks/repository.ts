@@ -96,5 +96,5 @@ export const useShortcutMap = (): [ShortcutMap, (newMap: ShortcutMap) => void] =
       }
     },
   })
-  return [new ShortcutMap(entries), (newMap: ShortcutMap) => setEntries(newMap.entries())]
+  return [new ShortcutMap(entries), (newMap: ShortcutMap) => setEntries(newMap.serialize())]
 }
