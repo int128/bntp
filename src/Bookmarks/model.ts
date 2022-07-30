@@ -25,26 +25,24 @@ export class ShortcutMap {
     this.map = new Map(entries)
   }
 
-  getByID(id: BookmarkID): ShortcutKey | undefined {
+  getByBookmarkID(bookmarkID: BookmarkID): ShortcutKey | undefined {
     for (const [key, id] of this.map) {
-      
+      if (id === bookmarkID) {
+        return key
+      }
     }
   }
 
   set(id: BookmarkID, key: ShortcutKey): ShortcutMap {
-    const newMap = new Map(this.map)
-    newMap.set(key, id)
     return new ShortcutMap([...this.entries(), [key, id]])
   }
 
-  delete(id: BookmarkID): ShortcutMap {
-    const newMap = new Map(this.map)
-    newMap.delete()
-    return new ShortcutMap(newMap)
+  deleteByBookmarkID(bookmarkID: BookmarkID): ShortcutMap {
+    return new ShortcutMap(this.entries().filter(([, id]) => id !== bookmarkID))
   }
 
   entries(): ShortcutEntries {
-    return Array.from(this.map.entries())
+    return [...this.map.entries()]
   }
 }
 

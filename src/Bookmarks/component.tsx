@@ -108,7 +108,7 @@ type BookmarkComponentProps = {
 
 const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap, onEditClick }) => {
   const favicon = `chrome://favicon/${bookmark.url}`
-  const shortcutKey = shortcutMap.getByID(bookmark.id)
+  const shortcutKey = shortcutMap.getByBookmarkID(bookmark.id)
   return (
     <div className="Bookmark">
       <Link href={bookmark.url}>

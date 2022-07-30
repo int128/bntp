@@ -23,7 +23,7 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBook
               onSubmit={() => {
                 const { shortcutKey } = editingBookmark
                 if (!shortcutKey) {
-                  setShortcutMap(shortcutMap.delete(editingBookmark.id))
+                  setShortcutMap(shortcutMap.deleteByBookmarkID(editingBookmark.id))
                   onRequestClose()
                   return
                 }
@@ -34,7 +34,7 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBook
               }}
               onRemove={() =>
                 void removeBookmark(editingBookmark).then(() => {
-                  setShortcutMap(shortcutMap.delete(editingBookmark.id))
+                  setShortcutMap(shortcutMap.deleteByBookmarkID(editingBookmark.id))
                   onRequestClose()
                 })
               }
