@@ -6,7 +6,8 @@ on:
       - .github/workflows/cypress.yaml
       - src/**
       - cypress/**
-      - package.json
+      - cypress.*
+      - '*.json'
       - yarn.lock
   push:
     branches:
@@ -15,7 +16,8 @@ on:
       - .github/workflows/cypress.yaml
       - src/**
       - cypress/**
-      - package.json
+      - cypress.*
+      - '*.json'
       - yarn.lock
 
 jobs:
