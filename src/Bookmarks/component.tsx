@@ -6,6 +6,7 @@ import BookmarkEditorComponent from '../BookmarkEditor/component'
 import { EditingBookmark } from '../BookmarkEditor/model'
 import ShortcutKeyComponent from '../ShortcutKey/component'
 import { ShortcutMap } from '../ShortcutKey/model'
+import { faviconBackgroundImage } from '../infrastructure/favicon'
 import { useShortcutMap } from '../ShortcutKey/repository'
 import { useToggles } from '../Toggles/repository'
 
@@ -129,14 +130,13 @@ type BookmarkComponentProps = {
 } & onEditClickHandler
 
 const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap, onEditClick }) => {
-  const favicon = `chrome://favicon/${bookmark.url}`
   const shortcutKey = shortcutMap.getByBookmarkID(bookmark.id)
   return (
     <div className="Bookmark">
       <Link href={bookmark.url}>
         <div className="Bookmark__Button">
           {shortcutKey ? <div className="Bookmark__ButtonBadge">{shortcutKey}</div> : null}
-          <div className="Bookmark__ButtonBody" style={{ backgroundImage: `url(${favicon})` }}>
+          <div className="Bookmark__ButtonBody" style={{ backgroundImage: faviconBackgroundImage(bookmark.url) }}>
             {bookmark.title}
           </div>
         </div>
