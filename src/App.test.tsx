@@ -1,8 +1,23 @@
 import { render, screen } from '@testing-library/react'
 import App from './App'
+import { chrome } from 'jest-chrome'
 
-test('renders learn react link', () => {
+test('renders App', async () => {
+  chrome.bookmarks.getTree.mockResolvedValue([
+    {
+      id: '1',
+      title: 'My Bookmarks',
+      children: [
+        {
+          id: '10',
+          title: 'Google',
+          url: 'https://www.example.com',
+        },
+      ],
+    },
+  ])
+
   render(<App />)
-  const linkElement = screen.getByText(/Themes/)
-  expect(linkElement).toBeInTheDocument()
+
+  expect(await screen.findByText(/Google/)).toBeInTheDocument()
 })
