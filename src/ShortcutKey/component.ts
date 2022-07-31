@@ -1,6 +1,6 @@
 import { BookmarkFolder, ShortcutMap, shortcutKeyOf } from '../Bookmarks/model'
 import { FC } from 'react'
-import { useGlobalKey } from '../infrastructure/globalKey'
+import { useGlobalKey } from './infrastructure'
 
 type ShortcutKeyComponentProps = {
   bookmarkFolders: BookmarkFolder[]
