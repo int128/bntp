@@ -39,6 +39,7 @@
 
 .BookmarkEditor__UrlInput {
   padding-left: 32px;
+  background-size: 16px;
   background-position-x: 8px;
   background-position-y: 8px;
   background-repeat: no-repeat;
