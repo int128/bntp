@@ -29,7 +29,7 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBook
     return null
   }
   return (
-    <div>
+    <>
       <div className="BookmarkEditor__Modal">
         <FormComponent
           bookmark={editingBookmark}
@@ -51,7 +51,7 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBook
         />
       </div>
       <div className="BookmarkEditor__Overlay" onClick={() => close()} />
-    </div>
+    </>
   )
 }
 
