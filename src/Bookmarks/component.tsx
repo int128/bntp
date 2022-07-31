@@ -1,7 +1,7 @@
 import './component.css'
-import { Bookmark, BookmarkFolder } from './model'
+import { Bookmark, BookmarkFolder, FolderCollapse } from './model'
 import React, { FC, ReactElement, useState } from 'react'
-import { useBookmarkFolders, useCollapsedBookmarkFolderIDs } from './repository'
+import { useBookmarkFolders, useFolderCollapse } from './repository'
 import BookmarkEditorComponent from '../BookmarkEditor/component'
 import { EditingBookmark } from '../BookmarkEditor/model'
 import ShortcutKeyComponent from '../ShortcutKey/component'
@@ -43,11 +43,18 @@ type BookmarkFoldersComponentProps = {
 
 const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ bookmarkFolders, shortcutMap, onEditClick }) => {
   const [toggles] = useToggles()
+  const [folderCollapse, setFolderCollapse] = useFolderCollapse()
   return (
     <div className="Bookmarks">
       {bookmarkFolders.map((f, i) => (
         <BookmarkFolderIndent key={i} depth={toggles.indent ? f.depth : 0}>
-          <BookmarkFolderComponent folder={f} shortcutMap={shortcutMap} onEditClick={onEditClick} />
+          <BookmarkFolderComponent
+            folder={f}
+            shortcutMap={shortcutMap}
+            folderCollapse={folderCollapse}
+            setFolderCollapse={setFolderCollapse}
+            onEditClick={onEditClick}
+          />
         </BookmarkFolderIndent>
       ))}
     </div>
@@ -68,20 +75,25 @@ const BookmarkFolderIndent: FC<BookmarkFolderIndentProps> = ({ depth, children }
 type BookmarkFolderComponentProps = {
   folder: BookmarkFolder
   shortcutMap: ShortcutMap
+  folderCollapse: FolderCollapse
+  setFolderCollapse: (newSet: FolderCollapse) => void
 } & onEditClickHandler
 
-const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({ folder, shortcutMap, onEditClick }) => {
-  const [collapsedBookmarkFolderIDs, setCollapsedBookmarkFolderIDs] = useCollapsedBookmarkFolderIDs()
-  const collapsed = collapsedBookmarkFolderIDs.some((id) => id === folder.id)
-  if (collapsed) {
+const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({
+  folder,
+  shortcutMap,
+  folderCollapse,
+  setFolderCollapse,
+  onEditClick,
+}) => {
+  if (folderCollapse.isCollapsed(folder.id)) {
     return (
       <section className="BookmarkFolder">
         <div className="BookmarkFolder__Heading BookmarkFolder__Heading__Collapsed">
           <a
             href="#Expand"
             onClick={(e) => {
-              const removed = collapsedBookmarkFolderIDs.filter((id) => id !== folder.id)
-              setCollapsedBookmarkFolderIDs(removed)
+              setFolderCollapse(folderCollapse.expand(folder.id))
               e.preventDefault()
             }}
           >
@@ -97,8 +109,7 @@ const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({ folder, sho
         <a
           href="#Collapse"
           onClick={(e) => {
-            const added = [...collapsedBookmarkFolderIDs, folder.id]
-            setCollapsedBookmarkFolderIDs(added)
+            setFolderCollapse(folderCollapse.collapse(folder.id))
             e.preventDefault()
           }}
         >
