@@ -15,6 +15,30 @@ export type Bookmark = {
   url: string
 }
 
+export class FolderCollapse {
+  private readonly collapsedIDs: Set<BookmarkFolderID>
+
+  constructor(collapsedIDs: BookmarkFolderID[] | Set<BookmarkFolderID>) {
+    this.collapsedIDs = new Set(collapsedIDs)
+  }
+
+  isCollapsed(id: BookmarkFolderID): boolean {
+    return this.collapsedIDs.has(id)
+  }
+
+  collapse(id: BookmarkFolderID): FolderCollapse {
+    return new FolderCollapse([id, ...this.collapsedIDs])
+  }
+
+  expand(id: BookmarkFolderID): FolderCollapse {
+    const newSet = new FolderCollapse(this.collapsedIDs)
+    newSet.collapsedIDs.delete(id)
+    return newSet
+  }
+
+  serialize = () => [...this.collapsedIDs.values()]
+}
+
 export const chromePages: BookmarkFolder = {
   id: 'Chrome',
   depth: 0,

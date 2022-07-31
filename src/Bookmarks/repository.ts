@@ -1,4 +1,4 @@
-import { Bookmark, BookmarkFolder, BookmarkFolderID, chromePages } from './model'
+import { Bookmark, BookmarkFolder, BookmarkFolderID, FolderCollapse, chromePages } from './model'
 import { useEffect, useState } from 'react'
 import { useChromeStorage } from '../infrastructure/chromeStorage'
 
@@ -73,8 +73,8 @@ export const removeBookmark = async (bookmark: Bookmark): Promise<void> =>
     chrome.bookmarks.remove(bookmark.id, () => resolve())
   })
 
-export const useCollapsedBookmarkFolderIDs = () =>
-  useChromeStorage<BookmarkFolderID[]>({
+export const useFolderCollapse = (): [FolderCollapse, (newSet: FolderCollapse) => void] => {
+  const [ids, setIDs] = useChromeStorage<BookmarkFolderID[]>({
     areaName: 'sync',
     key: 'v3.collapsedBookmarkFolderIDs',
     initialValue: [],
@@ -84,3 +84,5 @@ export const useCollapsedBookmarkFolderIDs = () =>
       }
     },
   })
+  return [new FolderCollapse(ids), (newSet: FolderCollapse) => setIDs(newSet.serialize())]
+}
