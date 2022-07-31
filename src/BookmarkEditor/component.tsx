@@ -2,6 +2,7 @@ import './component.css'
 import { Bookmark } from '../Bookmarks/model'
 import { EditingBookmark } from './model'
 import { FC } from 'react'
+import { faviconBackgroundImage } from '../infrastructure/favicon'
 import { removeBookmark } from '../Bookmarks/repository'
 import { shortcutKeyOf } from '../ShortcutKey/model'
 import { useShortcutMap } from '../ShortcutKey/repository'
@@ -53,7 +54,6 @@ type FormComponentProps = {
 }
 
 const FormComponent: FC<FormComponentProps> = ({ bookmark, onChange, onSubmit, onRemove, onRequestClose }) => {
-  const favicon = `chrome://favicon/${bookmark.url}`
   return (
     <form
       className="BookmarkEditor__Form"
@@ -81,7 +81,7 @@ const FormComponent: FC<FormComponentProps> = ({ bookmark, onChange, onSubmit, o
           type="text"
           value={bookmark.url}
           className="BookmarkEditor__UrlInput"
-          style={{ backgroundImage: `url(${favicon})` }}
+          style={{ backgroundImage: faviconBackgroundImage(bookmark.url) }}
           onChange={(e) => onChange({ ...bookmark, url: e.target.value })}
         />
       </div>
