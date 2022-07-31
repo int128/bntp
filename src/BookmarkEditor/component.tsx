@@ -1,8 +1,9 @@
 import './component.css'
-import { Bookmark, shortcutKeyOf } from '../Bookmarks/model'
 import { removeBookmark, useShortcutMap } from '../Bookmarks/repository'
+import { Bookmark } from '../Bookmarks/model'
 import { EditingBookmark } from './model'
 import { FC } from 'react'
+import { shortcutKeyOf } from '../ShortcutKey/model'
 
 type BookmarkEditorComponentProps = {
   editingBookmark?: EditingBookmark

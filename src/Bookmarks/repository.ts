@@ -1,5 +1,6 @@
-import { Bookmark, BookmarkFolder, BookmarkFolderID, ShortcutMap, chromePages } from './model'
+import { Bookmark, BookmarkFolder, BookmarkFolderID, chromePages } from './model'
 import { useEffect, useState } from 'react'
+import { ShortcutMap } from '../ShortcutKey/model'
 import { useChromeStorage } from '../infrastructure/chromeStorage'
 
 export const useBookmarkFolders = () => {
