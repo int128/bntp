@@ -23,6 +23,7 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBook
         <FormComponent
           bookmark={editingBookmark}
           onChange={onChange}
+          onRequestClose={onRequestClose}
           onSubmit={() => {
             const { shortcutKey } = editingBookmark
             setShortcutMap(shortcutMap.set(editingBookmark.id, shortcutKey))
@@ -46,11 +47,12 @@ export default BookmarkEditorComponent
 type FormComponentProps = {
   bookmark: EditingBookmark
   onChange: (newValue: EditingBookmark) => void
+  onRequestClose: () => void
   onSubmit: () => void
   onRemove: () => void
 }
 
-const FormComponent: FC<FormComponentProps> = ({ bookmark, onChange, onSubmit, onRemove }) => {
+const FormComponent: FC<FormComponentProps> = ({ bookmark, onChange, onSubmit, onRemove, onRequestClose }) => {
   const favicon = `chrome://favicon/${bookmark.url}`
   return (
     <form
@@ -59,12 +61,18 @@ const FormComponent: FC<FormComponentProps> = ({ bookmark, onChange, onSubmit, o
         onSubmit()
         e.preventDefault()
       }}
+      onKeyDown={(e) => {
+        if (e.key === 'Escape') {
+          onRequestClose()
+        }
+      }}
     >
       <div>
         <input
           type="text"
           value={bookmark.title}
           className="BookmarkEditor__TextInput"
+          autoFocus={true}
           onChange={(e) => onChange({ ...bookmark, title: e.target.value })}
         />
       </div>
