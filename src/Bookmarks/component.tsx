@@ -1,11 +1,12 @@
 import './component.css'
 import { Bookmark, BookmarkFolder } from './model'
 import React, { FC, ReactElement, useState } from 'react'
-import { useBookmarkFolders, useCollapsedBookmarkFolderIDs, useShortcutMap } from './repository'
+import { useBookmarkFolders, useCollapsedBookmarkFolderIDs } from './repository'
 import BookmarkEditorComponent from '../BookmarkEditor/component'
 import { EditingBookmark } from '../BookmarkEditor/model'
 import ShortcutKeyComponent from '../ShortcutKey/component'
 import { ShortcutMap } from '../ShortcutKey/model'
+import { useShortcutMap } from '../ShortcutKey/repository'
 import { useToggles } from '../Toggles/repository'
 
 const BookmarksComponent: FC = () => {
