@@ -4,18 +4,26 @@ import React, { FC, ReactElement, useState } from 'react'
 import { useBookmarkFolders, useCollapsedBookmarkFolderIDs, useShortcutMap } from './repository'
 import BookmarkEditorComponent from '../BookmarkEditor/component'
 import { EditingBookmark } from '../BookmarkEditor/model'
+import ShortcutKeyComponent from '../ShortcutKey/component'
 import { useToggles } from '../Toggles/repository'
 
 const BookmarksComponent: FC = () => {
+  const bookmarkFolders = useBookmarkFolders()
+  const [shortcutMap] = useShortcutMap()
   const [editingBookmark, setEditingBookmark] = useState<EditingBookmark>()
   return (
     <div>
-      <BookmarkFoldersComponent onEditClick={setEditingBookmark} />
+      <BookmarkFoldersComponent
+        bookmarkFolders={bookmarkFolders}
+        shortcutMap={shortcutMap}
+        onEditClick={setEditingBookmark}
+      />
       <BookmarkEditorComponent
         editingBookmark={editingBookmark}
         onChange={setEditingBookmark}
         onRequestClose={() => setEditingBookmark(undefined)}
       />
+      <ShortcutKeyComponent bookmarkFolders={bookmarkFolders} shortcutMap={shortcutMap} />
     </div>
   )
 }
@@ -26,12 +34,13 @@ type onEditClickHandler = {
   onEditClick: (b: EditingBookmark) => void
 }
 
-type BookmarkFoldersComponentProps = onEditClickHandler
+type BookmarkFoldersComponentProps = {
+  bookmarkFolders: BookmarkFolder[]
+  shortcutMap: ShortcutMap
+} & onEditClickHandler
 
-const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ onEditClick }) => {
+const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ bookmarkFolders, shortcutMap, onEditClick }) => {
   const [toggles] = useToggles()
-  const bookmarkFolders = useBookmarkFolders()
-  const [shortcutMap] = useShortcutMap()
   return (
     <div className="Bookmarks">
       {bookmarkFolders.map((f, i) => (

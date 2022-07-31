@@ -47,6 +47,14 @@ export class ShortcutMap {
     }
   }
 
+  getByShortcutKey(shortcutKey: ShortcutKey): BookmarkID | undefined {
+    for (const [key, id] of this.entries) {
+      if (key === shortcutKey) {
+        return id
+      }
+    }
+  }
+
   set(bookmarkID: BookmarkID, key: ShortcutKey | undefined): ShortcutMap {
     if (!key) {
       return new ShortcutMap(this.entries.filter(([, id]) => id !== bookmarkID))
