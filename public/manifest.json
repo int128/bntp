@@ -4,7 +4,6 @@
   "description": "Lightweight New Tab Page with Bookmarks and Top Sites",
   "permissions": [
     "bookmarks",
-    "chrome://favicon/",
     "topSites",
     "management",
     "storage"
