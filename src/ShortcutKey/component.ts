@@ -1,12 +1,14 @@
-import { useBookmarkFolders, useShortcutMap } from '../Bookmarks/repository'
+import { BookmarkFolder, ShortcutMap, shortcutKeyOf } from '../Bookmarks/model'
 import { FC } from 'react'
-import { shortcutKeyOf } from '../Bookmarks/model'
 import { useGlobalKey } from '../infrastructure/globalKey'
 
-const ShortcutKeyComponent: FC = () => {
-  const bookmarkFolders = useBookmarkFolders()
+type ShortcutKeyComponentProps = {
+  bookmarkFolders: BookmarkFolder[]
+  shortcutMap: ShortcutMap
+}
+
+const ShortcutKeyComponent: FC<ShortcutKeyComponentProps> = ({ bookmarkFolders, shortcutMap }) => {
   const bookmarks = bookmarkFolders.flatMap((f) => f.bookmarks)
-  const [shortcutMap] = useShortcutMap()
 
   useGlobalKey((key: string) => {
     const shortcutKey = shortcutKeyOf(key)
