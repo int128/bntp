@@ -117,34 +117,32 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap }
   const [editingBookmark, setEditingBookmark] = useState<EditingBookmark>()
   const shortcutKey = shortcutMap.getByBookmarkID(bookmark.id)
   return (
-    <>
-      <div className="Bookmark">
-        <Link href={bookmark.url}>
-          <div className="Bookmark__Button">
-            {shortcutKey ? <div className="Bookmark__ButtonBadge">{shortcutKey}</div> : null}
-            <div className="Bookmark__ButtonBody" style={{ backgroundImage: faviconBackgroundImage(bookmark.url) }}>
-              {bookmark.title}
-            </div>
+    <div className="Bookmark">
+      <Link href={bookmark.url}>
+        <div className="Bookmark__Button">
+          {shortcutKey ? <div className="Bookmark__ButtonBadge">{shortcutKey}</div> : null}
+          <div className="Bookmark__ButtonBody" style={{ backgroundImage: faviconBackgroundImage(bookmark.url) }}>
+            {bookmark.title}
           </div>
-        </Link>
-        <div className="Bookmark__EditButton">
-          <a
-            href="#Edit"
-            onClick={(e) => {
-              setEditingBookmark({ ...bookmark, shortcutKey })
-              e.preventDefault()
-            }}
-          >
-            &hellip;
-          </a>
         </div>
+      </Link>
+      <div className="Bookmark__EditButton">
+        <a
+          href="#Edit"
+          onClick={(e) => {
+            setEditingBookmark({ ...bookmark, shortcutKey })
+            e.preventDefault()
+          }}
+        >
+          &hellip;
+        </a>
       </div>
       <BookmarkEditorComponent
         editingBookmark={editingBookmark}
         onChange={setEditingBookmark}
         onRequestClose={() => setEditingBookmark(undefined)}
       />
-    </>
+    </div>
   )
 }
 
