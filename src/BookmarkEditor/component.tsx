@@ -1,9 +1,9 @@
 import './component.css'
+import { removeBookmark, updateBookmark } from '../Bookmarks/repository'
 import { Bookmark } from '../Bookmarks/model'
 import { EditingBookmark } from './model'
 import { FC } from 'react'
 import { faviconBackgroundImage } from '../infrastructure/favicon'
-import { removeBookmark } from '../Bookmarks/repository'
 import { shortcutKeyOf } from '../ShortcutKey/model'
 import { useShortcutMap } from '../ShortcutKey/repository'
 
@@ -18,6 +18,14 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBook
   if (editingBookmark === undefined) {
     return null
   }
+  const onSubmit = async () => {
+    await updateBookmark(editingBookmark)
+    setShortcutMap(shortcutMap.set(editingBookmark.id, editingBookmark.shortcutKey))
+  }
+  const onRemove = async () => {
+    await removeBookmark(editingBookmark)
+    setShortcutMap(shortcutMap.set(editingBookmark.id, undefined))
+  }
   return (
     <div>
       <div className="BookmarkEditor__Modal">
@@ -26,16 +34,17 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBook
           onChange={onChange}
           onRequestClose={onRequestClose}
           onSubmit={() => {
-            const { shortcutKey } = editingBookmark
-            setShortcutMap(shortcutMap.set(editingBookmark.id, shortcutKey))
-            onRequestClose()
+            onSubmit()
+              .then(() => onRequestClose())
+              // TODO: show error message
+              .catch((e) => console.error(e))
           }}
-          onRemove={() =>
-            void removeBookmark(editingBookmark).then(() => {
-              setShortcutMap(shortcutMap.set(editingBookmark.id, undefined))
-              onRequestClose()
-            })
-          }
+          onRemove={() => {
+            onRemove()
+              .then(() => onRequestClose())
+              // TODO: show error message
+              .catch((e) => console.error(e))
+          }}
         />
       </div>
       <div className="BookmarkEditor__Overlay" onClick={() => onRequestClose()} />
