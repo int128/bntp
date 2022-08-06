@@ -118,11 +118,6 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap }
   const shortcutKey = shortcutMap.getByBookmarkID(bookmark.id)
   return (
     <>
-      <BookmarkEditorComponent
-        editingBookmark={editingBookmark}
-        onChange={setEditingBookmark}
-        onRequestClose={() => setEditingBookmark(undefined)}
-      />
       <div className="Bookmark">
         <Link href={bookmark.url}>
           <div className="Bookmark__Button">
@@ -144,6 +139,11 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap }
           </a>
         </div>
       </div>
+      <BookmarkEditorComponent
+        editingBookmark={editingBookmark}
+        onChange={setEditingBookmark}
+        onRequestClose={() => setEditingBookmark(undefined)}
+      />
     </>
   )
 }
