@@ -5,24 +5,27 @@ import { useChromeStorage } from '../infrastructure/chromeStorage'
 export const useBookmarkFolders = () => {
   const [bookmarkFolders, setBookmarkFolders] = useState<BookmarkFolder[]>([])
   useEffect(() => {
-    void getBookmarks().then(setBookmarkFolders)
+    getBookmarkFolders()
+      .then((b) => setBookmarkFolders(b))
+      .catch((e) => console.error(e))
     return subscribeBookmarks(setBookmarkFolders)
   }, [])
   return bookmarkFolders
 }
 
-const getBookmarks = async (): Promise<BookmarkFolder[]> =>
-  new Promise((resolve) => {
-    // TODO: use promise in chrome manifest v3
-    chrome.bookmarks.getTree((tree) => {
-      const bookmarks = traverseTree(tree)
-      bookmarks.push(chromePages)
-      resolve(bookmarks)
-    })
-  })
+const getBookmarkFolders = async (): Promise<BookmarkFolder[]> => {
+  const tree = await chrome.bookmarks.getTree()
+  const bookmarkFolders = traverseTree(tree)
+  bookmarkFolders.push(chromePages)
+  return bookmarkFolders
+}
 
 const subscribeBookmarks = (handler: (bookmarkFolders: BookmarkFolder[]) => void): (() => void) => {
-  const listener = () => void getBookmarks().then(handler)
+  const listener = () => {
+    getBookmarkFolders()
+      .then((b) => handler(b))
+      .catch((e) => console.error(e))
+  }
   chrome.bookmarks.onChanged.addListener(listener)
   chrome.bookmarks.onChildrenReordered.addListener(listener)
   chrome.bookmarks.onCreated.addListener(listener)
@@ -61,17 +64,13 @@ const traverseTree = (tree: chrome.bookmarks.BookmarkTreeNode[], depth = 0): Boo
     return [thisFolder, ...traverseTree(childFolders, depth + 1)]
   })
 
-export const updateBookmark = async (bookmark: Bookmark): Promise<void> =>
-  new Promise((resolve) => {
-    // TODO: use promise in chrome manifest v3
-    chrome.bookmarks.update(bookmark.id, { url: bookmark.url, title: bookmark.title }, () => resolve())
-  })
+export const updateBookmark = async (bookmark: Bookmark) => {
+  await chrome.bookmarks.update(bookmark.id, { url: bookmark.url, title: bookmark.title })
+}
 
-export const removeBookmark = async (bookmark: Bookmark): Promise<void> =>
-  new Promise((resolve) => {
-    // TODO: use promise in chrome manifest v3
-    chrome.bookmarks.remove(bookmark.id, () => resolve())
-  })
+export const removeBookmark = async (bookmark: Bookmark) => {
+  await chrome.bookmarks.remove(bookmark.id)
+}
 
 export const useFolderCollapse = (): [FolderCollapse, (newSet: FolderCollapse) => void] => {
   const [ids, setIDs] = useChromeStorage<BookmarkFolderID[]>({
