@@ -1,8 +1,8 @@
 import './component.css'
+import { FC, useState } from 'react'
 import { removeBookmark, updateBookmark } from '../Bookmarks/repository'
 import { Bookmark } from '../Bookmarks/model'
 import { EditingBookmark } from './model'
-import { FC } from 'react'
 import { faviconBackgroundImage } from '../infrastructure/favicon'
 import { shortcutKeyOf } from '../ShortcutKey/model'
 import { useShortcutMap } from '../ShortcutKey/repository'
@@ -14,40 +14,43 @@ type BookmarkEditorComponentProps = {
 }
 
 const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBookmark, onChange, onRequestClose }) => {
+  const [errorMessage, setErrorMessage] = useState<string>()
   const [shortcutMap, setShortcutMap] = useShortcutMap()
+  const close = () => {
+    setErrorMessage(undefined)
+    onRequestClose()
+  }
+  const closeAfter = (f: () => Promise<void>) => {
+    f()
+      .then(() => close())
+      .catch((e) => setErrorMessage(String(e)))
+  }
   if (editingBookmark === undefined) {
     return null
-  }
-  const onSubmit = async () => {
-    await updateBookmark(editingBookmark)
-    setShortcutMap(shortcutMap.set(editingBookmark.id, editingBookmark.shortcutKey))
-  }
-  const onRemove = async () => {
-    await removeBookmark(editingBookmark)
-    setShortcutMap(shortcutMap.set(editingBookmark.id, undefined))
   }
   return (
     <div>
       <div className="BookmarkEditor__Modal">
         <FormComponent
           bookmark={editingBookmark}
+          errorMessage={errorMessage}
           onChange={onChange}
-          onRequestClose={onRequestClose}
-          onSubmit={() => {
-            onSubmit()
-              .then(() => onRequestClose())
-              // TODO: show error message
-              .catch((e) => console.error(e))
-          }}
-          onRemove={() => {
-            onRemove()
-              .then(() => onRequestClose())
-              // TODO: show error message
-              .catch((e) => console.error(e))
-          }}
+          onRequestClose={() => close()}
+          onSubmit={() =>
+            closeAfter(async () => {
+              await updateBookmark(editingBookmark)
+              setShortcutMap(shortcutMap.set(editingBookmark.id, editingBookmark.shortcutKey))
+            })
+          }
+          onRemove={() =>
+            closeAfter(async () => {
+              await removeBookmark(editingBookmark)
+              setShortcutMap(shortcutMap.set(editingBookmark.id, undefined))
+            })
+          }
         />
       </div>
-      <div className="BookmarkEditor__Overlay" onClick={() => onRequestClose()} />
+      <div className="BookmarkEditor__Overlay" onClick={() => close()} />
     </div>
   )
 }
@@ -56,13 +59,21 @@ export default BookmarkEditorComponent
 
 type FormComponentProps = {
   bookmark: EditingBookmark
+  errorMessage?: string
   onChange: (newValue: EditingBookmark) => void
   onRequestClose: () => void
   onSubmit: () => void
   onRemove: () => void
 }
 
-const FormComponent: FC<FormComponentProps> = ({ bookmark, onChange, onSubmit, onRemove, onRequestClose }) => {
+const FormComponent: FC<FormComponentProps> = ({
+  bookmark,
+  errorMessage,
+  onChange,
+  onSubmit,
+  onRemove,
+  onRequestClose,
+}) => {
   return (
     <form
       className="BookmarkEditor__Form"
@@ -106,7 +117,7 @@ const FormComponent: FC<FormComponentProps> = ({ bookmark, onChange, onSubmit, o
       </div>
       <div>
         <input type="submit" value="Update" className="BookmarkEditor__Button BookmarkEditor__Left" />
-        <div className="BookmarkEditor__Message BookmarkEditor__Left">{/* TODO: error message */}</div>
+        <div className="BookmarkEditor__Message BookmarkEditor__Left">{errorMessage}</div>
         <input
           type="button"
           value="Remove"
