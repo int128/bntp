@@ -8,26 +8,23 @@ const webpack = require('webpack')
 const configFactory = require('react-scripts/config/webpack.config')
 const { createCompiler } = require('react-dev-utils/WebpackDevServerUtils')
 
-const config = configFactory('development')
-
-const devSocket = {
-  warnings: () => {},
-  errors: () => {},
-}
-
 const compiler = createCompiler({
   urls: [],
   useTypeScript: true,
   useYarn: true,
-  devSocket,
-  config,
+  devSocket: {
+    warnings: () => {},
+    errors: () => {},
+  },
+  config: configFactory('development'),
   webpack,
 })
 
-compiler.watch({}, () => {
-  // sync the static files
-  fs.copySync('public', 'build', {
-    dereference: true,
-    filter: (f) => f !== 'public/index.html',
-  })
-})
+const syncPublicDirectory = () => {
+  fs.copy('public', 'build', { filter: (filename) => filename !== 'public/index.html' })
+    .then(() => console.info(`Successfully synced public directory`))
+    .catch((e) => console.error(`Error while syncing public directory`, e))
+}
+
+compiler.watch({}, () => syncPublicDirectory())
+fs.watch('public', () => syncPublicDirectory())
