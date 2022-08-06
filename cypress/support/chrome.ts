@@ -1,16 +1,17 @@
+/* eslint-disable @typescript-eslint/require-await */
 import bookmarks from '../fixtures/bookmarks'
 import topSites from '../fixtures/topSites'
 
 const chrome = {
   bookmarks: {
-    getTree: (f: (bookmarks: unknown) => void) => f(bookmarks),
+    getTree: async () => bookmarks,
     onChanged: { addListener: () => undefined },
     onChildrenReordered: { addListener: () => undefined },
     onCreated: { addListener: () => undefined },
     onMoved: { addListener: () => undefined },
     onRemoved: { addListener: () => undefined },
-    update: () => undefined,
-    remove: () => undefined,
+    update: async () => undefined,
+    remove: async () => undefined,
   },
 
   topSites: {
