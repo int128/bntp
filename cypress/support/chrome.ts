@@ -20,8 +20,8 @@ const chrome = {
 
   storage: {
     sync: {
-      get: () => undefined,
-      set: () => undefined,
+      get: async () => ({}),
+      set: async () => undefined,
     },
     onChanged: {
       addListener: () => undefined,

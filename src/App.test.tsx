@@ -3,6 +3,8 @@ import App from './App'
 import { chrome } from 'jest-chrome'
 
 test('renders App', async () => {
+  chrome.storage.sync.get.mockResolvedValue({})
+
   chrome.bookmarks.getTree.mockResolvedValue([
     {
       id: '1',
