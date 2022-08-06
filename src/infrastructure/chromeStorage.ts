@@ -9,47 +9,54 @@ type Spec<T> = {
 
 export const useChromeStorage = <T>(spec: Spec<T>): [T, (newValue: T) => void] => {
   const [storedValue, setStoredValue] = useState<T>(spec.initialValue)
-
   useEffect(
     () => {
-      console.debug(`chrome.storage.${spec.areaName}.get(${spec.key})`)
-      chrome.storage[spec.areaName].get(spec.key, (items) => {
-        const value = items[spec.key] as unknown
-        if (value === undefined) {
-          return
-        }
-        spec.assertType(value)
-        setStoredValue(value)
-      })
-      return subscribeChromeStorage(spec, setStoredValue)
+      initialLoad(spec, setStoredValue)
+      return subscribeChange(spec, setStoredValue)
     },
     // Don't set "spec" because it causes infinite loop.
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [spec.key, spec.areaName]
   )
-
   return [
     storedValue,
     (newValue: T) => {
-      console.debug(`chrome.storage.${spec.areaName}.set(${spec.key})`)
-      // no need to call setStoredValue() because Chrome will trigger an event
-      chrome.storage[spec.areaName].set({ [spec.key]: newValue }, undefined)
+      // Don't call setStoredValue() because Chrome will trigger an event
+      chrome.storage[spec.areaName].set({ [spec.key]: newValue }).catch((e) => console.error(e))
     },
   ]
 }
 
-const subscribeChromeStorage = <T>(spec: Spec<T>, handler: (newValue: T) => void) => {
-  const listener = (changes: { [key: string]: chrome.storage.StorageChange }, areaName: chrome.storage.AreaName) => {
-    if (areaName === spec.areaName && spec.key in changes) {
-      console.debug(`chrome.storage.${areaName}.onChanged(${spec.key})`)
-      const newValue = changes[spec.key].newValue as unknown
-      if (newValue === undefined) {
-        handler(spec.initialValue)
+const initialLoad = <T>(spec: Spec<T>, setStoredValue: (newValue: T) => void) => {
+  chrome.storage[spec.areaName]
+    .get(spec.key)
+    .then((items) => {
+      if (!(spec.key in items)) {
         return
       }
-      spec.assertType(newValue)
-      handler(newValue)
+      const value = items[spec.key] as unknown
+      if (value === undefined) {
+        setStoredValue(spec.initialValue)
+        return
+      }
+      spec.assertType(value)
+      setStoredValue(value)
+    })
+    .catch((e) => console.error(e))
+}
+
+const subscribeChange = <T>(spec: Spec<T>, setStoredValue: (newValue: T) => void) => {
+  const listener = (changes: { [key: string]: chrome.storage.StorageChange }, areaName: chrome.storage.AreaName) => {
+    if (areaName !== spec.areaName || !(spec.key in changes)) {
+      return
     }
+    const newValue = changes[spec.key].newValue as unknown
+    if (newValue === undefined) {
+      setStoredValue(spec.initialValue)
+      return
+    }
+    spec.assertType(newValue)
+    setStoredValue(newValue)
   }
   chrome.storage.onChanged.addListener(listener)
   return () => chrome.storage.onChanged.removeListener(listener)
