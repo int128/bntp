@@ -3,6 +3,7 @@ import { FC, useState } from 'react'
 import { removeBookmark, updateBookmark } from '../Bookmarks/repository'
 import { Bookmark } from '../Bookmarks/model'
 import { EditingBookmark } from './model'
+import { createPortal } from 'react-dom'
 import { faviconBackgroundImage } from '../infrastructure/favicon'
 import { shortcutKeyOf } from '../ShortcutKey/model'
 import { useShortcutMap } from '../ShortcutKey/repository'
@@ -28,7 +29,7 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBook
   if (editingBookmark === undefined) {
     return null
   }
-  return (
+  return createPortal(
     <div>
       <div className="BookmarkEditor__Modal">
         <FormComponent
@@ -51,7 +52,9 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBook
         />
       </div>
       <div className="BookmarkEditor__Overlay" onClick={() => close()} />
-    </div>
+    </div>,
+    // put this modal into root to avoid side-effect of styles
+    document.body
   )
 }
 

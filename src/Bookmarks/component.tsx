@@ -13,19 +13,9 @@ import { useToggles } from '../Toggles/repository'
 const BookmarksComponent: FC = () => {
   const bookmarkFolders = useBookmarkFolders()
   const [shortcutMap] = useShortcutMap()
-  const [editingBookmark, setEditingBookmark] = useState<EditingBookmark>()
   return (
     <div>
-      <BookmarkFoldersComponent
-        bookmarkFolders={bookmarkFolders}
-        shortcutMap={shortcutMap}
-        onEditClick={setEditingBookmark}
-      />
-      <BookmarkEditorComponent
-        editingBookmark={editingBookmark}
-        onChange={setEditingBookmark}
-        onRequestClose={() => setEditingBookmark(undefined)}
-      />
+      <BookmarkFoldersComponent bookmarkFolders={bookmarkFolders} shortcutMap={shortcutMap} />
       <ShortcutKeyComponent bookmarkFolders={bookmarkFolders} shortcutMap={shortcutMap} />
     </div>
   )
@@ -33,16 +23,12 @@ const BookmarksComponent: FC = () => {
 
 export default BookmarksComponent
 
-type onEditClickHandler = {
-  onEditClick: (b: EditingBookmark) => void
-}
-
 type BookmarkFoldersComponentProps = {
   bookmarkFolders: BookmarkFolder[]
   shortcutMap: ShortcutMap
-} & onEditClickHandler
+}
 
-const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ bookmarkFolders, shortcutMap, onEditClick }) => {
+const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ bookmarkFolders, shortcutMap }) => {
   const [toggles] = useToggles()
   const [folderCollapse, setFolderCollapse] = useFolderCollapse()
   return (
@@ -54,7 +40,6 @@ const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ bookmarkF
             shortcutMap={shortcutMap}
             folderCollapse={folderCollapse}
             setFolderCollapse={setFolderCollapse}
-            onEditClick={onEditClick}
           />
         </BookmarkFolderIndent>
       ))}
@@ -78,14 +63,13 @@ type BookmarkFolderComponentProps = {
   shortcutMap: ShortcutMap
   folderCollapse: FolderCollapse
   setFolderCollapse: (newSet: FolderCollapse) => void
-} & onEditClickHandler
+}
 
 const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({
   folder,
   shortcutMap,
   folderCollapse,
   setFolderCollapse,
-  onEditClick,
 }) => {
   if (folderCollapse.isCollapsed(folder.id)) {
     return (
@@ -118,7 +102,7 @@ const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({
         </a>
       </div>
       {folder.bookmarks.map((b, i) => (
-        <BookmarkComponent key={i} bookmark={b} shortcutMap={shortcutMap} onEditClick={onEditClick} />
+        <BookmarkComponent key={i} bookmark={b} shortcutMap={shortcutMap} />
       ))}
     </section>
   )
@@ -127,9 +111,10 @@ const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({
 type BookmarkComponentProps = {
   bookmark: Bookmark
   shortcutMap: ShortcutMap
-} & onEditClickHandler
+}
 
-const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap, onEditClick }) => {
+const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap }) => {
+  const [editingBookmark, setEditingBookmark] = useState<EditingBookmark>()
   const shortcutKey = shortcutMap.getByBookmarkID(bookmark.id)
   return (
     <div className="Bookmark">
@@ -145,13 +130,18 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap, 
         <a
           href="#Edit"
           onClick={(e) => {
-            onEditClick({ ...bookmark, shortcutKey })
+            setEditingBookmark({ ...bookmark, shortcutKey })
             e.preventDefault()
           }}
         >
           &hellip;
         </a>
       </div>
+      <BookmarkEditorComponent
+        editingBookmark={editingBookmark}
+        onChange={setEditingBookmark}
+        onRequestClose={() => setEditingBookmark(undefined)}
+      />
     </div>
   )
 }
