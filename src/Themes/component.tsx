@@ -4,8 +4,14 @@ import { useSelectedTheme } from './repository'
 
 const THEMES = ['light', 'dark', 'solarized-light', 'solarized-dark']
 
+const preferTheme = () => {
+  const preferDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  return preferDark ? 'dark' : 'light'
+}
+
 const ThemesComponent: FC = () => {
-  const [selectedTheme, setSelectedTheme] = useSelectedTheme(THEMES[0])
+  // set the initial value to avoid screen flicker
+  const [selectedTheme, setSelectedTheme] = useSelectedTheme(preferTheme())
   useEffect(() => {
     document.documentElement.className = `Theme__${selectedTheme}`
   }, [selectedTheme])

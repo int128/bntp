@@ -1,9 +1,11 @@
-body {
-  margin: 0;
-
+:root {
+  /* override background-color in index.html */
   background-color: var(--palette-3);
   color: var(--palette-03);
+}
 
+body {
+  margin: 0;
   font-family: sans-serif;
 }
 
