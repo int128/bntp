@@ -1,5 +1,5 @@
 import './component.css'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { removeBookmark, updateBookmark } from '../Bookmarks/repository'
 import { Bookmark } from '../Bookmarks/model'
 import { EditingBookmark } from './model'
@@ -17,18 +17,18 @@ type BookmarkEditorComponentProps = {
 const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBookmark, onChange, onRequestClose }) => {
   const [errorMessage, setErrorMessage] = useState<string>()
   const [shortcutMap, setShortcutMap] = useShortcutMap()
-  const close = () => {
-    setErrorMessage(undefined)
-    onRequestClose()
-  }
-  const closeAfter = (f: () => Promise<void>) => {
-    f()
-      .then(() => close())
-      .catch((e) => setErrorMessage(String(e)))
-  }
+  useEffect(
+    // remove errorMessage when editingBookmark is changed
+    () => setErrorMessage(undefined),
+    [editingBookmark]
+  )
   if (editingBookmark === undefined) {
     return null
   }
+  const closeAfter = (f: () => Promise<void>) =>
+    void f()
+      .then(onRequestClose)
+      .catch((e) => setErrorMessage(String(e)))
   return createPortal(
     <div>
       <div className="BookmarkEditor__Modal">
@@ -36,7 +36,7 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBook
           bookmark={editingBookmark}
           errorMessage={errorMessage}
           onChange={onChange}
-          onRequestClose={() => close()}
+          onRequestClose={onRequestClose}
           onSubmit={() =>
             closeAfter(async () => {
               await updateBookmark(editingBookmark)
@@ -51,7 +51,7 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBook
           }
         />
       </div>
-      <div className="BookmarkEditor__Overlay" onClick={() => close()} />
+      <div className="BookmarkEditor__Overlay" onClick={onRequestClose} />
     </div>,
     // put this modal into root to avoid side-effect of styles
     document.body
