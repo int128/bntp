@@ -1,4 +1,4 @@
-import { Bookmark, BookmarkFolder, BookmarkFolderID, FolderCollapse, chromePages } from './model'
+import { Bookmark, BookmarkFolder, BookmarkFolderID, FolderCollapse } from './model'
 import { useEffect, useState } from 'react'
 import { useChromeStorage } from '../infrastructure/chromeStorage'
 
@@ -14,10 +14,7 @@ export const useBookmarkFolders = () => {
 }
 
 const getBookmarkFolders = async (): Promise<BookmarkFolder[]> => {
-  const tree = await chrome.bookmarks.getTree()
-  const bookmarkFolders = traverseTree(tree)
-  bookmarkFolders.push(chromePages)
-  return bookmarkFolders
+  return traverseTree(await chrome.bookmarks.getTree())
 }
 
 const subscribeBookmarks = (handler: (bookmarkFolders: BookmarkFolder[]) => void): (() => void) => {
