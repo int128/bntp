@@ -5,7 +5,7 @@ import { useSelectedTheme } from './repository'
 const THEMES = ['light', 'dark', 'solarized-light', 'solarized-dark']
 
 const preferTheme = () => {
-  const preferDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+  const preferDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
   return preferDark ? 'dark' : 'light'
 }
 
