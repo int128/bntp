@@ -1,5 +1,5 @@
 :root {
-  /* also defined at index.html */
+  /* override background-color in index.html */
   background-color: var(--palette-3);
   color: var(--palette-03);
 }

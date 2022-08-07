@@ -4,21 +4,17 @@
     <meta charset="utf-8" />
     <title>New Tab</title>
     <style>
-      /* preload the initial value to avoid screen flicker */
+      /* preload background-color to avoid screen flicker */
       @media (prefers-color-scheme: light) {
         :root {
-          --palette-3: #fdfdfd;
+          background-color: #eee;
         }
       }
 
       @media (prefers-color-scheme: dark) {
         :root {
-          --palette-3: #2b2b2b;
+          background-color: #111;
         }
-      }
-
-      :root {
-        background-color: var(--palette-3);
       }
     </style>
   </head>
