@@ -1,4 +1,4 @@
-.BookmarkFolder {
+.Bookmarks {
   --size-folder-margin-y: 3px;
   --size-folder-margin-x: 15px;
   --size-folder-margin-y: 5px;
@@ -9,6 +9,27 @@
   --size-folder-item-width: 160px;
   --size-folder-item-height: 48px;
   --size-icon: 16px;
+}
+
+.BookmarksHeader {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: var(--size-folder-margin-y);
+  margin-bottom: var(--size-folder-margin-y);
+  margin-left: var(--size-folder-margin-x);
+  margin-right: var(--size-folder-margin-x);
+}
+
+.BookmarksHeader__Item {
+  margin: 0;
+  padding: 0;
+  font-size: 90%;
+  color: var(--palette-00);
+  text-transform: uppercase;
+}
+
+.BookmarksHeader__Item__Right {
+  text-align: right;
 }
 
 .BookmarkFolder__Indent {

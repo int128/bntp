@@ -14,7 +14,13 @@ const BookmarksComponent: FC = () => {
   const bookmarkFolders = useBookmarkFolders()
   const [shortcutMap] = useShortcutMap()
   return (
-    <div>
+    <div className="Bookmarks">
+      <section className="BookmarksHeader">
+        <h2 className="BookmarksHeader__Item">Bookmarks</h2>
+        <div className="BookmarksHeader__Item BookmarksHeader__Item__Right">
+          <Link href="chrome://bookmarks">Chrome Bookmark Manager</Link>
+        </div>
+      </section>
       <BookmarkFoldersComponent bookmarkFolders={bookmarkFolders} shortcutMap={shortcutMap} />
       <ShortcutKeyComponent bookmarkFolders={bookmarkFolders} shortcutMap={shortcutMap} />
     </div>
@@ -32,7 +38,7 @@ const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ bookmarkF
   const [toggles] = useToggles()
   const [folderCollapse, setFolderCollapse] = useFolderCollapse()
   return (
-    <div className="Bookmarks">
+    <div>
       {bookmarkFolders.map((f, i) => (
         <BookmarkFolderIndent key={i} depth={toggles.indent ? f.depth : 0}>
           <BookmarkFolderComponent
@@ -148,7 +154,7 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap }
 
 type LinkProps = {
   href: string
-  children: ReactElement
+  children: ReactElement | string
 }
 
 const Link: FC<LinkProps> = ({ href, children }) => {
