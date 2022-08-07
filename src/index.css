@@ -1,8 +1,11 @@
-/* background-color is defined at index.html */
+:root {
+  /* also defined at index.html */
+  background-color: var(--palette-3);
+  color: var(--palette-03);
+}
 
 body {
   margin: 0;
-  color: var(--palette-03);
   font-family: sans-serif;
 }
 
