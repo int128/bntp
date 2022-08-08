@@ -1,62 +1,58 @@
 .TopSites {
-  --size-folder-margin-y: 3px;
   --size-folder-margin-x: 15px;
   --size-folder-margin-y: 5px;
   --size-folder-padding-x: 15px;
   --size-folder-padding-y: 5px;
   --size-folder-item-margin: 5px;
-  --size-folder-item-padding: 5px;
-  --size-folder-item-width: 48px;
-  --size-folder-item-height: 48px;
+  --size-folder-item-width: 40px;
+  --size-folder-item-height: 40px;
   --size-icon: 16px;
 }
 
 .TopSites {
-  overflow-x: hidden;
-  white-space: nowrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, var(--size-folder-item-width));
+  gap: var(--size-folder-item-margin);
+  margin: var(--size-folder-margin-y) var(--size-folder-margin-x);
+  padding: var(--size-folder-padding-y) var(--size-folder-padding-x);
 
+  overflow-x: hidden;
   border-radius: 3px;
-  margin-top: var(--size-folder-margin-y);
-  margin-bottom: var(--size-folder-margin-y);
-  margin-left: var(--size-folder-margin-x);
-  margin-right: var(--size-folder-margin-x);
-  padding-top: var(--size-folder-padding-y);
-  padding-bottom: calc(var(--size-folder-padding-y) - var(--size-folder-item-margin));
-  padding-left: var(--size-folder-padding-x);
-  padding-right: calc(var(--size-folder-padding-x) - var(--size-folder-item-margin));
   background-color: var(--palette-2);
 }
 
-.TopSite {
-  display: inline-block;
-  margin-bottom: var(--size-folder-item-margin);
-  margin-right: var(--size-folder-item-margin);
-}
-
-.TopSite__Button {
-  overflow: hidden;
-  border-width: 1px;
-  border-style: solid;
-  border-color: transparent;
-  border-radius: 3px;
+.TopSiteButton {
+  display: grid;
   width: var(--size-folder-item-width);
   height: var(--size-folder-item-height);
+  border-radius: 3px;
   background-color: var(--palette-3);
 }
 
-.TopSite__Button:hover {
+.TopSiteButton:hover {
   background-color: var(--palette-2);
   box-shadow: 0 0 calc(var(--size-folder-item-margin) * 3) var(--palette-01);
 }
 
-.TopSite__ButtonBody {
-  background-position-x: calc((var(--size-folder-item-width) - var(--size-icon)) / 2);
-  background-position-y: calc((var(--size-folder-item-height) - var(--size-icon)) / 2);
+.TopSiteButton__Icon {
+  width: var(--size-icon);
+  height: var(--size-icon);
+  align-self: center;
+  justify-self: center;
+}
 
-  padding: var(--size-folder-item-padding);
-  min-height: var(--size-folder-item-height);
-  padding-left: calc(var(--size-folder-item-padding) * 2 + var(--size-icon));
-  background-repeat: no-repeat;
-  /* background-image should be given in HTML */
-  background-size: 16px;
+.TopSiteTitle {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  max-width: 160px;
+  padding: 5px;
+  border-radius: 3px;
+  color: var(--palette-3);
+  background-color: var(--palette-03);
+  opacity: 0.8;
+}
+
+.TopSite:hover .TopSiteTitle {
+  display: block;
 }

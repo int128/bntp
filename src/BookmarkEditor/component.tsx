@@ -4,7 +4,7 @@ import { removeBookmark, updateBookmark } from '../Bookmarks/repository'
 import { Bookmark } from '../Bookmarks/model'
 import { EditingBookmark } from './model'
 import { createPortal } from 'react-dom'
-import { faviconBackgroundImage } from '../infrastructure/favicon'
+import { faviconImage } from '../infrastructure/favicon'
 import { shortcutKeyOf } from '../ShortcutKey/model'
 import { useShortcutMap } from '../ShortcutKey/repository'
 
@@ -104,7 +104,7 @@ const FormComponent: FC<FormComponentProps> = ({
           type="text"
           value={bookmark.url}
           className="BookmarkEditor__UrlInput"
-          style={{ backgroundImage: faviconBackgroundImage(bookmark.url) }}
+          style={{ backgroundImage: `url(${faviconImage(bookmark.url) ?? ''})` }}
           onChange={(e) => onChange({ ...bookmark, url: e.target.value })}
         />
       </div>

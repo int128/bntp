@@ -1,23 +1,26 @@
 .Bookmarks {
-  --size-folder-margin-y: 3px;
   --size-folder-margin-x: 15px;
   --size-folder-margin-y: 5px;
   --size-folder-padding-x: 15px;
   --size-folder-padding-y: 5px;
   --size-folder-item-margin: 5px;
   --size-folder-item-padding: 5px;
-  --size-folder-item-width: 160px;
-  --size-folder-item-height: 48px;
+  --size-folder-item-width: 150px;
+  --size-folder-item-height: 40px;
   --size-icon: 16px;
+  --size-edit-button: 21px;
+}
+
+.Bookmarks {
+  display: grid;
+  row-gap: var(--size-folder-margin-y);
+  margin-left: var(--size-folder-margin-x);
+  margin-right: var(--size-folder-margin-x);
 }
 
 .BookmarksHeader {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin-top: var(--size-folder-margin-y);
-  margin-bottom: var(--size-folder-margin-y);
-  margin-left: var(--size-folder-margin-x);
-  margin-right: var(--size-folder-margin-x);
 }
 
 .BookmarksHeader__Item {
@@ -32,107 +35,96 @@
   text-align: right;
 }
 
+.BookmarkFolders {
+  display: grid;
+  row-gap: var(--size-folder-margin-y);
+}
+
 .BookmarkFolder__Indent {
   margin-left: calc(80px * var(--depth));
 }
 
 .BookmarkFolder {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, var(--size-folder-item-width));
+  gap: var(--size-folder-item-margin);
+  padding: var(--size-folder-padding-y) var(--size-folder-padding-x);
   border-radius: 3px;
-  margin-top: var(--size-folder-margin-y);
-  margin-bottom: var(--size-folder-margin-y);
-  margin-left: var(--size-folder-margin-x);
-  margin-right: var(--size-folder-margin-x);
-  padding-top: var(--size-folder-padding-y);
-  padding-bottom: calc(var(--size-folder-padding-y) - var(--size-folder-item-margin));
-  padding-left: var(--size-folder-padding-x);
-  padding-right: calc(var(--size-folder-padding-x) - var(--size-folder-item-margin));
   background-color: var(--palette-2);
 }
 
 .BookmarkFolder__Heading {
-  margin-left: 2px;
-}
-
-.BookmarkFolder__Heading__Expand {
-  width: var(--size-folder-item-width);
-  vertical-align: top;
-}
-
-.BookmarkFolder__Heading,
-.Bookmark {
-  position: relative;
-  display: inline-block;
-  margin-bottom: var(--size-folder-item-margin);
-  margin-right: var(--size-folder-item-margin);
-}
-
-.BookmarkFolder__HeadingText {
   font-size: 120%;
 }
 
-.Bookmark__ButtonBadge {
-  position: absolute;
-  border-radius: 3px;
-  background-color: var(--palette-2);
-  width: 16px;
-  height: 16px;
-  text-align: center;
-  color: var(--palette-00);
-  margin-top: calc(var(--size-folder-item-height) - 16px - var(--size-folder-item-padding));
-  margin-left: var(--size-folder-item-padding);
+.Bookmark {
+  position: relative; /* for .BookmarkEditButton */
 }
 
-.Bookmark__Button {
-  overflow: hidden;
-  border-width: 1px;
-  border-style: solid;
-  border-color: transparent;
-  border-radius: 3px;
-  width: var(--size-folder-item-width);
+.BookmarkButton {
+  display: grid;
+  grid-template-columns: var(--size-icon) auto;
+  gap: var(--size-folder-item-padding);
+
   height: var(--size-folder-item-height);
+  padding: var(--size-folder-item-padding);
+  overflow: hidden;
+  border-radius: 3px;
   background-color: var(--palette-3);
 }
 
-.Bookmark__Button:hover {
+.BookmarkButton:hover {
   background-color: var(--palette-2);
   box-shadow: 0 0 calc(var(--size-folder-item-margin) * 3) var(--palette-01);
 }
 
-.Bookmark__ButtonBody {
-  padding: var(--size-folder-item-padding);
-  padding-left: calc(var(--size-folder-item-padding) * 2 + var(--size-icon));
-  background-repeat: no-repeat;
-  /* background-image should be given in HTML */
-  background-position-x: var(--size-folder-item-padding);
-  background-position-y: var(--size-folder-item-padding);
-  background-size: 16px;
+.BookmarkButton__Title {
+  grid-column: 2;
+  grid-row: 1 / 2;
 }
 
-.Bookmark__EditButton {
+.BookmarkButton__Icon {
+  grid-column: 1;
+  grid-row: 1;
+  width: var(--size-icon);
+  height: var(--size-icon);
+}
+
+.BookmarkButton__Badge {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: end;
+  width: var(--size-icon);
+  height: var(--size-icon);
+  text-align: center;
+  border-radius: 3px;
+  background-color: var(--palette-2);
+  color: var(--palette-00);
+}
+
+.BookmarkEditButton {
   position: absolute;
-  bottom: var(--size-folder-item-padding);
+  bottom: 0;
   right: 0;
-}
+  height: var(--size-edit-button);
+  width: var(--size-edit-button);
 
-.Bookmark .Bookmark__EditButton {
-  display: none;
-}
-
-.Bookmark:hover .Bookmark__EditButton {
-  display: block;
-}
-
-.Bookmark__EditButton a {
-  padding-bottom: var(--size-folder-item-padding);
-  padding-right: var(--size-folder-item-padding);
-  padding-left: var(--size-folder-item-padding);
   border-radius: 3px;
   color: var(--palette-1);
   font-size: 120%;
   font-weight: bold;
+  text-align: center;
 }
 
-.Bookmark__EditButton a:hover {
+.BookmarkEditButton:hover {
   color: var(--palette-01);
-  background-color: var(--palette-2);
+  background-color: var(--palette-1);
+}
+
+.Bookmark .BookmarkEditButton {
+  display: none;
+}
+
+.Bookmark:hover .BookmarkEditButton {
+  display: block;
 }

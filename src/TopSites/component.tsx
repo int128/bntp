@@ -1,8 +1,7 @@
 import './component.css'
-import './componentTip.css'
 import { FC } from 'react'
 import { TopSite } from './model'
-import { faviconBackgroundImage } from '../infrastructure/favicon'
+import { faviconImage } from '../infrastructure/favicon'
 import { useTopSites } from './repository'
 
 const TopSitesComponent: FC = () => {
@@ -25,16 +24,12 @@ type TopSiteComponentProps = {
 const TopSiteComponent: FC<TopSiteComponentProps> = ({ topSite }) => {
   return (
     <div className="TopSite">
-      <div className="FloatTip">
-        <a href={topSite.url}>
-          <div className="TopSite__Button">
-            <div className="TopSite__ButtonBody" style={{ backgroundImage: faviconBackgroundImage(topSite.url) }}></div>
-          </div>
-        </a>
-        <div className="FloatTip__Baloon">
-          <div className="FloatTip__Body">{topSite.title}</div>
+      <a href={topSite.url}>
+        <div className="TopSiteButton">
+          <img className="TopSiteButton__Icon" alt="" src={faviconImage(topSite.url)} />
         </div>
-      </div>
+      </a>
+      <div className="TopSiteTitle">{topSite.title}</div>
     </div>
   )
 }

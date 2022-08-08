@@ -6,7 +6,7 @@ import BookmarkEditorComponent from '../BookmarkEditor/component'
 import { EditingBookmark } from '../BookmarkEditor/model'
 import ShortcutKeyComponent from '../ShortcutKey/component'
 import { ShortcutMap } from '../ShortcutKey/model'
-import { faviconBackgroundImage } from '../infrastructure/favicon'
+import { faviconImage } from '../infrastructure/favicon'
 import { useShortcutMap } from '../ShortcutKey/repository'
 import { useToggles } from '../Toggles/repository'
 
@@ -38,7 +38,7 @@ const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ bookmarkF
   const [toggles] = useToggles()
   const [folderCollapse, setFolderCollapse] = useFolderCollapse()
   return (
-    <div>
+    <div className="BookmarkFolders">
       {bookmarkFolders.map((f, i) => (
         <BookmarkFolderIndent key={i} depth={toggles.indent ? f.depth : 0}>
           <BookmarkFolderComponent
@@ -125,24 +125,21 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap }
   return (
     <div className="Bookmark">
       <Link href={bookmark.url}>
-        <div className="Bookmark__Button">
-          {shortcutKey ? <div className="Bookmark__ButtonBadge">{shortcutKey}</div> : null}
-          <div className="Bookmark__ButtonBody" style={{ backgroundImage: faviconBackgroundImage(bookmark.url) }}>
-            {bookmark.title}
-          </div>
+        <div className="BookmarkButton">
+          <div className="BookmarkButton__Title">{bookmark.title}</div>
+          <img className="BookmarkButton__Icon" alt="" src={faviconImage(bookmark.url)} />
+          {shortcutKey ? <div className="BookmarkButton__Badge">{shortcutKey}</div> : null}
         </div>
       </Link>
-      <div className="Bookmark__EditButton">
-        <a
-          href="#Edit"
-          onClick={(e) => {
-            setEditingBookmark({ ...bookmark, shortcutKey })
-            e.preventDefault()
-          }}
-        >
-          &hellip;
-        </a>
-      </div>
+      <a
+        href="#Edit"
+        onClick={(e) => {
+          setEditingBookmark({ ...bookmark, shortcutKey })
+          e.preventDefault()
+        }}
+      >
+        <div className="BookmarkEditButton">&hellip;</div>
+      </a>
       <BookmarkEditorComponent
         editingBookmark={editingBookmark}
         onChange={setEditingBookmark}
