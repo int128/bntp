@@ -22,7 +22,7 @@ const ThemesComponent: FC = () => {
               checked={key === colorScheme}
               onChange={() => setColorScheme(key)}
             />
-            {key}
+            {capitalize(key)}
           </label>
         ))}
       </div>
@@ -30,12 +30,14 @@ const ThemesComponent: FC = () => {
         {allThemes.map((key) => (
           <label key={key}>
             <input type="radio" name="theme" value={key} checked={key === theme} onChange={() => setTheme(key)} />
-            {key}
+            {capitalize(key)}
           </label>
         ))}
       </div>
     </>
   )
 }
+
+const capitalize = (s: string) => s.replace(/^\w/, (c) => c.toUpperCase())
 
 export default ThemesComponent
