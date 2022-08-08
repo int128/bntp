@@ -69,9 +69,6 @@
   height: var(--size-folder-item-height);
   padding: var(--size-folder-item-padding);
   overflow: hidden;
-  border-width: 1px;
-  border-style: solid;
-  border-color: transparent;
   border-radius: 3px;
   background-color: var(--palette-3);
 }

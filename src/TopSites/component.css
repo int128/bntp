@@ -25,9 +25,6 @@
   display: grid;
   width: var(--size-folder-item-width);
   height: var(--size-folder-item-height);
-  border-width: 1px;
-  border-style: solid;
-  border-color: transparent;
   border-radius: 3px;
   background-color: var(--palette-3);
 }
