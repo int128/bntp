@@ -1,4 +1,3 @@
-import './App.css'
 import Bookmarks from './Bookmarks/component'
 import Preferences from './Preferences/component'
 import TopSites from './TopSites/component'
