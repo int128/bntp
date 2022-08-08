@@ -1,4 +1,4 @@
-:root.Theme__light {
+:root.Theme__standard__light {
   --palette-03: #2b2b2b;
   --palette-02: #363636;
   --palette-01: #6e6e6e;
@@ -9,7 +9,7 @@
   --palette-3: #fdfdfd;
 }
 
-:root.Theme__dark {
+:root.Theme__standard__dark {
   --palette-3: #2b2b2b;
   --palette-2: #363636;
   --palette-1: #6e6e6e;
@@ -20,7 +20,7 @@
   --palette-03: #fdfdfd;
 }
 
-:root.Theme__solarized-light {
+:root.Theme__solarized__light {
   --palette-03: #002b36;
   --palette-02: #073642;
   --palette-01: #586e75;
@@ -31,7 +31,7 @@
   --palette-3: #fdf6e3;
 }
 
-:root.Theme__solarized-dark {
+:root.Theme__solarized__dark {
   --palette-3: #002b36;
   --palette-2: #073642;
   --palette-1: #586e75;
