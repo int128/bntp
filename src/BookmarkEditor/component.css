@@ -1,9 +1,18 @@
+.BookmarkEditor {
+  /* BookmarkEditor does not inherit <App> */
+  --size-gap: 5px;
+  --size-wide-gap: 15px;
+  --size-form-control-padding: 8px;
+  --size-form-control-border-radius: 4px;
+  --size-icon: 16px;
+}
+
 .BookmarkEditor__Modal {
   z-index: 100;
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: calc(var(--size-wide-gap) * 2);
+  left: calc(var(--size-wide-gap) * 2);
+  right: calc(var(--size-wide-gap) * 2);
 }
 
 .BookmarkEditor__Overlay {
@@ -17,63 +26,49 @@
 }
 
 .BookmarkEditor__Form {
-  margin: 32px;
+  display: grid;
+  gap: var(--size-gap);
+  padding: var(--size-wide-gap);
   background-color: var(--palette-3);
-  padding: 16px;
-  border-radius: 4px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+  border-radius: var(--size-form-control-border-radius);
+  box-shadow: 0 0 var(--size-wide-gap) rgba(0, 0, 0, 0.5);
 }
 
-.BookmarkEditor__TextInput,
-.BookmarkEditor__UrlInput {
-  box-sizing: border-box;
-  width: 100%;
-  margin-top: 4px;
-  margin-bottom: 4px;
-  padding: 8px;
-  border-radius: 4px;
+.BookmarkEditor__Group {
+  display: grid;
+  grid-template-columns: min-content auto min-content;
+}
+
+.BookmarkEditor input[type='text'] {
+  padding: var(--size-form-control-padding);
+  border-radius: var(--size-form-control-border-radius);
   color: inherit;
   background-color: var(--palette-2);
   border: none;
 }
 
-.BookmarkEditor__UrlInput {
-  padding-left: 32px;
-  background-size: 16px;
-  background-position-x: 8px;
-  background-position-y: 8px;
+.BookmarkEditor input[type='text'].BookmarkEditor__Url {
+  padding-left: calc(var(--size-icon) * 2);
+  background-size: var(--size-icon);
+  background-position: calc(var(--size-icon) / 2);
   background-repeat: no-repeat;
 }
 
-.BookmarkEditor__Button {
-  margin-top: 4px;
-  margin-bottom: 4px;
-  padding: 8px;
-  border-radius: 4px;
+.BookmarkEditor input[type='button'],
+.BookmarkEditor input[type='submit'] {
+  padding: var(--size-form-control-padding);
+  border-radius: var(--size-form-control-border-radius);
   color: inherit;
   background-color: var(--palette-2);
   border: none;
 }
 
-.BookmarkEditor__Button:hover {
+.BookmarkEditor input[type='button']:hover,
+.BookmarkEditor input[type='submit']:hover {
   background-color: var(--palette-1);
 }
 
 .BookmarkEditor__Message {
-  margin-top: 4px;
-  margin-bottom: 4px;
-  padding: 8px;
+  padding: var(--size-form-control-padding);
   color: var(--palette-03);
-}
-
-.BookmarkEditor__ClearFix {
-  clear: both;
-}
-
-.BookmarkEditor__Left {
-  float: left;
-}
-
-.BookmarkEditor__Right {
-  float: right;
 }

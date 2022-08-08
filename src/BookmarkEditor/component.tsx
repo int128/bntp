@@ -30,7 +30,7 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBook
       .then(onRequestClose)
       .catch((e) => setErrorMessage(String(e)))
   return createPortal(
-    <div>
+    <div className="BookmarkEditor">
       <div className="BookmarkEditor__Modal">
         <FormComponent
           bookmark={editingBookmark}
@@ -90,45 +90,31 @@ const FormComponent: FC<FormComponentProps> = ({
         }
       }}
     >
-      <div>
-        <input
-          type="text"
-          value={bookmark.title}
-          className="BookmarkEditor__TextInput"
-          autoFocus={true}
-          onChange={(e) => onChange({ ...bookmark, title: e.target.value })}
-        />
+      <input
+        type="text"
+        value={bookmark.title}
+        autoFocus={true}
+        onChange={(e) => onChange({ ...bookmark, title: e.target.value })}
+      />
+      <input
+        type="text"
+        value={bookmark.url}
+        className="BookmarkEditor__Url"
+        style={{ backgroundImage: `url(${faviconImage(bookmark.url) ?? ''})` }}
+        onChange={(e) => onChange({ ...bookmark, url: e.target.value })}
+      />
+      <input
+        type="text"
+        value={bookmark.shortcutKey ?? ''}
+        maxLength={1}
+        placeholder="Shortcut Key (not assigned)"
+        onChange={(e) => onChange({ ...bookmark, shortcutKey: shortcutKeyOf(e.target.value) })}
+      />
+      <div className="BookmarkEditor__Group">
+        <input type="submit" value="Update" />
+        <div className="BookmarkEditor__Message">{errorMessage}</div>
+        <input type="button" value="Remove" onClick={() => onRemove()} />
       </div>
-      <div>
-        <input
-          type="text"
-          value={bookmark.url}
-          className="BookmarkEditor__UrlInput"
-          style={{ backgroundImage: `url(${faviconImage(bookmark.url) ?? ''})` }}
-          onChange={(e) => onChange({ ...bookmark, url: e.target.value })}
-        />
-      </div>
-      <div>
-        <input
-          type="text"
-          value={bookmark.shortcutKey ?? ''}
-          maxLength={1}
-          className="BookmarkEditor__TextInput"
-          placeholder="Shortcut Key (not assigned)"
-          onChange={(e) => onChange({ ...bookmark, shortcutKey: shortcutKeyOf(e.target.value) })}
-        />
-      </div>
-      <div>
-        <input type="submit" value="Update" className="BookmarkEditor__Button BookmarkEditor__Left" />
-        <div className="BookmarkEditor__Message BookmarkEditor__Left">{errorMessage}</div>
-        <input
-          type="button"
-          value="Remove"
-          className="BookmarkEditor__Button BookmarkEditor__Right"
-          onClick={() => onRemove()}
-        />
-      </div>
-      <div className="BookmarkEditor__ClearFix"></div>
     </form>
   )
 }
