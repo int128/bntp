@@ -1,37 +1,49 @@
 import './component.css'
 import { FC, useEffect } from 'react'
-import { useSelectedTheme } from './repository'
-
-const THEMES = ['light', 'dark', 'solarized-light', 'solarized-dark']
-
-const preferTheme = () => {
-  const preferDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-  return preferDark ? 'dark' : 'light'
-}
+import { allColorSchemes, allThemes } from './model'
+import { useSelectedColorScheme, useSelectedTheme } from './repository'
 
 const ThemesComponent: FC = () => {
-  // set the initial value to avoid screen flicker
-  const [selectedTheme, setSelectedTheme] = useSelectedTheme(preferTheme())
+  const [selectedTheme, setSelectedTheme] = useSelectedTheme('standard')
+  const [selectedColorScheme, setSelectedColorScheme] = useSelectedColorScheme('auto')
   useEffect(() => {
-    document.documentElement.className = `Theme__${selectedTheme}`
-  }, [selectedTheme])
+    document.documentElement.className = `Theme__${selectedTheme} ColorScheme__${selectedColorScheme}`
+  }, [selectedTheme, selectedColorScheme])
 
   return (
-    <div>
-      {THEMES.map((theme) => (
-        <label key={theme}>
-          <input
-            type="radio"
-            name="Theme"
-            value={theme}
-            checked={theme === selectedTheme}
-            onChange={() => setSelectedTheme(theme)}
-          />
-          {theme}
-        </label>
-      ))}
-    </div>
+    <>
+      <div>
+        {allColorSchemes.map((colorScheme) => (
+          <label key={colorScheme}>
+            <input
+              type="radio"
+              name="selectedColorScheme"
+              value={colorScheme}
+              checked={colorScheme === selectedColorScheme}
+              onChange={() => setSelectedColorScheme(colorScheme)}
+            />
+            {capitalize(colorScheme)}
+          </label>
+        ))}
+      </div>
+      <div>
+        {allThemes.map((theme) => (
+          <label key={theme}>
+            <input
+              type="radio"
+              name="selectedTheme"
+              value={theme}
+              checked={theme === selectedTheme}
+              onChange={() => setSelectedTheme(theme)}
+            />
+            {capitalize(theme)}
+          </label>
+        ))}
+      </div>
+    </>
   )
 }
+
+const capitalize = (s: string) => s.replace(/^\w/, (c) => c.toUpperCase())
 
 export default ThemesComponent
