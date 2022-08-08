@@ -4,15 +4,14 @@ import { getManifest } from './repository'
 const ManifestComponent: FC = () => {
   const [manifest] = useState(getManifest())
   return (
-    <div>
-      <h4>
-        {manifest.name} {manifest.version}
-      </h4>
-      <p>Thank you for using the app.</p>
+    <>
+      <div>
+        Thank you for using the extension. {manifest.name} {manifest.version}
+      </div>
       <a href={`https://chrome.google.com/webstore/detail/${manifest.id}`}>
         <label>Review on Web Store</label>
       </a>
-    </div>
+    </>
   )
 }
 
