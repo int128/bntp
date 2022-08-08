@@ -6,3 +6,9 @@ export const faviconBackgroundImage = (url: string): string | undefined => {
     return `url(https://www.google.com/s2/favicons?sz=32&domain_url=${url})`
   }
 }
+
+export const faviconImage = (url: string): string | undefined => {
+  if (url.startsWith('https://') || url.startsWith('http://')) {
+    return `https://www.google.com/s2/favicons?sz=32&domain_url=${url}`
+  }
+}
