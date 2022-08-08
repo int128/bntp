@@ -1798,10 +1798,10 @@
   resolved "https://registry.yarnpkg.com/@tsconfig/create-react-app/-/create-react-app-1.0.2.tgz#e05e2d209b98e21665ed4097fe2d37f638447b0e"
   integrity sha512-Vg+pErSM6hTcSzxPqNwFg0dk+y0R1Obp8uLV1MDdfd7j98FyOFqtqkdxb9wqIx9vtDW5GCH7zg6DyoHJzMT12g==
 
-"@tsconfig/cypress@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@tsconfig/cypress/-/cypress-1.0.0.tgz#616ad51b67840c004210764bec33e3da11887308"
-  integrity sha512-HOXIav/Y4pYU6tok5q0SKsrnKlHV+nzpv+gePBfr8TN1qIsPUcWO4hcLxXzDBZU0ZZxL2jbwgmvw79D7s7O4aA==
+"@tsconfig/cypress@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@tsconfig/cypress/-/cypress-1.0.1.tgz#132c23cf885dcf7d79a7b9844ca38a69bb8d7732"
+  integrity sha512-iMHduexJCL6aKafaCkkSClbKQI7A75QE6z8DuKPEXKXH8o/1JJeCTdkZP60d7ZFVrXBlKH4opNK8zycJADJ8iQ==
 
 "@types/aria-query@^4.2.0":
   version "4.2.2"
