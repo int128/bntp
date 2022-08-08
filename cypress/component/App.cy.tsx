@@ -2,7 +2,7 @@ import App from '../../src/App'
 
 describe('<App>', () => {
   it('mounts', () => {
-    cy.viewport('macbook-16')
+    cy.viewport('macbook-11')
     cy.mount(<App />)
     cy.get('.Bookmark > a[href="http://www.google.com/"]')
     cy.get('.BookmarkButton__Icon').and(($img) => {
