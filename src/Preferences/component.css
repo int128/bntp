@@ -1,33 +1,36 @@
 .Preferences {
-  --size-preference-item-margin: 3px;
-  --size-preference-item-padding: 10px;
+  --size-preference-item-margin: var(--size-gap);
+  --size-preference-item-padding: 8px;
+}
 
-  margin-top: 15px;
-  margin-bottom: 15px;
+.Preferences {
+  display: grid;
+  gap: var(--size-gap);
+  margin-top: var(--size-wide-gap);
   text-align: center;
 }
 
-.Preferences h4 {
-  margin-bottom: var(--size-preference-item-margin);
+.Preferences h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 90%;
+  color: var(--palette-00);
+  text-transform: uppercase;
 }
 
-.Preferences form label,
-.Preferences form button {
+.Preferences label,
+.Preferences button {
   display: inline-block;
+  margin-right: var(--size-preference-item-margin);
+  padding: var(--size-preference-item-padding);
   font: inherit;
   color: inherit;
-  margin: var(--size-preference-item-margin);
-  padding: var(--size-preference-item-padding);
   border-radius: 3px;
   border: none;
   background-color: var(--palette-2);
 }
 
-.Preferences form label:hover,
-.Preferences form button:hover {
+.Preferences label:hover,
+.Preferences button:hover {
   background-color: var(--palette-1);
-}
-
-.Preferences form input {
-  margin-right: var(--size-preference-item-padding);
 }

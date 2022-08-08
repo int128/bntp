@@ -5,15 +5,14 @@ import Themes from '../Themes/component'
 import Toggles from '../Toggles/component'
 
 const PreferencesComponent: FC = () => (
-  <div className="Preferences">
-    <form>
-      <h4>Toggles</h4>
-      <Toggles />
-      <h4>Themes</h4>
-      <Themes />
-      <Manifest />
-    </form>
-  </div>
+  <form className="Preferences">
+    <h2>Toggles</h2>
+    <Toggles />
+    <h2>Themes</h2>
+    <Themes />
+    <h2>About</h2>
+    <Manifest />
+  </form>
 )
 
 export default PreferencesComponent
