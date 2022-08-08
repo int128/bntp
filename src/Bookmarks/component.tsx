@@ -14,16 +14,14 @@ const BookmarksComponent: FC = () => {
   const bookmarkFolders = useBookmarkFolders()
   const [shortcutMap] = useShortcutMap()
   return (
-    <div className="Bookmarks">
+    <>
       <section className="BookmarksHeader">
-        <h2 className="BookmarksHeader__Item">Bookmarks</h2>
-        <div className="BookmarksHeader__Item BookmarksHeader__Item__Right">
-          <Link href="chrome://bookmarks">Chrome Bookmark Manager</Link>
-        </div>
+        <h2>Bookmarks</h2>
+        <Link href="chrome://bookmarks">Chrome Bookmark Manager</Link>
       </section>
       <BookmarkFoldersComponent bookmarkFolders={bookmarkFolders} shortcutMap={shortcutMap} />
       <ShortcutKeyComponent bookmarkFolders={bookmarkFolders} shortcutMap={shortcutMap} />
-    </div>
+    </>
   )
 }
 
