@@ -1,21 +1,13 @@
 import './component.css'
-import { ColorScheme, allColorSchemes, allThemes } from './model'
 import { FC, useEffect } from 'react'
+import { allColorSchemes, allThemes } from './model'
 import { useColorScheme, useTheme } from './repository'
-
-const preferredColorScheme = (value: ColorScheme): ColorScheme => {
-  if (value !== 'auto') {
-    return value
-  }
-  const preferDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-  return preferDark ? 'dark' : 'light'
-}
 
 const ThemesComponent: FC = () => {
   const [theme, setTheme] = useTheme('standard')
   const [colorScheme, setColorScheme] = useColorScheme('auto')
   useEffect(() => {
-    document.documentElement.className = `Theme__${theme}__${preferredColorScheme(colorScheme)}`
+    document.documentElement.className = `Theme__${theme} ColorScheme__${colorScheme}`
   }, [theme, colorScheme])
 
   return (
