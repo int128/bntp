@@ -1,43 +1,35 @@
-.Bookmarks {
-  --size-folder-margin-x: 15px;
-  --size-folder-margin-y: 5px;
-  --size-folder-padding-x: 15px;
-  --size-folder-padding-y: 5px;
-  --size-folder-item-margin: 5px;
-  --size-folder-item-padding: 5px;
+.BookmarkFolders {
+  --size-folder-gap: var(--size-gap);
+  --size-folder-padding-x: var(--size-wide-gap);
+  --size-folder-padding-y: var(--size-gap);
+  --size-folder-item-gap: var(--size-gap);
   --size-folder-item-width: 150px;
   --size-folder-item-height: 40px;
   --size-icon: 16px;
   --size-edit-button: 21px;
 }
 
-.Bookmarks {
-  display: grid;
-  row-gap: var(--size-folder-margin-y);
-  margin-left: var(--size-folder-margin-x);
-  margin-right: var(--size-folder-margin-x);
-}
-
 .BookmarksHeader {
   display: grid;
   grid-template-columns: 1fr 1fr;
-}
-
-.BookmarksHeader__Item {
-  margin: 0;
-  padding: 0;
   font-size: 90%;
   color: var(--palette-00);
   text-transform: uppercase;
 }
 
-.BookmarksHeader__Item__Right {
+.BookmarksHeader h2 {
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+}
+
+.BookmarksHeader > :last-child {
   text-align: right;
 }
 
 .BookmarkFolders {
   display: grid;
-  row-gap: var(--size-folder-margin-y);
+  row-gap: var(--size-folder-gap);
 }
 
 .BookmarkFolder__Indent {
@@ -47,7 +39,7 @@
 .BookmarkFolder {
   display: grid;
   grid-template-columns: repeat(auto-fill, var(--size-folder-item-width));
-  gap: var(--size-folder-item-margin);
+  gap: var(--size-folder-item-gap);
   padding: var(--size-folder-padding-y) var(--size-folder-padding-x);
   border-radius: 3px;
   background-color: var(--palette-2);
@@ -64,10 +56,10 @@
 .BookmarkButton {
   display: grid;
   grid-template-columns: var(--size-icon) auto;
-  gap: var(--size-folder-item-padding);
+  gap: var(--size-folder-item-gap);
 
   height: var(--size-folder-item-height);
-  padding: var(--size-folder-item-padding);
+  padding: var(--size-folder-item-gap);
   overflow: hidden;
   border-radius: 3px;
   background-color: var(--palette-3);
@@ -75,7 +67,7 @@
 
 .BookmarkButton:hover {
   background-color: var(--palette-2);
-  box-shadow: 0 0 calc(var(--size-folder-item-margin) * 3) var(--palette-01);
+  box-shadow: 0 0 calc(var(--size-folder-item-gap) * 3) var(--palette-01);
 }
 
 .BookmarkButton__Title {

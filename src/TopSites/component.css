@@ -1,9 +1,7 @@
 .TopSites {
-  --size-folder-margin-x: 15px;
-  --size-folder-margin-y: 5px;
-  --size-folder-padding-x: 15px;
-  --size-folder-padding-y: 5px;
-  --size-folder-item-margin: 5px;
+  --size-folder-padding-x: var(--size-wide-gap);
+  --size-folder-padding-y: var(--size-gap);
+  --size-folder-item-gap: var(--size-gap);
   --size-folder-item-width: 40px;
   --size-folder-item-height: 40px;
   --size-icon: 16px;
@@ -12,8 +10,7 @@
 .TopSites {
   display: grid;
   grid-template-columns: repeat(auto-fill, var(--size-folder-item-width));
-  gap: var(--size-folder-item-margin);
-  margin: var(--size-folder-margin-y) var(--size-folder-margin-x);
+  gap: var(--size-folder-item-gap);
   padding: var(--size-folder-padding-y) var(--size-folder-padding-x);
 
   overflow-x: hidden;
@@ -31,7 +28,7 @@
 
 .TopSiteButton:hover {
   background-color: var(--palette-2);
-  box-shadow: 0 0 calc(var(--size-folder-item-margin) * 3) var(--palette-01);
+  box-shadow: 0 0 calc(var(--size-folder-item-gap) * 3) var(--palette-01);
 }
 
 .TopSiteButton__Icon {
