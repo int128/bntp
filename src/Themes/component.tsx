@@ -1,36 +1,42 @@
 import './component.css'
 import { FC, useEffect } from 'react'
 import { allColorSchemes, allThemes } from './model'
-import { useColorScheme, useTheme } from './repository'
+import { useSelectedColorScheme, useSelectedTheme } from './repository'
 
 const ThemesComponent: FC = () => {
-  const [theme, setTheme] = useTheme('standard')
-  const [colorScheme, setColorScheme] = useColorScheme('auto')
+  const [selectedTheme, setSelectedTheme] = useSelectedTheme('standard')
+  const [selectedColorScheme, setSelectedColorScheme] = useSelectedColorScheme('auto')
   useEffect(() => {
-    document.documentElement.className = `Theme__${theme} ColorScheme__${colorScheme}`
-  }, [theme, colorScheme])
+    document.documentElement.className = `Theme__${selectedTheme} ColorScheme__${selectedColorScheme}`
+  }, [selectedTheme, selectedColorScheme])
 
   return (
     <>
       <div>
-        {allColorSchemes.map((key) => (
-          <label key={key}>
+        {allColorSchemes.map((colorScheme) => (
+          <label key={colorScheme}>
             <input
               type="radio"
-              name="colorScheme"
-              value={key}
-              checked={key === colorScheme}
-              onChange={() => setColorScheme(key)}
+              name="selectedColorScheme"
+              value={colorScheme}
+              checked={colorScheme === selectedColorScheme}
+              onChange={() => setSelectedColorScheme(colorScheme)}
             />
-            {capitalize(key)}
+            {capitalize(colorScheme)}
           </label>
         ))}
       </div>
       <div>
-        {allThemes.map((key) => (
-          <label key={key}>
-            <input type="radio" name="theme" value={key} checked={key === theme} onChange={() => setTheme(key)} />
-            {capitalize(key)}
+        {allThemes.map((theme) => (
+          <label key={theme}>
+            <input
+              type="radio"
+              name="selectedTheme"
+              value={theme}
+              checked={theme === selectedTheme}
+              onChange={() => setSelectedTheme(theme)}
+            />
+            {capitalize(theme)}
           </label>
         ))}
       </div>
