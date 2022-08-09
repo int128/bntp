@@ -2,6 +2,9 @@ import { JTDSchemaType } from 'ajv/dist/core'
 import { ShortcutMap } from '../ShortcutKey/model'
 import { parseLocalStorage } from './localStorage'
 
+export const V2_KEY = 'FOLDER_ITEM_PREFERENCES'
+export const V3_KEY = 'v3.shortcutKeyMap'
+
 type FolderItemPreference = {
   id: string
   accessKey: string
@@ -25,10 +28,10 @@ export const upgrade = (folderItemPreferences: FolderItemPreference[]): Shortcut
 }
 
 export const migrate = async () => {
-  const folderItemPreferences = parseLocalStorage('FOLDER_ITEM_PREFERENCES', schema)
+  const folderItemPreferences = parseLocalStorage(V2_KEY, schema)
   if (folderItemPreferences === undefined) {
     return
   }
   const shortcutMap = upgrade(folderItemPreferences)
-  await chrome.storage.sync.set({ 'v3.shortcutKeyMap': shortcutMap.serialize() })
+  await chrome.storage.sync.set({ [V3_KEY]: shortcutMap.serialize() })
 }

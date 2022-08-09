@@ -2,6 +2,9 @@ import { FolderCollapse } from '../Bookmarks/model'
 import { JTDSchemaType } from 'ajv/dist/core'
 import { parseLocalStorage } from './localStorage'
 
+export const V2_KEY = 'FOLDER_PREFERENCES'
+export const V3_KEY = 'v3.collapsedBookmarkFolderIDs'
+
 type FolderPreference = {
   id: string
   collapsed: boolean
@@ -24,10 +27,10 @@ export const upgrade = (folderPreferences: FolderPreference[]): FolderCollapse =
 }
 
 export const migrate = async () => {
-  const folderPreferences = parseLocalStorage('FOLDER_PREFERENCES', schema)
+  const folderPreferences = parseLocalStorage(V2_KEY, schema)
   if (folderPreferences === undefined) {
     return
   }
   const folderCollapse = upgrade(folderPreferences)
-  await chrome.storage.sync.set({ 'v3.collapsedBookmarkFolderIDs': folderCollapse.serialize() })
+  await chrome.storage.sync.set({ [V3_KEY]: folderCollapse.serialize() })
 }
