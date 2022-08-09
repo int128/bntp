@@ -1,0 +1,36 @@
+name: release
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/release.yaml
+      - package.json
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/release.yaml
+      - package.json
+    tags:
+      - '*'
+
+jobs:
+  zip:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+      - run: yarn
+      - run: sed -i -e 's|0\.0\.0|${{ github.ref_name }}|' public/manifest.json
+      - run: git diff
+      - run: yarn build
+      - run: yarn package
+      - run: zipinfo build.zip
+      - if: github.ref_type == 'tag'
+        run: gh release upload "${{ github.ref_name }}" build.zip

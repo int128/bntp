@@ -23,6 +23,7 @@
     "format": "prettier --write src scripts",
     "format-check": "prettier --check src scripts",
     "lint": "eslint src",
+    "package": "zip -j build.zip build/*",
     "eject": "react-scripts eject"
   },
   "browserslist": {
