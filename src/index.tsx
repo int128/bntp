@@ -12,7 +12,7 @@ root.render(
   </React.StrictMode>
 )
 
-migratePreferencesFromV2ToV3()
+migratePreferencesFromV2ToV3().catch((e) => console.error(e))
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

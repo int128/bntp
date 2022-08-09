@@ -1,7 +1,6 @@
 import { JTDSchemaType } from 'ajv/dist/core'
 import { ShortcutMap } from '../ShortcutKey/model'
 import { parseLocalStorage } from './localStorage'
-import { useShortcutMap } from '../ShortcutKey/repository'
 
 type FolderItemPreference = {
   id: string
@@ -25,13 +24,11 @@ export const upgrade = (folderItemPreferences: FolderItemPreference[]): Shortcut
   return new ShortcutMap(entries)
 }
 
-export const migrate = () => {
+export const migrate = async () => {
   const folderItemPreferences = parseLocalStorage('FOLDER_ITEM_PREFERENCES', schema)
   if (folderItemPreferences === undefined) {
     return
   }
   const shortcutMap = upgrade(folderItemPreferences)
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [, setShortcutMap] = useShortcutMap()
-  setShortcutMap(shortcutMap)
+  await chrome.storage.sync.set({ 'v3.shortcutKeyMap': shortcutMap.serialize() })
 }

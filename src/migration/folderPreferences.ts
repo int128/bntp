@@ -1,7 +1,6 @@
 import { FolderCollapse } from '../Bookmarks/model'
 import { JTDSchemaType } from 'ajv/dist/core'
 import { parseLocalStorage } from './localStorage'
-import { useFolderCollapse } from '../Bookmarks/repository'
 
 type FolderPreference = {
   id: string
@@ -24,13 +23,11 @@ export const upgrade = (folderPreferences: FolderPreference[]): FolderCollapse =
   return new FolderCollapse(collapsedIDs)
 }
 
-export const migrate = () => {
+export const migrate = async () => {
   const folderPreferences = parseLocalStorage('FOLDER_PREFERENCES', schema)
   if (folderPreferences === undefined) {
     return
   }
   const folderCollapse = upgrade(folderPreferences)
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [, setFolderCollapse] = useFolderCollapse()
-  setFolderCollapse(folderCollapse)
+  await chrome.storage.sync.set({ 'v3.collapsedBookmarkFolderIDs': folderCollapse.serialize() })
 }
