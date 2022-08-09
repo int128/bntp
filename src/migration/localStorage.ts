@@ -1,17 +1,18 @@
-import Ajv, { JTDSchemaType } from 'ajv/dist/jtd'
-
-const ajv = new Ajv()
-
-export const parseLocalStorage = <T>(key: string, schema: JTDSchemaType<T>): T | undefined => {
+export const parseLocalStorage = <T>(key: string, guard: (v: unknown) => v is T): T | undefined => {
   const json = window.localStorage.getItem(key)
   if (json === null) {
     return
   }
-  const parse = ajv.compileParser(schema)
-  const obj = parse(json)
-  if (obj === undefined) {
-    console.warn(`invalid JSON of localStorage key ${key}`, parse.message, parse.position)
+  let v
+  try {
+    v = JSON.parse(json) as unknown
+  } catch (e) {
+    console.warn(`invalid JSON of localStorage key ${key}`, e)
     return
   }
-  return obj
+  if (!guard(v)) {
+    console.warn(`invalid JSON of localStorage key ${key}`)
+    return
+  }
+  return v
 }

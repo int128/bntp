@@ -1,4 +1,3 @@
-import { JTDSchemaType } from 'ajv/dist/core'
 import { ShortcutMap } from '../ShortcutKey/model'
 import { parseLocalStorage } from './localStorage'
 
@@ -10,14 +9,8 @@ type FolderItemPreference = {
   accessKey: string
 }
 
-const schema: JTDSchemaType<FolderItemPreference[]> = {
-  elements: {
-    properties: {
-      id: { type: 'string' },
-      accessKey: { type: 'string' },
-    },
-  },
-}
+const isFolderItemPreferences = (v: unknown): v is FolderItemPreference[] =>
+  Array.isArray(v) && v.every((e) => typeof e === 'object' && 'id' in e && 'accessKey' in e)
 
 export const upgrade = (folderItemPreferences: FolderItemPreference[]): ShortcutMap => {
   const entries = folderItemPreferences.map<[string, string]>((folderItemPreference) => [
@@ -28,7 +21,7 @@ export const upgrade = (folderItemPreferences: FolderItemPreference[]): Shortcut
 }
 
 export const migrate = async () => {
-  const folderItemPreferences = parseLocalStorage(V2_KEY, schema)
+  const folderItemPreferences = parseLocalStorage(V2_KEY, isFolderItemPreferences)
   if (folderItemPreferences === undefined) {
     return
   }
