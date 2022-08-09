@@ -38,4 +38,10 @@ describe('migrate', () => {
     await migrate()
     expect(chrome.storage.sync.set).toBeCalledWith({ [V3_KEY]: [['A', '3']] })
   })
+
+  test('ignores an invalid json', async () => {
+    window.localStorage.setItem(V2_KEY, `{"foo": "bar"}`)
+    await migrate()
+    expect(chrome.storage.sync.set).not.toBeCalled()
+  })
 })
