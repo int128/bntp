@@ -1,5 +1,6 @@
 import './App.css'
 import Bookmarks from './Bookmarks/component'
+import NetworkStatusComponent from './NetworkStatus/component'
 import Preferences from './Preferences/component'
 import TopSites from './TopSites/component'
 import { useToggles } from './Toggles/repository'
@@ -11,6 +12,7 @@ const App = () => {
       {toggles?.topSites ? <TopSites /> : null}
       {toggles?.bookmarks ? <Bookmarks /> : null}
       <Preferences />
+      <NetworkStatusComponent />
     </div>
   )
 }
