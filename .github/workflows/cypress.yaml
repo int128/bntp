@@ -37,4 +37,4 @@ jobs:
       - uses: int128/comment-action@v1
         with:
           post: |
-            <img src="${{ steps.upload-artifact-wiki.outputs.url }}/cypress/screenshots/App.cy.tsx/App%20--%20mounts.png">
+            <img width="800" src="${{ steps.upload-artifact-wiki.outputs.url }}/cypress/screenshots/App.cy.tsx/App%20--%20mounts.png">
