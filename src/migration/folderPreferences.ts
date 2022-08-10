@@ -5,8 +5,8 @@ export const V2_KEY = 'FOLDER_PREFERENCES'
 export const V3_KEY = 'v3.collapsedBookmarkFolderIDs'
 
 type FolderPreference = {
-  id: string
-  collapsed: boolean
+  readonly id: string
+  readonly collapsed: boolean
 }
 
 const isFolderPreferences = (v: unknown): v is FolderPreference[] =>

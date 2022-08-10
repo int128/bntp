@@ -12,10 +12,10 @@ export const shortcutKeyOf = (s: string): ShortcutKey | undefined => {
 }
 
 export class ShortcutMap {
-  private readonly entries: [ShortcutKey, BookmarkID][]
+  private readonly entries: readonly [ShortcutKey, BookmarkID][]
 
   constructor(entries: readonly [string, string][]) {
-    this.entries = []
+    const typedEntries: [ShortcutKey, BookmarkID][] = []
     const keySet = new Set<ShortcutKey>()
     const bookmarkSet = new Set<BookmarkID>()
     for (const [key, id] of entries) {
@@ -25,8 +25,9 @@ export class ShortcutMap {
       }
       keySet.add(sanitizedKey)
       bookmarkSet.add(id)
-      this.entries.push([sanitizedKey, id])
+      typedEntries.push([sanitizedKey, id])
     }
+    this.entries = typedEntries
   }
 
   getByBookmarkID(bookmarkID: BookmarkID): ShortcutKey | undefined {

@@ -1,4 +1,4 @@
 export type TopSite = {
-  title: string
-  url: string
+  readonly title: string
+  readonly url: string
 }

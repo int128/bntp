@@ -5,8 +5,8 @@ export const V2_KEY = 'FOLDER_ITEM_PREFERENCES'
 export const V3_KEY = 'v3.shortcutKeyMap'
 
 type FolderItemPreference = {
-  id: string
-  accessKey: string
+  readonly id: string
+  readonly accessKey: string
 }
 
 const isFolderItemPreferences = (v: unknown): v is FolderItemPreference[] =>

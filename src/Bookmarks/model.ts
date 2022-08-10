@@ -1,18 +1,18 @@
 export type BookmarkFolderID = string
 
 export type BookmarkFolder = {
-  id: BookmarkFolderID
-  depth: number
-  title: string
-  bookmarks: readonly Bookmark[]
+  readonly id: BookmarkFolderID
+  readonly depth: number
+  readonly title: string
+  readonly bookmarks: readonly Bookmark[]
 }
 
 export type BookmarkID = string
 
 export type Bookmark = {
-  id: BookmarkID
-  title: string
-  url: string
+  readonly id: BookmarkID
+  readonly title: string
+  readonly url: string
 }
 
 export class FolderCollapse {
