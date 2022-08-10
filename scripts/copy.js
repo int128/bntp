@@ -9,9 +9,10 @@ const copyPublicDirectory = async () => {
 
 const copyManifest = async () => {
   const manifest = await fs.readJSON('manifest.json')
-  manifest.version = process.env.GITHUB_REF_NAME ?? '0.0.0'
+  const version = process.env.GITHUB_REF_NAME ?? '0.0.0'
+  manifest.version = version
   await fs.writeJSON('build/manifest.json', manifest)
-  console.info(`Successfully copied manifest.json`)
+  console.info(`Successfully copied manifest.json with version "${version}"`)
 }
 
 module.exports = {
