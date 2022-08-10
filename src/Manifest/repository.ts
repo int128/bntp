@@ -1,5 +1,5 @@
 export type Manifest = chrome.runtime.Manifest & {
-  id: string
+  readonly id: string
 }
 
 export const getManifest = (): Manifest => ({

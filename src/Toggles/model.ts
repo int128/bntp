@@ -1,7 +1,7 @@
 export type Toggles = {
-  topSites: boolean
-  bookmarks: boolean
-  indent: boolean
+  readonly topSites: boolean
+  readonly bookmarks: boolean
+  readonly indent: boolean
 }
 
 export const defaultToggles: Toggles = {
