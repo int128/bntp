@@ -11,7 +11,7 @@ const bookmarks = [
                 index: 1,
                 parentId: '7',
                 title: 'Google Calendar',
-                url: 'https://www.google.com/calendar/',
+                url: 'https://calendar.google.com/',
               },
               {
                 dateAdded: 1313418831680,
@@ -19,7 +19,7 @@ const bookmarks = [
                 index: 3,
                 parentId: '7',
                 title: 'Gmail',
-                url: 'https://mail.google.com/mail/',
+                url: 'https://mail.google.com/',
               },
               {
                 dateAdded: 1313418831680,
@@ -30,20 +30,12 @@ const bookmarks = [
                 url: 'https://www.facebook.com/',
               },
               {
-                dateAdded: 1313418831681,
-                id: '146',
-                index: 7,
-                parentId: '7',
-                title: 'Evernote',
-                url: 'https://www.evernote.com/',
-              },
-              {
                 dateAdded: 1313418831682,
                 id: '152',
                 index: 11,
                 parentId: '7',
                 title: 'Twitter',
-                url: 'http://twitter.com/home',
+                url: 'http://twitter.com/',
               },
             ],
             dateAdded: 1313418831663,
@@ -52,32 +44,6 @@ const bookmarks = [
             index: 2,
             parentId: '1',
             title: 'Services',
-          },
-          {
-            children: [
-              {
-                dateAdded: 1313418831679,
-                id: '132',
-                index: 6,
-                parentId: '8',
-                title: 'AWS Management Console',
-                url: 'https://console.aws.amazon.com',
-              },
-              {
-                dateAdded: 1364040041916,
-                id: '50',
-                index: 10,
-                parentId: '8',
-                title: 'Heroku',
-                url: 'https://dashboard.heroku.com/',
-              },
-            ],
-            dateAdded: 1313418831664,
-            dateGroupModified: 1404027470931,
-            id: '8',
-            index: 3,
-            parentId: '1',
-            title: 'Infrastructure',
           },
           {
             children: [

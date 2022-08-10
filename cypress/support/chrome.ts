@@ -32,8 +32,8 @@ const chrome = {
     id: 'dummy',
     getManifest: () => ({
       name: 'BNTP: Bookmarks in New Tab Page',
-      version: '1.0.0.0',
-      manifest_version: 2,
+      version: '1.0.0',
+      manifest_version: 3,
     }),
   },
 }
