@@ -2,6 +2,7 @@
   --size-folder-gap: var(--size-gap);
   --size-folder-padding-x: var(--size-wide-gap);
   --size-folder-padding-y: var(--size-gap);
+  --size-folder-indent: 60px;
   --size-folder-item-gap: var(--size-gap);
   --size-folder-item-width: 150px;
   --size-folder-item-height: 40px;
@@ -33,7 +34,7 @@
 }
 
 .BookmarkFolder__Indent {
-  margin-left: calc(80px * var(--depth));
+  margin-left: calc(var(--size-folder-indent) * var(--depth));
 }
 
 .BookmarkFolder {
