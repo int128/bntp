@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useChromeStorage } from '../infrastructure/chromeStorage'
 
 export const useBookmarkFolders = () => {
-  const [bookmarkFolders, setBookmarkFolders] = useState<BookmarkFolder[]>([])
+  const [bookmarkFolders, setBookmarkFolders] = useState<readonly BookmarkFolder[]>([])
   useEffect(() => {
     getBookmarkFolders()
       .then((b) => setBookmarkFolders(b))
@@ -13,11 +13,11 @@ export const useBookmarkFolders = () => {
   return bookmarkFolders
 }
 
-const getBookmarkFolders = async (): Promise<BookmarkFolder[]> => {
+const getBookmarkFolders = async (): Promise<readonly BookmarkFolder[]> => {
   return traverseTree(await chrome.bookmarks.getTree())
 }
 
-const subscribeBookmarks = (handler: (bookmarkFolders: BookmarkFolder[]) => void): (() => void) => {
+const subscribeBookmarks = (handler: (bookmarkFolders: readonly BookmarkFolder[]) => void): (() => void) => {
   const listener = () => {
     getBookmarkFolders()
       .then((b) => handler(b))
@@ -37,7 +37,7 @@ const subscribeBookmarks = (handler: (bookmarkFolders: BookmarkFolder[]) => void
   }
 }
 
-const traverseTree = (tree: chrome.bookmarks.BookmarkTreeNode[], depth = 0): BookmarkFolder[] =>
+const traverseTree = (tree: chrome.bookmarks.BookmarkTreeNode[], depth = 0): readonly BookmarkFolder[] =>
   tree.flatMap((node) => {
     if (node.children === undefined) {
       return []
@@ -70,7 +70,7 @@ export const removeBookmark = async (bookmark: Bookmark) => {
 }
 
 export const useFolderCollapse = (): [FolderCollapse, (newSet: FolderCollapse) => void] => {
-  const [ids, setIDs] = useChromeStorage<BookmarkFolderID[]>({
+  const [ids, setIDs] = useChromeStorage<readonly BookmarkFolderID[]>({
     areaName: 'sync',
     key: 'v3.collapsedBookmarkFolderIDs',
     initialValue: [],

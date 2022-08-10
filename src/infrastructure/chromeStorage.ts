@@ -7,7 +7,7 @@ type Spec<T> = {
   assertType: (value: unknown) => asserts value is T
 }
 
-export const useChromeStorage = <T>(spec: Spec<T>): [T, (newValue: T) => void] => {
+export const useChromeStorage = <T>(spec: Spec<T>): readonly [T, (newValue: T) => void] => {
   const [storedValue, setStoredValue] = useState<T>(spec.initialValue)
   useEffect(
     () => {

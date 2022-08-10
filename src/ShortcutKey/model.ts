@@ -9,7 +9,7 @@ export const shortcutKeyOf = (s: string): ShortcutKey => s.charAt(0).toUpperCase
 export class ShortcutMap {
   private readonly entries: [ShortcutKey, BookmarkID][]
 
-  constructor(entries: [string, string][]) {
+  constructor(entries: readonly [string, string][]) {
     this.entries = []
     const keySet = new Set<ShortcutKey>()
     const bookmarkSet = new Set<BookmarkID>()
@@ -47,5 +47,5 @@ export class ShortcutMap {
     return new ShortcutMap([[key, bookmarkID], ...this.entries])
   }
 
-  serialize = (): [string, string][] => [...this.entries]
+  serialize = (): readonly [string, string][] => [...this.entries]
 }
