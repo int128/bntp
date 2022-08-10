@@ -4,7 +4,7 @@ import { FC } from 'react'
 import { useGlobalKey } from './infrastructure'
 
 type ShortcutKeyComponentProps = {
-  bookmarkFolders: BookmarkFolder[]
+  bookmarkFolders: readonly BookmarkFolder[]
   shortcutMap: ShortcutMap
 }
 

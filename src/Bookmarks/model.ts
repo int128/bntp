@@ -4,7 +4,7 @@ export type BookmarkFolder = {
   id: BookmarkFolderID
   depth: number
   title: string
-  bookmarks: Bookmark[]
+  bookmarks: readonly Bookmark[]
 }
 
 export type BookmarkID = string
@@ -18,7 +18,7 @@ export type Bookmark = {
 export class FolderCollapse {
   private readonly collapsedIDs: Set<BookmarkFolderID>
 
-  constructor(collapsedIDs: BookmarkFolderID[] | Set<BookmarkFolderID>) {
+  constructor(collapsedIDs: readonly BookmarkFolderID[] | Set<BookmarkFolderID>) {
     this.collapsedIDs = new Set(collapsedIDs)
   }
 
@@ -36,5 +36,5 @@ export class FolderCollapse {
     return newSet
   }
 
-  serialize = () => [...this.collapsedIDs.values()]
+  serialize = (): readonly string[] => [...this.collapsedIDs.values()]
 }

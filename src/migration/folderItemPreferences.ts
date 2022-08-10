@@ -12,7 +12,7 @@ type FolderItemPreference = {
 const isFolderItemPreferences = (v: unknown): v is FolderItemPreference[] =>
   Array.isArray(v) && v.every((e) => typeof e === 'object' && 'id' in e && 'accessKey' in e)
 
-export const upgrade = (folderItemPreferences: FolderItemPreference[]): ShortcutMap => {
+export const upgrade = (folderItemPreferences: readonly FolderItemPreference[]): ShortcutMap => {
   const entries = folderItemPreferences.map<[string, string]>((folderItemPreference) => [
     folderItemPreference.accessKey,
     folderItemPreference.id,

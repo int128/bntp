@@ -28,7 +28,7 @@ const BookmarksComponent: FC = () => {
 export default BookmarksComponent
 
 type BookmarkFoldersComponentProps = {
-  bookmarkFolders: BookmarkFolder[]
+  bookmarkFolders: readonly BookmarkFolder[]
   shortcutMap: ShortcutMap
 }
 

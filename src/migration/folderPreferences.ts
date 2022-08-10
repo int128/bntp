@@ -12,7 +12,7 @@ type FolderPreference = {
 const isFolderPreferences = (v: unknown): v is FolderPreference[] =>
   Array.isArray(v) && v.every((e) => typeof e === 'object' && 'id' in e && 'collapsed' in e)
 
-export const upgrade = (folderPreferences: FolderPreference[]): FolderCollapse => {
+export const upgrade = (folderPreferences: readonly FolderPreference[]): FolderCollapse => {
   const collapsedIDs = folderPreferences
     .filter((folderPreference) => folderPreference.collapsed)
     .map((folderPreference) => folderPreference.id)
