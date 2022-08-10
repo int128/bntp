@@ -37,7 +37,7 @@ const subscribeBookmarks = (handler: (bookmarkFolders: readonly BookmarkFolder[]
   }
 }
 
-const traverseTree = (tree: chrome.bookmarks.BookmarkTreeNode[], depth = 0): readonly BookmarkFolder[] =>
+const traverseTree = (tree: readonly chrome.bookmarks.BookmarkTreeNode[], depth = 0): readonly BookmarkFolder[] =>
   tree.flatMap((node) => {
     if (node.children === undefined) {
       return []
@@ -69,7 +69,7 @@ export const removeBookmark = async (bookmark: Bookmark) => {
   await chrome.bookmarks.remove(bookmark.id)
 }
 
-export const useFolderCollapse = (): [FolderCollapse, (newSet: FolderCollapse) => void] => {
+export const useFolderCollapse = (): readonly [FolderCollapse, (newSet: FolderCollapse) => void] => {
   const [ids, setIDs] = useChromeStorage<readonly BookmarkFolderID[]>({
     areaName: 'sync',
     key: 'v3.collapsedBookmarkFolderIDs',
