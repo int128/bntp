@@ -16,9 +16,9 @@ export type Bookmark = {
 }
 
 export class FolderCollapse {
-  private readonly collapsedIDs: Set<BookmarkFolderID>
+  private readonly collapsedIDs: ReadonlySet<BookmarkFolderID>
 
-  constructor(collapsedIDs: readonly BookmarkFolderID[] | Set<BookmarkFolderID>) {
+  constructor(collapsedIDs: readonly BookmarkFolderID[] | ReadonlySet<BookmarkFolderID>) {
     this.collapsedIDs = new Set(collapsedIDs)
   }
 
@@ -31,10 +31,10 @@ export class FolderCollapse {
   }
 
   expand(id: BookmarkFolderID): FolderCollapse {
-    const newSet = new FolderCollapse(this.collapsedIDs)
-    newSet.collapsedIDs.delete(id)
-    return newSet
+    const newSet = new Set(this.collapsedIDs)
+    newSet.delete(id)
+    return new FolderCollapse(newSet)
   }
 
-  serialize = (): readonly string[] => [...this.collapsedIDs.values()]
+  serialize = (): readonly string[] => [...this.collapsedIDs]
 }
