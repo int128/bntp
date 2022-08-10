@@ -1,7 +1,6 @@
 import './component.css'
 import { FC, useEffect, useState } from 'react'
 import { removeBookmark, updateBookmark } from '../Bookmarks/repository'
-import { Bookmark } from '../Bookmarks/model'
 import { EditingBookmark } from './model'
 import { createPortal } from 'react-dom'
 import { faviconImage } from '../infrastructure/favicon'
@@ -10,7 +9,7 @@ import { useShortcutMap } from '../ShortcutKey/repository'
 
 type BookmarkEditorComponentProps = {
   editingBookmark?: EditingBookmark
-  onChange: (newValue: Bookmark) => void
+  onChange: (newValue: EditingBookmark) => void
   onRequestClose: () => void
 }
 
@@ -33,20 +32,20 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBook
     <div className="BookmarkEditor">
       <div className="BookmarkEditor__Modal">
         <FormComponent
-          bookmark={editingBookmark}
+          editingBookmark={editingBookmark}
           errorMessage={errorMessage}
           onChange={onChange}
           onRequestClose={onRequestClose}
           onSubmit={() =>
             closeAfter(async () => {
-              await updateBookmark(editingBookmark)
-              setShortcutMap(shortcutMap.set(editingBookmark.id, editingBookmark.shortcutKey))
+              await updateBookmark(editingBookmark.bookmark)
+              setShortcutMap(shortcutMap.set(editingBookmark.bookmark.id, editingBookmark.shortcutKey))
             })
           }
           onRemove={() =>
             closeAfter(async () => {
-              await removeBookmark(editingBookmark)
-              setShortcutMap(shortcutMap.set(editingBookmark.id, undefined))
+              await removeBookmark(editingBookmark.bookmark)
+              setShortcutMap(shortcutMap.set(editingBookmark.bookmark.id, undefined))
             })
           }
         />
@@ -61,7 +60,7 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBook
 export default BookmarkEditorComponent
 
 type FormComponentProps = {
-  bookmark: EditingBookmark
+  editingBookmark: EditingBookmark
   errorMessage?: string
   onChange: (newValue: EditingBookmark) => void
   onRequestClose: () => void
@@ -70,7 +69,7 @@ type FormComponentProps = {
 }
 
 const FormComponent: FC<FormComponentProps> = ({
-  bookmark,
+  editingBookmark,
   errorMessage,
   onChange,
   onSubmit,
@@ -92,26 +91,30 @@ const FormComponent: FC<FormComponentProps> = ({
     >
       <input
         type="text"
-        value={bookmark.title}
+        value={editingBookmark.bookmark.title}
+        required={true}
         autoFocus={true}
-        onChange={(e) => onChange({ ...bookmark, title: e.target.value })}
+        onChange={(e) =>
+          onChange(editingBookmark.changeBookmark({ ...editingBookmark.bookmark, title: e.target.value }))
+        }
       />
       <input
         type="text"
-        value={bookmark.url}
+        value={editingBookmark.bookmark.url}
+        required={true}
         className="BookmarkEditor__Url"
-        style={{ backgroundImage: `url(${faviconImage(bookmark.url) ?? ''})` }}
-        onChange={(e) => onChange({ ...bookmark, url: e.target.value })}
+        style={{ backgroundImage: `url(${faviconImage(editingBookmark.bookmark.url) ?? ''})` }}
+        onChange={(e) => onChange(editingBookmark.changeBookmark({ ...editingBookmark.bookmark, url: e.target.value }))}
       />
       <input
         type="text"
-        value={bookmark.shortcutKey ?? ''}
+        value={editingBookmark.shortcutKey ?? ''}
         maxLength={1}
         placeholder="Shortcut Key (not assigned)"
-        onChange={(e) => onChange({ ...bookmark, shortcutKey: shortcutKeyOf(e.target.value) })}
+        onChange={(e) => onChange(editingBookmark.changeShortcutKey(shortcutKeyOf(e.target.value)))}
       />
       <div className="BookmarkEditor__Group">
-        <input type="submit" value="Update" />
+        <input type="submit" value="Update" disabled={!editingBookmark.valid} />
         <div className="BookmarkEditor__Message">{errorMessage}</div>
         <input type="button" value="Remove" onClick={() => onRemove()} />
       </div>

@@ -63,9 +63,14 @@
   border: none;
 }
 
-.BookmarkEditor input[type='button']:hover,
-.BookmarkEditor input[type='submit']:hover {
+.BookmarkEditor input[type='button']:enabled:hover,
+.BookmarkEditor input[type='submit']:enabled:hover {
   background-color: var(--palette-1);
+}
+
+.BookmarkEditor input[type='button']:disabled,
+.BookmarkEditor input[type='submit']:disabled {
+  color: var(--palette-1);
 }
 
 .BookmarkEditor__Message {
