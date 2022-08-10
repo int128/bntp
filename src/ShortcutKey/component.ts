@@ -13,6 +13,9 @@ const ShortcutKeyComponent: FC<ShortcutKeyComponentProps> = ({ bookmarkFolders, 
 
   useGlobalKey((key: string) => {
     const shortcutKey = shortcutKeyOf(key)
+    if (!shortcutKey) {
+      return
+    }
     const bookmarkID = shortcutMap.getByShortcutKey(shortcutKey)
     if (!bookmarkID) {
       return

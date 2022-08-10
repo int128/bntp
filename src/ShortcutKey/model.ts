@@ -4,7 +4,12 @@ export type ShortcutKey = string & {
   readonly ShortcutKey: unique symbol
 }
 
-export const shortcutKeyOf = (s: string): ShortcutKey => s.charAt(0).toUpperCase() as ShortcutKey
+export const shortcutKeyOf = (s: string): ShortcutKey | undefined => {
+  if (s.length < 1) {
+    return
+  }
+  return s.charAt(0).toUpperCase() as ShortcutKey
+}
 
 export class ShortcutMap {
   private readonly entries: [ShortcutKey, BookmarkID][]
