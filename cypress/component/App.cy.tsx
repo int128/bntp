@@ -17,7 +17,10 @@ describe('<App>', () => {
     cy.viewport('macbook-11')
     cy.mount(<App />)
     cy.get('.Bookmark > a[href="http://www.google.com/"]')
-    cy.wait('@favicon')
+    // https://stackoverflow.com/questions/51246606/test-loading-of-image-in-cypress
+    cy.get<HTMLImageElement>('.BookmarkButton__Icon').should((images) =>
+      images.map((_, image) => expect(image.naturalWidth).to.be.greaterThan(0))
+    )
     cy.screenshot()
   })
 })
