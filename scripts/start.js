@@ -3,10 +3,11 @@
 process.env.BABEL_ENV = 'development'
 process.env.NODE_ENV = 'development'
 
-const fs = require('fs-extra')
+const fs = require('fs')
 const webpack = require('webpack')
 const configFactory = require('react-scripts/config/webpack.config')
 const { createCompiler } = require('react-dev-utils/WebpackDevServerUtils')
+const { copyPublicDirectory, copyManifest } = require('./copy')
 
 const compiler = createCompiler({
   urls: [],
@@ -20,11 +21,15 @@ const compiler = createCompiler({
   webpack,
 })
 
-const syncPublicDirectory = () => {
-  fs.copy('public', 'build', { filter: (filename) => filename !== 'public/index.html' })
-    .then(() => console.info(`Successfully synced public directory`))
-    .catch((e) => console.error(`Error while syncing public directory`, e))
+const main = async () => {
+  await fs.promises.rm('build', { recursive: true, force: true })
+
+  fs.watch('public', () => copyPublicDirectory())
+  await copyPublicDirectory()
+  fs.watch('manifest.json', () => copyManifest())
+  await copyManifest()
+
+  compiler.watch({}, () => {})
 }
 
-compiler.watch({}, () => syncPublicDirectory())
-fs.watch('public', () => syncPublicDirectory())
+main().catch(console.error)

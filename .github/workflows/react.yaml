@@ -15,8 +15,6 @@ on:
       - src/**
       - '*.json'
       - yarn.lock
-    tags:
-      - v*
 
 jobs:
   build:

@@ -23,6 +23,7 @@
     "format": "prettier --write src scripts",
     "format-check": "prettier --check src scripts",
     "lint": "eslint src",
+    "package": "node scripts/package.js",
     "eject": "react-scripts eject"
   },
   "browserslist": {
@@ -41,6 +42,7 @@
     "@tsconfig/create-react-app": "1.0.2",
     "@tsconfig/cypress": "1.0.1",
     "@types/chrome": "0.0.193",
+    "adm-zip": "^0.5.9",
     "cypress": "10.4.0",
     "jest-chrome": "0.7.2",
     "prettier": "2.7.1"
