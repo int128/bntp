@@ -15,6 +15,16 @@ export type Bookmark = {
   readonly url: string
 }
 
+export const filterBookmarks = (bookmarks: readonly Bookmark[], search: string): readonly Bookmark[] => {
+  if (!search) {
+    return bookmarks
+  }
+  const searchLower = search.toLocaleLowerCase()
+  return bookmarks.filter(
+    (b) => b.title.toLocaleLowerCase().includes(searchLower) || b.url.toLocaleLowerCase().includes(searchLower)
+  )
+}
+
 export class FolderCollapse {
   private readonly collapsedIDs: ReadonlySet<BookmarkFolderID>
 

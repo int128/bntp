@@ -1,11 +1,15 @@
 import './component.css'
+import { TopSite, filterTopSites } from './model'
 import { FC } from 'react'
-import { TopSite } from './model'
 import { faviconImage } from '../infrastructure/favicon'
 import { useTopSites } from './repository'
 
-const TopSitesComponent: FC = () => {
-  const topSites = useTopSites()
+type TopSiteComponentsProps = {
+  searchText: string
+}
+
+const TopSitesComponent: FC<TopSiteComponentsProps> = ({ searchText }) => {
+  const topSites = filterTopSites(useTopSites(), searchText)
   return (
     <div className="TopSites">
       {topSites.map((s, i) => (
