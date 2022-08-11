@@ -1,0 +1,26 @@
+.Search {
+  --size-form-control-padding: 8px;
+  --size-form-control-border-radius: 3px;
+}
+
+.Search {
+  display: grid;
+  padding: var(--size-wide-gap);
+  border-radius: 3px;
+  background-color: var(--palette-2);
+}
+
+.Search input[type='text'] {
+  margin: calc(-1 * var(--size-form-control-padding));
+  padding: var(--size-form-control-padding);
+  border-radius: var(--size-form-control-border-radius);
+  background-color: var(--palette-2);
+  color: var(--palette-02);
+  outline: none;
+  border: none;
+}
+
+.Search input[type='text']:focus {
+  background-color: var(--palette-3);
+  color: var(--palette-03);
+}
