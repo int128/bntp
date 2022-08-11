@@ -9,12 +9,12 @@ import { useToggles } from './Toggles/repository'
 
 const App = () => {
   const [toggles] = useToggles()
-  const [searchText, setSearchText] = useState<string>('')
+  const [search, setSearch] = useState<string>('')
   return (
     <div className="App">
-      <SearchComponent searchText={searchText} setSearchText={setSearchText} />
-      {toggles?.topSites ? <TopSites searchText={searchText} /> : null}
-      {toggles?.bookmarks ? <Bookmarks searchText={searchText} /> : null}
+      <SearchComponent value={search} onChange={setSearch} />
+      {toggles?.topSites ? <TopSites search={search} /> : null}
+      {toggles?.bookmarks ? <Bookmarks search={search} /> : null}
       <Preferences />
       <NetworkStatusComponent />
     </div>

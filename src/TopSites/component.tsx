@@ -5,11 +5,11 @@ import { faviconImage } from '../infrastructure/favicon'
 import { useTopSites } from './repository'
 
 type TopSiteComponentsProps = {
-  searchText: string
+  search: string
 }
 
-const TopSitesComponent: FC<TopSiteComponentsProps> = ({ searchText }) => {
-  const topSites = filterTopSites(useTopSites(), searchText)
+const TopSitesComponent: FC<TopSiteComponentsProps> = ({ search }) => {
+  const topSites = filterTopSites(useTopSites(), search)
   return (
     <div className="TopSites">
       {topSites.map((s, i) => (

@@ -11,10 +11,10 @@ import { useShortcutMap } from '../ShortcutKey/repository'
 import { useToggles } from '../Toggles/repository'
 
 type BookmarksComponentProps = {
-  searchText: string
+  search: string
 }
 
-const BookmarksComponent: FC<BookmarksComponentProps> = ({ searchText }) => {
+const BookmarksComponent: FC<BookmarksComponentProps> = ({ search }) => {
   const bookmarkFolders = useBookmarkFolders()
   const [shortcutMap] = useShortcutMap()
   return (
@@ -23,7 +23,7 @@ const BookmarksComponent: FC<BookmarksComponentProps> = ({ searchText }) => {
         <h2>Bookmarks</h2>
         <Link href="chrome://bookmarks">Chrome Bookmark Manager</Link>
       </section>
-      <BookmarkFoldersComponent bookmarkFolders={bookmarkFolders} shortcutMap={shortcutMap} searchText={searchText} />
+      <BookmarkFoldersComponent bookmarkFolders={bookmarkFolders} shortcutMap={shortcutMap} search={search} />
       <ShortcutKeyComponent bookmarkFolders={bookmarkFolders} shortcutMap={shortcutMap} />
     </>
   )
@@ -34,10 +34,10 @@ export default BookmarksComponent
 type BookmarkFoldersComponentProps = {
   bookmarkFolders: readonly BookmarkFolder[]
   shortcutMap: ShortcutMap
-  searchText: string
+  search: string
 }
 
-const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ bookmarkFolders, shortcutMap, searchText }) => {
+const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ bookmarkFolders, shortcutMap, search }) => {
   const [toggles] = useToggles()
   const [folderCollapse, setFolderCollapse] = useFolderCollapse()
   return (
@@ -49,7 +49,7 @@ const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ bookmarkF
             shortcutMap={shortcutMap}
             folderCollapse={folderCollapse}
             setFolderCollapse={setFolderCollapse}
-            searchText={searchText}
+            search={search}
           />
         </BookmarkFolderIndent>
       ))}
@@ -73,7 +73,7 @@ type BookmarkFolderComponentProps = {
   shortcutMap: ShortcutMap
   folderCollapse: FolderCollapse
   setFolderCollapse: (newSet: FolderCollapse) => void
-  searchText: string
+  search: string
 }
 
 const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({
@@ -81,7 +81,7 @@ const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({
   shortcutMap,
   folderCollapse,
   setFolderCollapse,
-  searchText,
+  search,
 }) => {
   if (folderCollapse.isCollapsed(folder.id)) {
     return (
@@ -100,7 +100,7 @@ const BookmarkFolderComponent: FC<BookmarkFolderComponentProps> = ({
       </section>
     )
   }
-  const bookmarks = filterBookmarks(folder.bookmarks, searchText)
+  const bookmarks = filterBookmarks(folder.bookmarks, search)
   return (
     <section className="BookmarkFolder">
       <div className="BookmarkFolder__Heading BookmarkFolder__Heading__Expand">
