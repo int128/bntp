@@ -13,12 +13,7 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-// Import commands.js using ES2015 syntax:
 import './commands'
-
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
-
 import '../../src/index.css'
 import chrome from './chrome'
 import { mount } from 'cypress/react'
@@ -28,6 +23,7 @@ import { mount } from 'cypress/react'
 // Alternatively, can be defined in cypress/support/component.d.ts
 // with a <reference path="./component" /> at the top of your spec.
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface Chainable {
       mount: typeof mount
@@ -41,4 +37,4 @@ Cypress.Commands.add('mount', mount)
 // cy.mount(<MyComponent />)
 
 // Mock Chrome API
-Object.assign(global, { chrome })
+Object.assign(window, { chrome })

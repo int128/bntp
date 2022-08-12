@@ -1,6 +1,7 @@
 {
   "extends": "@tsconfig/cypress/tsconfig.json",
   "compilerOptions": {
+    "lib": ["esnext", "dom"],
     "moduleResolution": "node",
     "target": "es2015",
     "jsx": "react-jsx"
