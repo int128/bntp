@@ -119,9 +119,11 @@ const FormComponent: FC<FormComponentProps> = ({
         <input type="button" value="Remove" onClick={() => onRemove()} />
       </div>
       <a
-        href={`chrome://bookmarks/?id=${editingBookmark.bookmark.id}`}
+        href={`chrome://bookmarks/?id=${editingBookmark.bookmark.folderID}`}
         onClick={(e) => {
-          chrome.tabs.create({ url: `chrome://bookmarks/?id=${editingBookmark.bookmark.id}` }).catch(console.error)
+          chrome.tabs
+            .create({ url: `chrome://bookmarks/?id=${editingBookmark.bookmark.folderID}` })
+            .catch(console.error)
           e.preventDefault()
         }}
       >

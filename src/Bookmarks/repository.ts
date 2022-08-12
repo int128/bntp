@@ -56,6 +56,7 @@ const traverseTree = (tree: readonly chrome.bookmarks.BookmarkTreeNode[], depth 
         id: b.id,
         title: b.title,
         url: b.url || '',
+        folderID: node.id,
       })),
     }
     return [thisFolder, ...traverseTree(childFolders, depth + 1)]
