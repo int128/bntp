@@ -2,14 +2,19 @@
 import bookmarks from '../fixtures/bookmarks'
 import topSites from '../fixtures/topSites'
 
+const nullEvent = {
+  addListener: () => undefined,
+  removeListener: () => undefined,
+}
+
 const chrome = {
   bookmarks: {
     getTree: async () => bookmarks,
-    onChanged: { addListener: () => undefined },
-    onChildrenReordered: { addListener: () => undefined },
-    onCreated: { addListener: () => undefined },
-    onMoved: { addListener: () => undefined },
-    onRemoved: { addListener: () => undefined },
+    onChanged: nullEvent,
+    onChildrenReordered: nullEvent,
+    onCreated: nullEvent,
+    onMoved: nullEvent,
+    onRemoved: nullEvent,
     update: async () => undefined,
     remove: async () => undefined,
   },
@@ -23,9 +28,7 @@ const chrome = {
       get: async () => ({}),
       set: async () => undefined,
     },
-    onChanged: {
-      addListener: () => undefined,
-    },
+    onChanged: nullEvent,
   },
 
   runtime: {
@@ -39,3 +42,17 @@ const chrome = {
 }
 
 export default chrome
+
+// favicon API is not available on Cypress
+export const mockFaviconAPI = () =>
+  cy.intercept(
+    {
+      method: 'GET',
+      pathname: '/_favicon/',
+    },
+    (req) => {
+      const { pageUrl, size } = req.query
+      const googleFaviconURL = `https://www.google.com/s2/favicons?domain_url=${encodeURIComponent(pageUrl)}&sz=${size}`
+      req.redirect(googleFaviconURL)
+    }
+  )
