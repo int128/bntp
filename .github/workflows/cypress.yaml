@@ -38,3 +38,5 @@ jobs:
         with:
           post: |
             <img width="800" src="${{ steps.upload-artifact-wiki.outputs.url }}/cypress/screenshots/App.cy.tsx/App%20--%20mounts.png">
+
+            <img width="800" src="${{ steps.upload-artifact-wiki.outputs.url }}/cypress/screenshots/App.cy.tsx/App%20--%20opens%20the%20bookmark%20editor.png">
