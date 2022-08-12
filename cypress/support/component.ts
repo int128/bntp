@@ -19,10 +19,9 @@ import './commands'
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-import { mount } from 'cypress/react'
-import chrome from './chrome'
-
 import '../../src/index.css'
+import chrome from './chrome'
+import { mount } from 'cypress/react'
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.

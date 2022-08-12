@@ -1,7 +1,9 @@
 {
   "extends": "@tsconfig/cypress/tsconfig.json",
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "es2015",
+    "jsx": "react-jsx"
+  },
+  "include": ["**/*.ts", "**/*.tsx"]
 }
