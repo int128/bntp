@@ -10,24 +10,6 @@
   --size-edit-button: 21px;
 }
 
-.BookmarksHeader {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  font-size: 90%;
-  color: var(--palette-00);
-  text-transform: uppercase;
-}
-
-.BookmarksHeader h2 {
-  margin: 0;
-  padding: 0;
-  font-size: inherit;
-}
-
-.BookmarksHeader > :last-child {
-  text-align: right;
-}
-
 .BookmarkFolders {
   display: grid;
   row-gap: var(--size-folder-gap);

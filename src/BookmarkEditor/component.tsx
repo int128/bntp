@@ -118,6 +118,15 @@ const FormComponent: FC<FormComponentProps> = ({
         <div className="BookmarkEditor__Message">{errorMessage}</div>
         <input type="button" value="Remove" onClick={() => onRemove()} />
       </div>
+      <a
+        href={`chrome://bookmarks/?id=${editingBookmark.bookmark.id}`}
+        onClick={(e) => {
+          chrome.tabs.create({ url: `chrome://bookmarks/?id=${editingBookmark.bookmark.id}` }).catch(console.error)
+          e.preventDefault()
+        }}
+      >
+        Open this in Chrome Bookmark Manager
+      </a>
     </form>
   )
 }

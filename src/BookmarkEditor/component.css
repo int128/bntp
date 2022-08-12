@@ -77,3 +77,8 @@
   padding: var(--size-form-control-padding);
   color: var(--palette-03);
 }
+
+.BookmarkEditor a {
+  margin: var(--size-form-control-padding);
+  text-decoration: underline;
+}

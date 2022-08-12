@@ -19,10 +19,6 @@ const BookmarksComponent: FC<BookmarksComponentProps> = ({ search }) => {
   const [shortcutMap] = useShortcutMap()
   return (
     <>
-      <section className="BookmarksHeader">
-        <h2>Bookmarks</h2>
-        <Link href="chrome://bookmarks">Chrome Bookmark Manager</Link>
-      </section>
       <BookmarkFoldersComponent bookmarkFolders={bookmarkFolders} shortcutMap={shortcutMap} search={search} />
       <ShortcutKeyComponent bookmarkFolders={bookmarkFolders} shortcutMap={shortcutMap} />
     </>
