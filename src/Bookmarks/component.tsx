@@ -4,6 +4,7 @@ import React, { FC, ReactElement, useState } from 'react'
 import { useBookmarkFolders, useFolderCollapse } from './repository'
 import BookmarkEditorComponent from '../BookmarkEditor/component'
 import { EditingBookmark } from '../BookmarkEditor/model'
+import Link from '../Link/component'
 import ShortcutKeyComponent from '../ShortcutKey/component'
 import { ShortcutMap } from '../ShortcutKey/model'
 import { faviconImage } from '../infrastructure/favicon'
@@ -150,27 +151,4 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap }
       />
     </div>
   )
-}
-
-type LinkProps = {
-  href: string
-  children: ReactElement | string
-}
-
-const Link: FC<LinkProps> = ({ href, children }) => {
-  // handle the special links
-  if (href.match(/^(chrome|file|javascript):/)) {
-    return (
-      <a
-        href={href}
-        onClick={(e) => {
-          e.preventDefault()
-          void chrome.tabs.create({ url: href })
-        }}
-      >
-        {children}
-      </a>
-    )
-  }
-  return <a href={href}>{children}</a>
 }

@@ -2,6 +2,7 @@ import './component.css'
 import { FC, useEffect, useState } from 'react'
 import { removeBookmark, updateBookmark } from '../Bookmarks/repository'
 import { EditingBookmark } from './model'
+import Link from '../Link/component'
 import { createPortal } from 'react-dom'
 import { faviconImage } from '../infrastructure/favicon'
 import { shortcutKeyOf } from '../ShortcutKey/model'
@@ -118,17 +119,9 @@ const FormComponent: FC<FormComponentProps> = ({
         <div className="BookmarkEditor__Message">{errorMessage}</div>
         <input type="button" value="Remove" onClick={() => onRemove()} />
       </div>
-      <a
-        href={`chrome://bookmarks/?id=${editingBookmark.bookmark.folderID}`}
-        onClick={(e) => {
-          chrome.tabs
-            .create({ url: `chrome://bookmarks/?id=${editingBookmark.bookmark.folderID}` })
-            .catch(console.error)
-          e.preventDefault()
-        }}
-      >
+      <Link href={`chrome://bookmarks/?id=${editingBookmark.bookmark.folderID}`}>
         Open this in Chrome Bookmark Manager
-      </a>
+      </Link>
     </form>
   )
 }
