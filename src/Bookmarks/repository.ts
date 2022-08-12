@@ -14,7 +14,7 @@ export const useBookmarkFolders = () => {
 }
 
 const getBookmarkFolders = async (): Promise<readonly BookmarkFolder[]> => {
-  return traverseTree(await chrome.bookmarks.getTree())
+  return traverseBookmarkTree(await chrome.bookmarks.getTree())
 }
 
 const subscribeBookmarks = (handler: (bookmarkFolders: readonly BookmarkFolder[]) => void): (() => void) => {
@@ -37,7 +37,10 @@ const subscribeBookmarks = (handler: (bookmarkFolders: readonly BookmarkFolder[]
   }
 }
 
-const traverseTree = (tree: readonly chrome.bookmarks.BookmarkTreeNode[], depth = 0): readonly BookmarkFolder[] =>
+export const traverseBookmarkTree = (
+  tree: readonly chrome.bookmarks.BookmarkTreeNode[],
+  depth = 0
+): readonly BookmarkFolder[] =>
   tree.flatMap((node) => {
     if (node.children === undefined) {
       return []
@@ -45,7 +48,7 @@ const traverseTree = (tree: readonly chrome.bookmarks.BookmarkTreeNode[], depth 
     const childFolders = node.children.filter((child) => child.url === undefined)
     const childBookmarks = node.children.filter((child) => child.url !== undefined)
     if (childBookmarks.length === 0) {
-      return traverseTree(childFolders, depth)
+      return traverseBookmarkTree(childFolders, depth)
     }
 
     const thisFolder = {
@@ -59,7 +62,7 @@ const traverseTree = (tree: readonly chrome.bookmarks.BookmarkTreeNode[], depth 
         folderID: node.id,
       })),
     }
-    return [thisFolder, ...traverseTree(childFolders, depth + 1)]
+    return [thisFolder, ...traverseBookmarkTree(childFolders, depth + 1)]
   })
 
 export const updateBookmark = async (bookmark: Bookmark) => {
