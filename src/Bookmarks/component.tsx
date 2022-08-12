@@ -144,8 +144,13 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap }
             e.dataTransfer.setData('application/bookmark-folder-id', bookmark.folderID)
             e.dataTransfer.setData('application/bookmark-index', bookmark.index.toString())
           }}
-          onDragOver={(e) => e.preventDefault()}
+          onDragOver={(e) => {
+            if (e.dataTransfer.types.includes('application/bookmark-id')) {
+              e.preventDefault()
+            }
+          }}
           onDrop={(e) => {
+            e.preventDefault()
             const from = {
               id: e.dataTransfer.getData('application/bookmark-id'),
               folderID: e.dataTransfer.getData('application/bookmark-folder-id'),
