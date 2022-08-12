@@ -141,13 +141,28 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap }
           onDragStart={(e) => {
             e.dataTransfer.effectAllowed = 'move'
             e.dataTransfer.setData('application/bookmark-id', bookmark.id)
-            e.dataTransfer.setData('text/html', `<h2>${bookmark.title}</h2>`)
+            e.dataTransfer.setData('application/bookmark-folder-id', bookmark.folderID)
+            e.dataTransfer.setData('application/bookmark-index', bookmark.index.toString())
           }}
           onDragOver={(e) => e.preventDefault()}
           onDrop={(e) => {
-            const id = e.dataTransfer.getData('application/bookmark-id')
-            console.info(e.type, id, bookmark)
-            chrome.bookmarks.move(id, { index: bookmark.index, parentId: bookmark.folderID }).catch(console.error)
+            const from = {
+              id: e.dataTransfer.getData('application/bookmark-id'),
+              folderID: e.dataTransfer.getData('application/bookmark-folder-id'),
+              index: Number(e.dataTransfer.getData('application/bookmark-index')),
+            }
+            const destination = { index: bookmark.index, parentId: bookmark.folderID }
+            if (from.folderID === bookmark.folderID) {
+              if (from.index === bookmark.index) {
+                return
+              }
+              // https://stackoverflow.com/questions/13264060/chrome-bookmarks-api-using-move-to-reorder-bookmarks-in-the-same-folder
+              if (from.index < bookmark.index) {
+                destination.index++
+              }
+            }
+            console.info(`moving bookmark`, from, destination)
+            chrome.bookmarks.move(from.id, destination).catch(console.error)
           }}
         >
           <div className="BookmarkButton__Title">{bookmark.title}</div>
