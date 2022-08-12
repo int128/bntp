@@ -135,7 +135,21 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap }
   return (
     <div className="Bookmark">
       <Link href={bookmark.url}>
-        <div className="BookmarkButton">
+        <div
+          className="BookmarkButton"
+          draggable
+          onDragStart={(e) => {
+            e.dataTransfer.effectAllowed = 'move'
+            e.dataTransfer.setData('application/bookmark-id', bookmark.id)
+            e.dataTransfer.setData('text/html', `<h2>${bookmark.title}</h2>`)
+          }}
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={(e) => {
+            const id = e.dataTransfer.getData('application/bookmark-id')
+            console.info(e.type, id, bookmark)
+            chrome.bookmarks.move(id, { index: bookmark.index, parentId: bookmark.folderID }).catch(console.error)
+          }}
+        >
           <div className="BookmarkButton__Title">{bookmark.title}</div>
           <img className="BookmarkButton__Icon" alt="" src={faviconImage(bookmark.url)} />
           {shortcutKey ? <div className="BookmarkButton__Badge">{shortcutKey}</div> : null}

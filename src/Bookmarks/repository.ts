@@ -59,6 +59,7 @@ export const traverseBookmarkTree = (
         id: b.id,
         title: b.title,
         url: b.url || '',
+        index: b.index || 0,
         folderID: node.id,
       })),
     }

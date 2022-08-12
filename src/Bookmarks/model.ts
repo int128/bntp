@@ -13,6 +13,7 @@ export type Bookmark = {
   readonly id: BookmarkID
   readonly title: string
   readonly url: string
+  readonly index: number
   readonly folderID: BookmarkFolderID
 }
 
