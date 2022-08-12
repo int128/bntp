@@ -39,3 +39,5 @@ jobs:
           path: build.zip
       - if: github.ref_type == 'tag'
         run: gh release upload "${{ github.ref_name }}" build.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
