@@ -12,7 +12,7 @@ const SearchComponent: FC<SearchComponentProps> = ({ value, onChange }) => {
       <input
         type="text"
         value={value}
-        placeholder="Search bookmarks..."
+        placeholder="Find bookmarks..."
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === 'Escape') {
