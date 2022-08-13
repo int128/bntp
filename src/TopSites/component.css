@@ -40,17 +40,25 @@
 }
 
 .TopSiteTitle {
-  display: none;
+  visibility: hidden;
   position: absolute;
   z-index: 10;
-  max-width: 160px;
-  padding: 5px;
+  max-width: 150px;
+  padding: var(--size-gap);
+  overflow: hidden;
   border-radius: 3px;
+  opacity: 0.8;
   color: var(--palette-3);
   background-color: var(--palette-03);
-  opacity: 0.8;
 }
 
-.TopSite:hover .TopSiteTitle {
-  display: block;
+.TopSite:hover .TopSiteTitle,
+.TopSite > a:focus-visible + .TopSiteTitle {
+  visibility: visible;
+}
+
+.TopSite:hover .TopSiteTitle:hover {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s linear;
 }
