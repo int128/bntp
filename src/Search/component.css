@@ -13,16 +13,19 @@
   overflow: hidden;
   background-color: inherit;
   color: var(--palette-03);
+  font-size: inherit;
   outline: none;
   border: none;
 }
 
 .Search input[type='text']::placeholder {
-  font-size: 90%;
   color: var(--palette-01);
   opacity: 0.5;
+  transition: opacity 0.25s linear;
 }
 
-.Search input[type='text']:focus::placeholder {
-  opacity: 0.75;
+.Search input[type='text']:focus::placeholder,
+.Search input[type='text']:hover::placeholder {
+  opacity: 0.8;
+  transition: opacity 0.25s linear;
 }
