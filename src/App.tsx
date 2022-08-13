@@ -12,8 +12,12 @@ const App = () => {
   const [search, setSearch] = useState<string>('')
   return (
     <div className="App">
-      <SearchComponent value={search} onChange={setSearch} />
-      {toggles?.topSites ? <TopSites search={search} /> : null}
+      {toggles?.topSites ? (
+        <div className="App__Header">
+          <TopSites search={search} />
+          <SearchComponent value={search} onChange={setSearch} />
+        </div>
+      ) : null}
       {toggles?.bookmarks ? <Bookmarks search={search} /> : null}
       <Preferences />
       <NetworkStatusComponent />
