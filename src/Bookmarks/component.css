@@ -91,15 +91,22 @@
   text-align: center;
 }
 
-.BookmarkEditButton:hover {
-  color: var(--palette-01);
-  background-color: var(--palette-1);
+.BookmarkEditButton {
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.25s linear;
 }
 
-.Bookmark .BookmarkEditButton {
-  display: none;
+.Bookmark:hover .BookmarkEditButton,
+.Bookmark > a:focus + .BookmarkEditButton {
+  visibility: visible;
+  opacity: 1;
 }
 
-.Bookmark:hover .BookmarkEditButton {
-  display: block;
+.BookmarkEditButton:hover,
+.BookmarkEditButton:focus-visible {
+  visibility: visible;
+  opacity: 1;
+  background-color: var(--palette-2);
+  box-shadow: 0 0 calc(var(--size-folder-item-gap) * 3) var(--palette-01);
 }

@@ -137,12 +137,13 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap }
       </Link>
       <a
         href="#Edit"
+        className="BookmarkEditButton"
         onClick={(e) => {
           setEditingBookmark(new EditingBookmark(bookmark, shortcutKey))
           e.preventDefault()
         }}
       >
-        <div className="BookmarkEditButton">&hellip;</div>
+        &hellip;
       </a>
       <BookmarkEditorComponent
         editingBookmark={editingBookmark}
