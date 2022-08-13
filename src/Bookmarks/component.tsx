@@ -1,6 +1,6 @@
 import './component.css'
 import { Bookmark, BookmarkFolder, FolderCollapse, filterBookmarks } from './model'
-import React, { FC, PropsWithChildren, useState } from 'react'
+import React, { Dispatch, FC, PropsWithChildren, useState } from 'react'
 import { useBookmarkFolders, useFolderCollapse } from './repository'
 import BookmarkEditorComponent from '../BookmarkEditor/component'
 import { EditingBookmark } from '../BookmarkEditor/model'
@@ -34,15 +34,29 @@ type BookmarkFoldersComponentProps = {
   search: string
 }
 
+type DragContext =
+  | {
+      source: Bookmark
+      destination: Bookmark
+    }
+  | undefined
+
 const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ bookmarkFolders, shortcutMap, search }) => {
   const [toggles] = useToggles()
   const [folderCollapse, setFolderCollapse] = useFolderCollapse()
+  const [dropIndex, setDropIndex] = useState<DragContext>()
   return (
     <div className="BookmarkFolders">
       {bookmarkFolders.map((f, i) => (
         <BookmarkFolderIndent key={i} depth={toggles.indent ? f.depth : 0}>
           <BookmarkFolderCollapse folder={f} folderCollapse={folderCollapse} setFolderCollapse={setFolderCollapse}>
-            <BookmarkFolderItems folder={f} shortcutMap={shortcutMap} search={search} />
+            <BookmarkFolderItems
+              folder={f}
+              shortcutMap={shortcutMap}
+              search={search}
+              dragContext={dropIndex}
+              setDragContext={setDropIndex}
+            />
           </BookmarkFolderCollapse>
         </BookmarkFolderIndent>
       ))}
@@ -111,15 +125,40 @@ type BookmarkFolderItemsProps = {
   folder: BookmarkFolder
   shortcutMap: ShortcutMap
   search: string
+  dragContext: DragContext
+  setDragContext: Dispatch<DragContext>
 }
 
-const BookmarkFolderItems: FC<BookmarkFolderItemsProps> = ({ folder, shortcutMap, search }) => {
+const BookmarkFolderItems: FC<BookmarkFolderItemsProps> = ({
+  folder,
+  shortcutMap,
+  search,
+  dragContext,
+  setDragContext,
+}) => {
   const bookmarks = filterBookmarks(folder.bookmarks, search)
   return (
     <>
-      {bookmarks.map((b) => (
-        <BookmarkComponent key={b.id} bookmark={b} shortcutMap={shortcutMap} />
-      ))}
+      {bookmarks.flatMap((b) => {
+        const bookmarkComponent = (
+          <BookmarkComponent
+            key={b.id}
+            bookmark={b}
+            shortcutMap={shortcutMap}
+            dragContext={dragContext}
+            setDragContext={setDragContext}
+          />
+        )
+        if (dragContext) {
+          if (dragContext.source.index === dragContext.destination.index) {
+            return bookmarkComponent
+          }
+          if (b.folderID === dragContext.destination.folderID && b.index === dragContext.destination.index) {
+            return [bookmarkComponent, <DropComponent key={`${b.id}-drop`} dragContext={dragContext} />]
+          }
+        }
+        return bookmarkComponent
+      })}
     </>
   )
 }
@@ -127,9 +166,11 @@ const BookmarkFolderItems: FC<BookmarkFolderItemsProps> = ({ folder, shortcutMap
 type BookmarkComponentProps = {
   bookmark: Bookmark
   shortcutMap: ShortcutMap
+  dragContext: DragContext
+  setDragContext: Dispatch<DragContext>
 }
 
-const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap }) => {
+const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap, dragContext, setDragContext }) => {
   const [editingBookmark, setEditingBookmark] = useState<EditingBookmark>()
   const shortcutKey = shortcutMap.getByBookmarkID(bookmark.id)
   return (
@@ -140,35 +181,17 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap }
           draggable
           onDragStart={(e) => {
             e.dataTransfer.effectAllowed = 'move'
+            setDragContext({ source: bookmark, destination: bookmark })
             e.dataTransfer.setData('application/bookmark-id', bookmark.id)
-            e.dataTransfer.setData('application/bookmark-folder-id', bookmark.folderID)
-            e.dataTransfer.setData('application/bookmark-index', bookmark.index.toString())
           }}
           onDragOver={(e) => {
             if (e.dataTransfer.types.includes('application/bookmark-id')) {
-              e.preventDefault()
-            }
-          }}
-          onDrop={(e) => {
-            e.preventDefault()
-            const from = {
-              id: e.dataTransfer.getData('application/bookmark-id'),
-              folderID: e.dataTransfer.getData('application/bookmark-folder-id'),
-              index: Number(e.dataTransfer.getData('application/bookmark-index')),
-            }
-            const destination = { index: bookmark.index, parentId: bookmark.folderID }
-            if (from.folderID === bookmark.folderID) {
-              if (from.index === bookmark.index) {
-                return
-              }
-              // https://stackoverflow.com/questions/13264060/chrome-bookmarks-api-using-move-to-reorder-bookmarks-in-the-same-folder
-              if (from.index < bookmark.index) {
-                destination.index++
+              if (dragContext) {
+                setDragContext({ ...dragContext, destination: bookmark })
               }
             }
-            console.info(`moving bookmark`, from, destination)
-            chrome.bookmarks.move(from.id, destination).catch(console.error)
           }}
+          onDragEnd={() => setDragContext(undefined)}
         >
           <div className="BookmarkButton__Title">{bookmark.title}</div>
           <img className="BookmarkButton__Icon" alt="" src={faviconImage(bookmark.url)} />
@@ -193,3 +216,37 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap }
     </div>
   )
 }
+
+type DropComponentProps = {
+  dragContext: DragContext
+}
+
+const DropComponent: FC<DropComponentProps> = ({ dragContext }) => (
+  <div
+    className="BookmarkDrop"
+    onDragOver={(e) => {
+      if (e.dataTransfer.types.includes('application/bookmark-id')) {
+        e.preventDefault()
+      }
+    }}
+    onDrop={(e) => {
+      e.preventDefault()
+      if (dragContext === undefined) {
+        return
+      }
+      const { source, destination } = dragContext
+      let destinationIndex = destination.index
+      if (source.folderID === destination.folderID) {
+        if (source.index === destination.index) {
+          return
+        }
+        // https://stackoverflow.com/questions/13264060/chrome-bookmarks-api-using-move-to-reorder-bookmarks-in-the-same-folder
+        if (source.index < destination.index) {
+          destinationIndex++
+        }
+      }
+      console.info(`moving bookmark`, source, destination)
+      chrome.bookmarks.move(source.id, { parentId: destination.folderID, index: destinationIndex }).catch(console.error)
+    }}
+  ></div>
+)
