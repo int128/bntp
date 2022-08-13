@@ -1,26 +1,31 @@
 .Search {
   --size-form-control-padding: 8px;
-  --size-form-control-border-radius: 3px;
 }
 
 .Search {
   display: grid;
-  padding: var(--size-wide-gap);
+  padding: var(--size-gap) var(--size-wide-gap);
   border-radius: 3px;
   background-color: var(--palette-2);
 }
 
 .Search input[type='text'] {
-  margin: calc(-1 * var(--size-form-control-padding));
-  padding: var(--size-form-control-padding);
-  border-radius: var(--size-form-control-border-radius);
-  background-color: var(--palette-2);
-  color: var(--palette-02);
+  overflow: hidden;
+  background-color: inherit;
+  color: var(--palette-03);
+  font-size: inherit;
   outline: none;
   border: none;
 }
 
-.Search input[type='text']:focus {
-  background-color: var(--palette-3);
-  color: var(--palette-03);
+.Search input[type='text']::placeholder {
+  color: var(--palette-01);
+  opacity: 0.5;
+  transition: opacity 0.25s linear;
+}
+
+.Search input[type='text']:focus::placeholder,
+.Search input[type='text']:hover::placeholder {
+  opacity: 0.8;
+  transition: opacity 0.25s linear;
 }

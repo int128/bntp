@@ -12,6 +12,7 @@
   grid-template-columns: repeat(auto-fill, var(--size-folder-item-width));
   gap: var(--size-folder-item-gap);
   padding: var(--size-folder-padding-y) var(--size-folder-padding-x);
+  min-height: calc(var(--size-folder-item-height));
 
   overflow-x: hidden;
   border-radius: 3px;
