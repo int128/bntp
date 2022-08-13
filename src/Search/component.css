@@ -18,6 +18,7 @@
 }
 
 .Search input[type='text']::placeholder {
+  font-size: 90%;
   color: var(--palette-01);
   opacity: 0.5;
 }
