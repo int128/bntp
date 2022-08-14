@@ -115,3 +115,8 @@
   box-shadow: 0 0 calc(var(--size-folder-item-gap) * 3) var(--palette-01);
   transition: none;
 }
+
+.BookmarkDropTarget {
+  border-radius: 3px;
+  background-color: var(--palette-1);
+}

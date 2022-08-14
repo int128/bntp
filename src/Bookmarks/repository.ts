@@ -74,6 +74,10 @@ export const removeBookmark = async (bookmark: Bookmark) => {
   await chrome.bookmarks.remove(bookmark.id)
 }
 
+export const moveBookmark = async (bookmark: Bookmark, folderID: BookmarkFolderID, index: number) => {
+  await chrome.bookmarks.move(bookmark.id, { parentId: folderID, index })
+}
+
 export const useFolderCollapse = (): readonly [FolderCollapse, (newSet: FolderCollapse) => void] => {
   const [ids, setIDs] = useChromeStorage<readonly BookmarkFolderID[]>({
     areaName: 'sync',
