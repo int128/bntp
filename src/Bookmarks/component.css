@@ -53,10 +53,6 @@
   box-shadow: 0 0 calc(var(--size-folder-item-gap) * 3) var(--palette-01);
 }
 
-.BookmarkButton.DragOver {
-  border-left: 2px solid blue;
-}
-
 .BookmarkButton__Title {
   grid-column: 2;
   grid-row: 1 / 2;
@@ -116,7 +112,7 @@
   transition: none;
 }
 
-.BookmarkDropTarget {
+.BookmarkDrop {
   border-radius: 3px;
-  background-color: var(--palette-1);
+  background-color: var(--palette-3);
 }

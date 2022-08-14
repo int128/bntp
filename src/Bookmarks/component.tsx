@@ -1,6 +1,6 @@
 import './component.css'
-import { Bookmark, BookmarkFolder, FolderCollapse, filterBookmarks } from './model'
-import { Drag, DropTarget, insertDropTarget } from './viewmodel'
+import { Bookmark, BookmarkFolder, BookmarkPosition, FolderCollapse, filterBookmarks } from './model'
+import { Drag, Drop, insertDrop } from './viewmodel'
 import React, { Dispatch, FC, PropsWithChildren, useState } from 'react'
 import { moveBookmark, useBookmarkFolders, useFolderCollapse } from './repository'
 import BookmarkEditorComponent from '../BookmarkEditor/component'
@@ -119,26 +119,12 @@ type BookmarkFolderItemsProps = {
 
 const BookmarkFolderItems: FC<BookmarkFolderItemsProps> = ({ folder, shortcutMap, search, drag, setDrag }) => {
   const bookmarks = filterBookmarks(folder.bookmarks, search)
-  if (!drag) {
-    return (
-      <>
-        {bookmarks.map((e) => {
-          return <BookmarkComponent key={e.id} bookmark={e} shortcutMap={shortcutMap} drag={drag} setDrag={setDrag} />
-        })}
-      </>
-    )
-  }
-  let items
-  if (folder.id === drag?.destination.folderID) {
-    items = insertDropTarget(bookmarks, drag)
-  } else {
-    items = bookmarks
-  }
+  const items = insertDrop(bookmarks, drag?.position)
   return (
     <>
       {items.map((e) => {
-        if (e instanceof DropTarget) {
-          return <DropTargetComponent key="drop" drag={drag} />
+        if (e instanceof Drop) {
+          return <BookmarkDropComponent key="drop" drag={drag} />
         }
         return <BookmarkComponent key={e.id} bookmark={e} shortcutMap={shortcutMap} drag={drag} setDrag={setDrag} />
       })}
@@ -163,21 +149,16 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap, 
           className="BookmarkButton"
           draggable
           onDragStart={(e) => {
+            setDrag(new Drag(bookmark))
             e.dataTransfer.effectAllowed = 'move'
-            e.dataTransfer.setData('application/bookmark-id', bookmark.id)
-            setDrag({ source: bookmark, destination: bookmark })
           }}
           onDragOver={(e) => {
-            if (e.dataTransfer.types.includes('application/bookmark-id')) {
-              if (drag) {
-                e.preventDefault()
-                setDrag({ ...drag, destination: bookmark })
-              }
+            if (drag) {
+              e.preventDefault()
+              setDrag(drag.moveDropTo(new BookmarkPosition(bookmark.folderID, bookmark.index)))
             }
           }}
-          onDragEnd={(e) => {
-            setDrag(undefined)
-          }}
+          onDragEnd={() => setDrag(undefined)}
         >
           <div className="BookmarkButton__Title">{bookmark.title}</div>
           <img className="BookmarkButton__Icon" alt="" src={faviconImage(bookmark.url)} />
@@ -203,36 +184,27 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap, 
   )
 }
 
-type DropTargetComponentProps = {
+type BookmarkDropComponentProps = {
   drag?: Drag
 }
 
-const DropTargetComponent: FC<DropTargetComponentProps> = ({ drag }) => (
-  <div
-    className="BookmarkDropTarget"
-    onDragOver={(e) => {
-      if (e.dataTransfer.types.includes('application/bookmark-id')) {
+const BookmarkDropComponent: FC<BookmarkDropComponentProps> = ({ drag }) => {
+  if (!drag) {
+    return null
+  }
+  return (
+    <div
+      className="BookmarkDrop"
+      onDragOver={(e) => {
         e.preventDefault()
-      }
-    }}
-    onDrop={(e) => {
-      e.preventDefault()
-      if (!drag) {
-        return
-      }
-      const { source, destination } = drag
-      let destinationIndex = destination.index
-      if (source.folderID === destination.folderID) {
-        if (source.index === destination.index) {
-          return
-        }
-        // https://stackoverflow.com/questions/13264060/chrome-bookmarks-api-using-move-to-reorder-bookmarks-in-the-same-folder
-        if (source.index < destination.index) {
-          destinationIndex++
-        }
-      }
-      console.info(`moving bookmark`, source, destination)
-      moveBookmark(source, destination.folderID, destinationIndex).catch(console.error)
-    }}
-  ></div>
-)
+      }}
+      onDrop={(e) => {
+        e.preventDefault()
+        console.info(`moving bookmark`, drag)
+        moveBookmark(drag.source, drag.position).catch(console.error)
+      }}
+    >
+      {drag.position.index}
+    </div>
+  )
+}

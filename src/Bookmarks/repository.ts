@@ -1,4 +1,4 @@
-import { Bookmark, BookmarkFolder, BookmarkFolderID, FolderCollapse } from './model'
+import { Bookmark, BookmarkFolder, BookmarkFolderID, BookmarkPosition, FolderCollapse } from './model'
 import { useEffect, useState } from 'react'
 import { useChromeStorage } from '../infrastructure/chromeStorage'
 
@@ -74,8 +74,8 @@ export const removeBookmark = async (bookmark: Bookmark) => {
   await chrome.bookmarks.remove(bookmark.id)
 }
 
-export const moveBookmark = async (bookmark: Bookmark, folderID: BookmarkFolderID, index: number) => {
-  await chrome.bookmarks.move(bookmark.id, { parentId: folderID, index })
+export const moveBookmark = async (bookmark: Bookmark, position: BookmarkPosition) => {
+  await chrome.bookmarks.move(bookmark.id, { parentId: position.folderID, index: position.index })
 }
 
 export const useFolderCollapse = (): readonly [FolderCollapse, (newSet: FolderCollapse) => void] => {
