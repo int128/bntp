@@ -36,6 +36,15 @@
   position: relative; /* for .BookmarkEditButton */
 }
 
+.Bookmark[data-drag-from]:not([data-drag-to]) {
+  opacity: 0;
+  transition: all 0.25s linear;
+}
+
+.Bookmark[data-drag-to] {
+  outline: var(--palette-1) dotted 2px;
+}
+
 .BookmarkButton {
   display: grid;
   grid-template-columns: var(--size-icon) auto;
@@ -52,12 +61,6 @@
 .Bookmark:not([data-drag]) .BookmarkButton:hover {
   background-color: var(--palette-2);
   box-shadow: 0 0 calc(var(--size-folder-item-gap) * 3) var(--palette-01);
-}
-
-.Bookmark[data-drag-to] .BookmarkButton {
-  opacity: 0.5;
-  box-shadow: 0 0 calc(var(--size-folder-item-gap) * 3) var(--palette-01);
-  transition: all 0.25s linear;
 }
 
 .BookmarkButton__Title {

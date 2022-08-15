@@ -1,6 +1,6 @@
 import './component.css'
-import { Bookmark, BookmarkFolder, FolderCollapse, Position, filterBookmarks } from './model'
-import { Drag, reorderBookmarks } from './viewmodel'
+import { BookmarkFolder, FolderCollapse, Position, filterBookmarks } from './model'
+import { BookmarkWithDragProps, Drag, reorderBookmarks } from './viewmodel'
 import React, { Dispatch, FC, PropsWithChildren, useState } from 'react'
 import { moveBookmark, useBookmarkFolders, useFolderCollapse } from './repository'
 import BookmarkEditorComponent from '../BookmarkEditor/component'
@@ -136,7 +136,7 @@ const BookmarkFolderItems: FC<BookmarkFolderItemsProps> = ({ folder, shortcutMap
 }
 
 type BookmarkComponentProps = {
-  bookmark: Bookmark
+  bookmark: BookmarkWithDragProps
   position: Position
   shortcutMap: ShortcutMap
   drag: Drag | undefined
@@ -150,8 +150,8 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, position, sho
     <div
       className="Bookmark"
       data-drag={drag ? true : undefined}
-      data-drag-from={drag?.isFrom(position) || undefined}
-      data-drag-to={drag?.isTo(position) || undefined}
+      data-drag-from={bookmark.dragFrom}
+      data-drag-to={bookmark.dragTo}
     >
       <Link href={bookmark.url}>
         <div

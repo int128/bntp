@@ -26,34 +26,37 @@ export class Drag {
     }
     return this.to
   }
+}
 
-  isFrom = (position: Position) => this.from.folderID === position.folderID && this.from.index === position.index
-  isTo = (position: Position) => this.to.folderID === position.folderID && this.to.index === position.index
+export type BookmarkWithDragProps = Bookmark & {
+  readonly dragFrom?: true
+  readonly dragTo?: true
 }
 
 export const reorderBookmarks = (
   drag: Drag | undefined,
   folderID: BookmarkFolderID,
   bookmarks: readonly Bookmark[]
-): readonly Bookmark[] => {
+): readonly BookmarkWithDragProps[] => {
   if (!drag) {
     return bookmarks
   }
 
   if (folderID === drag.from.folderID && drag.from.folderID === drag.to.folderID) {
     // move the bookmark in the folder
-    const r = [...bookmarks]
+    const r: BookmarkWithDragProps[] = [...bookmarks]
     r.splice(drag.from.index, 1)
-    r.splice(drag.to.index, 0, drag.bookmark)
+    r.splice(drag.to.index, 0, { ...drag.bookmark, dragFrom: true, dragTo: true })
     return r
   }
 
-  if (folderID === drag.to.folderID) {
+  const r: BookmarkWithDragProps[] = [...bookmarks]
+  if (folderID === drag.from.folderID) {
     // when move across the folder, keep the element to receive the dragEnd event
-    const r = [...bookmarks]
-    r.splice(drag.to.index, 0, drag.bookmark)
-    return r
+    r[drag.from.index] = { ...drag.bookmark, dragFrom: true }
   }
-
-  return bookmarks
+  if (folderID === drag.to.folderID) {
+    r.splice(drag.to.index, 0, { ...drag.bookmark, dragTo: true })
+  }
+  return r
 }
