@@ -149,6 +149,7 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, position, sho
   return (
     <div
       className="Bookmark"
+      data-drag={drag ? true : undefined}
       data-drag-from={drag?.isFrom(position) || undefined}
       data-drag-to={drag?.isTo(position) || undefined}
     >

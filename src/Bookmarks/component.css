@@ -48,7 +48,8 @@
   background-color: var(--palette-3);
 }
 
-.Bookmark:not([data-drag-from]) .BookmarkButton:hover {
+/* prevent hover while dragging */
+.Bookmark:not([data-drag]) .BookmarkButton:hover {
   background-color: var(--palette-2);
   box-shadow: 0 0 calc(var(--size-folder-item-gap) * 3) var(--palette-01);
 }
@@ -97,8 +98,8 @@
   text-align: center;
 }
 
-/* don't show the button while dragging */
-.Bookmark:is([data-drag-from], [data-drag-to]) .BookmarkEditButton {
+/* prevent hover while dragging */
+.Bookmark[data-drag] .BookmarkEditButton {
   display: none;
 }
 
