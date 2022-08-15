@@ -1,6 +1,6 @@
 import './component.css'
-import { Bookmark, BookmarkFolder, BookmarkPosition, FolderCollapse, filterBookmarks } from './model'
-import { Drag, Drop, insertDrop } from './viewmodel'
+import { Bookmark, BookmarkFolder, FolderCollapse, Position, filterBookmarks } from './model'
+import { Drag, reorderBookmarks } from './viewmodel'
 import React, { Dispatch, FC, PropsWithChildren, useState } from 'react'
 import { moveBookmark, useBookmarkFolders, useFolderCollapse } from './repository'
 import BookmarkEditorComponent from '../BookmarkEditor/component'
@@ -118,28 +118,32 @@ type BookmarkFolderItemsProps = {
 }
 
 const BookmarkFolderItems: FC<BookmarkFolderItemsProps> = ({ folder, shortcutMap, search, drag, setDrag }) => {
-  const bookmarks = filterBookmarks(folder.bookmarks, search)
-  const items = insertDrop(bookmarks, drag?.position)
+  const bookmarks = reorderBookmarks(drag, folder.id, filterBookmarks(folder.bookmarks, search))
   return (
     <>
-      {items.map((e) => {
-        if (e instanceof Drop) {
-          return <BookmarkDropComponent key="drop" drag={drag} />
-        }
-        return <BookmarkComponent key={e.id} bookmark={e} shortcutMap={shortcutMap} drag={drag} setDrag={setDrag} />
-      })}
+      {bookmarks.map((b, index) => (
+        <BookmarkComponent
+          key={b.id}
+          bookmark={b}
+          position={{ folderID: folder.id, index }}
+          shortcutMap={shortcutMap}
+          drag={drag}
+          setDrag={setDrag}
+        />
+      ))}
     </>
   )
 }
 
 type BookmarkComponentProps = {
   bookmark: Bookmark
+  position: Position
   shortcutMap: ShortcutMap
   drag: Drag | undefined
   setDrag: Dispatch<Drag | undefined>
 }
 
-const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap, drag, setDrag }) => {
+const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, position, shortcutMap, drag, setDrag }) => {
   const [editingBookmark, setEditingBookmark] = useState<EditingBookmark>()
   const shortcutKey = shortcutMap.getByBookmarkID(bookmark.id)
   return (
@@ -149,16 +153,24 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap, 
           className="BookmarkButton"
           draggable
           onDragStart={(e) => {
-            setDrag(new Drag(bookmark))
+            setDrag(Drag.start(bookmark, position))
             e.dataTransfer.effectAllowed = 'move'
           }}
           onDragOver={(e) => {
             if (drag) {
               e.preventDefault()
-              setDrag(drag.moveDropTo(new BookmarkPosition(bookmark.folderID, bookmark.index)))
+              setDrag(drag.moveTo(position))
             }
           }}
-          onDragEnd={() => setDrag(undefined)}
+          onDragEnd={() => {
+            setDrag(undefined)
+          }}
+          onDrop={(e) => {
+            e.preventDefault()
+            if (drag) {
+              moveBookmark(drag.bookmark, drag.calculateDestination()).catch(console.error)
+            }
+          }}
         >
           <div className="BookmarkButton__Title">{bookmark.title}</div>
           <img className="BookmarkButton__Icon" alt="" src={faviconImage(bookmark.url)} />
@@ -180,31 +192,6 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap, 
         onChange={setEditingBookmark}
         onRequestClose={() => setEditingBookmark(undefined)}
       />
-    </div>
-  )
-}
-
-type BookmarkDropComponentProps = {
-  drag?: Drag
-}
-
-const BookmarkDropComponent: FC<BookmarkDropComponentProps> = ({ drag }) => {
-  if (!drag) {
-    return null
-  }
-  return (
-    <div
-      className="BookmarkDrop"
-      onDragOver={(e) => {
-        e.preventDefault()
-      }}
-      onDrop={(e) => {
-        e.preventDefault()
-        console.info(`moving bookmark`, drag)
-        moveBookmark(drag.source, drag.position).catch(console.error)
-      }}
-    >
-      {drag.position.index}
     </div>
   )
 }

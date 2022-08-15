@@ -13,7 +13,6 @@ export type Bookmark = {
   readonly id: BookmarkID
   readonly title: string
   readonly url: string
-  readonly index: number
   readonly folderID: BookmarkFolderID
 }
 
@@ -27,18 +26,9 @@ export const filterBookmarks = (bookmarks: readonly Bookmark[], search: string):
   )
 }
 
-export class BookmarkPosition {
+export type Position = {
   readonly folderID: BookmarkFolderID
   readonly index: number
-
-  constructor(folderID: BookmarkFolderID, index: number) {
-    this.folderID = folderID
-    this.index = index
-  }
-
-  equals(x: BookmarkPosition): boolean {
-    return this.folderID === x.folderID && this.index === x.index
-  }
 }
 
 export class FolderCollapse {

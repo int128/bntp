@@ -1,4 +1,4 @@
-import { Bookmark, BookmarkFolder, BookmarkFolderID, BookmarkPosition, FolderCollapse } from './model'
+import { Bookmark, BookmarkFolder, BookmarkFolderID, FolderCollapse, Position } from './model'
 import { useEffect, useState } from 'react'
 import { useChromeStorage } from '../infrastructure/chromeStorage'
 
@@ -59,7 +59,6 @@ export const traverseBookmarkTree = (
         id: b.id,
         title: b.title,
         url: b.url || '',
-        index: b.index || 0,
         folderID: node.id,
       })),
     }
@@ -74,7 +73,7 @@ export const removeBookmark = async (bookmark: Bookmark) => {
   await chrome.bookmarks.remove(bookmark.id)
 }
 
-export const moveBookmark = async (bookmark: Bookmark, position: BookmarkPosition) => {
+export const moveBookmark = async (bookmark: Bookmark, position: Position) => {
   await chrome.bookmarks.move(bookmark.id, { parentId: position.folderID, index: position.index })
 }
 
