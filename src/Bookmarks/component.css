@@ -48,9 +48,15 @@
   background-color: var(--palette-3);
 }
 
-.BookmarkButton:hover {
+.Bookmark:not([data-drag-from]) .BookmarkButton:hover {
   background-color: var(--palette-2);
   box-shadow: 0 0 calc(var(--size-folder-item-gap) * 3) var(--palette-01);
+}
+
+.Bookmark[data-drag-to] .BookmarkButton {
+  opacity: 0.5;
+  box-shadow: 0 0 calc(var(--size-folder-item-gap) * 3) var(--palette-01);
+  transition: all 0.25s linear;
 }
 
 .BookmarkButton__Title {
@@ -89,6 +95,11 @@
   font-size: 120%;
   font-weight: bold;
   text-align: center;
+}
+
+/* don't show the button while dragging */
+.Bookmark:is([data-drag-from], [data-drag-to]) .BookmarkEditButton {
+  display: none;
 }
 
 .BookmarkEditButton {

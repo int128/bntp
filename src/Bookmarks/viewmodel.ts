@@ -26,6 +26,9 @@ export class Drag {
     }
     return this.to
   }
+
+  isFrom = (position: Position) => this.from.folderID === position.folderID && this.from.index === position.index
+  isTo = (position: Position) => this.to.folderID === position.folderID && this.to.index === position.index
 }
 
 export const reorderBookmarks = (
