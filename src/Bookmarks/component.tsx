@@ -160,6 +160,7 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, position, sho
           onDragStart={(e) => {
             setDrag(Drag.start(bookmark, position))
             e.dataTransfer.effectAllowed = 'move'
+            e.dataTransfer.setData('text/plain', bookmark.url)
           }}
           onDragOver={(e) => {
             if (drag) {
