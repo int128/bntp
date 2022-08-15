@@ -147,15 +147,11 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, position, sho
   const [editingBookmark, setEditingBookmark] = useState<EditingBookmark>()
   const shortcutKey = shortcutMap.getByBookmarkID(bookmark.id)
   return (
-    <div
-      className="Bookmark"
-      data-drag={drag ? true : undefined}
-      data-drag-from={bookmark.dragFrom}
-      data-drag-to={bookmark.dragTo}
-    >
+    <div className="Bookmark" data-drag-from={bookmark.dragFrom} data-drag-to={bookmark.dragTo}>
       <Link href={bookmark.url}>
         <div
           className="BookmarkButton"
+          data-drag-active={drag ? true : undefined}
           draggable
           onDragStart={(e) => {
             setDrag(Drag.start(bookmark, position))
@@ -192,6 +188,7 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, position, sho
       <a
         href="#Edit"
         className="BookmarkEditButton"
+        data-drag-active={drag ? true : undefined}
         onClick={(e) => {
           setEditingBookmark(new EditingBookmark(bookmark, shortcutKey))
           e.preventDefault()
