@@ -40,12 +40,20 @@ export const reorderBookmarks = (
     return bookmarks
   }
 
-  const ordered = [...bookmarks]
-  if (folderID === drag.from.folderID) {
-    ordered.splice(drag.from.index, 1)
+  if (folderID === drag.from.folderID && drag.from.folderID === drag.to.folderID) {
+    // move the bookmark in the folder
+    const r = [...bookmarks]
+    r.splice(drag.from.index, 1)
+    r.splice(drag.to.index, 0, drag.bookmark)
+    return r
   }
+
   if (folderID === drag.to.folderID) {
-    ordered.splice(drag.to.index, 0, drag.bookmark)
+    // when move across the folder, keep the element to receive the dragEnd event
+    const r = [...bookmarks]
+    r.splice(drag.to.index, 0, drag.bookmark)
+    return r
   }
-  return ordered
+
+  return bookmarks
 }
