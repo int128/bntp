@@ -163,7 +163,12 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, position, sho
           onDragOver={(e) => {
             if (drag) {
               e.preventDefault()
-              setDrag(drag.moveTo(position))
+            }
+          }}
+          onDragEnter={(e) => {
+            if (drag) {
+              e.preventDefault()
+              setDrag(drag.moveTo(position)) // update on enter for better performance
             }
           }}
           onDragEnd={() => {
