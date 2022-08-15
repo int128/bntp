@@ -122,64 +122,73 @@ const BookmarkFolderItems: FC<BookmarkFolderItemsProps> = ({ folder, shortcutMap
   return (
     <>
       {bookmarks.map((b, index) => (
-        <BookmarkComponent
+        <BookmarkDragDrop
           key={b.id}
           bookmark={b}
           position={{ folderID: folder.id, index }}
-          shortcutMap={shortcutMap}
           drag={drag}
           setDrag={setDrag}
-        />
+        >
+          <BookmarkComponent bookmark={b} shortcutMap={shortcutMap} dragActive={drag ? true : undefined} />
+        </BookmarkDragDrop>
       ))}
     </>
   )
 }
 
-type BookmarkComponentProps = {
+type BookmarkDragDropProps = {
   bookmark: BookmarkWithDragProps
   position: Position
-  shortcutMap: ShortcutMap
   drag: Drag | undefined
   setDrag: Dispatch<Drag | undefined>
+} & PropsWithChildren
+
+const BookmarkDragDrop: FC<BookmarkDragDropProps> = ({ bookmark, position, drag, setDrag, children }) => (
+  <div
+    onDragStart={(e) => {
+      setDrag(Drag.start(bookmark, position))
+      e.dataTransfer.effectAllowed = 'move'
+      e.dataTransfer.setData('text/plain', bookmark.url)
+    }}
+    onDragOver={(e) => {
+      if (drag) {
+        e.preventDefault()
+      }
+    }}
+    onDragEnter={(e) => {
+      if (drag) {
+        e.preventDefault()
+        setDrag(drag.moveTo(position)) // update on enter for better performance
+      }
+    }}
+    onDragEnd={() => {
+      setDrag(undefined)
+    }}
+    onDrop={(e) => {
+      e.preventDefault()
+      if (drag) {
+        moveBookmark(drag.bookmark, drag.calculateDestination()).catch(console.error)
+        setDrag(undefined)
+      }
+    }}
+  >
+    {children}
+  </div>
+)
+
+type BookmarkComponentProps = {
+  bookmark: BookmarkWithDragProps
+  shortcutMap: ShortcutMap
+  dragActive: true | undefined
 }
 
-const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, position, shortcutMap, drag, setDrag }) => {
+const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap, dragActive }) => {
   const [editingBookmark, setEditingBookmark] = useState<EditingBookmark>()
   const shortcutKey = shortcutMap.getByBookmarkID(bookmark.id)
   return (
     <div className="Bookmark" data-drag-from={bookmark.dragFrom} data-drag-to={bookmark.dragTo}>
       <Link href={bookmark.url}>
-        <div
-          className="BookmarkButton"
-          data-drag-active={drag ? true : undefined}
-          draggable
-          onDragStart={(e) => {
-            setDrag(Drag.start(bookmark, position))
-            e.dataTransfer.effectAllowed = 'move'
-            e.dataTransfer.setData('text/plain', bookmark.url)
-          }}
-          onDragOver={(e) => {
-            if (drag) {
-              e.preventDefault()
-            }
-          }}
-          onDragEnter={(e) => {
-            if (drag) {
-              e.preventDefault()
-              setDrag(drag.moveTo(position)) // update on enter for better performance
-            }
-          }}
-          onDragEnd={() => {
-            setDrag(undefined)
-          }}
-          onDrop={(e) => {
-            e.preventDefault()
-            if (drag) {
-              moveBookmark(drag.bookmark, drag.calculateDestination()).catch(console.error)
-              setDrag(undefined)
-            }
-          }}
-        >
+        <div className="BookmarkButton" data-drag-active={dragActive} draggable>
           <div className="BookmarkButton__Title">{bookmark.title}</div>
           <img className="BookmarkButton__Icon" alt="" src={faviconImage(bookmark.url)} />
           {shortcutKey ? <div className="BookmarkButton__Badge">{shortcutKey}</div> : null}
@@ -188,7 +197,7 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, position, sho
       <a
         href="#Edit"
         className="BookmarkEditButton"
-        data-drag-active={drag ? true : undefined}
+        data-drag-active={dragActive}
         onClick={(e) => {
           setEditingBookmark(new EditingBookmark(bookmark, shortcutKey))
           e.preventDefault()
