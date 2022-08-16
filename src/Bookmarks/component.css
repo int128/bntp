@@ -36,13 +36,22 @@
   position: relative; /* for .BookmarkEditButton */
 }
 
-.Bookmark__DragDrop__From:not(.Bookmark__DragDrop__To) {
-  opacity: 0;
-  transition: all 0.25s linear;
+/* when a bookmark is moved to another folder, "From" should be hidden */
+.Bookmark__DragDrop__From:not(.Bookmark__DragDrop__To) .Bookmark {
+  visibility: hidden;
+}
+
+/* when a bookmark is moved to another folder but not hovered, "To" should be placeholder */
+.Bookmark__DragDrop__To:not(.Bookmark__DragDrop__Hover) {
+  outline: var(--palette-1) dotted 2px;
+}
+
+.Bookmark__DragDrop__To:not(.Bookmark__DragDrop__Hover) .Bookmark {
+  visibility: hidden;
 }
 
 .Bookmark__DragDrop__Hover {
-  outline: var(--palette-1) dotted 2px;
+  outline: var(--palette-1) solid 2px;
 }
 
 .BookmarkButton {

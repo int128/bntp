@@ -57,13 +57,19 @@ export const reorderBookmarks = (
     return r
   }
 
-  const r: BookmarkWithDragProps[] = [...bookmarks]
+  // when move across the folder, keep the element to receive the dragEnd event
   if (folderID === drag.from.folderID) {
-    // when move across the folder, keep the element to receive the dragEnd event
-    r[drag.from.index] = { ...drag.bookmark, dragFrom: true }
+    const r: BookmarkWithDragProps[] = [...bookmarks]
+    r.splice(drag.from.index, 1)
+    r.push({ ...drag.bookmark, dragFrom: true })
+    return r
   }
+
   if (folderID === drag.to.folderID) {
+    const r: BookmarkWithDragProps[] = [...bookmarks]
     r.splice(drag.to.index, 0, { ...drag.bookmark, dragTo: true, hover: drag.hover || undefined })
+    return r
   }
-  return r
+
+  return bookmarks
 }
