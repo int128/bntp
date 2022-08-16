@@ -6,7 +6,6 @@
     "bookmarks",
     "topSites",
     "favicon",
-    "management",
     "storage"
   ],
   "chrome_url_overrides": {
