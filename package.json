@@ -43,7 +43,7 @@
     "@tsconfig/cypress": "1.0.1",
     "@types/chrome": "0.0.193",
     "adm-zip": "0.5.9",
-    "cypress": "10.4.0",
+    "cypress": "10.5.0",
     "jest-chrome": "0.7.2",
     "prettier": "2.7.1"
   }
