@@ -36,12 +36,12 @@
   position: relative; /* for .BookmarkEditButton */
 }
 
-.Bookmark[data-drag-from]:not([data-drag-to]) {
+.Bookmark__DragDrop__From:not(.Bookmark__DragDrop__To) {
   opacity: 0;
   transition: all 0.25s linear;
 }
 
-.Bookmark[data-drag-hover] {
+.Bookmark__DragDrop__Hover {
   outline: var(--palette-1) dotted 2px;
 }
 

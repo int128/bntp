@@ -1,5 +1,5 @@
 import './component.css'
-import { BookmarkFolder, FolderCollapse, Position, filterBookmarks } from './model'
+import { Bookmark, BookmarkFolder, FolderCollapse, Position, filterBookmarks } from './model'
 import { BookmarkWithDragProps, Drag, reorderBookmarks } from './viewmodel'
 import React, { Dispatch, FC, PropsWithChildren, useState } from 'react'
 import { moveBookmark, useBookmarkFolders, useFolderCollapse } from './repository'
@@ -136,6 +136,12 @@ const BookmarkFolderItems: FC<BookmarkFolderItemsProps> = ({ folder, shortcutMap
   )
 }
 
+const classNameOfMap = (classNameMap: { [className: string]: boolean | undefined }) =>
+  Object.entries(classNameMap)
+    .filter(([, enabled]) => enabled === true)
+    .map(([className]) => className)
+    .join(' ')
+
 type BookmarkDragDropProps = {
   bookmark: BookmarkWithDragProps
   position: Position
@@ -146,6 +152,12 @@ type BookmarkDragDropProps = {
 const BookmarkDragDrop: FC<BookmarkDragDropProps> = ({ bookmark, position, drag, setDrag, children }) => {
   return (
     <div
+      className={classNameOfMap({
+        Bookmark__DragDrop: true,
+        Bookmark__DragDrop__From: bookmark.dragFrom,
+        Bookmark__DragDrop__To: bookmark.dragTo,
+        Bookmark__DragDrop__Hover: bookmark.hover,
+      })}
       onDragStart={(e) => {
         setDrag(Drag.start(bookmark, position))
         e.dataTransfer.effectAllowed = 'move'
@@ -193,7 +205,7 @@ const BookmarkDragDrop: FC<BookmarkDragDropProps> = ({ bookmark, position, drag,
 }
 
 type BookmarkComponentProps = {
-  bookmark: BookmarkWithDragProps
+  bookmark: Bookmark
   shortcutMap: ShortcutMap
   dragActive: true | undefined
 }
@@ -202,12 +214,7 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap, 
   const [editingBookmark, setEditingBookmark] = useState<EditingBookmark>()
   const shortcutKey = shortcutMap.getByBookmarkID(bookmark.id)
   return (
-    <div
-      className="Bookmark"
-      data-drag-from={bookmark.dragFrom}
-      data-drag-to={bookmark.dragTo}
-      data-drag-hover={bookmark.hover}
-    >
+    <div className="Bookmark">
       <Link href={bookmark.url}>
         <div className="BookmarkButton" data-drag-active={dragActive} draggable>
           <div className="BookmarkButton__Title">{bookmark.title}</div>
