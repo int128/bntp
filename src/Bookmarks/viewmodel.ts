@@ -4,19 +4,25 @@ export class Drag {
   readonly bookmark: Bookmark
   readonly from: Position
   readonly to: Position
+  readonly hover: boolean
 
-  private constructor(bookmark: Bookmark, from: Position, to: Position) {
+  private constructor(bookmark: Bookmark, from: Position, to: Position, hover: boolean) {
     this.bookmark = bookmark
     this.from = from
     this.to = to
+    this.hover = hover
   }
 
-  static start(bookmark: Bookmark, from: Position): Drag {
-    return new Drag(bookmark, from, from)
+  static start(bookmark: Bookmark, from: Position) {
+    return new Drag(bookmark, from, from, true)
   }
 
-  moveTo(to: Position): Drag {
-    return new Drag(this.bookmark, this.from, to)
+  enterTo(to: Position) {
+    return new Drag(this.bookmark, this.from, to, true)
+  }
+
+  leave() {
+    return new Drag(this.bookmark, this.from, this.to, false)
   }
 
   calculateDestination(): Position {
@@ -31,6 +37,7 @@ export class Drag {
 export type BookmarkWithDragProps = Bookmark & {
   readonly dragFrom?: true
   readonly dragTo?: true
+  readonly hover?: true
 }
 
 export const reorderBookmarks = (
@@ -46,7 +53,7 @@ export const reorderBookmarks = (
     // move the bookmark in the folder
     const r: BookmarkWithDragProps[] = [...bookmarks]
     r.splice(drag.from.index, 1)
-    r.splice(drag.to.index, 0, { ...drag.bookmark, dragFrom: true, dragTo: true })
+    r.splice(drag.to.index, 0, { ...drag.bookmark, dragFrom: true, dragTo: true, hover: drag.hover || undefined })
     return r
   }
 
@@ -56,7 +63,7 @@ export const reorderBookmarks = (
     r[drag.from.index] = { ...drag.bookmark, dragFrom: true }
   }
   if (folderID === drag.to.folderID) {
-    r.splice(drag.to.index, 0, { ...drag.bookmark, dragTo: true })
+    r.splice(drag.to.index, 0, { ...drag.bookmark, dragTo: true, hover: drag.hover || undefined })
   }
   return r
 }

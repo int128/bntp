@@ -143,38 +143,54 @@ type BookmarkDragDropProps = {
   setDrag: Dispatch<Drag | undefined>
 } & PropsWithChildren
 
-const BookmarkDragDrop: FC<BookmarkDragDropProps> = ({ bookmark, position, drag, setDrag, children }) => (
-  <div
-    onDragStart={(e) => {
-      setDrag(Drag.start(bookmark, position))
-      e.dataTransfer.effectAllowed = 'move'
-      e.dataTransfer.setData('text/plain', bookmark.url)
-    }}
-    onDragOver={(e) => {
-      if (drag) {
-        e.preventDefault()
-      }
-    }}
-    onDragEnter={(e) => {
-      if (drag) {
-        e.preventDefault()
-        setDrag(drag.moveTo(position)) // update on enter for better performance
-      }
-    }}
-    onDragEnd={() => {
-      setDrag(undefined)
-    }}
-    onDrop={(e) => {
-      e.preventDefault()
-      if (drag) {
-        moveBookmark(drag.bookmark, drag.calculateDestination()).catch(console.error)
+const BookmarkDragDrop: FC<BookmarkDragDropProps> = ({ bookmark, position, drag, setDrag, children }) => {
+  return (
+    <div
+      onDragStart={(e) => {
+        setDrag(Drag.start(bookmark, position))
+        e.dataTransfer.effectAllowed = 'move'
+        e.dataTransfer.setData('text/plain', bookmark.url)
+      }}
+      onDragOver={(e) => {
+        if (drag) {
+          e.preventDefault()
+        }
+      }}
+      onDragEnter={(e) => {
+        if (drag) {
+          e.preventDefault()
+          setDrag(drag.enterTo(position))
+        }
+      }}
+      onDragLeave={(e) => {
+        // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/relatedTarget
+        const exitedFrom = e.target
+        const enteredTo = e.relatedTarget
+        if (
+          drag &&
+          exitedFrom instanceof HTMLElement &&
+          exitedFrom.classList.contains('BookmarkButton') &&
+          enteredTo instanceof HTMLElement &&
+          enteredTo.classList.contains('BookmarkFolder')
+        ) {
+          setDrag(drag.leave())
+        }
+      }}
+      onDragEnd={() => {
         setDrag(undefined)
-      }
-    }}
-  >
-    {children}
-  </div>
-)
+      }}
+      onDrop={(e) => {
+        e.preventDefault()
+        if (drag) {
+          moveBookmark(drag.bookmark, drag.calculateDestination()).catch(console.error)
+          setDrag(undefined)
+        }
+      }}
+    >
+      {children}
+    </div>
+  )
+}
 
 type BookmarkComponentProps = {
   bookmark: BookmarkWithDragProps
@@ -186,7 +202,12 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap, 
   const [editingBookmark, setEditingBookmark] = useState<EditingBookmark>()
   const shortcutKey = shortcutMap.getByBookmarkID(bookmark.id)
   return (
-    <div className="Bookmark" data-drag-from={bookmark.dragFrom} data-drag-to={bookmark.dragTo}>
+    <div
+      className="Bookmark"
+      data-drag-from={bookmark.dragFrom}
+      data-drag-to={bookmark.dragTo}
+      data-drag-hover={bookmark.hover}
+    >
       <Link href={bookmark.url}>
         <div className="BookmarkButton" data-drag-active={dragActive} draggable>
           <div className="BookmarkButton__Title">{bookmark.title}</div>

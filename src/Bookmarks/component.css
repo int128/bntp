@@ -41,7 +41,7 @@
   transition: all 0.25s linear;
 }
 
-.Bookmark[data-drag-to] {
+.Bookmark[data-drag-hover] {
   outline: var(--palette-1) dotted 2px;
 }
 
