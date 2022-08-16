@@ -153,7 +153,6 @@ const BookmarkDragDrop: FC<BookmarkDragDropProps> = ({ bookmark, position, drag,
   return (
     <div
       className={classNameOfMap({
-        Bookmark__DragDrop: true,
         Bookmark__DragDrop__From: bookmark.dragFrom,
         Bookmark__DragDrop__To: bookmark.dragTo,
         Bookmark__DragDrop__Hover: bookmark.hover,
