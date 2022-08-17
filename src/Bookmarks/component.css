@@ -36,21 +36,22 @@
   position: relative; /* for .BookmarkEditButton */
 }
 
-/* when a bookmark is moved to another folder, "From" should be hidden */
+/* when move a bookmark across folders, "From" should be hidden */
 .Bookmark__DragDrop__From:not(.Bookmark__DragDrop__To) .Bookmark {
   visibility: hidden;
 }
 
-/* when a bookmark is moved to another folder but not hovered, "To" should be placeholder */
-.Bookmark__DragDrop__To:not(.Bookmark__DragDrop__Hover) {
+/* when the pointer is out of "To" element, it should be a placeholder */
+.Bookmark__DragDrop__To[data-bookmark-drag-state='leave'] {
   outline: var(--palette-1) dotted 2px;
 }
 
-.Bookmark__DragDrop__To:not(.Bookmark__DragDrop__Hover) .Bookmark {
+.Bookmark__DragDrop__To[data-bookmark-drag-state='leave'] .Bookmark {
   visibility: hidden;
 }
 
-.Bookmark__DragDrop__Hover {
+/* when the pointer is over a bookmark, it should be outlined */
+.Bookmark__DragDrop__To[data-bookmark-drag-state='enter'] {
   outline: var(--palette-1) solid 2px;
 }
 

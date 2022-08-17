@@ -155,8 +155,8 @@ const BookmarkDragDrop: FC<BookmarkDragDropProps> = ({ bookmark, position, drag,
       className={classNameOfMap({
         Bookmark__DragDrop__From: bookmark.dragFrom,
         Bookmark__DragDrop__To: bookmark.dragTo,
-        Bookmark__DragDrop__Hover: bookmark.hover,
       })}
+      data-bookmark-drag-state={bookmark.state}
       onDragStart={(e) => {
         setDrag(Drag.start(bookmark, position))
         e.dataTransfer.effectAllowed = 'move'
