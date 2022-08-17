@@ -36,6 +36,24 @@
   position: relative; /* for .BookmarkEditButton */
 }
 
+/* when a bookmark is moved to another folder, "From" should be hidden */
+.Bookmark__DragDrop__From:not(.Bookmark__DragDrop__To) .Bookmark {
+  visibility: hidden;
+}
+
+/* when a bookmark is moved to another folder but not hovered, "To" should be placeholder */
+.Bookmark__DragDrop__To:not(.Bookmark__DragDrop__Hover) {
+  outline: var(--palette-1) dotted 2px;
+}
+
+.Bookmark__DragDrop__To:not(.Bookmark__DragDrop__Hover) .Bookmark {
+  visibility: hidden;
+}
+
+.Bookmark__DragDrop__Hover {
+  outline: var(--palette-1) solid 2px;
+}
+
 .BookmarkButton {
   display: grid;
   grid-template-columns: var(--size-icon) auto;
@@ -48,7 +66,7 @@
   background-color: var(--palette-3);
 }
 
-.BookmarkButton:hover {
+.BookmarkButton:not([data-drag-active]):hover {
   background-color: var(--palette-2);
   box-shadow: 0 0 calc(var(--size-folder-item-gap) * 3) var(--palette-01);
 }
@@ -89,6 +107,10 @@
   font-size: 120%;
   font-weight: bold;
   text-align: center;
+}
+
+.BookmarkEditButton[data-drag-active] {
+  display: none;
 }
 
 .BookmarkEditButton {

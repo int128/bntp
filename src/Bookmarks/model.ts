@@ -26,6 +26,11 @@ export const filterBookmarks = (bookmarks: readonly Bookmark[], search: string):
   )
 }
 
+export type Position = {
+  readonly folderID: BookmarkFolderID
+  readonly index: number
+}
+
 export class FolderCollapse {
   private readonly collapsedIDs: ReadonlySet<BookmarkFolderID>
 
