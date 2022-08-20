@@ -11,6 +11,12 @@ root.render(
   </React.StrictMode>
 )
 
+// the default size of popup is too small, so explicitly set it
+// https://developer.chrome.com/docs/extensions/reference/action/#popup
+if (document.location.hash === '#popup') {
+  document.documentElement.classList.add('popup')
+}
+
 migratePreferencesFromV2ToV3().catch((e) => console.error(e))
 
 // If you want to start measuring performance in your app, pass a function

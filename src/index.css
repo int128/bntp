@@ -9,6 +9,10 @@
   color: var(--palette-03);
 }
 
+:root.popup {
+  width: 700px;
+}
+
 body {
   margin: 0;
   font-family: sans-serif;
