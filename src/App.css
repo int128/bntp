@@ -1,9 +1,4 @@
 .App {
-  --size-gap: 5px;
-  --size-wide-gap: 15px;
-}
-
-.App {
   display: grid;
   row-gap: var(--size-gap);
   padding: var(--size-gap) var(--size-wide-gap);

@@ -1,4 +1,9 @@
 :root {
+  --size-gap: 5px;
+  --size-wide-gap: 15px;
+}
+
+:root {
   /* override background-color in index.html */
   background-color: var(--palette-3);
   color: var(--palette-03);
@@ -12,4 +17,14 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* set background to prevent screen flicker while loading */
+#root:empty {
+  position: fixed;
+  top: var(--size-gap);
+  bottom: var(--size-gap);
+  left: var(--size-wide-gap);
+  right: var(--size-wide-gap);
+  background-color: var(--palette-2);
 }
