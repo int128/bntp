@@ -44,7 +44,7 @@ const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ bookmarkF
       {bookmarkFolders.map((f, i) => (
         <BookmarkFolderIndent key={i} depth={toggles.indent ? f.depth : 0}>
           <BookmarkFolderCollapse folder={f} folderCollapse={folderCollapse} setFolderCollapse={setFolderCollapse}>
-            <BookmarkFolderItems folder={f} shortcutMap={shortcutMap} search={search} drag={drag} setDrag={setDrag} />
+            <BookmarkList folder={f} shortcutMap={shortcutMap} search={search} drag={drag} setDrag={setDrag} />
           </BookmarkFolderCollapse>
         </BookmarkFolderIndent>
       ))}
@@ -109,7 +109,7 @@ const BookmarkFolderCollapse: FC<BookmarkFolderCollapseProps> = ({
   )
 }
 
-type BookmarkFolderItemsProps = {
+type BookmarkListProps = {
   folder: BookmarkFolder
   shortcutMap: ShortcutMap
   search: string
@@ -117,7 +117,7 @@ type BookmarkFolderItemsProps = {
   setDrag: Dispatch<Drag | undefined>
 }
 
-const BookmarkFolderItems: FC<BookmarkFolderItemsProps> = ({ folder, shortcutMap, search, drag, setDrag }) => {
+const BookmarkList: FC<BookmarkListProps> = ({ folder, shortcutMap, search, drag, setDrag }) => {
   const bookmarks = reorderBookmarks(drag, folder.id, filterBookmarks(folder.bookmarks, search))
   return (
     <>
