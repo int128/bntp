@@ -1,4 +1,4 @@
-import App from '../../src/App'
+import App from '../../src/App/component'
 import { mockFaviconAPI } from '../support/chrome'
 
 beforeEach(() => {

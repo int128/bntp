@@ -1,5 +1,5 @@
 import './index.css'
-import App from './App'
+import App from './App/component'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { migratePreferencesFromV2ToV3 } from './migration'

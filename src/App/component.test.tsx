@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import App from './App'
+import App from './component'
 import { chrome } from 'jest-chrome'
 
 test('renders App', async () => {

@@ -1,11 +1,11 @@
-import './App.css'
-import Bookmarks from './Bookmarks/component'
-import NetworkStatusComponent from './NetworkStatus/component'
-import Preferences from './Preferences/component'
-import SearchComponent from './Search/component'
-import TopSites from './TopSites/component'
+import './component.css'
+import Bookmarks from '../Bookmarks/component'
+import NetworkStatusComponent from '../NetworkStatus/component'
+import Preferences from '../Preferences/component'
+import SearchComponent from '../Search/component'
+import TopSites from '../TopSites/component'
 import { useState } from 'react'
-import { useToggles } from './Toggles/repository'
+import { useToggles } from '../Toggles/repository'
 
 const App = () => {
   const [toggles] = useToggles()
