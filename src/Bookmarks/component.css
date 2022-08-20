@@ -15,6 +15,13 @@
   row-gap: var(--size-folder-gap);
 }
 
+/* set background to prevent screen flicker while loading */
+.BookmarkFolders:empty {
+  height: 100vh;
+  border-radius: 3px;
+  background-color: var(--palette-2);
+}
+
 .BookmarkFolder__Indent {
   margin-left: calc(var(--size-folder-indent) * var(--depth));
 }
