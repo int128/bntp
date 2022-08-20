@@ -7,7 +7,8 @@ const ThemesComponent: FC = () => {
   const [selectedTheme, setSelectedTheme] = useSelectedTheme('standard')
   const [selectedColorScheme, setSelectedColorScheme] = useSelectedColorScheme('auto')
   useEffect(() => {
-    document.documentElement.className = `Theme__${selectedTheme} ColorScheme__${selectedColorScheme}`
+    document.documentElement.dataset['theme'] = selectedTheme
+    document.documentElement.dataset['colorScheme'] = selectedColorScheme
   }, [selectedTheme, selectedColorScheme])
 
   return (

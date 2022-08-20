@@ -1,4 +1,4 @@
-:root.Theme__standard {
+:root[data-theme='standard'] {
   --theme-palette-03: #2b2b2b;
   --theme-palette-02: #363636;
   --theme-palette-01: #6e6e6e;
@@ -9,7 +9,7 @@
   --theme-palette-3: #fdfdfd;
 }
 
-:root.Theme__solarized {
+:root[data-theme='solarized'] {
   --theme-palette-03: #002b36;
   --theme-palette-02: #073642;
   --theme-palette-01: #586e75;
@@ -20,7 +20,7 @@
   --theme-palette-3: #fdf6e3;
 }
 
-:root.ColorScheme__light {
+:root[data-color-scheme='light'] {
   --palette-3: var(--theme-palette-3);
   --palette-2: var(--theme-palette-2);
   --palette-1: var(--theme-palette-1);
@@ -31,7 +31,7 @@
   --palette-03: var(--theme-palette-03);
 }
 
-:root.ColorScheme__dark {
+:root[data-color-scheme='dark'] {
   --palette-3: var(--theme-palette-03);
   --palette-2: var(--theme-palette-02);
   --palette-1: var(--theme-palette-01);
@@ -42,7 +42,7 @@
   --palette-03: var(--theme-palette-3);
 }
 
-:root.ColorScheme__auto {
+:root[data-color-scheme='auto'] {
   --palette-3: var(--theme-palette-3);
   --palette-2: var(--theme-palette-2);
   --palette-1: var(--theme-palette-1);
@@ -54,7 +54,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root.ColorScheme__auto {
+  :root[data-color-scheme='auto'] {
     --palette-3: var(--theme-palette-03);
     --palette-2: var(--theme-palette-02);
     --palette-1: var(--theme-palette-01);
