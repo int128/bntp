@@ -3,6 +3,11 @@ import { mockFaviconAPI } from '../support/chrome'
 
 beforeEach(() => {
   mockFaviconAPI()
+
+  // clear datas such as color scheme to avoid side effect
+  for (const key in document.documentElement.dataset) {
+    delete document.documentElement.dataset[key]
+  }
 })
 
 describe('<App>', () => {
@@ -13,6 +18,13 @@ describe('<App>', () => {
     cy.get<HTMLImageElement>('.BookmarkButton__Icon').should((images) =>
       images.map((_, image) => expect(image.naturalWidth).to.be.greaterThan(0))
     )
+    cy.screenshot()
+  })
+
+  it('enables dark mode', () => {
+    cy.mount(<App />)
+    cy.get('.Bookmark > a[href="http://www.google.com/"]')
+    cy.get('input[name="selectedColorScheme"]').check('dark').should('be.checked')
     cy.screenshot()
   })
 

@@ -46,8 +46,9 @@ const initialLoad = <T>(spec: Spec<T>, setStoredValue: (newValue: T) => void) =>
 }
 
 const subscribeChange = <T>(spec: Spec<T>, setStoredValue: (newValue: T) => void) => {
-  const listener = (changes: { [key: string]: chrome.storage.StorageChange }, areaName: chrome.storage.AreaName) => {
-    if (areaName !== spec.areaName || !(spec.key in changes)) {
+  const area = chrome.storage[spec.areaName]
+  const listener = (changes: { [key: string]: chrome.storage.StorageChange }) => {
+    if (!(spec.key in changes)) {
       return
     }
     const newValue = changes[spec.key].newValue as unknown
@@ -58,6 +59,6 @@ const subscribeChange = <T>(spec: Spec<T>, setStoredValue: (newValue: T) => void
     spec.assertType(newValue)
     setStoredValue(newValue)
   }
-  chrome.storage.onChanged.addListener(listener)
-  return () => chrome.storage.onChanged.removeListener(listener)
+  area.onChanged.addListener(listener)
+  return () => area.onChanged.removeListener(listener)
 }
