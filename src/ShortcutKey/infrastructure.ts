@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-export type GlobalKeyEvent = Pick<KeyboardEvent, 'key' | 'ctrlKey' | 'shiftKey' | 'altKey' | 'metaKey'>
+export type GlobalKeyEvent = Pick<KeyboardEvent, 'key' | 'altKey' | 'ctrlKey' | 'metaKey' | 'shiftKey'>
 
 export const useGlobalKey = (handler: (e: GlobalKeyEvent) => void) =>
   useEffect(() => {
