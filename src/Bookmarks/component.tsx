@@ -77,7 +77,7 @@ const BookmarkFolderCollapse: FC<BookmarkFolderCollapseProps> = ({
   if (folderCollapse.isCollapsed(folder.id)) {
     return (
       <section className="BookmarkFolder">
-        <div className="BookmarkFolder__Heading BookmarkFolder__Heading__Collapsed">
+        <div className="BookmarkFolder__Heading">
           <a
             href="#Expand"
             onClick={(e) => {
@@ -85,7 +85,7 @@ const BookmarkFolderCollapse: FC<BookmarkFolderCollapseProps> = ({
               e.preventDefault()
             }}
           >
-            <span className="BookmarkFolder__HeadingText">{folder.title}</span>
+            {folder.title}
           </a>
         </div>
       </section>
@@ -93,7 +93,7 @@ const BookmarkFolderCollapse: FC<BookmarkFolderCollapseProps> = ({
   }
   return (
     <section className="BookmarkFolder">
-      <div className="BookmarkFolder__Heading BookmarkFolder__Heading__Expand">
+      <div className="BookmarkFolder__Heading">
         <a
           href="#Collapse"
           onClick={(e) => {
@@ -101,7 +101,7 @@ const BookmarkFolderCollapse: FC<BookmarkFolderCollapseProps> = ({
             e.preventDefault()
           }}
         >
-          <span className="BookmarkFolder__HeadingText">{folder.title}</span>
+          {folder.title}
         </a>
       </div>
       {children}
