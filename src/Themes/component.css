@@ -1,4 +1,4 @@
-:root[data-theme='standard'] {
+:root /* standard */ {
   --theme-palette-03: #2b2b2b;
   --theme-palette-02: #363636;
   --theme-palette-01: #6e6e6e;
@@ -42,7 +42,7 @@
   --palette-03: var(--theme-palette-3);
 }
 
-:root[data-color-scheme='auto'] {
+:root /* auto */ {
   --palette-3: var(--theme-palette-3);
   --palette-2: var(--theme-palette-2);
   --palette-1: var(--theme-palette-1);
@@ -54,7 +54,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root[data-color-scheme='auto'] {
+  :root /* auto */ {
     --palette-3: var(--theme-palette-03);
     --palette-2: var(--theme-palette-02);
     --palette-1: var(--theme-palette-01);
