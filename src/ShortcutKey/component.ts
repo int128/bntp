@@ -11,8 +11,11 @@ type ShortcutKeyComponentProps = {
 const ShortcutKeyComponent: FC<ShortcutKeyComponentProps> = ({ bookmarkFolders, shortcutMap }) => {
   const bookmarks = bookmarkFolders.flatMap((f) => f.bookmarks)
 
-  useGlobalKey((key: string) => {
-    const shortcutKey = shortcutKeyOf(key)
+  useGlobalKey((e) => {
+    if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) {
+      return
+    }
+    const shortcutKey = shortcutKeyOf(e.key)
     if (!shortcutKey) {
       return
     }
