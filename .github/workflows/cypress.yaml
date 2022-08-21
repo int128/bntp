@@ -40,7 +40,7 @@ jobs:
             <table>
               <tr>
                 <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/cypress/screenshots/App.cy.tsx/App%20--%20mounts.png"></td>
-                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/cypress/screenshots/App.cy.tsx/App%20--%20opens%20the%20bookmark%20editor.png"></td>
+                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/cypress/screenshots/App.cy.tsx/App%20--%20enables%20dark%20mode.png"></td>
               </tr>
               <tr>
                 <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/cypress/screenshots/App.cy.tsx/App%20--%20opens%20the%20bookmark%20editor.png"></td>
