@@ -37,6 +37,13 @@ jobs:
       - uses: int128/comment-action@v1
         with:
           post: |
-            <img width="800" src="${{ steps.upload-artifact-wiki.outputs.url }}/cypress/screenshots/App.cy.tsx/App%20--%20mounts.png">
-
-            <img width="800" src="${{ steps.upload-artifact-wiki.outputs.url }}/cypress/screenshots/App.cy.tsx/App%20--%20opens%20the%20bookmark%20editor.png">
+            <table>
+              <tr>
+                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/cypress/screenshots/App.cy.tsx/App%20--%20mounts.png"></td>
+                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/cypress/screenshots/App.cy.tsx/App%20--%20opens%20the%20bookmark%20editor.png"></td>
+              </tr>
+              <tr>
+                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/cypress/screenshots/App.cy.tsx/App%20--%20opens%20the%20bookmark%20editor.png"></td>
+                <td></td>
+              </tr>
+            </table>
