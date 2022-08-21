@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/require-await */
+import { StorageAreaMock } from '../../src/infrastructure/chromeStorage.mock'
 import bookmarks from '../fixtures/bookmarks'
 import topSites from '../fixtures/topSites'
 
@@ -7,7 +8,7 @@ const nullEvent = {
   removeListener: () => undefined,
 }
 
-const chrome = {
+const chromeMock = {
   bookmarks: {
     getTree: async () => bookmarks,
     onChanged: nullEvent,
@@ -24,11 +25,7 @@ const chrome = {
   },
 
   storage: {
-    sync: {
-      get: async () => ({}),
-      set: async () => undefined,
-    },
-    onChanged: nullEvent,
+    sync: new StorageAreaMock(),
   },
 
   runtime: {
@@ -41,7 +38,7 @@ const chrome = {
   },
 }
 
-export default chrome
+export default chromeMock
 
 // favicon API is not available on Cypress
 export const mockFaviconAPI = () =>
