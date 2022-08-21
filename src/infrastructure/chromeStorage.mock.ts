@@ -1,18 +1,23 @@
 /* eslint-disable @typescript-eslint/require-await */
 
-type StorageAreaChangedEventListener = (changes: { [key: string]: chrome.storage.StorageChange }) => void
+type StorageAreaChange = { [key: string]: chrome.storage.StorageChange }
+
+type StorageAreaChangedEventListener = (changes: StorageAreaChange) => void
 
 class StorageAreaChangedEventMock
   implements Pick<chrome.storage.StorageAreaChangedEvent, 'addListener' | 'removeListener'>
 {
-  listeners: StorageAreaChangedEventListener[] = []
+  readonly listeners: StorageAreaChangedEventListener[] = []
 
-  addListener(listener: (changes: { [key: string]: chrome.storage.StorageChange }) => void) {
+  addListener(listener: StorageAreaChangedEventListener) {
     this.listeners.push(listener)
   }
 
-  removeListener(listener: (changes: { [key: string]: chrome.storage.StorageChange }) => void) {
-    this.listeners = this.listeners.filter((l) => l !== listener)
+  removeListener(listener: StorageAreaChangedEventListener) {
+    const index = this.listeners.indexOf(listener)
+    if (index > -1) {
+      this.listeners.splice(index, 1)
+    }
   }
 }
 
@@ -24,11 +29,10 @@ export class StorageAreaMock implements Pick<chrome.storage.StorageArea, 'get' |
   }
 
   async set(items: { [key: string]: string }) {
+    const changes: StorageAreaChange = Object.fromEntries(
+      Object.entries(items).map(([key, newValue]) => [key, { newValue }])
+    )
     for (const listener of this.onChanged.listeners) {
-      const changes: { [key: string]: chrome.storage.StorageChange } = {}
-      for (const key in items) {
-        changes[key] = { newValue: items[key] }
-      }
       listener(changes)
     }
   }
