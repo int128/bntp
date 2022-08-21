@@ -10,6 +10,8 @@
   top: calc(var(--size-wide-gap) * 2);
   left: calc(var(--size-wide-gap) * 2);
   right: calc(var(--size-wide-gap) * 2);
+  max-width: 800px;
+  margin: auto;
 }
 
 .BookmarkEditor__Overlay {
@@ -39,9 +41,13 @@
 .BookmarkEditor input[type='text'] {
   padding: var(--size-form-control-padding);
   border-radius: var(--size-form-control-border-radius);
+  border: var(--palette-1) solid 1px;
   color: inherit;
   background-color: var(--palette-2);
-  border: none;
+}
+
+.BookmarkEditor input[type='text']:focus {
+  background-color: var(--palette-3);
 }
 
 .BookmarkEditor input[type='text'].BookmarkEditor__Url {
@@ -55,9 +61,9 @@
 .BookmarkEditor input[type='submit'] {
   padding: var(--size-form-control-padding);
   border-radius: var(--size-form-control-border-radius);
+  border: var(--palette-1) solid 1px;
   color: inherit;
   background-color: var(--palette-2);
-  border: none;
 }
 
 .BookmarkEditor input[type='button']:enabled:hover,
@@ -68,6 +74,10 @@
 .BookmarkEditor input[type='button']:disabled,
 .BookmarkEditor input[type='submit']:disabled {
   color: var(--palette-1);
+}
+
+.BookmarkEditor input[type='button'][value='Remove']:hover {
+  color: red;
 }
 
 .BookmarkEditor__Message {
