@@ -15,7 +15,6 @@
 
 import './commands'
 import '../../src/index.css'
-import chrome from './chrome'
 import { mount } from 'cypress/react'
 
 // Augment the Cypress namespace to include type definitions for
@@ -35,6 +34,3 @@ Cypress.Commands.add('mount', mount)
 
 // Example use:
 // cy.mount(<MyComponent />)
-
-// Mock Chrome API
-Object.assign(window, { chrome })

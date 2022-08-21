@@ -1,7 +1,8 @@
+import { mockChromeAPI, mockFaviconAPI } from '../support/chrome'
 import App from '../../src/App/component'
-import { mockFaviconAPI } from '../support/chrome'
 
 beforeEach(() => {
+  mockChromeAPI()
   mockFaviconAPI()
 
   // clear datas such as color scheme to avoid side effect
