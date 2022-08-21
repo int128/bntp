@@ -1,11 +1,17 @@
 import { render, screen } from '@testing-library/react'
 import App from './component'
-import { StorageAreaMock } from '../infrastructure/chromeStorage.mock'
 import { chrome } from 'jest-chrome'
 
 test('renders App', async () => {
-  const storageMock = { sync: new StorageAreaMock() }
-  Object.assign(global.chrome.storage, storageMock)
+  chrome.storage.sync.get.mockResolvedValue({} as never)
+
+  // jest-chrome does not have onChanged mock
+  Object.assign(chrome.storage.sync, {
+    onChanged: {
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+    },
+  })
 
   chrome.bookmarks.getTree.mockResolvedValue([
     {
@@ -21,11 +27,7 @@ test('renders App', async () => {
     },
   ])
 
-  const view = render(<App />)
+  render(<App />)
 
   expect(await screen.findByText(/Google/)).toBeInTheDocument()
-
-  expect(storageMock.sync.onChanged.listeners.length).toBeGreaterThan(0)
-  view.unmount()
-  expect(storageMock.sync.onChanged.listeners.length).toBe(0)
 })
