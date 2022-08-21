@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { StorageAreaMock } from '../../src/infrastructure/chromeStorage.mock'
-import bookmarks from '../fixtures/bookmarks'
-import topSites from '../fixtures/topSites'
+import fixtureBookmarks from '../fixtures/bookmarks'
+import fixtureTopSites from '../fixtures/topSites'
 
-const nullEvent = {
-  addListener: () => undefined,
-  removeListener: () => undefined,
-}
+export const mockChromeAPI = () => {
+  const nullEvent = {
+    addListener: () => undefined,
+    removeListener: () => undefined,
+  }
 
-const chromeMock = {
-  bookmarks: {
-    getTree: async () => bookmarks,
+  const bookmarks = {
+    getTree: async () => fixtureBookmarks,
     onChanged: nullEvent,
     onChildrenReordered: nullEvent,
     onCreated: nullEvent,
@@ -18,27 +18,34 @@ const chromeMock = {
     onRemoved: nullEvent,
     update: async () => undefined,
     remove: async () => undefined,
-  },
+  }
 
-  topSites: {
-    get: (f: (topSites: unknown) => void) => f(topSites),
-  },
+  const topSites = {
+    get: (f: (topSites: unknown) => void) => f(fixtureTopSites),
+  }
 
-  storage: {
+  const storage = {
     sync: new StorageAreaMock(),
-  },
+  }
 
-  runtime: {
+  const runtime = {
     id: 'dummy',
     getManifest: () => ({
       name: 'BNTP: Bookmarks in New Tab Page',
       version: '1.0.0',
       manifest_version: 3,
     }),
-  },
-}
+  }
 
-export default chromeMock
+  Object.assign(window, {
+    chrome: {
+      bookmarks,
+      topSites,
+      storage,
+      runtime,
+    },
+  })
+}
 
 // favicon API is not available on Cypress
 export const mockFaviconAPI = () =>
