@@ -114,14 +114,14 @@ const FormComponent: FC<FormComponentProps> = ({
         placeholder="Shortcut Key (not assigned)"
         onChange={(e) => onChange(editingBookmark.changeShortcutKey(shortcutKeyOf(e.target.value)))}
       />
+      <Link href={`chrome://bookmarks/?id=${editingBookmark.bookmark.folderID}`}>
+        Open this in Chrome Bookmark Manager
+      </Link>
       <div className="BookmarkEditor__Group">
         <input type="submit" value="Update" disabled={!editingBookmark.valid} />
         <div className="BookmarkEditor__Message">{errorMessage}</div>
         <input type="button" value="Remove" onClick={() => onRemove()} />
       </div>
-      <Link href={`chrome://bookmarks/?id=${editingBookmark.bookmark.folderID}`}>
-        Open this in Chrome Bookmark Manager
-      </Link>
     </form>
   )
 }
