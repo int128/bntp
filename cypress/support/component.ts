@@ -14,6 +14,7 @@
 // ***********************************************************
 
 import './commands'
+import './component.css'
 import '../../src/index.css'
 import { mount } from 'cypress/react'
 
