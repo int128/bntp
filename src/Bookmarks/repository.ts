@@ -1,4 +1,4 @@
-import { Bookmark, BookmarkFolder, BookmarkFolderID, FolderCollapse, Position } from './model'
+import { Bookmark, BookmarkFolder, BookmarkFolderID, FolderCollapse, Position, isBookmarkFolderIDArray } from './model'
 import { useEffect, useState } from 'react'
 import { useChromeStorage } from '../infrastructure/chromeStorage'
 
@@ -82,11 +82,7 @@ export const useFolderCollapse = (): readonly [FolderCollapse, (newSet: FolderCo
     areaName: 'sync',
     key: 'v3.collapsedBookmarkFolderIDs',
     initialValue: [],
-    assertType: (value: unknown) => {
-      if (!Array.isArray(value)) {
-        throw new Error('value is not array')
-      }
-    },
+    isType: isBookmarkFolderIDArray,
   })
   return [new FolderCollapse(ids), (newSet: FolderCollapse) => setIDs(newSet.serialize())]
 }

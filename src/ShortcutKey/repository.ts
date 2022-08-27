@@ -6,11 +6,7 @@ export const useShortcutMap = (): readonly [ShortcutMap, (newMap: ShortcutMap) =
     areaName: 'sync',
     key: 'v3.shortcutKeyMap',
     initialValue: [],
-    assertType: (value: unknown) => {
-      if (!Array.isArray(value)) {
-        throw new Error('value is not array')
-      }
-    },
+    isType: (value): value is [string, string][] => Array.isArray(value),
   })
   return [new ShortcutMap(entries), (newMap: ShortcutMap) => setEntries(newMap.serialize())]
 }

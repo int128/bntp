@@ -1,4 +1,4 @@
-import { Toggles, defaultToggles } from './model'
+import { Toggles, defaultToggles, isToggles } from './model'
 import { useChromeStorage } from '../infrastructure/chromeStorage'
 
 export const useToggles = () =>
@@ -6,9 +6,5 @@ export const useToggles = () =>
     areaName: 'sync',
     key: 'v3.toggles',
     initialValue: defaultToggles,
-    assertType: (value: unknown) => {
-      if (typeof value !== 'object' || value === null) {
-        throw new Error('value is not object')
-      }
-    },
+    isType: isToggles,
   })

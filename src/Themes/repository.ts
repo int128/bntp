@@ -1,4 +1,4 @@
-import { ColorScheme, Theme } from './model'
+import { ColorScheme, Theme, isColorScheme, isTheme } from './model'
 import { useChromeStorage } from '../infrastructure/chromeStorage'
 
 export const useSelectedTheme = (initialValue: Theme) =>
@@ -6,11 +6,7 @@ export const useSelectedTheme = (initialValue: Theme) =>
     areaName: 'sync',
     key: 'v3.selectedTheme',
     initialValue,
-    assertType: (value: unknown) => {
-      if (typeof value !== 'string') {
-        throw new Error('value is not string')
-      }
-    },
+    isType: isTheme,
   })
 
 export const useSelectedColorScheme = (initialValue: ColorScheme) =>
@@ -18,9 +14,5 @@ export const useSelectedColorScheme = (initialValue: ColorScheme) =>
     areaName: 'sync',
     key: 'v3.selectedColorScheme',
     initialValue,
-    assertType: (value: unknown) => {
-      if (typeof value !== 'string') {
-        throw new Error('value is not string')
-      }
-    },
+    isType: isColorScheme,
   })
