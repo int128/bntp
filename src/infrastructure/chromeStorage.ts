@@ -4,7 +4,7 @@ type Spec<T> = {
   areaName: chrome.storage.AreaName
   key: string
   initialValue: T
-  assertType: (value: unknown) => asserts value is T
+  isType: (value: unknown) => value is T
 }
 
 export const useChromeStorage = <T>(spec: Spec<T>): readonly [T, (newValue: T) => void] => {
@@ -39,8 +39,11 @@ const initialLoad = <T>(spec: Spec<T>, setStoredValue: (newValue: T) => void) =>
         setStoredValue(spec.initialValue)
         return
       }
-      spec.assertType(value)
-      setStoredValue(value)
+      if (spec.isType(value)) {
+        setStoredValue(value)
+        return
+      }
+      console.warn(`unknown type of storage.${spec.areaName}.${spec.key}`, value)
     })
     .catch((e) => console.error(e))
 }
@@ -56,8 +59,11 @@ const subscribeChange = <T>(spec: Spec<T>, setStoredValue: (newValue: T) => void
       setStoredValue(spec.initialValue)
       return
     }
-    spec.assertType(newValue)
-    setStoredValue(newValue)
+    if (spec.isType(newValue)) {
+      setStoredValue(newValue)
+      return
+    }
+    console.warn(`unknown type of storage.${spec.areaName}.${spec.key}`, newValue)
   }
   area.onChanged.addListener(listener)
   return () => area.onChanged.removeListener(listener)

@@ -1,5 +1,8 @@
 export type BookmarkFolderID = string
 
+export const isBookmarkFolderIDArray = (value: unknown): value is readonly BookmarkFolderID[] =>
+  Array.isArray(value) && value.every((item) => typeof item === 'string')
+
 export type BookmarkFolder = {
   readonly id: BookmarkFolderID
   readonly depth: number
