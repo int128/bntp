@@ -1,4 +1,5 @@
 import { Dispatch, useEffect, useState } from 'react'
+import { useLocalStorageCache } from './localStorageCache'
 
 export type Spec<T> = {
   areaName: chrome.storage.AreaName
@@ -70,20 +71,13 @@ const subscribeChange = <T>(spec: Spec<T>, setStoredValue: Dispatch<T>) => {
 }
 
 export const useChromeStorageWithCache = <T extends string>(spec: Spec<T>): [T, Dispatch<T>] => {
+  const [cache, setCache] = useLocalStorageCache(spec)
   const [value, setValue] = useChromeStorage<T>({
     ...spec,
-    initialValue: getChromeStorageCache(spec),
+    initialValue: cache,
   })
   useEffect(() => {
-    localStorage.setItem(spec.key, value)
-  })
+    setCache(value)
+  }, [setCache, value])
   return [value, setValue]
-}
-
-export const getChromeStorageCache = <T extends string>(spec: Spec<T>): T => {
-  const cachedValue = localStorage.getItem(spec.key)
-  if (spec.isType(cachedValue)) {
-    return cachedValue
-  }
-  return spec.initialValue
 }

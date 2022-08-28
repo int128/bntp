@@ -1,6 +1,7 @@
 import { ColorScheme, Theme, isColorScheme, isTheme } from './model'
 import { Dispatch, useEffect } from 'react'
-import { Spec, getChromeStorageCache, useChromeStorageWithCache } from '../infrastructure/chromeStorage'
+import { Spec, useChromeStorageWithCache } from '../infrastructure/chromeStorage'
+import { getOrInitialValue } from '../infrastructure/localStorageCache'
 
 const selectedThemeSpec: Spec<Theme> = {
   areaName: 'sync',
@@ -33,6 +34,6 @@ export const useSelectedColorScheme = (): [ColorScheme, Dispatch<ColorScheme>] =
 }
 
 export const preloadFromCache = () => {
-  document.documentElement.dataset['theme'] = getChromeStorageCache(selectedThemeSpec)
-  document.documentElement.dataset['colorScheme'] = getChromeStorageCache(selectedColorSchemeSpec)
+  document.documentElement.dataset['theme'] = getOrInitialValue(selectedThemeSpec)
+  document.documentElement.dataset['colorScheme'] = getOrInitialValue(selectedColorSchemeSpec)
 }
