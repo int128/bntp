@@ -3,6 +3,7 @@ import App from './App/component'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { migratePreferencesFromV2ToV3 } from './migration'
+import { preloadFromCache } from './Themes/hook'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
@@ -10,6 +11,9 @@ root.render(
     <App />
   </React.StrictMode>
 )
+
+// preload the theme to prevent screen flicker
+preloadFromCache()
 
 // the default size of popup is too small, so explicitly set it
 // https://developer.chrome.com/docs/extensions/reference/action/#popup

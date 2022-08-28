@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react'
+import { Dispatch, useEffect, useState } from 'react'
+import { useLocalStorageCache } from './localStorageCache'
 
-type Spec<T> = {
+export type Spec<T> = {
   areaName: chrome.storage.AreaName
   key: string
   initialValue: T
   isType: (value: unknown) => value is T
 }
 
-export const useChromeStorage = <T>(spec: Spec<T>): readonly [T, (newValue: T) => void] => {
+export const useChromeStorage = <T>(spec: Spec<T>): readonly [T, Dispatch<T>] => {
   const [storedValue, setStoredValue] = useState<T>(spec.initialValue)
   useEffect(
     () => {
@@ -27,7 +28,7 @@ export const useChromeStorage = <T>(spec: Spec<T>): readonly [T, (newValue: T) =
   ]
 }
 
-const initialLoad = <T>(spec: Spec<T>, setStoredValue: (newValue: T) => void) => {
+const initialLoad = <T>(spec: Spec<T>, setStoredValue: Dispatch<T>) => {
   chrome.storage[spec.areaName]
     .get(spec.key)
     .then((items) => {
@@ -48,7 +49,7 @@ const initialLoad = <T>(spec: Spec<T>, setStoredValue: (newValue: T) => void) =>
     .catch((e) => console.error(e))
 }
 
-const subscribeChange = <T>(spec: Spec<T>, setStoredValue: (newValue: T) => void) => {
+const subscribeChange = <T>(spec: Spec<T>, setStoredValue: Dispatch<T>) => {
   const area = chrome.storage[spec.areaName]
   const listener = (changes: { [key: string]: chrome.storage.StorageChange }) => {
     if (!(spec.key in changes)) {
@@ -67,4 +68,16 @@ const subscribeChange = <T>(spec: Spec<T>, setStoredValue: (newValue: T) => void
   }
   area.onChanged.addListener(listener)
   return () => area.onChanged.removeListener(listener)
+}
+
+export const useChromeStorageWithCache = <T extends string>(spec: Spec<T>): [T, Dispatch<T>] => {
+  const [cache, setCache] = useLocalStorageCache(spec)
+  const [value, setValue] = useChromeStorage<T>({
+    ...spec,
+    initialValue: cache,
+  })
+  useEffect(() => {
+    setCache(value)
+  }, [setCache, value])
+  return [value, setValue]
 }

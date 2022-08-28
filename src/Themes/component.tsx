@@ -1,16 +1,11 @@
 import './component.css'
-import { FC, useEffect } from 'react'
 import { allColorSchemes, allThemes } from './model'
-import { useSelectedColorScheme, useSelectedTheme } from './repository'
+import { useSelectedColorScheme, useSelectedTheme } from './hook'
+import { FC } from 'react'
 
 const ThemesComponent: FC = () => {
-  const [selectedTheme, setSelectedTheme] = useSelectedTheme('standard')
-  const [selectedColorScheme, setSelectedColorScheme] = useSelectedColorScheme('auto')
-  useEffect(() => {
-    document.documentElement.dataset['theme'] = selectedTheme
-    document.documentElement.dataset['colorScheme'] = selectedColorScheme
-  }, [selectedTheme, selectedColorScheme])
-
+  const [selectedTheme, setSelectedTheme] = useSelectedTheme()
+  const [selectedColorScheme, setSelectedColorScheme] = useSelectedColorScheme()
   return (
     <>
       <div>
