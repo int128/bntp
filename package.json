@@ -44,7 +44,7 @@
     "@types/chrome": "0.0.200",
     "adm-zip": "0.5.9",
     "cypress": "10.11.0",
-    "jest-chrome": "0.7.2",
+    "jest-chrome": "0.8.0",
     "prettier": "2.7.1"
   }
 }
