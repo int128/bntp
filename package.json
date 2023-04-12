@@ -41,7 +41,7 @@
   "devDependencies": {
     "@tsconfig/create-react-app": "1.0.3",
     "@tsconfig/cypress": "1.0.1",
-    "@types/chrome": "0.0.229",
+    "@types/chrome": "0.0.231",
     "adm-zip": "0.5.10",
     "cypress": "12.9.0",
     "jest-chrome": "0.8.0",
