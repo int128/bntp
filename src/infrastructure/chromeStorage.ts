@@ -17,7 +17,7 @@ export const useChromeStorage = <T>(spec: Spec<T>): readonly [T, Dispatch<T>] =>
     },
     // Don't set "spec" because it causes infinite loop.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [spec.key, spec.areaName]
+    [spec.key, spec.areaName],
   )
   return [
     storedValue,

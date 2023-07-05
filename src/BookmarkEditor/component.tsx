@@ -20,7 +20,7 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBook
   useEffect(
     // remove errorMessage when editingBookmark is changed
     () => setErrorMessage(undefined),
-    [editingBookmark]
+    [editingBookmark],
   )
   if (editingBookmark === undefined) {
     return null
@@ -54,7 +54,7 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBook
       <div className="BookmarkEditor__Overlay" onClick={onRequestClose} />
     </div>,
     // put this modal into root to avoid side-effect of styles
-    document.body
+    document.body,
   )
 }
 

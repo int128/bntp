@@ -25,7 +25,7 @@ export const filterBookmarks = (bookmarks: readonly Bookmark[], search: string):
   }
   const searchLower = search.toLocaleLowerCase()
   return bookmarks.filter(
-    (b) => b.title.toLocaleLowerCase().includes(searchLower) || b.url.toLocaleLowerCase().includes(searchLower)
+    (b) => b.title.toLocaleLowerCase().includes(searchLower) || b.url.toLocaleLowerCase().includes(searchLower),
   )
 }
 

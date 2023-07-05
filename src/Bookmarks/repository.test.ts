@@ -52,7 +52,7 @@ describe('traverseBookmarkTree', () => {
           id: '0',
           title: '',
         },
-      ])
+      ]),
     ).toStrictEqual<readonly BookmarkFolder[]>([
       {
         id: '1',
