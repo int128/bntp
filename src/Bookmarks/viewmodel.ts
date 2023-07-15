@@ -45,7 +45,7 @@ export type BookmarkWithDragProps = Bookmark & {
 export const reorderBookmarks = (
   drag: Drag | undefined,
   folderID: BookmarkFolderID,
-  bookmarks: readonly Bookmark[]
+  bookmarks: readonly Bookmark[],
 ): readonly BookmarkWithDragProps[] => {
   if (!drag) {
     return bookmarks

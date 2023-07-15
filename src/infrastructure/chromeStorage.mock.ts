@@ -30,7 +30,7 @@ export class StorageAreaMock implements Pick<chrome.storage.StorageArea, 'get' |
 
   async set(items: { [key: string]: string }) {
     const changes: StorageAreaChange = Object.fromEntries(
-      Object.entries(items).map(([key, newValue]) => [key, { newValue }])
+      Object.entries(items).map(([key, newValue]) => [key, { newValue }]),
     )
     for (const listener of this.onChanged.listeners) {
       listener(changes)

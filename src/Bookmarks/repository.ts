@@ -39,7 +39,7 @@ const subscribeBookmarks = (handler: (bookmarkFolders: readonly BookmarkFolder[]
 
 export const traverseBookmarkTree = (
   tree: readonly chrome.bookmarks.BookmarkTreeNode[],
-  depth = 0
+  depth = 0,
 ): readonly BookmarkFolder[] =>
   tree.flatMap((node) => {
     if (node.children === undefined) {

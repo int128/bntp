@@ -9,6 +9,6 @@ export const filterTopSites = (topSites: readonly TopSite[], search: string): re
   }
   const searchLower = search.toLocaleLowerCase()
   return topSites.filter(
-    (b) => b.title.toLocaleLowerCase().includes(searchLower) || b.url.toLocaleLowerCase().includes(searchLower)
+    (b) => b.title.toLocaleLowerCase().includes(searchLower) || b.url.toLocaleLowerCase().includes(searchLower),
   )
 }
