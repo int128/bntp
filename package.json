@@ -33,7 +33,7 @@
     "adm-zip": "0.5.10",
     "cypress": "12.17.3",
     "jest-chrome": "0.8.0",
-    "prettier": "3.0.1"
+    "prettier": "3.0.2"
   },
   "browserslist": [
     "last 2 chrome version"
