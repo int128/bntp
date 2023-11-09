@@ -1874,10 +1874,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/chrome@0.0.250":
-  version "0.0.250"
-  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.250.tgz#dd21d177f8d4ea9a12433b0506d25d41e90d7729"
-  integrity sha512-bg6UC+cXS5blsaJaVOg0TQfu6FG64og/4o+65IuaVvlTKBzNUiazLabPde+gRpk8DSrqpGBPk0xME+tbU3KlKg==
+"@types/chrome@0.0.251":
+  version "0.0.251"
+  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.251.tgz#dd1a6eaf8657d66a77b42d73b4c5b3c921394c29"
+  integrity sha512-UF+yr0LEKWWGsKxQ5A3XOSF5SNoU1ctW3pXcWJPpT8OOUTEspYeaLU8spDKe+6xalXeMTS0TBrX1g0b6qlWmkw==
   dependencies:
     "@types/filesystem" "*"
     "@types/har-format" "*"
