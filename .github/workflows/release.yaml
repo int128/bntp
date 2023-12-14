@@ -33,7 +33,7 @@ jobs:
       - run: yarn package
       - run: zipinfo build.zip
       - if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build.zip
           path: build.zip
