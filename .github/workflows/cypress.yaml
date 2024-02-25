@@ -29,6 +29,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
+      - run: corepack enable pnpm
       - uses: cypress-io/github-action@v4
         with:
           component: true

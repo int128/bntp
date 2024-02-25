@@ -29,6 +29,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
+      - run: corepack enable pnpm
       - run: pnpm i
       - run: pnpm run build
       - run: pnpm run package
