@@ -27,7 +27,7 @@
     "web-vitals": "3.5.2"
   },
   "devDependencies": {
-    "@tsconfig/create-react-app": "1.0.3",
+    "@tsconfig/create-react-app": "2.0.2",
     "@tsconfig/cypress": "1.0.1",
     "@types/chrome": "0.0.261",
     "adm-zip": "0.5.10",

@@ -44,8 +44,8 @@ dependencies:
 
 devDependencies:
   '@tsconfig/create-react-app':
-    specifier: 1.0.3
-    version: 1.0.3
+    specifier: 2.0.2
+    version: 2.0.2
   '@tsconfig/cypress':
     specifier: 1.0.1
     version: 1.0.1
@@ -2421,8 +2421,8 @@ packages:
     engines: {node: '>=10.13.0'}
     dev: false
 
-  /@tsconfig/create-react-app@1.0.3:
-    resolution: {integrity: sha512-sAsKAmKzWJlLWpCTyaUHUhqkQEAGAIaNs90sVbZsBhqBTNTnLkcZUr7U5HLI9EUN8QppfkxfGjvaATSgZQhiGQ==}
+  /@tsconfig/create-react-app@2.0.2:
+    resolution: {integrity: sha512-PP+j4WWgypIvdY1+G5PgZIK5Kza/PpsbQgFQliDjlzXRXfQYmb6rB1ZUNUrWqAQ3Rr772CkE6BvTBI/j3cKr0A==}
     dev: true
 
   /@tsconfig/cypress@1.0.1:
