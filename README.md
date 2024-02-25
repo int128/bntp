@@ -52,7 +52,7 @@ In the project directory, you can run:
 To watch and build the extension in development mode:
 
 ```sh
-yarn start
+pnpm run start
 ```
 
 To add it to Chrome:
@@ -66,10 +66,10 @@ To add it to Chrome:
 
 ```sh
 # Jest
-yarn test
+pnpm run test
 
 # Cypress
-yarn cypress run --component
+pnpm run cypress run --component
 ```
 
 ### Release
