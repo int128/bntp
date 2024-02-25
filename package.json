@@ -6,6 +6,7 @@
     "start": "node scripts/start.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "cypress:test": "cypress run --component --browser chrome",
     "format": "prettier --write src scripts",
     "format-check": "prettier --check src scripts",
     "lint": "eslint src",
