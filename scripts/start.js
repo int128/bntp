@@ -12,7 +12,6 @@ const { copyPublicDirectory, copyManifest } = require('./copy')
 const compiler = createCompiler({
   urls: [],
   useTypeScript: true,
-  useYarn: true,
   devSocket: {
     warnings: () => {},
     errors: () => {},

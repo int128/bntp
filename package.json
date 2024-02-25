@@ -27,14 +27,16 @@
     "web-vitals": "3.5.2"
   },
   "devDependencies": {
-    "@tsconfig/create-react-app": "1.0.3",
+    "@tsconfig/create-react-app": "^2.0.2",
     "@tsconfig/cypress": "1.0.1",
     "@types/chrome": "0.0.261",
     "adm-zip": "0.5.10",
     "cypress": "13.6.6",
     "fs-extra": "^11.2.0",
     "jest-chrome": "0.8.0",
-    "prettier": "3.2.5"
+    "prettier": "3.2.5",
+    "react-dev-utils": "^12.0.1",
+    "webpack": "^5.90.3"
   },
   "browserslist": [
     "last 2 chrome version"
