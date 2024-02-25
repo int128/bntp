@@ -6,7 +6,7 @@ on:
       - .github/workflows/react.yaml
       - src/**
       - '*.json'
-      - yarn.lock
+      - pnpm-lock.yaml
   push:
     branches:
       - main
@@ -14,7 +14,7 @@ on:
       - .github/workflows/react.yaml
       - src/**
       - '*.json'
-      - yarn.lock
+      - pnpm-lock.yaml
 
 jobs:
   build:
@@ -25,9 +25,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
-          cache: yarn
-      - run: yarn
-      - run: yarn build
+      - run: pnpm i
+      - run: pnpm run build
 
   test:
     runs-on: ubuntu-latest
@@ -37,10 +36,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
-          cache: yarn
-      - run: yarn
-      - run: yarn test
-      - run: yarn lint
+      - run: pnpm i
+      - run: pnpm run test
+      - run: pnpm run lint
 
   generate:
     runs-on: ubuntu-latest
@@ -52,7 +50,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
-          cache: yarn
-      - run: yarn
-      - run: yarn format
+      - run: pnpm i
+      - run: pnpm run format
       - uses: int128/update-generated-files-action@v2
