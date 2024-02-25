@@ -69,7 +69,7 @@ To add it to Chrome:
 pnpm run test
 
 # Cypress
-pnpm run cypress run --component
+pnpm run cypress:test
 ```
 
 ### Release
