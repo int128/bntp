@@ -1,0 +1,15 @@
+:root {
+  /* default stylesheet in Chrome */
+  font-size: 75%;
+
+  /* show the window in screenshots */
+  background-image: url('./window-header.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  padding-top: 80px;
+}
+
+.BookmarkEditor__Overlay,
+.BookmarkEditor__Modal {
+  margin-top: 80px !important;
+}
