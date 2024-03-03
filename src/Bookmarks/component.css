@@ -16,7 +16,7 @@
 }
 
 :root[data-bookmark-folders-alignment='horizontal'] .BookmarkFolders {
-  overflow-x: scroll;
+  overflow-x: auto;
   grid-auto-flow: column;
   column-gap: var(--size-folder-gap);
 }
