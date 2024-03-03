@@ -1,4 +1,11 @@
-import { ColorScheme, Theme, isColorScheme, isTheme } from './model'
+import {
+  BookmarkFoldersAlignment,
+  ColorScheme,
+  Theme,
+  isBookmarkFoldersAlignment,
+  isColorScheme,
+  isTheme,
+} from './model'
 import { Spec, useChromeStorageWithCache } from '../infrastructure/chromeStorage'
 
 export const selectedThemeSpec: Spec<Theme> = {
@@ -18,3 +25,12 @@ export const selectedColorSchemeSpec: Spec<ColorScheme> = {
 }
 
 export const useSelectedColorScheme = () => useChromeStorageWithCache(selectedColorSchemeSpec)
+
+const selectedBookmarkFoldersAlignmentSpec: Spec<BookmarkFoldersAlignment> = {
+  areaName: 'sync',
+  key: 'v3.selectedBookmarkFoldersAlignment',
+  defaultValue: 'vertical',
+  isType: isBookmarkFoldersAlignment,
+}
+
+export const useBookmarkFoldersAlignment = () => useChromeStorageWithCache(selectedBookmarkFoldersAlignmentSpec)
