@@ -30,7 +30,7 @@
   "devDependencies": {
     "@tsconfig/create-react-app": "^2.0.2",
     "@tsconfig/cypress": "1.0.1",
-    "@types/chrome": "0.0.262",
+    "@types/chrome": "0.0.263",
     "adm-zip": "0.5.10",
     "cypress": "13.6.6",
     "fs-extra": "^11.2.0",
