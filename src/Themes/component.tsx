@@ -1,11 +1,12 @@
 import './component.css'
-import { allColorSchemes, allThemes } from './model'
-import { useSelectedColorScheme, useSelectedTheme } from './hook'
+import { allBookmarkFoldersAlignments, allColorSchemes, allThemes } from './model'
+import { useBookmarkFoldersAlignment, useSelectedColorScheme, useSelectedTheme } from './hook'
 import { FC } from 'react'
 
 const ThemesComponent: FC = () => {
   const [selectedTheme, setSelectedTheme] = useSelectedTheme()
   const [selectedColorScheme, setSelectedColorScheme] = useSelectedColorScheme()
+  const [selectedBookmarkFoldersAlignment, setSelectedBookmarkFoldersAlignment] = useBookmarkFoldersAlignment()
   return (
     <>
       <div>
@@ -33,6 +34,20 @@ const ThemesComponent: FC = () => {
               onChange={() => setSelectedTheme(theme)}
             />
             {capitalize(theme)}
+          </label>
+        ))}
+      </div>
+      <div>
+        {allBookmarkFoldersAlignments.map((alignment) => (
+          <label key={alignment}>
+            <input
+              type="radio"
+              name="selectedBookmarkFolderAlignment"
+              value={alignment}
+              checked={alignment === selectedBookmarkFoldersAlignment}
+              onChange={() => setSelectedBookmarkFoldersAlignment(alignment)}
+            />
+            {capitalize(alignment)}
           </label>
         ))}
       </div>

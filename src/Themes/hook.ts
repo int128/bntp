@@ -1,4 +1,11 @@
-import { ColorScheme, Theme, isColorScheme, isTheme } from './model'
+import {
+  BookmarkFoldersAlignment,
+  ColorScheme,
+  Theme,
+  isBookmarkFoldersAlignment,
+  isColorScheme,
+  isTheme,
+} from './model'
 import { Dispatch, useEffect } from 'react'
 import { Spec, useChromeStorageWithCache } from '../infrastructure/chromeStorage'
 import { getOrInitialValue } from '../infrastructure/localStorageCache'
@@ -31,6 +38,21 @@ export const useSelectedColorScheme = (): [ColorScheme, Dispatch<ColorScheme>] =
     document.documentElement.dataset['colorScheme'] = colorScheme
   }, [colorScheme])
   return [colorScheme, setColorScheme]
+}
+
+const selectedBookmarkFoldersAlignmentSpec: Spec<BookmarkFoldersAlignment> = {
+  areaName: 'sync',
+  key: 'v3.selectedBookmarkFoldersAlignment',
+  initialValue: 'vertical',
+  isType: isBookmarkFoldersAlignment,
+}
+
+export const useBookmarkFoldersAlignment = (): [BookmarkFoldersAlignment, Dispatch<BookmarkFoldersAlignment>] => {
+  const [alignment, setAlignment] = useChromeStorageWithCache(selectedBookmarkFoldersAlignmentSpec)
+  useEffect(() => {
+    document.documentElement.dataset['bookmarkFoldersAlignment'] = alignment
+  }, [alignment])
+  return [alignment, setAlignment]
 }
 
 export const preloadFromCache = () => {
