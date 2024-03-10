@@ -4,15 +4,23 @@
     "react-app/jest",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:storybook/recommended"
   ],
-  "plugins": ["@typescript-eslint"],
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": ["./tsconfig.json", "./cypress/tsconfig.json"]
+    "project": [
+      "./tsconfig.json",
+      "./cypress/tsconfig.json"
+    ]
   },
   "rules": {
-    "sort-imports": ["error"]
+    "sort-imports": [
+      "error"
+    ]
   },
   "root": true
 }
