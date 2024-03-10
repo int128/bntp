@@ -91,9 +91,6 @@ devDependencies:
   prettier:
     specifier: 3.2.5
     version: 3.2.5
-  prop-types:
-    specifier: ^15.8.1
-    version: 15.8.1
   react-dev-utils:
     specifier: ^12.0.1
     version: 12.0.1(eslint@8.57.0)(typescript@5.4.2)(webpack@5.90.3)

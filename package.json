@@ -45,7 +45,6 @@
     "fs-extra": "^11.2.0",
     "jest-chrome": "0.8.0",
     "prettier": "3.2.5",
-    "prop-types": "^15.8.1",
     "react-dev-utils": "^12.0.1",
     "storybook": "^7.6.17",
     "webpack": "^5.90.3"
