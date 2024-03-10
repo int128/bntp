@@ -12,10 +12,7 @@
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": [
-      "./tsconfig.json",
-      "./cypress/tsconfig.json"
-    ]
+    "project": true
   },
   "rules": {
     "sort-imports": [
