@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/require-await */
-import { StorageAreaMock } from '../../src/infrastructure/chromeStorage.mock'
-import fixtureBookmarks from '../fixtures/bookmarks'
-import fixtureTopSites from '../fixtures/topSites'
+import { StorageAreaMock } from '../../infrastructure/chromeStorage.mock'
+import fixtureBookmarks from './bookmarks'
+import fixtureTopSites from './topSites'
 
 export const mockChromeAPI = () => {
   const nullEvent = {
@@ -46,17 +46,3 @@ export const mockChromeAPI = () => {
     },
   })
 }
-
-// favicon API is not available on Cypress
-export const mockFaviconAPI = () =>
-  cy.intercept(
-    {
-      method: 'GET',
-      pathname: '/_favicon/',
-    },
-    (req) => {
-      const { pageUrl, size } = req.query
-      const googleFaviconURL = `https://www.google.com/s2/favicons?domain_url=${encodeURIComponent(pageUrl)}&sz=${size}`
-      req.redirect(googleFaviconURL)
-    }
-  )
