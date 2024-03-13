@@ -77,8 +77,8 @@ devDependencies:
     specifier: 0.0.263
     version: 0.0.263
   adm-zip:
-    specifier: 0.5.10
-    version: 0.5.10
+    specifier: 0.5.11
+    version: 0.5.11
   eslint-plugin-storybook:
     specifier: ^0.8.0
     version: 0.8.0(eslint@8.57.0)(typescript@5.4.2)
@@ -4875,8 +4875,8 @@ packages:
       loader-utils: 2.0.4
       regex-parser: 2.3.0
 
-  /adm-zip@0.5.10:
-    resolution: {integrity: sha512-x0HvcHqVJNTPk/Bw8JbLWlWoo6Wwnsug0fnYYro1HBrjxZ3G7/AZk7Ahv8JwDe1uIcz8eBqvu86FuF1POiG7vQ==}
+  /adm-zip@0.5.11:
+    resolution: {integrity: sha512-bSG/kcTQRVyCZ3aOWt3nu/KGIxkfSNi7MXzgKr/MHfKbqPakFESQvaujpUaAG8OQuSroxYMY5vLMpdE6+oND2Q==}
     engines: {node: '>=6.0'}
     dev: true
 
