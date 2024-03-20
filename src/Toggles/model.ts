@@ -4,7 +4,7 @@ const validateObject = <T extends object>(o: unknown, validator: PropertyValidat
   typeof o === 'object' &&
   o !== null &&
   // object has all keys of T
-  Object.keys(validator).every((key) => Object.hasOwn(o, key)) &&
+  Object.keys(validator).every((key) => Object.keys(o).includes(key)) &&
   // all properties of object are valid
   Object.entries(o).every(([key, prop]) => key in validator && validator[key as keyof T](prop))
 
