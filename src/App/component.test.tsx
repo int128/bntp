@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import App from './component'
 import { chrome } from 'jest-chrome'
+import { vi } from 'vitest'
 
 test('renders App', async () => {
   chrome.storage.sync.get.mockResolvedValue({} as never)
@@ -8,8 +9,8 @@ test('renders App', async () => {
   // jest-chrome does not have onChanged mock
   Object.assign(chrome.storage.sync, {
     onChanged: {
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
     },
   })
 
