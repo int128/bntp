@@ -1,8 +1,6 @@
 {
   "extends": "@tsconfig/vite-react/tsconfig.json",
   "compilerOptions": {
-    "types": ["vitest/globals", "chrome"],
-    "esModuleInterop": true
-  },
-  "include": ["src"]
+    "types": ["vitest/globals", "chrome"]
+  }
 }
