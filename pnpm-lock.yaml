@@ -38,9 +38,6 @@ dependencies:
   typescript:
     specifier: 5.4.2
     version: 5.4.2
-  web-vitals:
-    specifier: 3.5.2
-    version: 3.5.2
 
 devDependencies:
   '@storybook/addon-essentials':
@@ -12929,10 +12926,6 @@ packages:
     dependencies:
       defaults: 1.0.4
     dev: true
-
-  /web-vitals@3.5.2:
-    resolution: {integrity: sha512-c0rhqNcHXRkY/ogGDJQxZ9Im9D19hDihbzSQJrsioex+KnFgmMzBiy57Z1EjkhX/+OjyBpclDCzz2ITtjokFmg==}
-    dev: false
 
   /webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
