@@ -69,7 +69,7 @@ devDependencies:
     version: 7.6.17(@types/jest@29.5.12)(jest@27.5.1)
   '@tsconfig/create-react-app':
     specifier: ^2.0.2
-    version: 2.0.2
+    version: 2.0.3
   '@types/chrome':
     specifier: 0.0.263
     version: 0.0.263
@@ -4423,8 +4423,8 @@ packages:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
     engines: {node: '>=10.13.0'}
 
-  /@tsconfig/create-react-app@2.0.2:
-    resolution: {integrity: sha512-PP+j4WWgypIvdY1+G5PgZIK5Kza/PpsbQgFQliDjlzXRXfQYmb6rB1ZUNUrWqAQ3Rr772CkE6BvTBI/j3cKr0A==}
+  /@tsconfig/create-react-app@2.0.3:
+    resolution: {integrity: sha512-CCm7Xigp82u89g10Urgbh+WEYk6Ao25ifj9mbzOCy6e2uaODdajqbJ8suBorljnWiW/wb1owNCJwMMGIfXd7gQ==}
     dev: true
 
   /@types/aria-query@5.0.4:
