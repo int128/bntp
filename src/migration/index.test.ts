@@ -1,4 +1,3 @@
-import { chrome } from 'jest-chrome'
 import { migratePreferencesFromV2ToV3 } from '.'
 
 beforeEach(() => window.localStorage.clear())

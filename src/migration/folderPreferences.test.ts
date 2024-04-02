@@ -1,5 +1,4 @@
 import { V2_KEY, V3_KEY, migrate, upgrade } from './folderPreferences'
-import { chrome } from 'jest-chrome'
 
 describe('upgrade', () => {
   test('empty', () => {

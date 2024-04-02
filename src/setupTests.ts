@@ -3,12 +3,48 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom'
-
-import { chrome } from 'jest-chrome'
 import { vi } from 'vitest'
 
-// https://github.com/extend-chrome/jest-chrome
-Object.assign(global, { chrome })
+const chrome = {
+  bookmarks: {
+    getTree: vi.fn().mockResolvedValue([]),
+    onChanged: {
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+    },
+    onChildrenReordered: {
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+    },
+    onCreated: {
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+    },
+    onMoved: {
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+    },
+    onRemoved: {
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+    },
+  },
+  topSites: {
+    get: vi.fn().mockResolvedValue([]),
+  },
+  storage: {
+    sync: {
+      get: vi.fn().mockResolvedValue({}),
+      set: vi.fn(),
+      onChanged: {
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+      },
+    },
+  },
+  runtime: {
+    getManifest: vi.fn(),
+  },
+}
 
-// Workaround for jest-chrome
-Object.assign(global, { jest: vi })
+Object.assign(global, { chrome })
