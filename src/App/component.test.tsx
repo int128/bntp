@@ -1,19 +1,20 @@
 import { render, screen } from '@testing-library/react'
 import App from './component'
-import { chrome } from 'jest-chrome'
+import { vi } from 'vitest'
 
 test('renders App', async () => {
-  chrome.storage.sync.get.mockResolvedValue({} as never)
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  vi.mocked(chrome.storage.sync.get).mockResolvedValue({} as never)
 
   // jest-chrome does not have onChanged mock
   Object.assign(chrome.storage.sync, {
     onChanged: {
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
     },
   })
 
-  chrome.bookmarks.getTree.mockResolvedValue([
+  vi.mocked(chrome.bookmarks.getTree).mockResolvedValue([
     {
       id: '1',
       title: 'My Bookmarks',
