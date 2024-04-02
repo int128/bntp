@@ -32,7 +32,8 @@ jobs:
       - run: corepack enable pnpm
       - run: pnpm i
       - run: pnpm run build
-      - run: pnpm run package
+      - run: sed -i -e "s/0.0.0.0/$GITHUB_REF_NAME/" dist/manifest.json
+      - run: cd dist && zip -r ../dist.zip .
       - run: zipinfo dist.zip
       - if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4

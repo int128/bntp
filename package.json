@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite build --watch",
     "build": "tsc && vite build",
-    "package": "cd dist && perl -i -pne \"s/0.0.0.0/$GITHUB_REF_NAME/\" manifest.json && zip -r ../dist.zip .",
     "lint": "eslint . --ext ts,tsx",
     "format": "prettier --write src",
     "test": "vitest"
