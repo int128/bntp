@@ -1,13 +1,13 @@
 import './component.css'
+import { FC, useState } from 'react'
 import Bookmarks from '../Bookmarks/component'
 import NetworkStatusComponent from '../NetworkStatus/component'
 import Preferences from '../Preferences/component'
 import SearchComponent from '../Search/component'
 import TopSites from '../TopSites/component'
-import { useState } from 'react'
 import { useToggles } from '../Toggles/repository'
 
-const App = () => {
+const App: FC = () => {
   const [toggles] = useToggles()
   const [search, setSearch] = useState<string>('')
   return (
