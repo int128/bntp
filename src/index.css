@@ -4,12 +4,14 @@
 }
 
 :root {
-  /* override background-color in index.html */
+  /* Override background-color in index.html */
   background-color: var(--palette-3);
   color: var(--palette-03);
 }
 
 :root.popup {
+  /* Explicitly set the width, because the default is too small */
+  /* https://developer.chrome.com/docs/extensions/reference/action/#popup */
   width: 700px;
 }
 
@@ -23,7 +25,7 @@ a {
   text-decoration: none;
 }
 
-/* set background to prevent screen flicker while loading */
+/* Set background to prevent screen flicker while loading */
 #root:empty {
   position: fixed;
   top: var(--size-gap);
