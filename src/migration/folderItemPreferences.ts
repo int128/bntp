@@ -26,6 +26,6 @@ export const migrate = async () => {
     return
   }
   const shortcutMap = upgrade(folderItemPreferences)
-  await chrome.storage.sync.set({ [V3_KEY]: shortcutMap.serialize() })
+  await chrome.storage.sync['set']({ [V3_KEY]: shortcutMap.serialize() })
   localStorage.removeItem(V2_KEY)
 }
