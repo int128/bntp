@@ -29,7 +29,7 @@
     "eslint-plugin-react": "^7.34.1",
     "jsdom": "^24.0.0",
     "prettier": "3.2.5",
-    "typescript": "5.4.3",
+    "typescript": "5.4.4",
     "vite": "^5.1.6",
     "vitest": "^1.4.0"
   }
