@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@testing-library/jest-dom": "6.4.2",
-    "@testing-library/react": "15.0.2",
+    "@testing-library/react": "15.0.4",
     "@tsconfig/vite-react": "^3.0.1",
     "@types/chrome": "0.0.266",
     "@types/node": "20.12.7",
