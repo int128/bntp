@@ -1,4 +1,4 @@
-const topSites = [
+const topSites: chrome.topSites.MostVisitedURL[] = [
   {
     title: 'GitHub',
     url: 'https://github.com/',

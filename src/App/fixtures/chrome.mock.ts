@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/require-await */
+
 import { StorageAreaMock } from '../../infrastructure/chromeStorage.mock'
 import fixtureBookmarks from './bookmarks'
 import fixtureTopSites from './topSites'
 
-export const mockChromeAPI = () => {
+export const chromeMock = () => {
   const nullEvent = {
     addListener: () => undefined,
     removeListener: () => undefined,
@@ -10,24 +12,24 @@ export const mockChromeAPI = () => {
 
   const bookmarks = {
     getTree: async () => fixtureBookmarks,
+    update: async () => undefined,
+    remove: async () => undefined,
     onChanged: nullEvent,
     onChildrenReordered: nullEvent,
     onCreated: nullEvent,
     onMoved: nullEvent,
     onRemoved: nullEvent,
-    update: async () => undefined,
-    remove: async () => undefined,
   }
 
   const topSites = {
-    get: (f: (topSites: unknown) => void) => f(fixtureTopSites),
+    get: (callback: (topSites: chrome.topSites.MostVisitedURL[]) => void) => callback(fixtureTopSites),
   }
 
   const storage = {
     sync: new StorageAreaMock(),
   }
 
-  const runtime = {
+  const runtime: Pick<typeof chrome.runtime, 'id' | 'getManifest'> = {
     id: 'dummy',
     getManifest: () => ({
       name: 'BNTP: Bookmarks in New Tab Page',
@@ -36,12 +38,10 @@ export const mockChromeAPI = () => {
     }),
   }
 
-  Object.assign(window, {
-    chrome: {
-      bookmarks,
-      topSites,
-      storage,
-      runtime,
-    },
-  })
+  return {
+    bookmarks,
+    topSites,
+    storage,
+    runtime,
+  }
 }

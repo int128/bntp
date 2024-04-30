@@ -1,4 +1,4 @@
-const bookmarks = [
+const bookmarks: chrome.bookmarks.BookmarkTreeNode[] = [
   {
     children: [
       {

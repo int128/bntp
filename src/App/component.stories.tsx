@@ -2,7 +2,7 @@ import './component.css'
 import '../index.css'
 import type { Meta, StoryObj } from '@storybook/react'
 import App from './component'
-import { mockChromeAPI } from './fixtures/chrome'
+import { chromeMock } from './fixtures/chrome.mock'
 
 const meta: Meta<typeof App> = {
   component: App,
@@ -11,7 +11,7 @@ const meta: Meta<typeof App> = {
 export default meta
 type Story = StoryObj<typeof App>
 
-mockChromeAPI()
+Object.assign({ chrome: chromeMock })
 
 export const Primary: Story = {
   render: () => <App />,
