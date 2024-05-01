@@ -1,14 +1,14 @@
 import './component.css'
 import { Bookmark, BookmarkFolder, FolderCollapse, Position, filterBookmarks } from './model'
 import { BookmarkWithDragProps, Drag, reorderBookmarks } from './viewmodel'
-import React, { Dispatch, FC, PropsWithChildren, useState } from 'react'
+import React, { Dispatch, FC, PropsWithChildren, useContext, useState } from 'react'
 import { moveBookmark, useBookmarkFolders, useFolderCollapse } from './repository'
 import BookmarkEditorComponent from '../BookmarkEditor/component'
 import { EditingBookmark } from '../BookmarkEditor/model'
+import { FaviconContext } from '../infrastructure/favicon'
 import Link from '../Link/component'
 import ShortcutKeyComponent from '../ShortcutKey/component'
 import { ShortcutMap } from '../ShortcutKey/model'
-import { faviconImage } from '../infrastructure/favicon'
 import { useShortcutMap } from '../ShortcutKey/repository'
 import { useToggles } from '../Toggles/repository'
 
@@ -210,6 +210,7 @@ type BookmarkComponentProps = {
 }
 
 const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap, dragActive }) => {
+  const favicon = useContext(FaviconContext)
   const [editingBookmark, setEditingBookmark] = useState<EditingBookmark>()
   const shortcutKey = shortcutMap.getByBookmarkID(bookmark.id)
   return (
@@ -217,7 +218,7 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap, 
       <Link href={bookmark.url}>
         <div className="BookmarkButton" data-drag-active={dragActive} draggable>
           <div className="BookmarkButton__Title">{bookmark.title}</div>
-          <img className="BookmarkButton__Icon" alt="" src={faviconImage(bookmark.url)} />
+          <img className="BookmarkButton__Icon" alt="" src={favicon.getImageUrl(bookmark.url)} />
           {shortcutKey ? <div className="BookmarkButton__Badge">{shortcutKey}</div> : null}
         </div>
       </Link>

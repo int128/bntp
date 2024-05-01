@@ -1,10 +1,10 @@
 import './component.css'
-import { FC, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 import { removeBookmark, updateBookmark } from '../Bookmarks/repository'
 import { EditingBookmark } from './model'
+import { FaviconContext } from '../infrastructure/favicon'
 import Link from '../Link/component'
 import { createPortal } from 'react-dom'
-import { faviconImage } from '../infrastructure/favicon'
 import { shortcutKeyOf } from '../ShortcutKey/model'
 import { useShortcutMap } from '../ShortcutKey/repository'
 
@@ -77,6 +77,7 @@ const FormComponent: FC<FormComponentProps> = ({
   onRemove,
   onRequestClose,
 }) => {
+  const favicon = useContext(FaviconContext)
   return (
     <form
       className="BookmarkEditor__Form"
@@ -104,7 +105,7 @@ const FormComponent: FC<FormComponentProps> = ({
         value={editingBookmark.bookmark.url}
         required={true}
         className="BookmarkEditor__Url"
-        style={{ backgroundImage: `url(${faviconImage(editingBookmark.bookmark.url) ?? ''})` }}
+        style={{ backgroundImage: `url(${favicon.getImageUrl(editingBookmark.bookmark.url) ?? ''})` }}
         onChange={(e) => onChange(editingBookmark.changeBookmark({ ...editingBookmark.bookmark, url: e.target.value }))}
       />
       <input
