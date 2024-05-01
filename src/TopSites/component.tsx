@@ -1,7 +1,7 @@
 import './component.css'
+import { FC, useContext } from 'react'
 import { TopSite, filterTopSites } from './model'
-import { FC } from 'react'
-import { faviconImage } from '../infrastructure/favicon'
+import { FaviconContext } from '../infrastructure/favicon'
 import { useTopSites } from './repository'
 
 type TopSiteComponentsProps = {
@@ -26,11 +26,12 @@ type TopSiteComponentProps = {
 }
 
 const TopSiteComponent: FC<TopSiteComponentProps> = ({ topSite }) => {
+  const favicon = useContext(FaviconContext)
   return (
     <div className="TopSite">
       <a href={topSite.url}>
         <div className="TopSiteButton">
-          <img className="TopSiteButton__Icon" alt="" src={faviconImage(topSite.url)} />
+          <img className="TopSiteButton__Icon" alt="" src={favicon.getImageUrl(topSite.url)} />
         </div>
       </a>
       <div className="TopSiteTitle">{topSite.title}</div>
