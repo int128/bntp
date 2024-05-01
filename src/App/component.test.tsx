@@ -16,6 +16,11 @@ test('renders App', async () => {
       ],
     },
   ])
+  vi.mocked(chrome.runtime.getManifest).mockReturnValue({
+    manifest_version: 3,
+    name: 'bntp-mock',
+    version: '0.0.0.0',
+  })
 
   render(<App />)
 
