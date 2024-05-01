@@ -15,8 +15,10 @@ export type TopSites = {
 
 export type Runtime = Pick<typeof chrome.runtime, 'id' | 'getManifest'>
 
+export type StorageAreaName = 'sync'
+
 export type Storage = {
-  sync: Pick<chrome.storage.StorageArea, 'get' | 'set'> & {
+  [k in StorageAreaName]: Pick<chrome.storage.StorageArea, 'get' | 'set'> & {
     onChanged: Pick<chrome.storage.StorageArea['onChanged'], 'addListener' | 'removeListener'>
   }
 }

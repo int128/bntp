@@ -1,9 +1,9 @@
-import { Chrome, ChromeContext } from './chrome'
+import { Chrome, ChromeContext, StorageAreaName } from './chrome'
 import { Dispatch, useContext, useEffect, useState } from 'react'
 import { useLocalStorageCache } from './localStorageCache'
 
 export type Spec<T> = {
-  areaName: 'sync'
+  areaName: StorageAreaName
   key: string
   initialValue: T
   isType: (value: unknown) => value is T
