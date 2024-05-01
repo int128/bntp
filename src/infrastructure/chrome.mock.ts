@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/require-await */
 
-import { StorageAreaMock } from '../../infrastructure/chromeStorage.mock'
-import fixtureBookmarks from './bookmarks'
-import fixtureTopSites from './topSites'
+import { Bookmarks, Chrome, Runtime, Storage, TopSites } from './chrome'
+import { StorageAreaMock } from './chromeStorage.mock'
+import fixtureBookmarks from './fixtures/bookmarks'
+import fixtureTopSites from './fixtures/topSites'
 
 const nullEvent = Object.freeze({
   addListener: () => undefined,
   removeListener: () => undefined,
 })
 
-const bookmarks = Object.freeze({
+const bookmarks: Bookmarks = Object.freeze({
   getTree: async () => fixtureBookmarks,
   update: async () => undefined,
   remove: async () => undefined,
@@ -20,15 +21,15 @@ const bookmarks = Object.freeze({
   onRemoved: nullEvent,
 })
 
-const topSites = Object.freeze({
-  get: (callback: (topSites: chrome.topSites.MostVisitedURL[]) => void) => callback(fixtureTopSites),
+const topSites: TopSites = Object.freeze({
+  get: async () => fixtureTopSites,
 })
 
-const storage = Object.freeze({
+const storage: Storage = Object.freeze({
   sync: new StorageAreaMock(),
 })
 
-const runtime = Object.freeze({
+const runtime: Runtime = Object.freeze({
   id: 'dummy',
   getManifest: (): chrome.runtime.Manifest => ({
     name: 'BNTP: Bookmarks in New Tab Page',
@@ -37,7 +38,7 @@ const runtime = Object.freeze({
   }),
 })
 
-export const chrome = Object.freeze({
+export const chrome: Chrome = Object.freeze({
   bookmarks,
   topSites,
   storage,

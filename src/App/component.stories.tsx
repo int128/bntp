@@ -2,7 +2,8 @@ import './component.css'
 import '../index.css'
 import type { Meta, StoryObj } from '@storybook/react'
 import App from './component'
-import { chrome } from './fixtures/chrome.mock'
+import { ChromeContext } from '../infrastructure/chrome'
+import { chrome } from '../infrastructure/chrome.mock'
 
 const meta: Meta<typeof App> = {
   component: App,
@@ -11,8 +12,10 @@ const meta: Meta<typeof App> = {
 export default meta
 type Story = StoryObj<typeof App>
 
-Object.assign(global, { chrome })
-
 export const Primary: Story = {
-  render: () => <App />,
+  render: () => (
+    <ChromeContext.Provider value={chrome}>
+      <App />
+    </ChromeContext.Provider>
+  ),
 }

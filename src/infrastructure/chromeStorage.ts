@@ -1,19 +1,21 @@
-import { Dispatch, useEffect, useState } from 'react'
+import { Chrome, ChromeContext } from './chrome'
+import { Dispatch, useContext, useEffect, useState } from 'react'
 import { useLocalStorageCache } from './localStorageCache'
 
 export type Spec<T> = {
-  areaName: chrome.storage.AreaName
+  areaName: 'sync'
   key: string
   initialValue: T
   isType: (value: unknown) => value is T
 }
 
 export const useChromeStorage = <T>(spec: Spec<T>): readonly [T, Dispatch<T>] => {
+  const chrome = useContext(ChromeContext)
   const [storedValue, setStoredValue] = useState<T>(spec.initialValue)
   useEffect(
     () => {
-      initialLoad(spec, setStoredValue)
-      return subscribeChange(spec, setStoredValue)
+      initialLoad(chrome, spec, setStoredValue)
+      return subscribeChange(chrome, spec, setStoredValue)
     },
     // Don't set "spec" because it causes infinite loop.
     [spec.key, spec.areaName],
@@ -27,7 +29,7 @@ export const useChromeStorage = <T>(spec: Spec<T>): readonly [T, Dispatch<T>] =>
   ]
 }
 
-const initialLoad = <T>(spec: Spec<T>, setStoredValue: Dispatch<T>) => {
+const initialLoad = <T>(chrome: Chrome, spec: Spec<T>, setStoredValue: Dispatch<T>) => {
   chrome.storage[spec.areaName]
     .get(spec.key)
     .then((items) => {
@@ -48,7 +50,7 @@ const initialLoad = <T>(spec: Spec<T>, setStoredValue: Dispatch<T>) => {
     .catch((e) => console.error(e))
 }
 
-const subscribeChange = <T>(spec: Spec<T>, setStoredValue: Dispatch<T>) => {
+const subscribeChange = <T>(chrome: Chrome, spec: Spec<T>, setStoredValue: Dispatch<T>) => {
   const area = chrome.storage[spec.areaName]
   const listener = (changes: { [key: string]: chrome.storage.StorageChange }) => {
     if (!(spec.key in changes)) {

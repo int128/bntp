@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { ChromeContext } from '../infrastructure/chrome'
 import { TopSite } from './model'
 
 export const useTopSites = () => {
   const [topSites, setTopSites] = useState<readonly TopSite[]>([])
+  const chrome = useContext(ChromeContext)
   useEffect(() => {
-    void getTopSites().then(setTopSites)
+    chrome.topSites
+      .get()
+      .then(setTopSites)
+      .catch((e) => console.error(e))
   }, [])
   return topSites
 }
-
-const getTopSites = async (): Promise<readonly TopSite[]> =>
-  new Promise((resolve) => {
-    chrome.topSites.get((topSites) => resolve(topSites))
-  })

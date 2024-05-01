@@ -1,25 +1,30 @@
 import { Bookmark, BookmarkFolder, BookmarkFolderID, FolderCollapse, Position, isBookmarkFolderIDArray } from './model'
-import { useEffect, useState } from 'react'
+import { Chrome, ChromeContext } from '../infrastructure/chrome'
+import { useContext, useEffect, useState } from 'react'
 import { useChromeStorage } from '../infrastructure/chromeStorage'
 
 export const useBookmarkFolders = () => {
   const [bookmarkFolders, setBookmarkFolders] = useState<readonly BookmarkFolder[]>([])
+  const chrome = useContext(ChromeContext)
   useEffect(() => {
-    getBookmarkFolders()
+    getBookmarkFolders(chrome)
       .then((b) => setBookmarkFolders(b))
       .catch((e) => console.error(e))
-    return subscribeBookmarks(setBookmarkFolders)
+    return subscribeBookmarks(chrome, setBookmarkFolders)
   }, [])
   return bookmarkFolders
 }
 
-const getBookmarkFolders = async (): Promise<readonly BookmarkFolder[]> => {
+const getBookmarkFolders = async (chrome: Chrome): Promise<readonly BookmarkFolder[]> => {
   return traverseBookmarkTree(await chrome.bookmarks.getTree())
 }
 
-const subscribeBookmarks = (handler: (bookmarkFolders: readonly BookmarkFolder[]) => void): (() => void) => {
+const subscribeBookmarks = (
+  chrome: Chrome,
+  handler: (bookmarkFolders: readonly BookmarkFolder[]) => void,
+): (() => void) => {
   const listener = () => {
-    getBookmarkFolders()
+    getBookmarkFolders(chrome)
       .then((b) => handler(b))
       .catch((e) => console.error(e))
   }
