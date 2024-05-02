@@ -36,7 +36,7 @@ const initialLoad = <T>(chrome: Chrome, spec: Spec<T>, setStoredValue: Dispatch<
       if (!(spec.key in items)) {
         return
       }
-      const value = items[spec.key] as unknown
+      const value = items[spec.key]
       if (value === undefined) {
         setStoredValue(spec.initialValue)
         return
