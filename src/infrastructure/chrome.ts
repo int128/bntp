@@ -32,4 +32,4 @@ export type Chrome = {
   storage: Storage
 }
 
-export const ChromeContext = createContext<Chrome>(window.chrome)
+export const ChromeContext = createContext<Chrome>(chrome)
