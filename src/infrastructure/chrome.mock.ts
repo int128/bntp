@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/require-await */
 
-import { Bookmarks, Chrome, Runtime, Storage, TopSites } from './chrome'
-import { StorageAreaMock } from './chromeStorage.mock'
+import { Bookmarks, Chrome, Runtime, Storage, StorageArea, TopSites } from './chrome'
 import fixtureBookmarks from './fixtures/bookmarks'
 import fixtureTopSites from './fixtures/topSites'
 
@@ -25,8 +24,14 @@ const topSites: TopSites = Object.freeze({
   get: async () => fixtureTopSites,
 })
 
+const storageArea: StorageArea = Object.freeze({
+  get: async () => ({}),
+  set: async () => undefined,
+  onChanged: nullEvent,
+})
+
 const storage: Storage = Object.freeze({
-  sync: new StorageAreaMock(),
+  sync: storageArea,
 })
 
 const runtime: Runtime = Object.freeze({
