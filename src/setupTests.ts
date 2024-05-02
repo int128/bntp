@@ -1,11 +1,7 @@
-// jest-dom adds custom jest matchers for asserting on DOM nodes.
-// allows you to do things like:
-// expect(element).toHaveTextContent(/react/i)
-// learn more: https://github.com/testing-library/jest-dom
-import '@testing-library/jest-dom'
+import { Chrome } from './infrastructure/chrome'
 import { vi } from 'vitest'
 
-const chrome = {
+const chrome: Chrome = {
   bookmarks: {
     getTree: vi.fn().mockResolvedValue([]),
     onChanged: {
@@ -43,6 +39,7 @@ const chrome = {
     },
   },
   runtime: {
+    id: 'bntp-test',
     getManifest: vi.fn(),
   },
 }

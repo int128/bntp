@@ -17,12 +17,14 @@ export type Runtime = Pick<typeof chrome.runtime, 'id' | 'getManifest'>
 
 export type StorageAreaName = 'sync'
 
+export type StorageArea = {
+  get(key: string): Promise<Record<string, unknown>>
+  set(items: Record<string, unknown>): Promise<void>
+  onChanged: Pick<chrome.storage.StorageArea['onChanged'], 'addListener' | 'removeListener'>
+}
+
 export type Storage = {
-  [k in StorageAreaName]: {
-    get(key: string): Promise<Record<string, unknown>>
-    set(items: Record<string, unknown>): Promise<void>
-    onChanged: Pick<chrome.storage.StorageArea['onChanged'], 'addListener' | 'removeListener'>
-  }
+  [k in StorageAreaName]: StorageArea
 }
 
 export type Chrome = {
