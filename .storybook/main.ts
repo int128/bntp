@@ -9,5 +9,6 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
+  addons: ['storycap'],
 }
 export default config
