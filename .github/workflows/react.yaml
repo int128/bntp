@@ -56,3 +56,28 @@ jobs:
       - run: pnpm i
       - run: pnpm run format
       - uses: int128/update-generated-files-action@v2
+
+  storycap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+      - run: corepack enable pnpm
+      - run: pnpm i
+      - run: pnpm run storycap
+      - uses: int128/upload-artifact-wiki-action@v1
+        id: upload-artifact-wiki
+        with:
+          path: __screenshots__/**/*.png
+      - uses: int128/comment-action@v1
+        with:
+          update-if-exists: replace
+          post: |
+            <table>
+              <tr>
+                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/App/component/Primary.png"></td>
+              </tr>
+            </table>
