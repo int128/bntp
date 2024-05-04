@@ -5,6 +5,6 @@ export const useToggles = () =>
   useChromeStorage<Toggles>({
     areaName: 'sync',
     key: 'v3.toggles',
-    initialValue: defaultToggles,
+    defaultValue: defaultToggles,
     isType: isToggles,
   })
