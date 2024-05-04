@@ -11,8 +11,12 @@ export const useLocalStorageCache = <T extends string>(spec: Spec<T>): [T, Dispa
   const localStorage = useContext(LocalStorageContext)
   const [value, setValue] = useState<T>(getLocalStorageCacheOrDefaultValue(localStorage, spec))
   useEffect(() => {
+    if (value === spec.defaultValue) {
+      localStorage.removeItem(spec.key)
+      return
+    }
     localStorage.setItem(spec.key, value)
-  }, [spec.key, value])
+  }, [spec.key, spec.defaultValue, value])
   return [value, setValue]
 }
 

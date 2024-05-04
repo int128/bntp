@@ -27,6 +27,7 @@ const topSites: TopSites = Object.freeze({
 const storageArea: StorageArea = Object.freeze({
   get: async () => ({}),
   set: async () => undefined,
+  remove: async () => undefined,
   onChanged: nullEvent,
 })
 

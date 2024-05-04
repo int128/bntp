@@ -51,6 +51,10 @@ const loadValue = async <T>(storageArea: StorageArea, spec: Spec<T>, setStoredVa
 }
 
 const saveValue = async <T>(storageArea: StorageArea, spec: Spec<T>, newValue: T) => {
+  if (newValue === spec.defaultValue) {
+    await storageArea.remove(spec.key)
+    return
+  }
   await storageArea.set({ [spec.key]: newValue })
 }
 
