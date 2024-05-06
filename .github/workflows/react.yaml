@@ -79,5 +79,6 @@ jobs:
             <table>
               <tr>
                 <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/App/component/Primary.png"></td>
+                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/App/component/DarkTheme.png"></td>
               </tr>
             </table>
