@@ -1,6 +1,11 @@
-import { LocalStorage } from './localStorage'
+import { LocalStorage, LocalStorageContext } from './localStorage'
+import { PropsWithChildren } from 'react'
 
-export const nullLocalStorage: LocalStorage = {
+const nullLocalStorage: LocalStorage = {
   setItem: () => {},
   getItem: () => null,
 }
+
+export const NullLocalStorageProvider = (props: PropsWithChildren) => (
+  <LocalStorageContext.Provider value={nullLocalStorage}>{props.children}</LocalStorageContext.Provider>
+)
