@@ -28,7 +28,7 @@ export const Primary: Story = {
   ),
 }
 
-export const DarkTheme: Story = {
+export const Dark: Story = {
   render: () => (
     <ChromeContext.Provider
       value={{
