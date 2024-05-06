@@ -1,4 +1,5 @@
 import '../index.css'
+import '../Themes/component.css'
 import { Meta, StoryObj } from '@storybook/react'
 import BookmarkEditorComponent from './component'
 import { ChromeContext } from '../infrastructure/chrome'
