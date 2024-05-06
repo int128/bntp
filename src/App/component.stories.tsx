@@ -1,13 +1,11 @@
-import './component.css'
 import '../index.css'
 import type { Meta, StoryObj } from '@storybook/react'
 import App from './component'
 import { ChromeContext } from '../infrastructure/chrome'
 import { FaviconContext } from '../infrastructure/favicon'
-import { LocalStorageContext } from '../infrastructure/localStorage'
+import { NullLocalStorageProvider } from '../infrastructure/localStorage.mock'
 import { chromeWithFixtures } from '../infrastructure/chrome.mock'
 import { googleFavicon } from '../infrastructure/favicon.mock'
-import { nullLocalStorage } from '../infrastructure/localStorage.mock'
 
 const meta: Meta<typeof App> = {
   component: App,
@@ -20,9 +18,9 @@ export const Primary: Story = {
   render: () => (
     <ChromeContext.Provider value={chromeWithFixtures}>
       <FaviconContext.Provider value={googleFavicon}>
-        <LocalStorageContext.Provider value={nullLocalStorage}>
+        <NullLocalStorageProvider>
           <App />
-        </LocalStorageContext.Provider>
+        </NullLocalStorageProvider>
       </FaviconContext.Provider>
     </ChromeContext.Provider>
   ),
@@ -45,9 +43,9 @@ export const Dark: Story = {
       }}
     >
       <FaviconContext.Provider value={googleFavicon}>
-        <LocalStorageContext.Provider value={nullLocalStorage}>
+        <NullLocalStorageProvider>
           <App />
-        </LocalStorageContext.Provider>
+        </NullLocalStorageProvider>
       </FaviconContext.Provider>
     </ChromeContext.Provider>
   ),
