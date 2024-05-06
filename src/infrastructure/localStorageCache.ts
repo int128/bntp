@@ -1,4 +1,5 @@
-import { Dispatch, useEffect, useState } from 'react'
+import { Dispatch, useContext, useEffect, useState } from 'react'
+import { LocalStorage, LocalStorageContext } from './localStorage'
 
 type Spec<T extends string> = {
   key: string
@@ -7,14 +8,15 @@ type Spec<T extends string> = {
 }
 
 export const useLocalStorageCache = <T extends string>(spec: Spec<T>): [T, Dispatch<T>] => {
-  const [value, setValue] = useState<T>(getCacheOrDefaultValue(spec))
+  const localStorage = useContext(LocalStorageContext)
+  const [value, setValue] = useState<T>(getLocalStorageCacheOrDefaultValue(localStorage, spec))
   useEffect(() => {
     localStorage.setItem(spec.key, value)
   }, [spec.key, value])
   return [value, setValue]
 }
 
-export const getCacheOrDefaultValue = <T extends string>(spec: Spec<T>): T => {
+export const getLocalStorageCacheOrDefaultValue = <T extends string>(localStorage: LocalStorage, spec: Spec<T>): T => {
   const cachedValue = localStorage.getItem(spec.key)
   if (spec.isType(cachedValue)) {
     return cachedValue
