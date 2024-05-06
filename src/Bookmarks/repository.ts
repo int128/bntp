@@ -86,7 +86,7 @@ export const useFolderCollapse = (): readonly [FolderCollapse, (newSet: FolderCo
   const [ids, setIDs] = useChromeStorage<readonly BookmarkFolderID[]>({
     areaName: 'sync',
     key: 'v3.collapsedBookmarkFolderIDs',
-    initialValue: [],
+    defaultValue: [],
     isType: isBookmarkFolderIDArray,
   })
   return [new FolderCollapse(ids), (newSet: FolderCollapse) => setIDs(newSet.serialize())]
