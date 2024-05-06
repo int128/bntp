@@ -43,7 +43,7 @@ const runtime: Runtime = Object.freeze({
   }),
 })
 
-export const chrome: Chrome = Object.freeze({
+export const chromeWithFixtures: Chrome = Object.freeze({
   bookmarks,
   topSites,
   storage,
