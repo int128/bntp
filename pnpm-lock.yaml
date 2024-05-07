@@ -25,8 +25,8 @@ importers:
         specifier: 6.4.5
         version: 6.4.5(vitest@1.6.0(@types/node@20.12.10)(jsdom@24.0.0))
       '@testing-library/react':
-        specifier: 15.0.6
-        version: 15.0.6(@types/react@18.3.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 15.0.7
+        version: 15.0.7(@types/react@18.3.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tsconfig/vite-react':
         specifier: ^3.0.1
         version: 3.0.2
@@ -1316,8 +1316,8 @@ packages:
       vitest:
         optional: true
 
-  '@testing-library/react@15.0.6':
-    resolution: {integrity: sha512-UlbazRtEpQClFOiYp+1BapMT+xyqWMnE+hh9tn5DQ6gmlE7AIZWcGpzZukmDZuFk3By01oiqOf8lRedLS4k6xQ==}
+  '@testing-library/react@15.0.7':
+    resolution: {integrity: sha512-cg0RvEdD1TIhhkm1IeYMQxrzy0MtUNfa3minv4MjbgcYzJAZ7yD0i0lwoPOTPr+INtiXFezt2o8xMSnyHhEn2Q==}
     engines: {node: '>=18'}
     peerDependencies:
       '@types/react': ^18.0.0
@@ -5337,7 +5337,7 @@ snapshots:
 
   '@babel/template@7.23.9':
     dependencies:
-      '@babel/code-frame': 7.23.5
+      '@babel/code-frame': 7.24.2
       '@babel/parser': 7.23.9
       '@babel/types': 7.23.9
 
@@ -5349,7 +5349,7 @@ snapshots:
 
   '@babel/traverse@7.23.9':
     dependencies:
-      '@babel/code-frame': 7.23.5
+      '@babel/code-frame': 7.24.2
       '@babel/generator': 7.23.6
       '@babel/helper-environment-visitor': 7.22.20
       '@babel/helper-function-name': 7.23.0
@@ -6057,8 +6057,8 @@ snapshots:
 
   '@testing-library/dom@10.0.0':
     dependencies:
-      '@babel/code-frame': 7.23.5
-      '@babel/runtime': 7.24.1
+      '@babel/code-frame': 7.24.2
+      '@babel/runtime': 7.24.5
       '@types/aria-query': 5.0.4
       aria-query: 5.3.0
       chalk: 4.1.2
@@ -6079,9 +6079,9 @@ snapshots:
     optionalDependencies:
       vitest: 1.6.0(@types/node@20.12.10)(jsdom@24.0.0)
 
-  '@testing-library/react@15.0.6(@types/react@18.3.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@testing-library/react@15.0.7(@types/react@18.3.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@babel/runtime': 7.24.1
+      '@babel/runtime': 7.24.5
       '@testing-library/dom': 10.0.0
       '@types/react-dom': 18.3.0
       react: 18.3.1
