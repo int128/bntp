@@ -6,6 +6,12 @@ const preview: Preview = {
   parameters: {
     screenshot: {
       delay: 250,
+      viewport: {
+        // Chrome Web Store requirement
+        width: 1280,
+        height: 800,
+        deviceScaleFactor: 1,
+      },
     },
     controls: {
       matchers: {
