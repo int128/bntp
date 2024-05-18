@@ -1,11 +1,12 @@
-import './component.css'
 import { allColorSchemes, allThemes } from './model'
-import { useSelectedColorScheme, useSelectedTheme } from './hook'
+import { useSelectedColorScheme, useSelectedTheme } from './repository'
 import { FC } from 'react'
+import { useThemeStyle } from './style'
 
 const ThemesComponent: FC = () => {
   const [selectedTheme, setSelectedTheme] = useSelectedTheme()
   const [selectedColorScheme, setSelectedColorScheme] = useSelectedColorScheme()
+  useThemeStyle(selectedTheme, selectedColorScheme)
   return (
     <>
       <div>

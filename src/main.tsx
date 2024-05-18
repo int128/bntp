@@ -3,7 +3,7 @@ import App from './App/component'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { migratePreferencesFromV2ToV3 } from './migration'
-import { preloadThemeFromLocalStorageCache } from './Themes/hook'
+import { preloadThemeStyleFromLocalStorageCache } from './Themes/style'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 )
 
 // Preload the theme to prevent screen flicker.
-preloadThemeFromLocalStorageCache(localStorage)
+preloadThemeStyleFromLocalStorageCache(localStorage)
 
 if (document.location.hash === '#popup') {
   document.documentElement.classList.add('popup')
