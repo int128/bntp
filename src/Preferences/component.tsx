@@ -1,17 +1,17 @@
 import './component.css'
 import { FC } from 'react'
-import Manifest from '../Manifest/component'
-import Themes from '../Themes/component'
-import Toggles from '../Toggles/component'
+import ManifestComponent from '../Manifest/component'
+import ThemesComponent from '../Themes/component'
+import TogglesComponent from '../Toggles/component'
 
 const PreferencesComponent: FC = () => (
   <form className="Preferences">
     <h2>Toggles</h2>
-    <Toggles />
+    <TogglesComponent />
     <h2>Themes</h2>
-    <Themes />
+    <ThemesComponent />
     <h2>About</h2>
-    <Manifest />
+    <ManifestComponent />
   </form>
 )
 

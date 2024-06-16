@@ -6,7 +6,7 @@ import { moveBookmark, useBookmarkFolders, useFolderCollapse } from './repositor
 import BookmarkEditorComponent from '../BookmarkEditor/component'
 import { EditingBookmark } from '../BookmarkEditor/model'
 import { FaviconContext } from '../infrastructure/favicon'
-import Link from '../Link/component'
+import LinkComponent from '../Link/component'
 import ShortcutKeyComponent from '../ShortcutKey/component'
 import { ShortcutMap } from '../ShortcutKey/model'
 import { useShortcutMap } from '../ShortcutKey/repository'
@@ -215,13 +215,13 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap, 
   const shortcutKey = shortcutMap.getByBookmarkID(bookmark.id)
   return (
     <div className="Bookmark">
-      <Link href={bookmark.url}>
+      <LinkComponent href={bookmark.url}>
         <div className="BookmarkButton" data-drag-active={dragActive} draggable>
           <div className="BookmarkButton__Title">{bookmark.title}</div>
           <img className="BookmarkButton__Icon" alt="" src={favicon.getImageUrl(bookmark.url)} />
           {shortcutKey ? <div className="BookmarkButton__Badge">{shortcutKey}</div> : null}
         </div>
-      </Link>
+      </LinkComponent>
       <a
         href="#Edit"
         className="BookmarkEditButton"
