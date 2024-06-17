@@ -8,7 +8,7 @@ const ThemesComponent: FC = () => {
   const [selectedColorScheme, setSelectedColorScheme] = useSelectedColorScheme()
   return (
     <>
-      <div>
+      <form>
         {allColorSchemes.map((colorScheme) => (
           <label key={colorScheme}>
             <input
@@ -21,8 +21,8 @@ const ThemesComponent: FC = () => {
             {capitalize(colorScheme)}
           </label>
         ))}
-      </div>
-      <div>
+      </form>
+      <form>
         {allThemes.map((theme) => (
           <label key={theme}>
             <input
@@ -35,7 +35,7 @@ const ThemesComponent: FC = () => {
             {capitalize(theme)}
           </label>
         ))}
-      </div>
+      </form>
     </>
   )
 }

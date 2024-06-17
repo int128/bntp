@@ -31,7 +31,7 @@ const PreferencesModalComponent: FC<PreferencesModalComponentProps> = ({ shown, 
   return createPortal(
     <div className="Preferences">
       <div className="Preferences__Modal">
-        <form
+        <div
           className="Preferences__Form"
           onKeyDown={(e) => {
             if (e.key === 'Escape') {
@@ -45,7 +45,7 @@ const PreferencesModalComponent: FC<PreferencesModalComponentProps> = ({ shown, 
           <ThemesComponent />
           <h2>About</h2>
           <ManifestComponent />
-        </form>
+        </div>
       </div>
       <div className="Preferences__Overlay" onClick={onRequestClose} />
     </div>,

@@ -9,9 +9,9 @@ const ManifestComponent: FC = () => {
       <div>
         {manifest.name} {manifest.version}
       </div>
-      <a href={`https://chrome.google.com/webstore/detail/${chrome.runtime.id}`}>
-        <button>Review on Web Store</button>
-      </a>
+      <div>
+        <a href={`https://chrome.google.com/webstore/detail/${chrome.runtime.id}`}>Review on Web Store</a>
+      </div>
     </>
   )
 }

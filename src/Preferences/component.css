@@ -46,7 +46,8 @@
 }
 
 .Preferences label,
-.Preferences button {
+.Preferences button,
+.Preferences a[href] {
   display: inline-block;
   margin-right: var(--size-preference-item-margin);
   padding: var(--size-preference-item-padding);
@@ -58,6 +59,7 @@
 }
 
 .Preferences label:hover,
-.Preferences button:hover {
+.Preferences button:hover,
+.Preferences a[href]:hover {
   background-color: var(--palette-1);
 }
