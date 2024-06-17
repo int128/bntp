@@ -3,7 +3,7 @@ import { FC, useContext, useEffect, useState } from 'react'
 import { removeBookmark, updateBookmark } from '../Bookmarks/repository'
 import { EditingBookmark } from './model'
 import { FaviconContext } from '../infrastructure/favicon'
-import Link from '../Link/component'
+import LinkComponent from '../Link/component'
 import { createPortal } from 'react-dom'
 import { shortcutKeyOf } from '../ShortcutKey/model'
 import { useShortcutMap } from '../ShortcutKey/repository'
@@ -115,9 +115,9 @@ const FormComponent: FC<FormComponentProps> = ({
         placeholder="Shortcut Key (not assigned)"
         onChange={(e) => onChange(editingBookmark.changeShortcutKey(shortcutKeyOf(e.target.value)))}
       />
-      <Link href={`chrome://bookmarks/?id=${editingBookmark.bookmark.folderID}`}>
+      <LinkComponent href={`chrome://bookmarks/?id=${editingBookmark.bookmark.folderID}`}>
         Open this in Chrome Bookmark Manager
-      </Link>
+      </LinkComponent>
       <div className="BookmarkEditor__Group">
         <input type="submit" value="Update" disabled={!editingBookmark.valid} />
         <div className="BookmarkEditor__Message">{errorMessage}</div>
