@@ -1,6 +1,7 @@
 import { allColorSchemes, allThemes } from './model'
 import { useSelectedColorScheme, useSelectedTheme } from './repository'
 import { FC } from 'react'
+import { useThemeStyle } from './style'
 
 const ThemesComponent: FC = () => {
   const [selectedTheme, setSelectedTheme] = useSelectedTheme()
@@ -42,3 +43,10 @@ const ThemesComponent: FC = () => {
 const capitalize = (s: string) => s.replace(/^\w/, (c) => c.toUpperCase())
 
 export default ThemesComponent
+
+export const SubscribeThemeComponent: FC = () => {
+  const [selectedTheme] = useSelectedTheme()
+  const [selectedColorScheme] = useSelectedColorScheme()
+  useThemeStyle(selectedTheme, selectedColorScheme)
+  return null
+}
