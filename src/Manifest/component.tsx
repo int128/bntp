@@ -7,10 +7,10 @@ const ManifestComponent: FC = () => {
   return (
     <>
       <div>
-        Thank you for using the extension. {manifest.name} {manifest.version}
+        {manifest.name} {manifest.version}
       </div>
       <a href={`https://chrome.google.com/webstore/detail/${chrome.runtime.id}`}>
-        <label>Review on Web Store</label>
+        <button>Review on Web Store</button>
       </a>
     </>
   )
