@@ -26,11 +26,12 @@ type PreferencesModalComponentProps = {
 const PreferencesModalComponent: FC<PreferencesModalComponentProps> = ({ shown, onRequestClose }) => {
   const dialogRef = useRef<HTMLDialogElement>(null)
   useEffect(() => {
-    if (dialogRef.current) {
-      if (shown) {
-        dialogRef.current.showModal()
-        return
-      }
+    if (dialogRef.current === null) {
+      return
+    }
+    if (shown) {
+      dialogRef.current.showModal()
+    } else {
       dialogRef.current.close()
     }
   }, [shown])
@@ -39,11 +40,11 @@ const PreferencesModalComponent: FC<PreferencesModalComponentProps> = ({ shown, 
       ref={dialogRef}
       onCancel={onRequestClose}
       onClick={(e) => {
-        if (dialogRef.current) {
-          const r = dialogRef.current.getBoundingClientRect()
-          if (!isClickedInRect(e, r)) {
-            onRequestClose()
-          }
+        if (dialogRef.current === null) {
+          return
+        }
+        if (!isClickedInRect(e, dialogRef.current.getBoundingClientRect())) {
+          onRequestClose()
         }
       }}
     >
