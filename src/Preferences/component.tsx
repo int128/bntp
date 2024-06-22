@@ -1,9 +1,8 @@
 import './component.css'
-import { FC, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import ManifestComponent from '../Manifest/component'
 import ThemesComponent from '../Themes/component'
 import TogglesComponent from '../Toggles/component'
-import { createPortal } from 'react-dom'
 
 const PreferencesComponent: FC = () => {
   const [shown, setShown] = useState<boolean>(false)
@@ -25,30 +24,40 @@ type PreferencesModalComponentProps = {
 }
 
 const PreferencesModalComponent: FC<PreferencesModalComponentProps> = ({ shown, onRequestClose }) => {
-  if (shown === false) {
-    return null
-  }
-  return createPortal(
-    <div className="Preferences">
-      <div className="Preferences__Modal">
-        <div
-          className="Preferences__Form"
-          onKeyDown={(e) => {
-            if (e.key === 'Escape') {
-              onRequestClose()
-            }
-          }}
-        >
-          <h2>Toggles</h2>
-          <TogglesComponent />
-          <h2>Themes</h2>
-          <ThemesComponent />
-          <h2>About</h2>
-          <ManifestComponent />
-        </div>
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  useEffect(() => {
+    if (dialogRef.current) {
+      if (shown) {
+        dialogRef.current.showModal()
+        return
+      }
+      dialogRef.current.close()
+    }
+  }, [shown])
+  return (
+    <dialog
+      ref={dialogRef}
+      onCancel={onRequestClose}
+      onClick={(e) => {
+        if (dialogRef.current) {
+          const r = dialogRef.current.getBoundingClientRect()
+          if (!isClickedInRect(e, r)) {
+            onRequestClose()
+          }
+        }
+      }}
+    >
+      <div className="Preferences__Form">
+        <h2>Toggles</h2>
+        <TogglesComponent />
+        <h2>Themes</h2>
+        <ThemesComponent />
+        <h2>About</h2>
+        <ManifestComponent />
       </div>
-      <div className="Preferences__Overlay" onClick={onRequestClose} />
-    </div>,
-    document.body,
+    </dialog>
   )
 }
+
+const isClickedInRect = (e: React.MouseEvent, r: DOMRect): boolean =>
+  e.clientX > r.left && e.clientX < r.right && e.clientY > r.top && e.clientY < r.bottom

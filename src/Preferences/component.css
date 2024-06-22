@@ -8,33 +8,21 @@
   text-align: center;
 }
 
-.Preferences__Modal {
-  z-index: 100;
-  position: fixed;
-  top: calc(var(--size-wide-gap) * 2);
-  left: calc(var(--size-wide-gap) * 2);
-  right: calc(var(--size-wide-gap) * 2);
-  max-width: 800px;
-  margin: auto;
+.Preferences dialog {
+  padding: var(--size-wide-gap);
+  border-style: none;
+  background-color: var(--palette-3);
+  border-radius: var(--size-form-control-border-radius);
+  box-shadow: 0 0 var(--size-wide-gap) rgba(0, 0, 0, 0.5);
 }
 
-.Preferences__Overlay {
-  z-index: 10;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+.Preferences dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.25);
 }
 
 .Preferences__Form {
   display: grid;
   gap: var(--size-gap);
-  padding: var(--size-wide-gap);
-  background-color: var(--palette-3);
-  border-radius: var(--size-form-control-border-radius);
-  box-shadow: 0 0 var(--size-wide-gap) rgba(0, 0, 0, 0.5);
 }
 
 .Preferences h2 {
