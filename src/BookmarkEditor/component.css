@@ -4,33 +4,24 @@
   --size-icon: 16px;
 }
 
-.BookmarkEditor__Modal {
-  z-index: 100;
-  position: fixed;
-  top: calc(var(--size-wide-gap) * 2);
-  left: calc(var(--size-wide-gap) * 2);
-  right: calc(var(--size-wide-gap) * 2);
+.BookmarkEditor dialog {
+  width: auto;
   max-width: 800px;
-  margin: auto;
+  padding: var(--size-wide-gap);
+  color: inherit;
+  background-color: var(--palette-3);
+  border-style: none;
+  border-radius: var(--size-form-control-border-radius);
+  box-shadow: 0 0 var(--size-wide-gap) rgba(0, 0, 0, 0.5);
 }
 
-.BookmarkEditor__Overlay {
-  z-index: 10;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+.BookmarkEditor dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
 .BookmarkEditor__Form {
   display: grid;
   gap: var(--size-gap);
-  padding: var(--size-wide-gap);
-  background-color: var(--palette-3);
-  border-radius: var(--size-form-control-border-radius);
-  box-shadow: 0 0 var(--size-wide-gap) rgba(0, 0, 0, 0.5);
 }
 
 .BookmarkEditor__Group {

@@ -10,9 +10,9 @@
 
 .Preferences dialog {
   padding: var(--size-wide-gap);
-  border-style: none;
   color: inherit;
   background-color: var(--palette-3);
+  border-style: none;
   border-radius: var(--size-form-control-border-radius);
   box-shadow: 0 0 var(--size-wide-gap) rgba(0, 0, 0, 0.5);
 }

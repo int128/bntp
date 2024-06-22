@@ -1,10 +1,10 @@
 import './component.css'
 import { FC, useContext, useEffect, useState } from 'react'
 import { removeBookmark, updateBookmark } from '../Bookmarks/repository'
+import DialogComponent from '../Dialog/component'
 import { EditingBookmark } from './model'
 import { FaviconContext } from '../infrastructure/favicon'
 import LinkComponent from '../Link/component'
-import { createPortal } from 'react-dom'
 import { shortcutKeyOf } from '../ShortcutKey/model'
 import { useShortcutMap } from '../ShortcutKey/repository'
 
@@ -18,7 +18,7 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBook
   const [errorMessage, setErrorMessage] = useState<string>()
   const [shortcutMap, setShortcutMap] = useShortcutMap()
   useEffect(
-    // remove errorMessage when editingBookmark is changed
+    // Remove errorMessage when editingBookmark is changed
     () => setErrorMessage(undefined),
     [editingBookmark],
   )
@@ -29,9 +29,9 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBook
     void f()
       .then(onRequestClose)
       .catch((e) => setErrorMessage(String(e)))
-  return createPortal(
+  return (
     <div className="BookmarkEditor">
-      <div className="BookmarkEditor__Modal">
+      <DialogComponent open={true} onRequestClose={onRequestClose}>
         <FormComponent
           editingBookmark={editingBookmark}
           errorMessage={errorMessage}
@@ -50,11 +50,8 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBook
             })
           }
         />
-      </div>
-      <div className="BookmarkEditor__Overlay" onClick={onRequestClose} />
-    </div>,
-    // put this modal into root to avoid side-effect of styles
-    document.body,
+      </DialogComponent>
+    </div>
   )
 }
 
@@ -69,14 +66,7 @@ type FormComponentProps = {
   onRemove: () => void
 }
 
-const FormComponent: FC<FormComponentProps> = ({
-  editingBookmark,
-  errorMessage,
-  onChange,
-  onSubmit,
-  onRemove,
-  onRequestClose,
-}) => {
+const FormComponent: FC<FormComponentProps> = ({ editingBookmark, errorMessage, onChange, onSubmit, onRemove }) => {
   const favicon = useContext(FaviconContext)
   return (
     <form
@@ -84,11 +74,6 @@ const FormComponent: FC<FormComponentProps> = ({
       onSubmit={(e) => {
         onSubmit()
         e.preventDefault()
-      }}
-      onKeyDown={(e) => {
-        if (e.key === 'Escape') {
-          onRequestClose()
-        }
       }}
     >
       <input
