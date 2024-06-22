@@ -4,14 +4,18 @@ import ManifestComponent from '../Manifest/component'
 import ThemesComponent from '../Themes/component'
 import TogglesComponent from '../Toggles/component'
 
-const PreferencesComponent: FC = () => {
-  const [shown, setShown] = useState<boolean>(false)
+type PreferencesComponentProps = {
+  initialOpen?: boolean
+}
+
+const PreferencesComponent: FC<PreferencesComponentProps> = ({ initialOpen }) => {
+  const [open, setOpen] = useState<boolean>(initialOpen ?? false)
   return (
     <div className="Preferences">
       <div className="Preferences__Toggle">
-        <button onClick={() => setShown(true)}>Preferences</button>
+        <button onClick={() => setOpen(true)}>Preferences</button>
       </div>
-      <PreferencesModalComponent shown={shown} onRequestClose={() => setShown(false)} />
+      <PreferencesModalComponent open={open} onRequestClose={() => setOpen(false)} />
     </div>
   )
 }
@@ -19,22 +23,22 @@ const PreferencesComponent: FC = () => {
 export default PreferencesComponent
 
 type PreferencesModalComponentProps = {
-  shown: boolean
+  open: boolean
   onRequestClose: () => void
 }
 
-const PreferencesModalComponent: FC<PreferencesModalComponentProps> = ({ shown, onRequestClose }) => {
+const PreferencesModalComponent: FC<PreferencesModalComponentProps> = ({ open, onRequestClose }) => {
   const dialogRef = useRef<HTMLDialogElement>(null)
   useEffect(() => {
     if (dialogRef.current === null) {
       return
     }
-    if (shown) {
+    if (open) {
       dialogRef.current.showModal()
     } else {
       dialogRef.current.close()
     }
-  }, [shown])
+  }, [open])
   return (
     <dialog
       ref={dialogRef}

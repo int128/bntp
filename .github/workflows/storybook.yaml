@@ -47,5 +47,6 @@ jobs:
               </tr>
               <tr>
                 <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/BookmarkEditor/component/Primary.png"></td>
+                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/Preferences/component/Primary.png"></td>
               </tr>
             </table>
