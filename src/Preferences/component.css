@@ -1,25 +1,42 @@
 .Preferences {
   --size-preference-item-margin: var(--size-gap);
   --size-preference-item-padding: 8px;
+  --size-form-control-border-radius: 4px;
 }
 
-.Preferences {
-  display: grid;
-  gap: var(--size-gap);
-  margin-top: var(--size-wide-gap);
+.Preferences__Toggle {
   text-align: center;
 }
 
+.Preferences dialog {
+  padding: var(--size-wide-gap);
+  border-style: none;
+  color: inherit;
+  background-color: var(--palette-3);
+  border-radius: var(--size-form-control-border-radius);
+  box-shadow: 0 0 var(--size-wide-gap) rgba(0, 0, 0, 0.5);
+}
+
+.Preferences dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.Preferences__Form {
+  display: grid;
+  gap: var(--size-gap);
+}
+
 .Preferences h2 {
-  margin: 0;
-  padding: 0;
-  font-size: 90%;
+  margin-top: var(--size-gap);
+  margin-bottom: var(--size-gap);
+  font-size: 100%;
   color: var(--palette-00);
   text-transform: uppercase;
 }
 
 .Preferences label,
-.Preferences button {
+.Preferences button,
+.Preferences a[href] {
   display: inline-block;
   margin-right: var(--size-preference-item-margin);
   padding: var(--size-preference-item-padding);
@@ -31,6 +48,7 @@
 }
 
 .Preferences label:hover,
-.Preferences button:hover {
+.Preferences button:hover,
+.Preferences a[href]:hover {
   background-color: var(--palette-1);
 }

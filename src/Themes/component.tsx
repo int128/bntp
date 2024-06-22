@@ -6,10 +6,9 @@ import { useThemeStyle } from './style'
 const ThemesComponent: FC = () => {
   const [selectedTheme, setSelectedTheme] = useSelectedTheme()
   const [selectedColorScheme, setSelectedColorScheme] = useSelectedColorScheme()
-  useThemeStyle(selectedTheme, selectedColorScheme)
   return (
     <>
-      <div>
+      <form>
         {allColorSchemes.map((colorScheme) => (
           <label key={colorScheme}>
             <input
@@ -22,8 +21,8 @@ const ThemesComponent: FC = () => {
             {capitalize(colorScheme)}
           </label>
         ))}
-      </div>
-      <div>
+      </form>
+      <form>
         {allThemes.map((theme) => (
           <label key={theme}>
             <input
@@ -36,7 +35,7 @@ const ThemesComponent: FC = () => {
             {capitalize(theme)}
           </label>
         ))}
-      </div>
+      </form>
     </>
   )
 }
@@ -44,3 +43,10 @@ const ThemesComponent: FC = () => {
 const capitalize = (s: string) => s.replace(/^\w/, (c) => c.toUpperCase())
 
 export default ThemesComponent
+
+export const SubscribeThemeComponent: FC = () => {
+  const [selectedTheme] = useSelectedTheme()
+  const [selectedColorScheme] = useSelectedColorScheme()
+  useThemeStyle(selectedTheme, selectedColorScheme)
+  return null
+}

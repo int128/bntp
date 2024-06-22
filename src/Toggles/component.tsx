@@ -4,7 +4,7 @@ import { useToggles } from './repository'
 const TogglesComponent: FC = () => {
   const [toggles, setToggles] = useToggles()
   return (
-    <div>
+    <form>
       <label>
         <input
           type="checkbox"
@@ -29,7 +29,7 @@ const TogglesComponent: FC = () => {
         />
         Top Sites
       </label>
-    </div>
+    </form>
   )
 }
 
