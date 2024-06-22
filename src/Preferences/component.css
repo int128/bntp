@@ -11,13 +11,14 @@
 .Preferences dialog {
   padding: var(--size-wide-gap);
   border-style: none;
+  color: inherit;
   background-color: var(--palette-3);
   border-radius: var(--size-form-control-border-radius);
   box-shadow: 0 0 var(--size-wide-gap) rgba(0, 0, 0, 0.5);
 }
 
 .Preferences dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .Preferences__Form {
