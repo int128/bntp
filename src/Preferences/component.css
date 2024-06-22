@@ -8,7 +8,7 @@
   text-align: center;
 }
 
-.Preferences dialog {
+dialog.Preferences {
   padding: var(--size-wide-gap);
   color: inherit;
   background-color: var(--palette-3);
@@ -17,7 +17,7 @@
   box-shadow: 0 0 var(--size-wide-gap) rgba(0, 0, 0, 0.5);
 }
 
-.Preferences dialog::backdrop {
+dialog.Preferences::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
 }
 

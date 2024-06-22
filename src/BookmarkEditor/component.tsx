@@ -6,7 +6,6 @@ import { Bookmark } from '../Bookmarks/model'
 import DialogComponent from '../Dialog/component'
 import { FaviconContext } from '../infrastructure/favicon'
 import LinkComponent from '../Link/component'
-import { createPortal } from 'react-dom'
 import { isValidEditingBookmark } from './model'
 import { useShortcutMap } from '../ShortcutKey/repository'
 
@@ -42,33 +41,29 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ open, bookm
     void f()
       .then(onRequestClose)
       .catch((e) => setErrorMessage(String(e)))
-  return createPortal(
-    <div className="BookmarkEditor">
-      <DialogComponent open={open} onRequestClose={onRequestClose}>
-        <FormComponent
-          editingBookmark={editingBookmark}
-          editingShortcutKey={editingShortcutKey}
-          setEditingBookmark={setEditingBookmark}
-          setEditingShortcutKey={setEditingShortcutKey}
-          errorMessage={errorMessage}
-          onRequestClose={onRequestClose}
-          onSubmit={() =>
-            closeAfter(async () => {
-              await updateBookmark(editingBookmark)
-              setShortcutMap(shortcutMap.set(editingBookmark.id, shortcutKey))
-            })
-          }
-          onRemove={() =>
-            closeAfter(async () => {
-              await removeBookmark(editingBookmark)
-              setShortcutMap(shortcutMap.set(editingBookmark.id, undefined))
-            })
-          }
-        />
-      </DialogComponent>
-    </div>,
-    // When a bookmark is moved, <dialog> style is broken due to recreation.
-    document.body,
+  return (
+    <DialogComponent className="BookmarkEditor" open={open} onRequestClose={onRequestClose}>
+      <FormComponent
+        editingBookmark={editingBookmark}
+        editingShortcutKey={editingShortcutKey}
+        setEditingBookmark={setEditingBookmark}
+        setEditingShortcutKey={setEditingShortcutKey}
+        errorMessage={errorMessage}
+        onRequestClose={onRequestClose}
+        onSubmit={() =>
+          closeAfter(async () => {
+            await updateBookmark(editingBookmark)
+            setShortcutMap(shortcutMap.set(editingBookmark.id, shortcutKey))
+          })
+        }
+        onRemove={() =>
+          closeAfter(async () => {
+            await removeBookmark(editingBookmark)
+            setShortcutMap(shortcutMap.set(editingBookmark.id, undefined))
+          })
+        }
+      />
+    </DialogComponent>
   )
 }
 

@@ -16,7 +16,7 @@ const PreferencesComponent: FC<PreferencesComponentProps> = ({ initialOpen }) =>
       <div className="Preferences__Toggle">
         <button onClick={() => setOpen(true)}>Preferences</button>
       </div>
-      <DialogComponent open={open} onRequestClose={() => setOpen(false)}>
+      <DialogComponent className="Preferences" open={open} onRequestClose={() => setOpen(false)}>
         <div className="Preferences__Form">
           <h2>Toggles</h2>
           <TogglesComponent />

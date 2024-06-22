@@ -1,11 +1,13 @@
 import { FC, PropsWithChildren, useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 
 type DialogComponentProps = PropsWithChildren<{
   open: boolean
   onRequestClose: () => void
+  className?: string | undefined
 }>
 
-const DialogComponent: FC<DialogComponentProps> = ({ children, open, onRequestClose }) => {
+const DialogComponent: FC<DialogComponentProps> = ({ children, open, onRequestClose, className }) => {
   const dialogRef = useRef<HTMLDialogElement>(null)
   useEffect(() => {
     if (dialogRef.current === null) {
@@ -17,9 +19,10 @@ const DialogComponent: FC<DialogComponentProps> = ({ children, open, onRequestCl
       dialogRef.current.close()
     }
   }, [open])
-  return (
+  return createPortal(
     <dialog
       ref={dialogRef}
+      className={className}
       onCancel={onRequestClose}
       onClick={(e) => {
         if (dialogRef.current === null) {
@@ -31,7 +34,9 @@ const DialogComponent: FC<DialogComponentProps> = ({ children, open, onRequestCl
       }}
     >
       {children}
-    </dialog>
+    </dialog>,
+    // When an element of <dialog> is moved, the style is broken.
+    document.body,
   )
 }
 

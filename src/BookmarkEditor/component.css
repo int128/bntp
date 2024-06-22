@@ -4,7 +4,7 @@
   --size-icon: 16px;
 }
 
-.BookmarkEditor dialog {
+dialog.BookmarkEditor {
   width: auto;
   max-width: 800px;
   padding: var(--size-wide-gap);
@@ -15,7 +15,7 @@
   box-shadow: 0 0 var(--size-wide-gap) rgba(0, 0, 0, 0.5);
 }
 
-.BookmarkEditor dialog::backdrop {
+dialog.BookmarkEditor::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
