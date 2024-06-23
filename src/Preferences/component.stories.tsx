@@ -17,7 +17,7 @@ export const Primary: Story = {
     useThemeStyle('standard', 'light')
     return (
       <ChromeContext.Provider value={chromeWithFixtures}>
-        <PreferencesComponent initialOpen={true} />
+        <PreferencesComponent open={true} onRequestClose={() => undefined} />
       </ChromeContext.Provider>
     )
   },

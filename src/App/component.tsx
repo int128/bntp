@@ -10,6 +10,7 @@ import { useToggles } from '../Toggles/repository'
 const App: FC = () => {
   const [toggles] = useToggles()
   const [search, setSearch] = useState<string>('')
+  const [openPreferences, setOpenPreferences] = useState(false)
   return (
     <div className="App">
       {toggles?.topSites ? (
@@ -19,7 +20,10 @@ const App: FC = () => {
         </div>
       ) : null}
       {toggles?.bookmarks ? <BookmarksComponent search={search} /> : null}
-      <PreferencesComponent />
+      <div className="App__Footer">
+        <button onClick={() => setOpenPreferences(true)}>Preferences</button>
+      </div>
+      <PreferencesComponent open={openPreferences} onRequestClose={() => setOpenPreferences(false)} />
       <NetworkStatusComponent />
     </div>
   )

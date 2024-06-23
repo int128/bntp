@@ -4,10 +4,6 @@
   --size-form-control-border-radius: 4px;
 }
 
-.Preferences__Toggle {
-  text-align: center;
-}
-
 dialog.Preferences {
   padding: var(--size-wide-gap);
   color: inherit;

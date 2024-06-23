@@ -9,3 +9,16 @@
   column-gap: var(--size-gap);
   grid-template-columns: auto 150px;
 }
+
+.App__Footer {
+  text-align: center;
+}
+
+.App__Footer button {
+  padding: calc(var(--size-gap) * 2);
+  font: inherit;
+  color: inherit;
+  border-radius: 3px;
+  border: none;
+  background-color: var(--palette-2);
+}
