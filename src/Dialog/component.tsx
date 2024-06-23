@@ -29,10 +29,8 @@ const DialogComponent: FC<DialogComponentProps> = ({ children, open, onRequestCl
       className={className}
       onCancel={onRequestClose}
       onClick={(e) => {
-        if (dialogRef.current === null) {
-          return
-        }
-        if (!isClickedInRect(e, dialogRef.current.getBoundingClientRect())) {
+        // Close the dialog when the backdrop is clicked
+        if (e.target === dialogRef.current) {
           onRequestClose()
         }
       }}
@@ -46,6 +44,3 @@ const DialogComponent: FC<DialogComponentProps> = ({ children, open, onRequestCl
 }
 
 export default DialogComponent
-
-const isClickedInRect = (e: React.MouseEvent, r: DOMRect): boolean =>
-  e.clientX > r.left && e.clientX < r.right && e.clientY > r.top && e.clientY < r.bottom

@@ -5,7 +5,7 @@
 }
 
 dialog.Preferences {
-  padding: var(--size-wide-gap);
+  padding: inherit;
   color: inherit;
   background-color: var(--palette-3);
   border-style: none;
@@ -20,6 +20,7 @@ dialog.Preferences::backdrop {
 .Preferences__Form {
   display: grid;
   gap: var(--size-gap);
+  padding: var(--size-wide-gap);
 }
 
 .Preferences h2 {

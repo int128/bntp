@@ -7,7 +7,7 @@
 dialog.BookmarkEditor {
   width: auto;
   max-width: 800px;
-  padding: var(--size-wide-gap);
+  padding: inherit;
   color: inherit;
   background-color: var(--palette-3);
   border-style: none;
@@ -22,6 +22,7 @@ dialog.BookmarkEditor::backdrop {
 .BookmarkEditor__Form {
   display: grid;
   gap: var(--size-gap);
+  padding: var(--size-wide-gap);
 }
 
 .BookmarkEditor__Group {
