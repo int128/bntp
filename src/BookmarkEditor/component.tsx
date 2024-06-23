@@ -1,69 +1,80 @@
 import './component.css'
 import { FC, useContext, useEffect, useState } from 'react'
+import { ShortcutKey, shortcutKeyOf } from '../ShortcutKey/model'
 import { removeBookmark, updateBookmark } from '../Bookmarks/repository'
-import { EditingBookmark } from './model'
+import { Bookmark } from '../Bookmarks/model'
+import DialogComponent from '../Dialog/component'
 import { FaviconContext } from '../infrastructure/favicon'
 import LinkComponent from '../Link/component'
-import { createPortal } from 'react-dom'
-import { shortcutKeyOf } from '../ShortcutKey/model'
+import { isValidEditingBookmark } from './model'
 import { useShortcutMap } from '../ShortcutKey/repository'
 
 type BookmarkEditorComponentProps = {
-  editingBookmark?: EditingBookmark
-  onChange: (newValue: EditingBookmark) => void
+  open: boolean
+  bookmark: Bookmark
+  shortcutKey: ShortcutKey | undefined
   onRequestClose: () => void
 }
 
-const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ editingBookmark, onChange, onRequestClose }) => {
+const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ open, bookmark, shortcutKey, onRequestClose }) => {
+  const [editingBookmark, setEditingBookmark] = useState(bookmark)
+  const [editingShortcutKey, setEditingShortcutKey] = useState(shortcutKey)
   const [errorMessage, setErrorMessage] = useState<string>()
   const [shortcutMap, setShortcutMap] = useShortcutMap()
-  useEffect(
-    // remove errorMessage when editingBookmark is changed
-    () => setErrorMessage(undefined),
-    [editingBookmark],
-  )
-  if (editingBookmark === undefined) {
-    return null
-  }
+
+  // Reset the state when the dialog is opened
+  useEffect(() => {
+    setEditingBookmark(bookmark)
+    setEditingShortcutKey(shortcutKey)
+    setErrorMessage(undefined)
+  }, [open])
+
+  // Reflect when it is updated in another tab
+  useEffect(() => {
+    setEditingBookmark(bookmark)
+  }, [bookmark])
+  useEffect(() => {
+    setEditingShortcutKey(shortcutKey)
+  }, [shortcutKey])
+
   const closeAfter = (f: () => Promise<void>) =>
     void f()
       .then(onRequestClose)
       .catch((e) => setErrorMessage(String(e)))
-  return createPortal(
-    <div className="BookmarkEditor">
-      <div className="BookmarkEditor__Modal">
-        <FormComponent
-          editingBookmark={editingBookmark}
-          errorMessage={errorMessage}
-          onChange={onChange}
-          onRequestClose={onRequestClose}
-          onSubmit={() =>
-            closeAfter(async () => {
-              await updateBookmark(editingBookmark.bookmark)
-              setShortcutMap(shortcutMap.set(editingBookmark.bookmark.id, editingBookmark.shortcutKey))
-            })
-          }
-          onRemove={() =>
-            closeAfter(async () => {
-              await removeBookmark(editingBookmark.bookmark)
-              setShortcutMap(shortcutMap.set(editingBookmark.bookmark.id, undefined))
-            })
-          }
-        />
-      </div>
-      <div className="BookmarkEditor__Overlay" onClick={onRequestClose} />
-    </div>,
-    // put this modal into root to avoid side-effect of styles
-    document.body,
+  return (
+    <DialogComponent className="BookmarkEditor" open={open} onRequestClose={onRequestClose}>
+      <FormComponent
+        editingBookmark={editingBookmark}
+        editingShortcutKey={editingShortcutKey}
+        setEditingBookmark={setEditingBookmark}
+        setEditingShortcutKey={setEditingShortcutKey}
+        errorMessage={errorMessage}
+        onRequestClose={onRequestClose}
+        onSubmit={() =>
+          closeAfter(async () => {
+            await updateBookmark(editingBookmark)
+            setShortcutMap(shortcutMap.set(editingBookmark.id, shortcutKey))
+          })
+        }
+        onRemove={() =>
+          closeAfter(async () => {
+            await removeBookmark(editingBookmark)
+            setShortcutMap(shortcutMap.set(editingBookmark.id, undefined))
+          })
+        }
+      />
+    </DialogComponent>
   )
 }
 
 export default BookmarkEditorComponent
 
 type FormComponentProps = {
-  editingBookmark: EditingBookmark
-  errorMessage?: string
-  onChange: (newValue: EditingBookmark) => void
+  editingBookmark: Bookmark
+  editingShortcutKey: ShortcutKey | undefined
+  setEditingBookmark: React.Dispatch<Bookmark>
+  setEditingShortcutKey: React.Dispatch<ShortcutKey | undefined>
+  errorMessage: string | undefined
   onRequestClose: () => void
   onSubmit: () => void
   onRemove: () => void
@@ -71,11 +82,12 @@ type FormComponentProps = {
 
 const FormComponent: FC<FormComponentProps> = ({
   editingBookmark,
+  editingShortcutKey,
+  setEditingBookmark,
+  setEditingShortcutKey,
   errorMessage,
-  onChange,
   onSubmit,
   onRemove,
-  onRequestClose,
 }) => {
   const favicon = useContext(FaviconContext)
   return (
@@ -85,41 +97,34 @@ const FormComponent: FC<FormComponentProps> = ({
         onSubmit()
         e.preventDefault()
       }}
-      onKeyDown={(e) => {
-        if (e.key === 'Escape') {
-          onRequestClose()
-        }
-      }}
     >
       <input
         type="text"
-        value={editingBookmark.bookmark.title}
+        value={editingBookmark.title}
         required={true}
         autoFocus={true}
-        onChange={(e) =>
-          onChange(editingBookmark.changeBookmark({ ...editingBookmark.bookmark, title: e.target.value }))
-        }
+        onChange={(e) => setEditingBookmark({ ...editingBookmark, title: e.target.value })}
       />
       <input
         type="text"
-        value={editingBookmark.bookmark.url}
+        value={editingBookmark.url}
         required={true}
         className="BookmarkEditor__Url"
-        style={{ backgroundImage: `url(${favicon.getImageUrl(editingBookmark.bookmark.url) ?? ''})` }}
-        onChange={(e) => onChange(editingBookmark.changeBookmark({ ...editingBookmark.bookmark, url: e.target.value }))}
+        style={{ backgroundImage: `url(${favicon.getImageUrl(editingBookmark.url) ?? ''})` }}
+        onChange={(e) => setEditingBookmark({ ...editingBookmark, url: e.target.value })}
       />
       <input
         type="text"
-        value={editingBookmark.shortcutKey ?? ''}
+        value={editingShortcutKey ?? ''}
         maxLength={1}
         placeholder="Shortcut Key (not assigned)"
-        onChange={(e) => onChange(editingBookmark.changeShortcutKey(shortcutKeyOf(e.target.value)))}
+        onChange={(e) => setEditingShortcutKey(shortcutKeyOf(e.target.value))}
       />
-      <LinkComponent href={`chrome://bookmarks/?id=${editingBookmark.bookmark.folderID}`}>
+      <LinkComponent href={`chrome://bookmarks/?id=${editingBookmark.folderID}`}>
         Open this in Chrome Bookmark Manager
       </LinkComponent>
       <div className="BookmarkEditor__Group">
-        <input type="submit" value="Update" disabled={!editingBookmark.valid} />
+        <input type="submit" value="Update" disabled={!isValidEditingBookmark(editingBookmark)} />
         <div className="BookmarkEditor__Message">{errorMessage}</div>
         <input type="button" value="Remove" onClick={() => onRemove()} />
       </div>

@@ -4,7 +4,6 @@ import { BookmarkWithDragProps, Drag, reorderBookmarks } from './viewmodel'
 import React, { Dispatch, FC, PropsWithChildren, useContext, useState } from 'react'
 import { moveBookmark, useBookmarkFolders, useFolderCollapse } from './repository'
 import BookmarkEditorComponent from '../BookmarkEditor/component'
-import { EditingBookmark } from '../BookmarkEditor/model'
 import { FaviconContext } from '../infrastructure/favicon'
 import LinkComponent from '../Link/component'
 import ShortcutKeyComponent from '../ShortcutKey/component'
@@ -210,8 +209,8 @@ type BookmarkComponentProps = {
 }
 
 const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap, dragActive }) => {
+  const [openBookmarkEditor, setOpenBookmarkEditor] = useState(false)
   const favicon = useContext(FaviconContext)
-  const [editingBookmark, setEditingBookmark] = useState<EditingBookmark>()
   const shortcutKey = shortcutMap.getByBookmarkID(bookmark.id)
   return (
     <div className="Bookmark">
@@ -227,16 +226,17 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap, 
         className="BookmarkEditButton"
         data-drag-active={dragActive}
         onClick={(e) => {
-          setEditingBookmark(new EditingBookmark(bookmark, shortcutKey))
+          setOpenBookmarkEditor(true)
           e.preventDefault()
         }}
       >
         &hellip;
       </a>
       <BookmarkEditorComponent
-        editingBookmark={editingBookmark}
-        onChange={setEditingBookmark}
-        onRequestClose={() => setEditingBookmark(undefined)}
+        open={openBookmarkEditor}
+        bookmark={bookmark}
+        shortcutKey={shortcutKey}
+        onRequestClose={() => setOpenBookmarkEditor(false)}
       />
     </div>
   )
