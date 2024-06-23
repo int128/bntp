@@ -19,6 +19,10 @@ const DialogComponent: FC<DialogComponentProps> = ({ children, open, onRequestCl
       dialogRef.current.close()
     }
   }, [open])
+
+  if (!open) {
+    return null
+  }
   return createPortal(
     <dialog
       ref={dialogRef}
@@ -35,7 +39,8 @@ const DialogComponent: FC<DialogComponentProps> = ({ children, open, onRequestCl
     >
       {children}
     </dialog>,
-    // When an element of <dialog> is moved, the style is broken.
+    // If open <dialog> element is moved, the style is broken.
+    // To avoid it, put <dialog> to the top level.
     document.body,
   )
 }
