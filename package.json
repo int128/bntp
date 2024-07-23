@@ -20,7 +20,7 @@
   "devDependencies": {
     "@storybook/react": "^8.0.8",
     "@storybook/react-vite": "^8.0.8",
-    "@testing-library/jest-dom": "6.4.7",
+    "@testing-library/jest-dom": "6.4.8",
     "@testing-library/react": "16.0.0",
     "@tsconfig/vite-react": "^3.0.1",
     "@types/chrome": "0.0.268",
