@@ -50,7 +50,7 @@ importers:
         version: 9.11.1
       eslint-plugin-react:
         specifier: ^7.34.1
-        version: 7.36.1(eslint@9.11.1)
+        version: 7.37.0(eslint@9.11.1)
       jsdom:
         specifier: ^25.0.0
         version: 25.0.1
@@ -1539,8 +1539,8 @@ packages:
     engines: {node: '>=6.0'}
     hasBin: true
 
-  eslint-plugin-react@7.36.1:
-    resolution: {integrity: sha512-/qwbqNXZoq+VP30s1d4Nc1C5GTxjJQjk4Jzs4Wq2qzxFM7dSmuG2UkIjg2USMLh3A/aVcUNrK7v0J5U1XEGGwA==}
+  eslint-plugin-react@7.37.0:
+    resolution: {integrity: sha512-IHBePmfWH5lKhJnJ7WB1V+v/GolbB0rjS8XYVCSQCZKaQCAUhMoVoOEn1Ef8Z8Wf0a7l8KTJvuZg5/e4qrZ6nA==}
     engines: {node: '>=4'}
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
@@ -4832,7 +4832,7 @@ snapshots:
     optionalDependencies:
       source-map: 0.6.1
 
-  eslint-plugin-react@7.36.1(eslint@9.11.1):
+  eslint-plugin-react@7.37.0(eslint@9.11.1):
     dependencies:
       array-includes: 3.1.8
       array.prototype.findlast: 1.2.5
