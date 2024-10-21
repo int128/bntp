@@ -31,8 +31,8 @@ importers:
         specifier: ^3.0.1
         version: 3.0.2
       '@types/chrome':
-        specifier: 0.0.278
-        version: 0.0.278
+        specifier: 0.0.279
+        version: 0.0.279
       '@types/node':
         specifier: 20.16.13
         version: 20.16.13
@@ -791,8 +791,8 @@ packages:
   '@types/body-parser@1.19.5':
     resolution: {integrity: sha512-fB3Zu92ucau0iQ0JMCFQE7b/dv8Ot07NI3KaZIkIUNXq82k4eBAqUaneXfleGY9JWskeS9y+u0nXMyspcuQrCg==}
 
-  '@types/chrome@0.0.278':
-    resolution: {integrity: sha512-PDIJodOu7o54PpSOYLybPW/MDZBCjM1TKgf31I3Q/qaEbNpIH09rOM3tSEH3N7Q+FAqb1933LhF8ksUPYeQLNg==}
+  '@types/chrome@0.0.279':
+    resolution: {integrity: sha512-wl0IxQ2OQiMazPZM5LimHQ7Jwd72/O8UvvzyptplXT2S4eUqXH5C0n8S+v8PtKhyX89p0igCPpNy3Bwksyk57g==}
 
   '@types/connect@3.4.38':
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
@@ -3803,7 +3803,7 @@ snapshots:
       '@types/connect': 3.4.38
       '@types/node': 20.16.13
 
-  '@types/chrome@0.0.278':
+  '@types/chrome@0.0.279':
     dependencies:
       '@types/filesystem': 0.0.35
       '@types/har-format': 1.2.15
