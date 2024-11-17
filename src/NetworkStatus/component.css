@@ -1,11 +1,11 @@
 .NetworkStatus {
   position: fixed;
-  top: var(--size-gap);
-  right: var(--size-gap);
-  padding: 5px;
-  border-radius: 3px;
-  font-size: 90%;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%);
+  padding: var(--size-gap);
+  border-radius: 0 0 var(--size-gap) var(--size-gap);
   color: var(--palette-03);
   background-color: var(--palette-3);
-  opacity: 0.8;
+  opacity: 0.5;
 }

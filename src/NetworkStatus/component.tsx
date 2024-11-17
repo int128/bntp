@@ -4,10 +4,9 @@ import { useOnLine } from './repository'
 
 const NetworkStatusComponent: FC = () => {
   const [onLine] = useOnLine()
-  if (onLine) {
-    return null
+  if (!onLine) {
+    return <div className="NetworkStatus">No Internet Connection</div>
   }
-  return <div className="NetworkStatus">OFFLINE</div>
 }
 
 export default NetworkStatusComponent
