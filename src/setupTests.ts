@@ -32,6 +32,7 @@ const chrome: Chrome = {
     sync: {
       get: vi.fn().mockResolvedValue({}),
       set: vi.fn(),
+      remove: vi.fn(),
       onChanged: {
         addListener: vi.fn(),
         removeListener: vi.fn(),

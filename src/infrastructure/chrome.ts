@@ -20,6 +20,7 @@ export type StorageAreaName = 'sync'
 export type StorageArea = {
   get(key: string): Promise<Record<string, unknown>>
   set(items: Record<string, unknown>): Promise<void>
+  remove(keys: string | string[]): Promise<void>
   onChanged: Pick<chrome.storage.StorageArea['onChanged'], 'addListener' | 'removeListener'>
 }
 
