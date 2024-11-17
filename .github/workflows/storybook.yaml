@@ -25,18 +25,18 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
         with:
           node-version-file: .node-version
       - run: corepack enable pnpm
       - run: pnpm i
       - run: pnpm run storycap
-      - uses: int128/upload-artifact-wiki-action@v1
+      - uses: int128/upload-artifact-wiki-action@e56d25dd3c64eb34e9314af2e48abcf25505023b # v1.15.0
         id: upload-artifact-wiki
         with:
           path: __screenshots__/**/*.png
-      - uses: int128/comment-action@v1
+      - uses: int128/comment-action@a20dbdebd79ab886a1e7a20d16bfa7dbaa732e5a # v1.33.0
         with:
           update-if-exists: replace
           post: |
