@@ -25,7 +25,7 @@
     "@tsconfig/vite-react": "^3.0.1",
     "@types/chrome": "0.0.293",
     "@types/node": "22.10.5",
-    "@types/react": "19.0.5",
+    "@types/react": "19.0.6",
     "@types/react-dom": "19.0.3",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^9.0.0",
