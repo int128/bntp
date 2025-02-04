@@ -27,7 +27,7 @@ jobs:
       - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
         with:
           node-version-file: .node-version
-      - run: corepack enable pnpm
+      - run: npm install -g pnpm@latest-10
       - run: pnpm i
       - run: pnpm run build
 
@@ -39,7 +39,7 @@ jobs:
       - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
         with:
           node-version-file: .node-version
-      - run: corepack enable pnpm
+      - run: npm install -g pnpm@latest-10
       - run: pnpm i
       - run: pnpm run test
       - run: pnpm run lint
@@ -54,7 +54,7 @@ jobs:
       - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
         with:
           node-version-file: .node-version
-      - run: corepack enable pnpm
+      - run: npm install -g pnpm@latest-10
       - run: pnpm i
       - run: pnpm run format
       - uses: int128/update-generated-files-action@7eb71af1ae8e30d970ea5512d23fd2f4b0eae44c # v2.56.0

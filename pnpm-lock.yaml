@@ -54,6 +54,9 @@ importers:
       jsdom:
         specifier: ^25.0.0
         version: 25.0.1
+      pnpm:
+        specifier: 10.1.0
+        version: 10.1.0
       prettier:
         specifier: 3.3.3
         version: 3.3.3
@@ -2264,6 +2267,11 @@ packages:
   pkg-dir@4.2.0:
     resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
     engines: {node: '>=8'}
+
+  pnpm@10.1.0:
+    resolution: {integrity: sha512-yJhHsGZ92rUDlru9AIoqQ887WB79Wc9dmqiSPqH7S4EGwEHVQNCKywlQN1lNc+vFHh7InuQMiLMLimbA+uCsGw==}
+    engines: {node: '>=18.12'}
+    hasBin: true
 
   possible-typed-array-names@1.0.0:
     resolution: {integrity: sha512-d7Uw+eZoloe0EHDIYoe+bQ5WXnGMOpmiZFTuMWCwpjzzkL2nTjcKiAk4hh8TjnGye2TwWOk3UXucZ+3rbmBa8Q==}
@@ -5284,6 +5292,8 @@ snapshots:
   pkg-dir@4.2.0:
     dependencies:
       find-up: 4.1.0
+
+  pnpm@10.1.0: {}
 
   possible-typed-array-names@1.0.0: {}
 
