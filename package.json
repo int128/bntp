@@ -31,7 +31,7 @@
     "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^9.0.0",
     "eslint-plugin-react": "^7.34.1",
-    "jsdom": "^25.0.0",
+    "jsdom": "^26.0.0",
     "pnpm": "10.4.1",
     "prettier": "3.5.1",
     "storybook": "^8.0.8",
