@@ -33,7 +33,7 @@
     "eslint-plugin-react": "^7.34.1",
     "jsdom": "^26.0.0",
     "pnpm": "10.5.2",
-    "prettier": "3.5.2",
+    "prettier": "3.5.3",
     "storybook": "^8.0.8",
     "storycap": "^5.0.0",
     "typescript": "5.8.2",
