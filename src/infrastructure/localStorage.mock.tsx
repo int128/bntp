@@ -4,6 +4,7 @@ import { PropsWithChildren } from 'react'
 const nullLocalStorage: LocalStorage = {
   setItem: () => {},
   getItem: () => null,
+  removeItem: () => {},
 }
 
 export const NullLocalStorageProvider = (props: PropsWithChildren) => (
