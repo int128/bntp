@@ -32,7 +32,7 @@ jobs:
       - run: npm install -g pnpm@latest-10
       - run: pnpm i
       - run: pnpm run storycap
-      - uses: int128/upload-artifact-wiki-action@e56d25dd3c64eb34e9314af2e48abcf25505023b # v1.15.0
+      - uses: int128/upload-artifact-wiki-action@69b8b2f4a9dc5ead0e542cefe9bf9f935658776c # v1.16.0
         id: upload-artifact-wiki
         with:
           path: __screenshots__/**/*.png
