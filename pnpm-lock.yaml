@@ -31,8 +31,8 @@ importers:
         specifier: 16.3.0
         version: 16.3.0(@testing-library/dom@10.0.0)(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@tsconfig/vite-react':
-        specifier: ^3.0.1
-        version: 3.4.0
+        specifier: ^6.0.0
+        version: 6.3.5
       '@types/chrome':
         specifier: 0.0.309
         version: 0.0.309
@@ -839,8 +839,8 @@ packages:
     peerDependencies:
       '@testing-library/dom': '>=7.21.4'
 
-  '@tsconfig/vite-react@3.4.0':
-    resolution: {integrity: sha512-NxS7WJayciLI+UnCgEqdBfQrZebvVNTSEj5EnaitwThL7iAso5G8wx18B/6yypCFGnyu8p6IMpKWu6JklOX3KA==}
+  '@tsconfig/vite-react@6.3.5':
+    resolution: {integrity: sha512-1JDbtNCgexy5HuQdBkFHv38u5j79XWI1KWs6Jxwnm9i2rD1IPWyzlPqh4vgsAiRu1Zy1d26wxxSJYVqGaDJ+PQ==}
 
   '@types/aria-query@5.0.4':
     resolution: {integrity: sha512-rfT93uj5s0PRL7EzccGMs3brplhcrghnDoV26NqKhCAS1hVo+WdNsPvE/yb6ilfr5hi2MEk6d5EWJTKdxg8jVw==}
@@ -3666,7 +3666,7 @@ snapshots:
     dependencies:
       '@testing-library/dom': 10.0.0
 
-  '@tsconfig/vite-react@3.4.0': {}
+  '@tsconfig/vite-react@6.3.5': {}
 
   '@types/aria-query@5.0.4': {}
 

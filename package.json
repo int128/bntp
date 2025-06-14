@@ -23,7 +23,7 @@
     "@storybook/react-vite": "^9.0.0",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.3.0",
-    "@tsconfig/vite-react": "^3.0.1",
+    "@tsconfig/vite-react": "^6.0.0",
     "@types/chrome": "0.0.309",
     "@types/node": "22.15.31",
     "@types/react": "19.1.8",
