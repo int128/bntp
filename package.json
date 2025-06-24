@@ -32,7 +32,7 @@
     "eslint": "^9.0.0",
     "eslint-plugin-react": "^7.34.1",
     "jsdom": "^26.0.0",
-    "pnpm": "10.12.2",
+    "pnpm": "10.12.3",
     "prettier": "3.6.0",
     "storybook": "^9.0.0",
     "storycap": "^5.0.0",
@@ -41,5 +41,5 @@
     "vite": "^6.0.0",
     "vitest": "^3.0.0"
   },
-  "packageManager": "pnpm@10.12.2"
+  "packageManager": "pnpm@10.12.3"
 }
