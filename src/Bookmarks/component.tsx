@@ -8,6 +8,7 @@ import { FaviconContext } from '../infrastructure/favicon'
 import LinkComponent from '../Link/component'
 import ShortcutKeyComponent from '../ShortcutKey/component'
 import { ShortcutMap } from '../ShortcutKey/model'
+import { useBookmarkFoldersAlignment } from '../Themes/repository'
 import { useShortcutMap } from '../ShortcutKey/repository'
 import { useToggles } from '../Toggles/repository'
 
@@ -36,10 +37,11 @@ type BookmarkFoldersComponentProps = {
 
 const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ bookmarkFolders, shortcutMap, search }) => {
   const [toggles] = useToggles()
+  const [selectedBookmarkFoldersAlignment] = useBookmarkFoldersAlignment()
   const [folderCollapse, setFolderCollapse] = useFolderCollapse()
   const [drag, setDrag] = useState<Drag>()
   return (
-    <div className="BookmarkFolders">
+    <div className={`BookmarkFolders BookmarkFolders__${selectedBookmarkFoldersAlignment}`}>
       {bookmarkFolders.map((f, i) => (
         <BookmarkFolderIndent key={i} depth={toggles.indent ? f.depth : 0}>
           <BookmarkFolderCollapse folder={f} folderCollapse={folderCollapse} setFolderCollapse={setFolderCollapse}>
