@@ -34,8 +34,8 @@ importers:
         specifier: ^3.0.1
         version: 3.4.0
       '@types/chrome':
-        specifier: 0.0.309
-        version: 0.0.309
+        specifier: 0.1.23
+        version: 0.1.23
       '@types/node':
         specifier: 22.18.6
         version: 22.18.6
@@ -678,8 +678,8 @@ packages:
   '@types/chai@5.2.2':
     resolution: {integrity: sha512-8kB30R7Hwqf40JPiKhVzodJs2Qc1ZJ5zuT3uzw5Hq/dhNCl3G3l83jfpdI1e20BP348+fV7VIL/+FxaXkqBmWg==}
 
-  '@types/chrome@0.0.309':
-    resolution: {integrity: sha512-ZFADzcp8b+roUrux68U8pti4cmNOLJXWkShk8lfxj9SBcjYqpJt7NypBprSJUJDJVakGZgd2Tt00QePIGh7oPA==}
+  '@types/chrome@0.1.23':
+    resolution: {integrity: sha512-sNUU3sYQdjhX7jltlkukf2mCL3IJqUx0p6tfzoXAeNVNc94V/vqknV1UUtVzOXi85z/4EYX8FpEAO1YZb1enEg==}
 
   '@types/deep-eql@4.0.2':
     resolution: {integrity: sha512-c9h9dVVMigMPc4bwTvC5dxqtqJZwQPePsWjPlpSOnojbor6pGqdk541lfA7AqFQr5pB1BRdq0juY9db81BwyFw==}
@@ -2681,7 +2681,7 @@ snapshots:
     dependencies:
       '@types/deep-eql': 4.0.2
 
-  '@types/chrome@0.0.309':
+  '@types/chrome@0.1.23':
     dependencies:
       '@types/filesystem': 0.0.35
       '@types/har-format': 1.2.15
