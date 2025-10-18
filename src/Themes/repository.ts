@@ -1,5 +1,5 @@
-import { ColorScheme, Theme, isColorScheme, isTheme } from './model'
-import { Spec, useChromeStorageWithCache } from '../infrastructure/chromeStorage'
+import { type Spec, useChromeStorageWithCache } from '../infrastructure/chromeStorage'
+import { type ColorScheme, isColorScheme, isTheme, type Theme } from './model'
 
 export const selectedThemeSpec: Spec<Theme> = {
   areaName: 'sync',

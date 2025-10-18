@@ -1,7 +1,14 @@
-import { Bookmark, BookmarkFolder, BookmarkFolderID, FolderCollapse, Position, isBookmarkFolderIDArray } from './model'
-import { Chrome, ChromeContext } from '../infrastructure/chrome'
 import { useContext, useEffect, useState } from 'react'
+import { type Chrome, ChromeContext } from '../infrastructure/chrome'
 import { useChromeStorage } from '../infrastructure/chromeStorage'
+import {
+  type Bookmark,
+  type BookmarkFolder,
+  type BookmarkFolderID,
+  FolderCollapse,
+  isBookmarkFolderIDArray,
+  type Position,
+} from './model'
 
 export const useBookmarkFolders = () => {
   const [bookmarkFolders, setBookmarkFolders] = useState<readonly BookmarkFolder[]>([])

@@ -1,5 +1,5 @@
 import './component.css'
-import { FC } from 'react'
+import type { FC } from 'react'
 import { useOnLine } from './repository'
 
 const NetworkStatusComponent: FC = () => {

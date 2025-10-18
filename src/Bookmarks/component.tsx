@@ -1,15 +1,16 @@
 import './component.css'
-import { Bookmark, BookmarkFolder, FolderCollapse, Position, filterBookmarks } from './model'
-import { BookmarkWithDragProps, Drag, reorderBookmarks } from './viewmodel'
-import React, { Dispatch, FC, PropsWithChildren, useContext, useState } from 'react'
-import { moveBookmark, useBookmarkFolders, useFolderCollapse } from './repository'
+import type React from 'react'
+import { type Dispatch, type FC, type PropsWithChildren, useContext, useState } from 'react'
 import BookmarkEditorComponent from '../BookmarkEditor/component'
 import { FaviconContext } from '../infrastructure/favicon'
 import LinkComponent from '../Link/component'
 import ShortcutKeyComponent from '../ShortcutKey/component'
-import { ShortcutMap } from '../ShortcutKey/model'
+import type { ShortcutMap } from '../ShortcutKey/model'
 import { useShortcutMap } from '../ShortcutKey/repository'
 import { useToggles } from '../Toggles/repository'
+import { type Bookmark, type BookmarkFolder, type FolderCollapse, filterBookmarks, type Position } from './model'
+import { moveBookmark, useBookmarkFolders, useFolderCollapse } from './repository'
+import { type BookmarkWithDragProps, Drag, reorderBookmarks } from './viewmodel'
 
 type BookmarksComponentProps = {
   search: string

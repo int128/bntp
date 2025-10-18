@@ -1,5 +1,5 @@
 import './component.css'
-import { Dispatch, FC } from 'react'
+import type { Dispatch, FC } from 'react'
 
 type SearchComponentProps = {
   value: string

@@ -1,4 +1,4 @@
-import { V2_KEY, V3_KEY, migrate, upgrade } from './folderPreferences'
+import { migrate, upgrade, V2_KEY, V3_KEY } from './folderPreferences'
 
 describe('upgrade', () => {
   test('empty', () => {

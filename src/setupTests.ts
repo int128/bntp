@@ -1,5 +1,5 @@
-import { Chrome } from './infrastructure/chrome'
 import { vi } from 'vitest'
+import type { Chrome } from './infrastructure/chrome'
 
 const chrome: Chrome = {
   bookmarks: {

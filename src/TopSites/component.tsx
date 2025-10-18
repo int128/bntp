@@ -1,7 +1,7 @@
 import './component.css'
-import { FC, useContext } from 'react'
-import { TopSite, filterTopSites } from './model'
+import { type FC, useContext } from 'react'
 import { FaviconContext } from '../infrastructure/favicon'
+import { filterTopSites, type TopSite } from './model'
 import { useTopSites } from './repository'
 
 type TopSiteComponentsProps = {

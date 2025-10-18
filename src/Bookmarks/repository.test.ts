@@ -1,4 +1,4 @@
-import { BookmarkFolder } from './model'
+import type { BookmarkFolder } from './model'
 import { traverseBookmarkTree } from './repository'
 
 describe('traverseBookmarkTree', () => {

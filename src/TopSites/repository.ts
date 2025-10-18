@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { ChromeContext } from '../infrastructure/chrome'
-import { TopSite } from './model'
+import type { TopSite } from './model'
 
 export const useTopSites = () => {
   const [topSites, setTopSites] = useState<readonly TopSite[]>([])

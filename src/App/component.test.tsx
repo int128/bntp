@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
-import App from './component'
 import { vi } from 'vitest'
+import App from './component'
 
 test('renders App', async () => {
   vi.mocked(chrome.bookmarks.getTree).mockResolvedValue([

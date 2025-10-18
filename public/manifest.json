@@ -2,12 +2,7 @@
   "name": "BNTP: Bookmarks in New Tab Page",
   "version": "0.0.0.0",
   "description": "Lightweight New Tab Page with Bookmarks and Top Sites",
-  "permissions": [
-    "bookmarks",
-    "topSites",
-    "favicon",
-    "storage"
-  ],
+  "permissions": ["bookmarks", "topSites", "favicon", "storage"],
   "chrome_url_overrides": {
     "newtab": "index.html"
   },

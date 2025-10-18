@@ -1,4 +1,4 @@
-import { Bookmark, BookmarkFolderID, Position } from './model'
+import type { Bookmark, BookmarkFolderID, Position } from './model'
 
 type DragState = 'enter' | 'leave'
 
