@@ -21,7 +21,9 @@ const App: FC = () => {
       ) : null}
       {toggles?.bookmarks ? <BookmarksComponent search={search} /> : null}
       <div className="App__Footer">
-        <button onClick={() => setOpenPreferences(true)}>Preferences</button>
+        <button type="button" onClick={() => setOpenPreferences(true)}>
+          Preferences
+        </button>
       </div>
       <PreferencesComponent open={openPreferences} onRequestClose={() => setOpenPreferences(false)} />
       <NetworkStatusComponent />
