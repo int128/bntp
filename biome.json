@@ -12,9 +12,6 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "complexity": {
-        "useLiteralKeys": "warn"
-      },
       "correctness": {
         "useExhaustiveDependencies": "warn"
       },

@@ -25,6 +25,6 @@ export const migrate = async () => {
     return
   }
   const folderCollapse = upgrade(folderPreferences)
-  await chrome.storage.sync['set']({ [V3_KEY]: folderCollapse.serialize() })
+  await chrome.storage.sync.set({ [V3_KEY]: folderCollapse.serialize() })
   localStorage.removeItem(V2_KEY)
 }

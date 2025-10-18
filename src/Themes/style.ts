@@ -7,16 +7,16 @@ import { selectedColorSchemeSpec, selectedThemeSpec } from './repository'
 
 export const useThemeStyle = (theme: Theme, colorScheme: ColorScheme) => {
   useEffect(() => {
-    document.documentElement.dataset['theme'] = theme
+    document.documentElement.dataset.theme = theme
   }, [theme])
   useEffect(() => {
-    document.documentElement.dataset['colorScheme'] = colorScheme
+    document.documentElement.dataset.colorScheme = colorScheme
   }, [colorScheme])
 }
 
 export const preloadThemeStyleFromLocalStorageCache = (localStorage: LocalStorage) => {
-  document.documentElement.dataset['theme'] = getLocalStorageCacheOrDefaultValue(localStorage, selectedThemeSpec)
-  document.documentElement.dataset['colorScheme'] = getLocalStorageCacheOrDefaultValue(
+  document.documentElement.dataset.theme = getLocalStorageCacheOrDefaultValue(localStorage, selectedThemeSpec)
+  document.documentElement.dataset.colorScheme = getLocalStorageCacheOrDefaultValue(
     localStorage,
     selectedColorSchemeSpec,
   )
