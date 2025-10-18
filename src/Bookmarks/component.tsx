@@ -41,10 +41,10 @@ const BookmarkFoldersComponent: FC<BookmarkFoldersComponentProps> = ({ bookmarkF
   const [drag, setDrag] = useState<Drag>()
   return (
     <div className="BookmarkFolders">
-      {bookmarkFolders.map((f, i) => (
-        <BookmarkFolderIndent key={i} depth={toggles.indent ? f.depth : 0}>
-          <BookmarkFolderCollapse folder={f} folderCollapse={folderCollapse} setFolderCollapse={setFolderCollapse}>
-            <BookmarkList folder={f} shortcutMap={shortcutMap} search={search} drag={drag} setDrag={setDrag} />
+      {bookmarkFolders.map((folder) => (
+        <BookmarkFolderIndent key={folder.id} depth={toggles.indent ? folder.depth : 0}>
+          <BookmarkFolderCollapse folder={folder} folderCollapse={folderCollapse} setFolderCollapse={setFolderCollapse}>
+            <BookmarkList folder={folder} shortcutMap={shortcutMap} search={search} drag={drag} setDrag={setDrag} />
           </BookmarkFolderCollapse>
         </BookmarkFolderIndent>
       ))}

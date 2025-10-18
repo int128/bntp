@@ -12,8 +12,8 @@ const TopSitesComponent: FC<TopSiteComponentsProps> = ({ search }) => {
   const topSites = filterTopSites(useTopSites(), search)
   return (
     <div className="TopSites">
-      {topSites.map((s, i) => (
-        <TopSiteComponent key={i} topSite={s} />
+      {topSites.map((site) => (
+        <TopSiteComponent key={`${site.title}|${site.url}`} topSite={site} />
       ))}
     </div>
   )
