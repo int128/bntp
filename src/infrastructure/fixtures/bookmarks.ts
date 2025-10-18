@@ -12,6 +12,7 @@ const bookmarks: chrome.bookmarks.BookmarkTreeNode[] = [
                 parentId: '7',
                 title: 'Google Calendar',
                 url: 'https://calendar.google.com/',
+                syncing: true,
               },
               {
                 dateAdded: 1313418831680,
@@ -20,6 +21,7 @@ const bookmarks: chrome.bookmarks.BookmarkTreeNode[] = [
                 parentId: '7',
                 title: 'Gmail',
                 url: 'https://mail.google.com/',
+                syncing: true,
               },
               {
                 dateAdded: 1313418831680,
@@ -28,6 +30,7 @@ const bookmarks: chrome.bookmarks.BookmarkTreeNode[] = [
                 parentId: '7',
                 title: 'Facebook',
                 url: 'https://www.facebook.com/',
+                syncing: true,
               },
               {
                 dateAdded: 1313418831682,
@@ -36,6 +39,7 @@ const bookmarks: chrome.bookmarks.BookmarkTreeNode[] = [
                 parentId: '7',
                 title: 'Twitter',
                 url: 'http://twitter.com/',
+                syncing: true,
               },
             ],
             dateAdded: 1313418831663,
@@ -44,6 +48,7 @@ const bookmarks: chrome.bookmarks.BookmarkTreeNode[] = [
             index: 2,
             parentId: '1',
             title: 'Services',
+            syncing: true,
           },
           {
             children: [
@@ -54,6 +59,7 @@ const bookmarks: chrome.bookmarks.BookmarkTreeNode[] = [
                 parentId: '9',
                 title: 'GitHub',
                 url: 'https://github.com/',
+                syncing: true,
               },
             ],
             dateAdded: 1313418831664,
@@ -62,6 +68,7 @@ const bookmarks: chrome.bookmarks.BookmarkTreeNode[] = [
             index: 4,
             parentId: '1',
             title: 'Development',
+            syncing: true,
           },
           {
             dateAdded: 1313418831665,
@@ -70,6 +77,7 @@ const bookmarks: chrome.bookmarks.BookmarkTreeNode[] = [
             parentId: '1',
             title: 'Google',
             url: 'http://www.google.com/',
+            syncing: true,
           },
         ],
         dateAdded: 1382723181175,
@@ -78,6 +86,7 @@ const bookmarks: chrome.bookmarks.BookmarkTreeNode[] = [
         index: 0,
         parentId: '0',
         title: 'Bookmark Bar',
+        syncing: true,
       },
       {
         children: [
@@ -88,6 +97,7 @@ const bookmarks: chrome.bookmarks.BookmarkTreeNode[] = [
             parentId: '3',
             title: 'LastPass',
             url: 'https://lastpass.com/mobile/',
+            syncing: true,
           },
         ],
         dateAdded: 1382723181175,
@@ -96,11 +106,13 @@ const bookmarks: chrome.bookmarks.BookmarkTreeNode[] = [
         index: 2,
         parentId: '0',
         title: 'Mobile bookmarks',
+        syncing: true,
       },
     ],
     dateAdded: 1404629747292,
     id: '0',
     title: '',
+    syncing: true,
   },
 ]
 
