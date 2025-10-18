@@ -1,9 +1,9 @@
 import '../index.css'
-import { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 import { ChromeContext } from '../infrastructure/chrome'
-import PreferencesComponent from './component'
 import { chromeWithFixtures } from '../infrastructure/chrome.mock'
 import { useThemeStyle } from '../Themes/style'
+import PreferencesComponent from './component'
 
 const meta: Meta<typeof PreferencesComponent> = {
   component: PreferencesComponent,

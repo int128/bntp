@@ -1,4 +1,4 @@
-import { BookmarkID } from '../Bookmarks/model'
+import type { BookmarkID } from '../Bookmarks/model'
 
 export type ShortcutKey = string & {
   readonly ShortcutKey: unique symbol

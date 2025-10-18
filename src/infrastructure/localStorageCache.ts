@@ -1,5 +1,5 @@
-import { Dispatch, useContext, useEffect, useState } from 'react'
-import { LocalStorage, LocalStorageContext } from './localStorage'
+import { type Dispatch, useContext, useEffect, useState } from 'react'
+import { type LocalStorage, LocalStorageContext } from './localStorage'
 
 type Spec<T extends string> = {
   key: string

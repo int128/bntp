@@ -1,5 +1,5 @@
-import { ShortcutMap } from './model'
 import { useChromeStorage } from '../infrastructure/chromeStorage'
+import { ShortcutMap } from './model'
 
 export const useShortcutMap = (): readonly [ShortcutMap, (newMap: ShortcutMap) => void] => {
   const [entries, setEntries] = useChromeStorage<readonly [string, string][]>({

@@ -1,7 +1,7 @@
-import { ShortcutMap, shortcutKeyOf } from './model'
-import { BookmarkFolder } from '../Bookmarks/model'
-import { FC } from 'react'
+import type { FC } from 'react'
+import type { BookmarkFolder } from '../Bookmarks/model'
 import { useGlobalKey } from './infrastructure'
+import { type ShortcutMap, shortcutKeyOf } from './model'
 
 type ShortcutKeyComponentProps = {
   bookmarkFolders: readonly BookmarkFolder[]

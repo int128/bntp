@@ -1,5 +1,5 @@
-import { LocalStorage, LocalStorageContext } from './localStorage'
-import { PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
+import { type LocalStorage, LocalStorageContext } from './localStorage'
 
 const nullLocalStorage: LocalStorage = {
   setItem: () => {},

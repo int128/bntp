@@ -1,11 +1,11 @@
 import '../index.css'
-import { Meta, StoryObj } from '@storybook/react'
-import BookmarkEditorComponent from './component'
+import type { Meta, StoryObj } from '@storybook/react'
 import { ChromeContext } from '../infrastructure/chrome'
-import { FaviconContext } from '../infrastructure/favicon'
 import { chromeWithFixtures } from '../infrastructure/chrome.mock'
+import { FaviconContext } from '../infrastructure/favicon'
 import { googleFavicon } from '../infrastructure/favicon.mock'
 import { useThemeStyle } from '../Themes/style'
+import BookmarkEditorComponent from './component'
 
 const meta: Meta<typeof BookmarkEditorComponent> = {
   component: BookmarkEditorComponent,

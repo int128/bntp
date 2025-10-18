@@ -9,7 +9,7 @@
   background-color: var(--palette-2);
 }
 
-.Search input[type='text'] {
+.Search input[type="text"] {
   overflow: hidden;
   background-color: inherit;
   color: var(--palette-03);
@@ -18,14 +18,14 @@
   border: none;
 }
 
-.Search input[type='text']::placeholder {
+.Search input[type="text"]::placeholder {
   color: var(--palette-01);
   opacity: 0.5;
   transition: opacity 0.25s linear;
 }
 
-.Search input[type='text']:focus::placeholder,
-.Search input[type='text']:hover::placeholder {
+.Search input[type="text"]:focus::placeholder,
+.Search input[type="text"]:hover::placeholder {
   opacity: 0.8;
   transition: opacity 0.25s linear;
 }

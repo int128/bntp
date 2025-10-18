@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/require-await */
 
-import { Bookmarks, Chrome, Runtime, Storage, StorageArea, TopSites } from './chrome'
+import type { Bookmarks, Chrome, Runtime, Storage, StorageArea, TopSites } from './chrome'
 import fixtureBookmarks from './fixtures/bookmarks'
 import fixtureTopSites from './fixtures/topSites'
 

@@ -1,6 +1,6 @@
 import './component.css'
+import type { FC } from 'react'
 import DialogComponent from '../Dialog/component'
-import { FC } from 'react'
 import ManifestComponent from '../Manifest/component'
 import ThemesComponent from '../Themes/component'
 import TogglesComponent from '../Toggles/component'

@@ -1,5 +1,5 @@
-import { ChromeContext, StorageArea, StorageAreaName } from './chrome'
-import { Dispatch, useContext, useEffect, useState } from 'react'
+import { type Dispatch, useContext, useEffect, useState } from 'react'
+import { ChromeContext, type StorageArea, type StorageAreaName } from './chrome'
 import { useLocalStorageCache } from './localStorageCache'
 
 export type Spec<T> = {

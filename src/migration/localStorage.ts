@@ -3,7 +3,7 @@ export const parseLocalStorage = <T>(key: string, isT: (v: unknown) => v is T): 
   if (json === null) {
     return
   }
-  let v
+  let v: unknown
   try {
     v = JSON.parse(json) as unknown
   } catch (e) {

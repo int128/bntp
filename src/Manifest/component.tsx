@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react'
+import { type FC, useContext } from 'react'
 import { ChromeContext } from '../infrastructure/chrome'
 
 const ManifestComponent: FC = () => {

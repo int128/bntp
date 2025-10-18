@@ -1,9 +1,9 @@
 import './themes.css'
-import { ColorScheme, Theme } from './model'
-import { selectedColorSchemeSpec, selectedThemeSpec } from './repository'
-import { LocalStorage } from '../infrastructure/localStorage'
-import { getLocalStorageCacheOrDefaultValue } from '../infrastructure/localStorageCache'
 import { useEffect } from 'react'
+import type { LocalStorage } from '../infrastructure/localStorage'
+import { getLocalStorageCacheOrDefaultValue } from '../infrastructure/localStorageCache'
+import type { ColorScheme, Theme } from './model'
+import { selectedColorSchemeSpec, selectedThemeSpec } from './repository'
 
 export const useThemeStyle = (theme: Theme, colorScheme: ColorScheme) => {
   useEffect(() => {

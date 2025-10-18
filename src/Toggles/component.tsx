@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import type { FC } from 'react'
 import { useToggles } from './repository'
 
 const TogglesComponent: FC = () => {

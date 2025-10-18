@@ -30,7 +30,7 @@ dialog.BookmarkEditor::backdrop {
   grid-template-columns: min-content auto min-content;
 }
 
-.BookmarkEditor input[type='text'] {
+.BookmarkEditor input[type="text"] {
   padding: var(--size-form-control-padding);
   border-radius: var(--size-form-control-border-radius);
   border: var(--palette-1) solid 1px;
@@ -38,19 +38,19 @@ dialog.BookmarkEditor::backdrop {
   background-color: var(--palette-2);
 }
 
-.BookmarkEditor input[type='text']:focus {
+.BookmarkEditor input[type="text"]:focus {
   background-color: var(--palette-3);
 }
 
-.BookmarkEditor input[type='text'].BookmarkEditor__Url {
+.BookmarkEditor input[type="text"].BookmarkEditor__Url {
   padding-left: calc(var(--size-icon) * 2);
   background-size: var(--size-icon);
   background-position: calc(var(--size-icon) / 2);
   background-repeat: no-repeat;
 }
 
-.BookmarkEditor input[type='button'],
-.BookmarkEditor input[type='submit'] {
+.BookmarkEditor input[type="button"],
+.BookmarkEditor input[type="submit"] {
   padding: var(--size-form-control-padding);
   border-radius: var(--size-form-control-border-radius);
   border: var(--palette-1) solid 1px;
@@ -58,17 +58,17 @@ dialog.BookmarkEditor::backdrop {
   background-color: var(--palette-2);
 }
 
-.BookmarkEditor input[type='button']:enabled:hover,
-.BookmarkEditor input[type='submit']:enabled:hover {
+.BookmarkEditor input[type="button"]:enabled:hover,
+.BookmarkEditor input[type="submit"]:enabled:hover {
   background-color: var(--palette-1);
 }
 
-.BookmarkEditor input[type='button']:disabled,
-.BookmarkEditor input[type='submit']:disabled {
+.BookmarkEditor input[type="button"]:disabled,
+.BookmarkEditor input[type="submit"]:disabled {
   color: var(--palette-1);
 }
 
-.BookmarkEditor input[type='button'][value='Remove']:hover {
+.BookmarkEditor input[type="button"][value="Remove"]:hover {
   color: red;
 }
 

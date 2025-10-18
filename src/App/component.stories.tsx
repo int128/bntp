@@ -1,12 +1,12 @@
 import '../index.css'
 import type { Meta, StoryObj } from '@storybook/react'
-import App from './component'
 import { ChromeContext } from '../infrastructure/chrome'
-import { FaviconContext } from '../infrastructure/favicon'
-import { NullLocalStorageProvider } from '../infrastructure/localStorage.mock'
 import { chromeWithFixtures } from '../infrastructure/chrome.mock'
+import { FaviconContext } from '../infrastructure/favicon'
 import { googleFavicon } from '../infrastructure/favicon.mock'
+import { NullLocalStorageProvider } from '../infrastructure/localStorage.mock'
 import { useThemeStyle } from '../Themes/style'
+import App from './component'
 
 const meta: Meta<typeof App> = {
   component: App,

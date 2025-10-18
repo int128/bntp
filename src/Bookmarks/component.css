@@ -49,16 +49,16 @@
 }
 
 /* when the pointer is out of "To" element, it should be a placeholder */
-.Bookmark__DragDrop__To[data-bookmark-drag-state='leave'] {
+.Bookmark__DragDrop__To[data-bookmark-drag-state="leave"] {
   outline: var(--palette-1) dotted 2px;
 }
 
-.Bookmark__DragDrop__To[data-bookmark-drag-state='leave'] .Bookmark {
+.Bookmark__DragDrop__To[data-bookmark-drag-state="leave"] .Bookmark {
   visibility: hidden;
 }
 
 /* when the pointer is over a bookmark, it should be outlined */
-.Bookmark__DragDrop__To[data-bookmark-drag-state='enter'] {
+.Bookmark__DragDrop__To[data-bookmark-drag-state="enter"] {
   outline: var(--palette-1) solid 2px;
 }
 

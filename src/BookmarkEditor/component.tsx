@@ -1,13 +1,13 @@
 import './component.css'
-import { FC, useContext, useEffect, useState } from 'react'
-import { ShortcutKey, shortcutKeyOf } from '../ShortcutKey/model'
+import { type FC, useContext, useEffect, useState } from 'react'
+import type { Bookmark } from '../Bookmarks/model'
 import { removeBookmark, updateBookmark } from '../Bookmarks/repository'
-import { Bookmark } from '../Bookmarks/model'
 import DialogComponent from '../Dialog/component'
 import { FaviconContext } from '../infrastructure/favicon'
 import LinkComponent from '../Link/component'
-import { isValidEditingBookmark } from './model'
+import { type ShortcutKey, shortcutKeyOf } from '../ShortcutKey/model'
 import { useShortcutMap } from '../ShortcutKey/repository'
+import { isValidEditingBookmark } from './model'
 
 type BookmarkEditorComponentProps = {
   open: boolean

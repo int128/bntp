@@ -1,5 +1,5 @@
-import { Toggles, defaultToggles, isToggles } from './model'
 import { useChromeStorage } from '../infrastructure/chromeStorage'
+import { defaultToggles, isToggles, type Toggles } from './model'
 
 export const useToggles = () =>
   useChromeStorage<Toggles>({
