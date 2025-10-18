@@ -15,9 +15,6 @@
       "correctness": {
         "useExhaustiveDependencies": "warn"
       },
-      "suspicious": {
-        "noArrayIndexKey": "warn"
-      },
       "a11y": {
         "noAutofocus": "off",
         "useValidAnchor": "warn",
