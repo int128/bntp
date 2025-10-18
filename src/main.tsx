@@ -6,7 +6,11 @@ import { migratePreferencesFromV2ToV3 } from './migration'
 import { SubscribeThemeComponent } from './Themes/component'
 import { preloadThemeStyleFromLocalStorageCache } from './Themes/style'
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const rootElement = document.getElementById('root')
+if (rootElement === null) {
+  throw new Error('root element not found')
+}
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <App />
     <SubscribeThemeComponent />
