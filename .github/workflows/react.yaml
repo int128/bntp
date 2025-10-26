@@ -59,4 +59,4 @@ jobs:
       - run: npm install -g pnpm@latest-10
       - run: pnpm i
       - run: pnpm biome check --fix
-      - uses: int128/update-generated-files-action@f6dc44e35ce252932e9018f1c38d1e2a4ff80e14 # v2.60.0
+      - uses: int128/update-generated-files-action@9f29a0254cdbb49f0682e439d44c1cf7f05db7bf # v2.63.0
