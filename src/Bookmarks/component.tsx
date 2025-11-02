@@ -152,6 +152,7 @@ type BookmarkDragDropProps = {
 const BookmarkDragDrop: FC<BookmarkDragDropProps> = ({ bookmark, position, drag, setDrag, children }) => {
   return (
     <div
+      role="none"
       className={classNameOfMap({
         Bookmark__DragDrop__From: bookmark.dragFrom,
         Bookmark__DragDrop__To: bookmark.dragTo,
