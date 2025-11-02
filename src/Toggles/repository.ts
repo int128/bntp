@@ -1,7 +1,7 @@
-import { type Spec, useChromeStorage } from '../infrastructure/chromeStorage'
+import { type ChromeStorageSpec, useChromeStorage } from '../infrastructure/chromeStorage'
 import { defaultToggles, isToggles, type Toggles } from './model'
 
-const chromeStorageSpec: Spec<Toggles> = {
+const chromeStorageSpec: ChromeStorageSpec<Toggles> = {
   areaName: 'sync',
   key: 'v3.toggles',
   defaultValue: defaultToggles,

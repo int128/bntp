@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { type Chrome, ChromeContext } from '../infrastructure/chrome'
-import { type Spec, useChromeStorage } from '../infrastructure/chromeStorage'
+import { type ChromeStorageSpec, useChromeStorage } from '../infrastructure/chromeStorage'
 import {
   type Bookmark,
   type BookmarkFolder,
@@ -89,7 +89,7 @@ export const moveBookmark = async (bookmark: Bookmark, position: Position) => {
   await chrome.bookmarks.move(bookmark.id, { parentId: position.folderID, index: position.index })
 }
 
-const chromeStorageSpec: Spec<readonly BookmarkFolderID[]> = {
+const chromeStorageSpec: ChromeStorageSpec<readonly BookmarkFolderID[]> = {
   areaName: 'sync',
   key: 'v3.collapsedBookmarkFolderIDs',
   defaultValue: [],

@@ -1,7 +1,7 @@
-import { type Spec, useChromeStorage } from '../infrastructure/chromeStorage'
+import { type ChromeStorageSpec, useChromeStorage } from '../infrastructure/chromeStorage'
 import { ShortcutMap } from './model'
 
-const chromeStorageSpec: Spec<readonly [string, string][]> = {
+const chromeStorageSpec: ChromeStorageSpec<readonly [string, string][]> = {
   areaName: 'sync',
   key: 'v3.shortcutKeyMap',
   defaultValue: [],
