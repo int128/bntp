@@ -52,8 +52,8 @@ importers:
         specifier: ^26.0.0
         version: 26.1.0
       pnpm:
-        specifier: 10.16.0
-        version: 10.16.0
+        specifier: 10.19.0
+        version: 10.19.0
       storybook:
         specifier: ^9.0.0
         version: 9.1.15(@testing-library/dom@10.0.0)(prettier@3.6.2)(vite@7.1.12(@types/node@22.18.12))
@@ -1600,8 +1600,8 @@ packages:
     resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
     engines: {node: '>=8'}
 
-  pnpm@10.16.0:
-    resolution: {integrity: sha512-gGbnsDQhe3AKmk27OgBQYdZBuhMKiZFSE6ELPKSRnBnAN77IBmr9xVm4ljX9uAaxbqZz8kaPuyiqv6E8U+P3aQ==}
+  pnpm@10.19.0:
+    resolution: {integrity: sha512-yfxyNukq31yK9C/VvxYS35nCzrYvJwRwMvRyCzP46s3eMRhl6RxBHyd09hjYLzIICOy1Fxi/qCwGDEunx2oyuA==}
     engines: {node: '>=18.12'}
     hasBin: true
 
@@ -3625,7 +3625,7 @@ snapshots:
     dependencies:
       find-up: 4.1.0
 
-  pnpm@10.16.0: {}
+  pnpm@10.19.0: {}
 
   postcss@8.5.6:
     dependencies:
