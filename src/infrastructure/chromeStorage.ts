@@ -13,17 +13,13 @@ export const useChromeStorage = <T>(spec: Spec<T>, initialValue?: T): readonly [
   const chrome = useContext(ChromeContext)
   const storageArea = chrome.storage[spec.areaName]
   const [storedValue, setStoredValue] = useState<T>(initialValue ?? spec.defaultValue)
-  useEffect(
-    () => {
-      loadValue(storageArea, spec, setStoredValue).catch((e) => console.error(e))
+  useEffect(() => {
+    loadValue(storageArea, spec, setStoredValue).catch((e) => console.error(e))
 
-      const listener = createStorageChangeListener(spec, setStoredValue)
-      storageArea.onChanged.addListener(listener)
-      return () => storageArea.onChanged.removeListener(listener)
-    },
-    // Don't set "spec" because it causes infinite loop.
-    [spec.key, spec.areaName],
-  )
+    const listener = createStorageChangeListener(spec, setStoredValue)
+    storageArea.onChanged.addListener(listener)
+    return () => storageArea.onChanged.removeListener(listener)
+  }, [spec, storageArea])
   return [
     storedValue,
     (newValue: T) => {

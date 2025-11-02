@@ -27,7 +27,7 @@ const BookmarkEditorComponent: FC<BookmarkEditorComponentProps> = ({ open, bookm
     setEditingBookmark(bookmark)
     setEditingShortcutKey(shortcutKey)
     setErrorMessage(undefined)
-  }, [open])
+  }, [bookmark, shortcutKey])
 
   // Reflect when it is updated in another tab
   useEffect(() => {

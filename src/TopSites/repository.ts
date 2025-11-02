@@ -10,6 +10,6 @@ export const useTopSites = () => {
       .get()
       .then(setTopSites)
       .catch((e) => console.error(e))
-  }, [])
+  }, [chrome.topSites.get])
   return topSites
 }
