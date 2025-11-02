@@ -2,28 +2,24 @@ import { type Dispatch, useContext, useEffect, useState } from 'react'
 import { ChromeContext, type StorageArea, type StorageAreaName } from './chrome'
 import { useLocalStorageCache } from './localStorageCache'
 
-export type Spec<T> = {
+export type ChromeStorageSpec<T> = {
   areaName: StorageAreaName
   key: string
   defaultValue: T
   isType: (value: unknown) => value is T
 }
 
-export const useChromeStorage = <T>(spec: Spec<T>, initialValue?: T): readonly [T, Dispatch<T>] => {
+export const useChromeStorage = <T>(spec: ChromeStorageSpec<T>, initialValue?: T): readonly [T, Dispatch<T>] => {
   const chrome = useContext(ChromeContext)
   const storageArea = chrome.storage[spec.areaName]
   const [storedValue, setStoredValue] = useState<T>(initialValue ?? spec.defaultValue)
-  useEffect(
-    () => {
-      loadValue(storageArea, spec, setStoredValue).catch((e) => console.error(e))
+  useEffect(() => {
+    loadValue(storageArea, spec, setStoredValue).catch((e) => console.error(e))
 
-      const listener = createStorageChangeListener(spec, setStoredValue)
-      storageArea.onChanged.addListener(listener)
-      return () => storageArea.onChanged.removeListener(listener)
-    },
-    // Don't set "spec" because it causes infinite loop.
-    [spec.key, spec.areaName],
-  )
+    const listener = createStorageChangeListener(spec, setStoredValue)
+    storageArea.onChanged.addListener(listener)
+    return () => storageArea.onChanged.removeListener(listener)
+  }, [spec, storageArea])
   return [
     storedValue,
     (newValue: T) => {
@@ -33,7 +29,7 @@ export const useChromeStorage = <T>(spec: Spec<T>, initialValue?: T): readonly [
   ]
 }
 
-const loadValue = async <T>(storageArea: StorageArea, spec: Spec<T>, setStoredValue: Dispatch<T>) => {
+const loadValue = async <T>(storageArea: StorageArea, spec: ChromeStorageSpec<T>, setStoredValue: Dispatch<T>) => {
   const items = await storageArea.get(spec.key)
   if (!(spec.key in items)) {
     return
@@ -50,12 +46,12 @@ const loadValue = async <T>(storageArea: StorageArea, spec: Spec<T>, setStoredVa
   console.warn(`unknown type of storage.${spec.areaName}.${spec.key}`, value)
 }
 
-const saveValue = async <T>(storageArea: StorageArea, spec: Spec<T>, newValue: T) => {
+const saveValue = async <T>(storageArea: StorageArea, spec: ChromeStorageSpec<T>, newValue: T) => {
   await storageArea.set({ [spec.key]: newValue })
 }
 
 const createStorageChangeListener =
-  <T>(spec: Spec<T>, setStoredValue: Dispatch<T>) =>
+  <T>(spec: ChromeStorageSpec<T>, setStoredValue: Dispatch<T>) =>
   (changes: { [key: string]: chrome.storage.StorageChange }) => {
     if (!(spec.key in changes)) {
       return
@@ -72,7 +68,7 @@ const createStorageChangeListener =
     console.warn(`unknown type of storage.${spec.areaName}.${spec.key}`, newValue)
   }
 
-export const useChromeStorageWithCache = <T extends string>(spec: Spec<T>): [T, Dispatch<T>] => {
+export const useChromeStorageWithCache = <T extends string>(spec: ChromeStorageSpec<T>): [T, Dispatch<T>] => {
   const [cacheValue, setCacheValue] = useLocalStorageCache(spec)
   const [value, setValue] = useChromeStorage<T>(spec, cacheValue)
   useEffect(() => {

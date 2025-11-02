@@ -1,10 +1,11 @@
-import { useChromeStorage } from '../infrastructure/chromeStorage'
+import { type ChromeStorageSpec, useChromeStorage } from '../infrastructure/chromeStorage'
 import { defaultToggles, isToggles, type Toggles } from './model'
 
-export const useToggles = () =>
-  useChromeStorage<Toggles>({
-    areaName: 'sync',
-    key: 'v3.toggles',
-    defaultValue: defaultToggles,
-    isType: isToggles,
-  })
+const chromeStorageSpec: ChromeStorageSpec<Toggles> = {
+  areaName: 'sync',
+  key: 'v3.toggles',
+  defaultValue: defaultToggles,
+  isType: isToggles,
+}
+
+export const useToggles = () => useChromeStorage<Toggles>(chromeStorageSpec)

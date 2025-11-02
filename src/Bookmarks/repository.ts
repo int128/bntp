@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { type Chrome, ChromeContext } from '../infrastructure/chrome'
-import { useChromeStorage } from '../infrastructure/chromeStorage'
+import { type ChromeStorageSpec, useChromeStorage } from '../infrastructure/chromeStorage'
 import {
   type Bookmark,
   type BookmarkFolder,
@@ -18,7 +18,7 @@ export const useBookmarkFolders = () => {
       .then((b) => setBookmarkFolders(b))
       .catch((e) => console.error(e))
     return subscribeBookmarks(chrome, setBookmarkFolders)
-  }, [])
+  }, [chrome])
   return bookmarkFolders
 }
 
@@ -89,12 +89,14 @@ export const moveBookmark = async (bookmark: Bookmark, position: Position) => {
   await chrome.bookmarks.move(bookmark.id, { parentId: position.folderID, index: position.index })
 }
 
+const chromeStorageSpec: ChromeStorageSpec<readonly BookmarkFolderID[]> = {
+  areaName: 'sync',
+  key: 'v3.collapsedBookmarkFolderIDs',
+  defaultValue: [],
+  isType: isBookmarkFolderIDArray,
+}
+
 export const useFolderCollapse = (): readonly [FolderCollapse, (newSet: FolderCollapse) => void] => {
-  const [ids, setIDs] = useChromeStorage<readonly BookmarkFolderID[]>({
-    areaName: 'sync',
-    key: 'v3.collapsedBookmarkFolderIDs',
-    defaultValue: [],
-    isType: isBookmarkFolderIDArray,
-  })
+  const [ids, setIDs] = useChromeStorage<readonly BookmarkFolderID[]>(chromeStorageSpec)
   return [new FolderCollapse(ids), (newSet: FolderCollapse) => setIDs(newSet.serialize())]
 }
