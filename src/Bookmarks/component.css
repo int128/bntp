@@ -35,16 +35,13 @@
   background-color: var(--palette-2);
 }
 
-.BookmarkFolder__Heading {
-  font-size: 120%;
-}
-
 .BookmarkFolder__Heading > button {
+  font-size: 120%;
   padding: unset;
-  font: unset;
+  border: unset;
+  text-align: unset;
   color: unset;
   background: unset;
-  border: unset;
   cursor: pointer;
 }
 
@@ -113,10 +110,6 @@
 }
 
 .BookmarkEditButton {
-  border: unset;
-  padding: unset;
-  background: unset;
-
   position: absolute;
   bottom: 0;
   right: 0;
@@ -131,6 +124,12 @@
   text-align: center;
 }
 
+button.BookmarkEditButton {
+  border: unset;
+  padding: unset;
+  background: unset;
+}
+
 .BookmarkEditButton[data-drag-active] {
   display: none;
 }
@@ -142,7 +141,7 @@
 }
 
 .Bookmark:hover .BookmarkEditButton,
-.Bookmark a:focus + .BookmarkEditButton {
+.Bookmark > a:focus + .BookmarkEditButton {
   visibility: visible;
   opacity: 1;
 }
