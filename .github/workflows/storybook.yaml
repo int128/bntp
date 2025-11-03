@@ -52,3 +52,6 @@ jobs:
               </tr>
             </table>
       - run: pnpm reg-suit run
+        env:
+          REG_EXPECTED_KEY: ${{ github.event.pull_request.base.sha || github.sha }}
+          REG_ACTUAL_KEY: ${{ github.event.pull_request.head.sha || github.sha }}

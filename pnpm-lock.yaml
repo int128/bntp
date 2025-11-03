@@ -57,6 +57,9 @@ importers:
       reg-notify-github-plugin:
         specifier: ^0.14.5
         version: 0.14.5
+      reg-simple-keygen-plugin:
+        specifier: ^0.14.2
+        version: 0.14.2
       reg-suit:
         specifier: ^0.14.5
         version: 0.14.5
@@ -2345,6 +2348,9 @@ packages:
 
   reg-notify-github-plugin@0.14.5:
     resolution: {integrity: sha512-MCwnmafts75C7fhdwi9KA9jUnVogNMQ7WIp5q4XQHxJ611M240XfK6BP8VWDL3y1dDGPife2eQDSaTQC/lahNA==}
+
+  reg-simple-keygen-plugin@0.14.2:
+    resolution: {integrity: sha512-49vn+OFw1Bw5GY0tBuOSG5TL9hSSIf4DT69ILaMETA6HxEYrIQ2bcQ5dQ9NFrEzZTBNDrFLXig+LWM/pwOYcrg==}
 
   reg-suit-core@0.14.5:
     resolution: {integrity: sha512-7wIA+bcggLfcPqkMyWfKKYYfQClIQ2gKgyD/LujinyKUZesOyZ3sYd3UPlWB0SBxViNgDtQ5C50EkyCKUW2e3g==}
@@ -5422,6 +5428,8 @@ snapshots:
       reg-gh-app-interface: 1.3.0
       reg-suit-util: 0.14.3
       tiny-commit-walker: 1.2.1
+
+  reg-simple-keygen-plugin@0.14.2: {}
 
   reg-suit-core@0.14.5:
     dependencies:
