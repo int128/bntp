@@ -80,7 +80,7 @@ const BookmarkFolderCollapse: FC<BookmarkFolderCollapseProps> = ({
         <div className="BookmarkFolder__Heading">
           <button
             type="button"
-            aria-label={`Collapse the folder: ${folder.title}`}
+            aria-label={`Expand the folder: ${folder.title}`}
             onClick={(e) => {
               setFolderCollapse(folderCollapse.expand(folder.id))
               e.preventDefault()
@@ -97,7 +97,7 @@ const BookmarkFolderCollapse: FC<BookmarkFolderCollapseProps> = ({
       <div className="BookmarkFolder__Heading">
         <button
           type="button"
-          aria-label={`Expand the folder: ${folder.title}`}
+          aria-label={`Collapse the folder: ${folder.title}`}
           onClick={(e) => {
             setFolderCollapse(folderCollapse.collapse(folder.id))
             e.preventDefault()
