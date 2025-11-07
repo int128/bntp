@@ -1,7 +1,4 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "github>int128/renovate-base",
-    "config:best-practices"
-  ]
+  "extends": ["github>int128/renovate-base", "config:best-practices"]
 }
