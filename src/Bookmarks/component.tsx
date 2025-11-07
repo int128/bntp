@@ -78,15 +78,16 @@ const BookmarkFolderCollapse: FC<BookmarkFolderCollapseProps> = ({
     return (
       <section className="BookmarkFolder">
         <div className="BookmarkFolder__Heading">
-          <a
-            href="#Expand"
+          <button
+            type="button"
+            aria-label={`Expand the folder: ${folder.title}`}
             onClick={(e) => {
               setFolderCollapse(folderCollapse.expand(folder.id))
               e.preventDefault()
             }}
           >
             {folder.title}
-          </a>
+          </button>
         </div>
       </section>
     )
@@ -94,15 +95,16 @@ const BookmarkFolderCollapse: FC<BookmarkFolderCollapseProps> = ({
   return (
     <section className="BookmarkFolder">
       <div className="BookmarkFolder__Heading">
-        <a
-          href="#Collapse"
+        <button
+          type="button"
+          aria-label={`Collapse the folder: ${folder.title}`}
           onClick={(e) => {
             setFolderCollapse(folderCollapse.collapse(folder.id))
             e.preventDefault()
           }}
         >
           {folder.title}
-        </a>
+        </button>
       </div>
       {children}
     </section>
@@ -223,17 +225,18 @@ const BookmarkComponent: FC<BookmarkComponentProps> = ({ bookmark, shortcutMap, 
           {shortcutKey ? <div className="BookmarkButton__Badge">{shortcutKey}</div> : null}
         </div>
       </LinkComponent>
-      <a
-        href="#Edit"
+      <button
+        type="button"
         className="BookmarkEditButton"
+        aria-label={`Edit the bookmark: ${bookmark.title}`}
         data-drag-active={dragActive}
         onClick={(e) => {
           setOpenBookmarkEditor(true)
           e.preventDefault()
         }}
       >
-        &hellip;
-      </a>
+        <span aria-hidden="true">&hellip;</span>
+      </button>
       <BookmarkEditorComponent
         open={openBookmarkEditor}
         bookmark={bookmark}

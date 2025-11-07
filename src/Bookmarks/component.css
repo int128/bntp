@@ -35,8 +35,14 @@
   background-color: var(--palette-2);
 }
 
-.BookmarkFolder__Heading {
+.BookmarkFolder__Heading > button {
   font-size: 120%;
+  padding: unset;
+  border: unset;
+  text-align: unset;
+  color: unset;
+  background: unset;
+  cursor: pointer;
 }
 
 .Bookmark {
@@ -110,11 +116,18 @@
   height: var(--size-edit-button);
   width: var(--size-edit-button);
 
+  cursor: pointer;
   border-radius: 3px;
   color: var(--palette-1);
   font-size: 120%;
   font-weight: bold;
   text-align: center;
+}
+
+button.BookmarkEditButton {
+  border: unset;
+  padding: unset;
+  background: unset;
 }
 
 .BookmarkEditButton[data-drag-active] {

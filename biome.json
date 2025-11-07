@@ -14,7 +14,6 @@
     "rules": {
       "a11y": {
         "noAutofocus": "off",
-        "useValidAnchor": "warn",
         "useKeyWithClickEvents": "warn"
       }
     }
