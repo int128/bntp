@@ -28,12 +28,12 @@
     "@types/react-dom": "19.1.9",
     "@vitejs/plugin-react": "5.1.0",
     "jsdom": "26.1.0",
-    "pnpm": "10.19.0",
+    "pnpm": "10.20.0",
     "storybook": "9.1.16",
     "storycap": "5.0.1",
     "typescript": "5.9.3",
     "vite": "7.1.12",
     "vitest": "3.2.4"
   },
-  "packageManager": "pnpm@10.19.0"
+  "packageManager": "pnpm@10.20.0"
 }
