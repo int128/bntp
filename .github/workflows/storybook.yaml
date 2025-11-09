@@ -21,7 +21,7 @@ on:
       - pnpm-lock.yaml
 
 jobs:
-  storycap:
+  screenshot:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -32,7 +32,7 @@ jobs:
           package-manager-cache: false
       - run: npm install -g pnpm@latest-10
       - run: pnpm i
-      - run: pnpm run storycap
+      - run: pnpm run test-storybook
       - uses: int128/upload-artifact-wiki-action@768b6d5c033f420ef3e06c79de32aae54b031e57 # v1.17.0
         id: upload-artifact-wiki
         with:
@@ -43,11 +43,11 @@ jobs:
           post: |
             <table>
               <tr>
-                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/App/component/Primary.png"></td>
-                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/App/component/Dark.png"></td>
+                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/App/component.stories.tsx/Primary-1.png"></td>
+                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/App/component.stories.tsx/Dark-1.png"></td>
               </tr>
               <tr>
-                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/BookmarkEditor/component/Primary.png"></td>
-                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/Preferences/component/Primary.png"></td>
+                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/BookmarkEditor.stories.tsx/component/Primary-1.png"></td>
+                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/Preferences.stories.tsx/component/Primary-1.png"></td>
               </tr>
             </table>

@@ -25,6 +25,7 @@ const DialogComponent: FC<DialogComponentProps> = ({ children, open, onRequestCl
   }
   return createPortal(
     <dialog
+      open={open}
       ref={dialogRef}
       className={className}
       onCancel={onRequestClose}
