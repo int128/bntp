@@ -2,9 +2,9 @@
 /// <reference types="vitest" />
 /// <reference types="vite/client" />
 
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
-import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
 
 export default defineConfig({
   plugins: [react()],
