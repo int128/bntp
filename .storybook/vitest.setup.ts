@@ -7,9 +7,7 @@ setProjectAnnotations([
   {
     afterEach: async () => {
       await new Promise((resolve) => setTimeout(resolve, 100))
-      await page.screenshot({
-        element: document.body,
-      })
+      await page.screenshot()
     },
   },
 ])

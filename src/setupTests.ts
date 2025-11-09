@@ -47,5 +47,5 @@ const chrome: Chrome = {
 Object.assign(window, { chrome })
 
 // https://github.com/jsdom/jsdom/issues/3294
-HTMLDialogElement.prototype.showModal = vi.fn()
-HTMLDialogElement.prototype.close = vi.fn()
+// HTMLDialogElement.prototype.showModal = vi.fn()
+// HTMLDialogElement.prototype.close = vi.fn()
