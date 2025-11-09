@@ -44,11 +44,11 @@ jobs:
           post: |
             <table>
               <tr>
-                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/App/component.stories.tsx/Primary-1.png"></td>
-                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/App/component.stories.tsx/Dark-1.png"></td>
+                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/src/App/component.stories.tsx/Primary-1.png"></td>
+                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/src/App/component.stories.tsx/Dark-1.png"></td>
               </tr>
               <tr>
-                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/BookmarkEditor.stories.tsx/component/Primary-1.png"></td>
-                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/Preferences.stories.tsx/component/Primary-1.png"></td>
+                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/src/BookmarkEditor.stories.tsx/component/Primary-1.png"></td>
+                <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/src/Preferences.stories.tsx/component/Primary-1.png"></td>
               </tr>
             </table>
