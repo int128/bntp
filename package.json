@@ -16,7 +16,7 @@
     "react-dom": "19.2.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.3.2",
+    "@biomejs/biome": "2.3.4",
     "@storybook/react": "9.1.16",
     "@storybook/react-vite": "9.1.16",
     "@testing-library/jest-dom": "6.9.1",
