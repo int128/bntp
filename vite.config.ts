@@ -11,9 +11,15 @@ export default defineConfig({
   test: {
     globals: true,
     clearMocks: true,
-    environment: 'jsdom',
     setupFiles: './src/setupTests.ts',
     projects: [
+      {
+        extends: true,
+        test: {
+          name: 'unit',
+          environment: 'jsdom',
+        },
+      },
       {
         extends: true,
         plugins: [storybookTest()],
