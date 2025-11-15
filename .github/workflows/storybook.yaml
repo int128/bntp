@@ -68,6 +68,7 @@ jobs:
           path: storybook-static
 
   deploy:
+    if: github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10
