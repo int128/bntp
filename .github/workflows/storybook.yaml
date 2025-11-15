@@ -31,7 +31,7 @@ jobs:
           node-version-file: .node-version
       - run: npm install -g pnpm@latest-10
       - run: pnpm i
-      # - run: pnpm exec playwright install chromium
+      - run: pnpm exec playwright install chromium
       - run: pnpm run test-storybook
       - uses: int128/upload-artifact-wiki-action@768b6d5c033f420ef3e06c79de32aae54b031e57 # v1.17.0
         id: upload-artifact-wiki
