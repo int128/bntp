@@ -54,12 +54,12 @@ importers:
       '@vitest/browser':
         specifier: 4.0.8
         version: 4.0.8(vite@7.2.2(@types/node@22.19.0))(vitest@4.0.8)
+      '@vitest/browser-playwright':
+        specifier: 4.0.8
+        version: 4.0.8(playwright@1.56.1)(vite@7.2.2(@types/node@22.19.0))(vitest@4.0.8)
       jsdom:
         specifier: 27.1.0
         version: 27.1.0
-      playwright:
-        specifier: 1.56.1
-        version: 1.56.1
       pnpm:
         specifier: 10.20.0
         version: 10.20.0
@@ -2191,7 +2191,6 @@ snapshots:
       - msw
       - utf-8-validate
       - vite
-    optional: true
 
   '@vitest/browser@4.0.8(vite@7.2.2(@types/node@22.19.0))(vitest@4.0.8)':
     dependencies:
