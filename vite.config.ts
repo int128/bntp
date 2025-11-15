@@ -11,7 +11,7 @@ export default defineConfig({
   test: {
     globals: true,
     clearMocks: true,
-    setupFiles: './src/setupTests.ts',
+    setupFiles: ['src/vitest.setup.ts'],
     projects: [
       {
         extends: true,
