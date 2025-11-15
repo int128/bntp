@@ -29,7 +29,6 @@ jobs:
       - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
         with:
           node-version-file: .node-version
-          package-manager-cache: false
       - run: npm install -g pnpm@latest-10
       - run: pnpm i
       - run: pnpm exec playwright install
@@ -52,3 +51,33 @@ jobs:
                 <td><img src="${{ steps.upload-artifact-wiki.outputs.url }}/__screenshots__/src/Preferences/component.stories.tsx/Primary-1.png"></td>
               </tr>
             </table>
+
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        with:
+          node-version-file: .node-version
+      - run: npm install -g pnpm@latest-10
+      - run: pnpm i
+      - run: pnpm run build-storybook
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
+        with:
+          path: storybook-static
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
