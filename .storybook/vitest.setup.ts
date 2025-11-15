@@ -1,5 +1,5 @@
 import { setProjectAnnotations } from '@storybook/react-vite'
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 import * as projectAnnotations from './preview'
 
 setProjectAnnotations([
