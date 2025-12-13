@@ -9,7 +9,8 @@
     "test": "vitest --project=unit",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test-storybook": "vitest --project=storybook"
+    "test-storybook": "vitest --project=storybook",
+    "check": "biome migrate --write && biome check --fix"
   },
   "dependencies": {
     "react": "19.2.1",

@@ -58,5 +58,5 @@ jobs:
           package-manager-cache: false
       - run: npm install -g pnpm@latest-10
       - run: pnpm i
-      - run: pnpm biome check --fix
+      - run: pnpm run check
       - uses: int128/update-generated-files-action@cf6ab7b6285ba87a853c47d593af367ea06c8e40 # v2.66.0
