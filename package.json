@@ -17,7 +17,7 @@
     "react-dom": "19.2.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.3.8",
+    "@biomejs/biome": "2.3.9",
     "@storybook/addon-vitest": "10.1.6",
     "@storybook/react": "10.1.6",
     "@storybook/react-vite": "10.1.6",
