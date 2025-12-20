@@ -13,8 +13,8 @@
     "check": "biome migrate --write && biome check --fix"
   },
   "dependencies": {
-    "react": "19.2.1",
-    "react-dom": "19.2.1"
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.8",
