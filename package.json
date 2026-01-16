@@ -29,14 +29,14 @@
     "@types/react": "19.2.8",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "5.1.2",
-    "@vitest/browser-playwright": "4.0.16",
+    "@vitest/browser-playwright": "4.0.17",
     "jsdom": "27.4.0",
     "playwright": "1.57.0",
     "pnpm": "10.27.0",
     "storybook": "10.1.11",
     "typescript": "5.9.3",
     "vite": "7.3.1",
-    "vitest": "4.0.16"
+    "vitest": "4.0.17"
   },
   "packageManager": "pnpm@10.27.0"
 }
