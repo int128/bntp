@@ -37,7 +37,7 @@ jobs:
         id: upload-artifact-wiki
         with:
           path: __screenshots__/**/*.png
-      - uses: int128/comment-action@cbf9ffecbabe91b50bf83d2cf071b7c05aad53e1 # v1.50.0
+      - uses: int128/comment-action@66317511bc86c47bd51e03059040e8a460a167b8 # v1.52.0
         with:
           update-if-exists: replace
           post: |
