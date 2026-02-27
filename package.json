@@ -24,7 +24,7 @@
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
     "@tsconfig/vite-react": "7.0.2",
-    "@types/chrome": "0.1.36",
+    "@types/chrome": "0.1.37",
     "@types/node": "24.10.13",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
