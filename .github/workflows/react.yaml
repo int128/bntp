@@ -59,4 +59,4 @@ jobs:
       - run: npm install -g pnpm@latest-10
       - run: pnpm i
       - run: pnpm run check
-      - uses: int128/update-generated-files-action@1b1e61f201e99df66866759ea43c63d6481411df # v2.84.0
+      - uses: int128/update-generated-files-action@364e47446959c2ddb5c3954e4433aa08e5db07dc # v2.86.0
