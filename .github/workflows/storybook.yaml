@@ -29,7 +29,8 @@ jobs:
       - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version-file: .node-version
-      - run: npm install -g pnpm@latest-10
+      - run: npm install -g corepack
+      - run: corepack enable
       - run: pnpm i
       - run: pnpm exec playwright install chromium
       - run: pnpm run test-storybook
@@ -60,7 +61,8 @@ jobs:
       - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version-file: .node-version
-      - run: npm install -g pnpm@latest-10
+      - run: npm install -g corepack
+      - run: corepack enable
       - run: pnpm i
       - run: pnpm run build-storybook
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
