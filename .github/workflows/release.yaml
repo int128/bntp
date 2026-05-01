@@ -28,9 +28,7 @@ jobs:
       - run: pnpm i
       - run: pnpm run build
       - run: sed -i -e "s|0.0.0.0|$GITHUB_REF_NAME|" dist/manifest.json
-      - run: cd dist && zip -r ../dist.zip .
-      - run: zipinfo dist.zip
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: dist.zip
-          path: dist.zip
+          name: dist
+          path: dist
