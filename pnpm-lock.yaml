@@ -61,8 +61,8 @@ importers:
         specifier: 1.59.1
         version: 1.59.1
       pnpm:
-        specifier: 10.33.2
-        version: 10.33.2
+        specifier: 10.33.3
+        version: 10.33.3
       storybook:
         specifier: 10.3.6
         version: 10.3.6(@testing-library/dom@10.4.1)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -1255,8 +1255,8 @@ packages:
     resolution: {integrity: sha512-LKWqWJRhstyYo9pGvgor/ivk2w94eSjE3RGVuzLGlr3NmD8bf7RcYGze1mNdEHRP6TRP6rMuDHk5t44hnTRyow==}
     engines: {node: '>=14.19.0'}
 
-  pnpm@10.33.2:
-    resolution: {integrity: sha512-qQ+vb+6rca1sblf5Tg/hoS9dzCLNdU20CulZPraj4LaxLjVAIYuzeuCDQEsfLObbKkEh6XmCm0r/lLmfSdoc+A==}
+  pnpm@10.33.3:
+    resolution: {integrity: sha512-oZdENkp+JIuSZXpMpZc/k1TSHK+YJXlnSxxTnzLHQgxHE4rYsSVN8Hq6m8eC2bMCnj2zTV2/+XQybrdNrI/0iQ==}
     engines: {node: '>=18.12'}
     hasBin: true
 
@@ -2631,7 +2631,7 @@ snapshots:
 
   pngjs@7.0.0: {}
 
-  pnpm@10.33.2: {}
+  pnpm@10.33.3: {}
 
   postcss@8.5.13:
     dependencies:
