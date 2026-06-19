@@ -18,9 +18,9 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.16",
-    "@storybook/addon-vitest": "10.4.3",
-    "@storybook/react": "10.4.3",
-    "@storybook/react-vite": "10.4.3",
+    "@storybook/addon-vitest": "10.4.6",
+    "@storybook/react": "10.4.6",
+    "@storybook/react-vite": "10.4.6",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
     "@tsconfig/vite-react": "7.0.2",
@@ -33,7 +33,7 @@
     "jsdom": "29.1.1",
     "playwright": "1.60.0",
     "pnpm": "11.5.3",
-    "storybook": "10.4.3",
+    "storybook": "10.4.6",
     "typescript": "6.0.3",
     "vite": "8.0.16",
     "vitest": "4.1.8"
