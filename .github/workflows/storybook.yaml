@@ -37,7 +37,7 @@ jobs:
       - run: pnpm i
       - run: pnpm exec playwright install chromium
       - run: pnpm run test-storybook
-      - uses: int128/upload-artifact-wiki-action@561cbc10ff05bf0a0899d18e022c89b02405d61e # v1.40.0
+      - uses: int128/upload-artifact-wiki-action@5b8880747ecb0ebf55a8ca11832316aa2df0e9f3 # v1.41.0
         id: upload-artifact-wiki
         with:
           path: __screenshots__/**/*.png
