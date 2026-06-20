@@ -62,4 +62,4 @@ jobs:
       - run: corepack enable
       - run: pnpm i
       - run: pnpm run check
-      - uses: int128/update-generated-files-action@678c755dae6c86602016092994c428b76bf58526 # v2.97.0
+      - uses: int128/update-generated-files-action@02d855978f04d7d4d72c66425aa779260fd34883 # v2.98.0
