@@ -6,6 +6,8 @@ setProjectAnnotations([
   projectAnnotations,
   {
     afterEach: async () => {
+      // Chrome Web Store requirement
+      await page.viewport(1280, 800)
       await new Promise((resolve) => setTimeout(resolve, 100))
       await page.screenshot()
     },
