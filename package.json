@@ -22,7 +22,7 @@
     "@storybook/react": "10.5.10",
     "@storybook/react-vite": "10.5.10",
     "@testing-library/jest-dom": "6.9.1",
-    "@testing-library/react": "16.3.2",
+    "@testing-library/react": "16.3.3",
     "@tsconfig/vite-react": "7.0.2",
     "@types/chrome": "0.2.7",
     "@types/node": "24.13.3",
