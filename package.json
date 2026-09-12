@@ -25,7 +25,7 @@
     "@testing-library/react": "16.3.3",
     "@tsconfig/vite-react": "7.0.2",
     "@types/chrome": "0.2.9",
-    "@types/node": "24.13.3",
+    "@types/node": "24.13.4",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.7",
     "@vitejs/plugin-react": "6.1.1",
