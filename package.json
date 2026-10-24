@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.15",
-    "@storybook/addon-vitest": "10.5.10",
+    "@storybook/addon-vitest": "10.6.2",
     "@storybook/react": "10.5.10",
     "@storybook/react-vite": "10.5.10",
     "@testing-library/jest-dom": "6.9.1",
