@@ -31,7 +31,7 @@
     "@vitejs/plugin-react": "6.1.2",
     "@vitest/browser-playwright": "4.1.12",
     "jsdom": "29.1.1",
-    "playwright": "1.63.0",
+    "playwright": "1.64.1",
     "pnpm": "12.10.1",
     "storybook": "10.5.10",
     "typescript": "6.0.3",
