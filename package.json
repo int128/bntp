@@ -35,7 +35,7 @@
     "pnpm": "12.17.0",
     "storybook": "10.6.7",
     "typescript": "6.0.3",
-    "vite": "8.3.5",
+    "vite": "8.3.7",
     "vitest": "4.1.12"
   },
   "packageManager": "pnpm@12.17.0"
