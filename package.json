@@ -21,7 +21,7 @@
     "@storybook/addon-vitest": "10.6.8",
     "@storybook/react": "10.6.8",
     "@storybook/react-vite": "10.6.8",
-    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/jest-dom": "8.0.0",
     "@testing-library/react": "16.3.3",
     "@tsconfig/vite-react": "8.1.2",
     "@types/chrome": "0.3.7",
